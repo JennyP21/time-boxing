@@ -1,8 +1,15 @@
-import React from 'react'
+import Logo from '@/components/ui/Logo'
+import NavLinks from '@/components/ui/NavLinks'
+import { Box, Button, Flex, Stack } from '@chakra-ui/react'
 
 const Navbar = () => {
     return (
-        <div>Navbar</div>
+        <Box as="nav" borderBottom="1px" borderColor={'gray.300'}>
+            <Flex p={{ sm: 2, base: 1 }} justify={'space-between'}>
+                <Logo />
+                <NavLinks />
+            </Flex >
+        </Box >
     )
 }
 
