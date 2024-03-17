@@ -3,6 +3,7 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import UIProvider from "./UIProvider";
 import Navbar from "./Navbar";
+import AuthProvider from "./auth/Provider";
 
 const openSans = Open_Sans({
   weight: ["300", "500", "700"],
@@ -22,10 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={openSans.className}>
-        <UIProvider>
-          <Navbar />
-          {children}
-        </UIProvider>
+        <AuthProvider>
+          <UIProvider>
+            <Navbar />
+            {children}
+          </UIProvider>
+        </AuthProvider>
       </body>
     </html>
   );
