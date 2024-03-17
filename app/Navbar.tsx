@@ -8,7 +8,7 @@ const Navbar = async () => {
 
     return (
         <Box as="nav" borderBottom="1px" borderColor={'gray.300'} width='100%' height="fit-content">
-            <Flex p={{ sm: 2, base: 1 }} justify={'space-between'}>
+            <Flex py={{ sm: 2, base: 0.5 }} px={2} justify={'space-between'}>
                 <Logo />
                 <NavLinks session={session} />
             </Flex >

@@ -8,8 +8,8 @@ const NavLinks = ({ session }: { session: any }) => {
             {session ?
                 <Center>
                     <Menu>
-                        <MenuButton as={Button} borderRadius="50%" colorScheme='gray' width={{ sm: 10, base: 8 }} height={{ sm: 10, base: 8 }} overflow={'hidden'}>
-                            <Image src={session.user.image} fill className='object-contain' alt="profile" />
+                        <MenuButton as={Button} borderRadius="50%" colorScheme='gray' minWidth={{ base: 10 }} minHeight={{ base: 10 }} overflow={'hidden'}>
+                            <Image src={session.user.image} fill className='object-cover' alt="profile" />
                         </MenuButton>
                         <MenuList fontSize={{ sm: "medium", base: "small" }}>
                             <MenuItem >Profile</MenuItem>
