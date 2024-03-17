@@ -1,18 +1,31 @@
-import { Button, Center, Icon, Menu, MenuButton, MenuItem, MenuList, Stack } from '@chakra-ui/react';
+import { Button, Center, Link, Menu, MenuButton, MenuItem, MenuList, Stack } from '@chakra-ui/react';
 import Image from 'next/image';
 
-const NavLinks = () => {
-    const logged_in = false;
+const NavLinks = ({ session }: { session: any }) => {
+
     return (
         <>
-            {logged_in ?
+            {session ?
+                <Center>
+                    <Menu>
+                        <MenuButton as={Button} borderRadius="50%" colorScheme='gray' width={{ sm: 10, base: 8 }} height={{ sm: 10, base: 8 }} overflow={'hidden'}>
+                            <Image src={session.user.image} fill className='object-contain' alt="profile" />
+                        </MenuButton>
+                        <MenuList fontSize={{ sm: "medium", base: "small" }}>
+                            <MenuItem >Profile</MenuItem>
+                            <MenuItem>Settings</MenuItem>
+                            <MenuItem href='/api/auth/signout' as={'a'}>Logout</MenuItem>
+                        </MenuList>
+                    </Menu>
+                </Center>
+                :
                 <Stack
                     direction={'row'}
                     spacing="1"
                     alignItems={'center'}
                 >
                     <Button size={{ sm: "md", base: "sm" }} fontWeight={400} variant={'link'}>
-                        Sign In
+                        <Link href="/api/auth/signin">Sign In</Link>
                     </Button>
                     <Button
                         size={{ sm: "md", base: "sm" }}
@@ -22,19 +35,6 @@ const NavLinks = () => {
                         Sign Up
                     </Button>
                 </Stack>
-                :
-                <Center>
-                    <Menu>
-                        <MenuButton as={Button} borderRadius="50%" colorScheme='gray' width={{ sm: 10, base: 8 }} height={{ sm: 10, base: 8 }}>
-                            <Image src="profile-default.svg" fill className='object-contain' alt="profile" />
-                        </MenuButton>
-                        <MenuList fontSize={{ sm: "medium", base: "small" }}>
-                            <MenuItem>Profile</MenuItem>
-                            <MenuItem>Settings</MenuItem>
-                            <MenuItem>Logout</MenuItem>
-                        </MenuList>
-                    </Menu>
-                </Center>
             }
         </>
     )
