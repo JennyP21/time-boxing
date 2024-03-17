@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .sidebar__icon {
+    @apply ml-auto rounded-full transition-all duration-200 hover:scale-105;
+  }
+}

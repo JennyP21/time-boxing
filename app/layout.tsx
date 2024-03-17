@@ -1,9 +1,11 @@
+import { Flex } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-import "./globals.css";
-import UIProvider from "./UIProvider";
+import LeftPanel from "./LeftPanel";
 import Navbar from "./Navbar";
+import UIProvider from "./UIProvider";
 import AuthProvider from "./auth/Provider";
+import "./globals.css";
 
 const openSans = Open_Sans({
   weight: ["300", "500", "700"],
@@ -25,7 +27,10 @@ export default function RootLayout({
       <body className={openSans.className}>
         <AuthProvider>
           <UIProvider>
-            <Navbar />
+            <Flex>
+              <LeftPanel />
+              <Navbar />
+            </Flex>
             {children}
           </UIProvider>
         </AuthProvider>
