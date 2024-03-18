@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import LeftPanel from "./LeftPanel";
@@ -29,9 +29,11 @@ export default function RootLayout({
           <UIProvider>
             <Flex>
               <LeftPanel />
-              <Navbar />
+              <Box width='100%'>
+                <Navbar />
+                {children}
+              </Box>
             </Flex>
-            {children}
           </UIProvider>
         </AuthProvider>
       </body>

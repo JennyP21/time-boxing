@@ -8,14 +8,19 @@ const LeftPanel = () => {
 
     const panelItems = [
         {
+            name: "Dashboard",
+            icon: "/icons/dashboard.svg",
+            href: "/"
+        },
+        {
             name: "Kanban View",
             icon: "/icons/kanban-board.svg",
-            href: "#"
+            href: "/kanban"
         },
         {
             name: "List View",
             icon: "/icons/list-view.svg",
-            href: "#"
+            href: "/list"
         }
     ]
 
@@ -30,8 +35,8 @@ const LeftPanel = () => {
             </Box>
             <Flex className='absolute whitespace-nowrap w-full' flexDir="column" marginTop={10} gap={6}>
                 {panelItems.map(item => (
-                    <Link href={item.href}>
-                        <HStack _hover={{ bg: "gray.100" }} rounded="5px" p={1} spacing={5} key={item.name} cursor='pointer'>
+                    <Link href={item.href} key={item.name}>
+                        <HStack _hover={{ bg: "gray.100" }} rounded="5px" p={1} spacing={5} cursor='pointer'>
                             <Box className='relative' minWidth={7} minHeight={7}>
                                 <Image className='object-contain' src={item.icon} fill alt={item.name} />
                             </Box>
