@@ -18,6 +18,14 @@ export const tasks = pgTable("tasks", {
   severity: text("severity", {
     enum: ["low", "medium", "high", "urgent"],
   }).default("medium"),
+  progress: text("progress", {
+    enum: [
+      "Not Started",
+      "In Progress",
+      "On Hold",
+      "Completed",
+    ],
+  }).default("Not Started"),
   steps: text("steps").array(20),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at", { mode: "date" }),
