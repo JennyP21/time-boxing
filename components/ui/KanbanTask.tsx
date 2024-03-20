@@ -5,7 +5,7 @@ import Task from './Task';
 const KanbanTask = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
-        <Stack textAlign="left" bg="white" width="100%" p={2} onClick={onOpen} cursor="pointer">
+        <Stack textAlign="left" bg="white" width="100%" p={2} onClick={onOpen} cursor="pointer" backgroundColor="gray.100">
             <Heading as="h6" size="sm">
                 Task
             </Heading>

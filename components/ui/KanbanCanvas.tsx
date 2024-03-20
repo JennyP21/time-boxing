@@ -1,10 +1,10 @@
-import { VStack } from '@chakra-ui/react'
-import React from 'react'
+import { Text, VStack } from '@chakra-ui/react'
 import KanbanTask from './KanbanTask'
 
 const KanbanCanvas = () => {
     return (
-        <VStack width="300px" height="65vh" backgroundColor="gray.200" m="8" p={2}>
+        <VStack minWidth="280px" minHeight="100%" ml={2} p={2}>
+            <Text size="md" align='left' width="100%">Bucket</Text>
             <KanbanTask />
         </VStack>
     )
