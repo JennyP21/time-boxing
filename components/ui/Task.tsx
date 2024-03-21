@@ -66,8 +66,8 @@ const Task = ({ isOpen, onClose }: Props) => {
                                 "item3 item4"
                             `
                         }} gap={2}>
-                            <Input type="datetime-local" placeholder='Start Date' />
-                            <Input type="datetime-local" placeholder='Start Date' />
+                            <Input type="date" placeholder='Start Date' />
+                            <Input type="date" placeholder='Start Date' />
                             <Select placeholder='Severity'>
                                 <option value='low'>Low</option>
                                 <option value='medium'>Medium</option>
