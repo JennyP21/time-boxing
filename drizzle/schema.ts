@@ -12,6 +12,9 @@ import type { AdapterAccount } from "@auth/core/adapters";
 
 export const tasks = pgTable("tasks", {
   id: uuid("id").primaryKey(),
+  user_id: text("user_id")
+    .notNull()
+    .references(() => users.id),
   title: text("title").notNull(),
   start_date: date("start_date").notNull(),
   end_date: date("end_date").notNull(),
@@ -34,6 +37,14 @@ export const tasks = pgTable("tasks", {
 export const labels = pgTable("labels", {
   id: uuid("id").primaryKey(),
   name: text("title").notNull(),
+  created_at: timestamp("created_at").defaultNow(),
+  updated_at: timestamp("updated_at", { mode: "date" }),
+});
+
+export const bucket = pgTable("bucket", {
+  id: uuid("id").primaryKey(),
+  name: text("name").notNull(),
+  task_id: uuid("task_id").references(() => tasks.id),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at", { mode: "date" }),
 });

@@ -1,0 +1,1 @@
+ALTER TABLE "bucket" ALTER COLUMN "task_id" SET DATA TYPE uuid;
