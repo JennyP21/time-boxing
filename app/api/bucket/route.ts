@@ -13,12 +13,6 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-  const session = await getSession();
-  if (!session)
-    return NextResponse.json("Forbidden", {
-      status: 403,
-    });
-
   const data = await request.json();
   const validation = validateBucket.safeParse(data);
 
