@@ -1,26 +1,28 @@
+import type { AdapterAccount } from "@auth/core/adapters";
+import { relations } from "drizzle-orm";
 import {
   date,
+  integer,
   pgTable,
+  primaryKey,
   serial,
   text,
   timestamp,
   uuid,
-  primaryKey,
-  integer,
 } from "drizzle-orm/pg-core";
-import type { AdapterAccount } from "@auth/core/adapters";
-import { relations } from "drizzle-orm";
 
-export const bucket = pgTable("bucket", {
+export const buckets = pgTable("bucket", {
   id: uuid("id").primaryKey(),
   name: text("name").notNull(),
-  task_id: uuid("task_id").references(() => tasks.id),
+  user_id: text("user_id")
+    .notNull()
+    .references(() => users.id),
   created_at: timestamp("created_at").defaultNow(),
   updated_at: timestamp("updated_at", { mode: "date" }),
 });
 
-export const bucketRelations = relations(
-  bucket,
+export const bucketsRelations = relations(
+  buckets,
   ({ many }) => ({
     tasks: many(tasks),
   })
@@ -31,6 +33,7 @@ export const tasks = pgTable("tasks", {
   user_id: text("user_id")
     .notNull()
     .references(() => users.id),
+  bucket_id: uuid("bucket_id").references(() => buckets.id),
   title: text("title").notNull(),
   start_date: date("start_date").notNull(),
   end_date: date("end_date").notNull(),
@@ -52,8 +55,16 @@ export const tasks = pgTable("tasks", {
 
 export const tasksRelations = relations(
   tasks,
-  ({ many }) => ({
+  ({ many, one }) => ({
     tasks_labels: many(tasks_labels),
+    bucket: one(buckets, {
+      fields: [tasks.bucket_id],
+      references: [buckets.id],
+    }),
+    users: one(users, {
+      fields: [tasks.user_id],
+      references: [users.id],
+    }),
   })
 );
 
@@ -106,6 +117,7 @@ export const usersRelation = relations(
   users,
   ({ many }) => ({
     tasks: many(tasks),
+    buckets: many(buckets),
   })
 );
 
