@@ -119,6 +119,8 @@ export const usersRelation = relations(
   ({ many }) => ({
     tasks: many(tasks),
     buckets: many(buckets),
+    sessions: many(sessions),
+    accounts: many(accounts),
   })
 );
 
@@ -151,6 +153,16 @@ export const accounts = pgTable(
   })
 );
 
+export const accountsRelation = relations(
+  accounts,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [accounts.userId],
+      references: [users.id],
+    }),
+  })
+);
+
 export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
   userId: text("userId")
@@ -158,6 +170,16 @@ export const sessions = pgTable("session", {
     .references(() => users.id, { onDelete: "cascade" }),
   expires: timestamp("expires", { mode: "date" }).notNull(),
 });
+
+export const sessionsRelation = relations(
+  sessions,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [sessions.userId],
+      references: [users.id],
+    }),
+  })
+);
 
 export const verificationTokens = pgTable(
   "verificationToken",
