@@ -25,7 +25,10 @@ export const bucketsRelations = relations(
   buckets,
   ({ many, one }) => ({
     tasks: many(tasks),
-    users: one(users),
+    user: one(users, {
+      fields: [buckets.user_id],
+      references: [users.id],
+    }),
   })
 );
 
