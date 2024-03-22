@@ -9,6 +9,22 @@ import {
   integer,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
+import { relations } from "drizzle-orm";
+
+export const bucket = pgTable("bucket", {
+  id: uuid("id").primaryKey(),
+  name: text("name").notNull(),
+  task_id: uuid("task_id").references(() => tasks.id),
+  created_at: timestamp("created_at").defaultNow(),
+  updated_at: timestamp("updated_at", { mode: "date" }),
+});
+
+export const bucketRelations = relations(
+  bucket,
+  ({ many }) => ({
+    tasks: many(tasks),
+  })
+);
 
 export const tasks = pgTable("tasks", {
   id: uuid("id").primaryKey(),
@@ -34,6 +50,13 @@ export const tasks = pgTable("tasks", {
   updated_at: timestamp("updated_at", { mode: "date" }),
 });
 
+export const tasksRelations = relations(
+  tasks,
+  ({ many }) => ({
+    tasks_labels: many(tasks_labels),
+  })
+);
+
 export const labels = pgTable("labels", {
   id: uuid("id").primaryKey(),
   name: text("title").notNull(),
@@ -41,19 +64,32 @@ export const labels = pgTable("labels", {
   updated_at: timestamp("updated_at", { mode: "date" }),
 });
 
-export const bucket = pgTable("bucket", {
-  id: uuid("id").primaryKey(),
-  name: text("name").notNull(),
-  task_id: uuid("task_id").references(() => tasks.id),
-  created_at: timestamp("created_at").defaultNow(),
-  updated_at: timestamp("updated_at", { mode: "date" }),
-});
+export const labelsRelations = relations(
+  labels,
+  ({ many }) => ({
+    tasks_labels: many(tasks_labels),
+  })
+);
 
 export const tasks_labels = pgTable("tasks_labels", {
   id: serial("id").primaryKey(),
   task_id: uuid("task_id").references(() => tasks.id),
   label_id: uuid("label_id").references(() => labels.id),
 });
+
+export const labelsToTasks = relations(
+  tasks_labels,
+  ({ one }) => ({
+    task: one(tasks, {
+      fields: [tasks_labels.task_id],
+      references: [tasks.id],
+    }),
+    label: one(labels, {
+      fields: [tasks_labels.label_id],
+      references: [labels.id],
+    }),
+  })
+);
 
 // OAuth User
 export const users = pgTable("user", {
@@ -65,6 +101,13 @@ export const users = pgTable("user", {
   }),
   image: text("image"),
 });
+
+export const usersRelation = relations(
+  users,
+  ({ many }) => ({
+    tasks: many(tasks),
+  })
+);
 
 export const accounts = pgTable(
   "account",
