@@ -12,24 +12,25 @@ import {
 } from "drizzle-orm/pg-core";
 
 export const buckets = pgTable("bucket", {
-  id: uuid("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
   user_id: text("user_id")
     .notNull()
     .references(() => users.id),
-  created_at: timestamp("created_at").defaultNow(),
-  updated_at: timestamp("updated_at", { mode: "date" }),
+  created_at: timestamp("created_at"),
+  updated_at: timestamp("updated_at"),
 });
 
 export const bucketsRelations = relations(
   buckets,
-  ({ many }) => ({
+  ({ many, one }) => ({
     tasks: many(tasks),
+    users: one(users),
   })
 );
 
 export const tasks = pgTable("tasks", {
-  id: uuid("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   user_id: text("user_id")
     .notNull()
     .references(() => users.id),
@@ -49,8 +50,8 @@ export const tasks = pgTable("tasks", {
     ],
   }).default("Not Started"),
   steps: text("steps").array(20),
-  created_at: timestamp("created_at").defaultNow(),
-  updated_at: timestamp("updated_at", { mode: "date" }),
+  created_at: timestamp("created_at"),
+  updated_at: timestamp("updated_at"),
 });
 
 export const tasksRelations = relations(
@@ -69,10 +70,10 @@ export const tasksRelations = relations(
 );
 
 export const labels = pgTable("labels", {
-  id: uuid("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   name: text("title").notNull(),
-  created_at: timestamp("created_at").defaultNow(),
-  updated_at: timestamp("updated_at", { mode: "date" }),
+  created_at: timestamp("created_at"),
+  updated_at: timestamp("updated_at"),
 });
 
 export const labelsRelations = relations(
