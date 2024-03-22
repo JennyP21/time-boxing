@@ -1,9 +1,9 @@
 import {
-  deleteBucket,
-  getBucket,
-  updateBucket,
-} from "@/data-access/bucket";
-import { validateBucket } from "@/validation";
+  deleteTask,
+  getTask,
+  updateTask,
+} from "@/data-access/task";
+import { validatePatchTask } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
@@ -15,9 +15,9 @@ export async function GET(
   }
 ) {
   const id = params.id;
-  const bucket = await getBucket(id);
+  const task = await getTask(id);
 
-  return NextResponse.json(bucket);
+  return NextResponse.json(task);
 }
 
 export async function DELETE(
@@ -29,7 +29,7 @@ export async function DELETE(
   }
 ) {
   const id = params.id;
-  await deleteBucket(id);
+  await deleteTask(id);
 
   return NextResponse.json([]);
 }
@@ -44,16 +44,16 @@ export async function PATCH(
 ) {
   const id = params.id;
   const data = await request.json();
-  const validation = validateBucket.safeParse(data);
+  const validation = validatePatchTask.safeParse(data);
 
   if (!validation.success)
     return NextResponse.json(validation.error.message, {
       status: 400,
     });
-  const updatedBucket = await updateBucket(id, {
+  const updatedTask = await updateTask(id, {
     ...data,
     updated_at: new Date(),
   });
 
-  return NextResponse.json(updatedBucket);
+  return NextResponse.json(updatedTask);
 }

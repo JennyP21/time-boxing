@@ -1,32 +1,29 @@
-import {
-  addBucket,
-  getBuckets,
-} from "@/data-access/bucket";
-import { validateBucket } from "@/validation";
+import { addTask, getTasks } from "@/data-access/task";
+import { validateTask } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const buckets = await getBuckets();
+  const tasks = await getTasks();
 
-  return NextResponse.json(buckets);
+  return NextResponse.json(tasks);
 }
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
-  const validation = validateBucket.safeParse(data);
+  const validation = validateTask.safeParse(data);
 
   if (!validation.success)
     return NextResponse.json(validation.error.message, {
       status: 400,
     });
 
-  const newBucket = await addBucket({
+  const newTask = await addTask({
     ...data,
     created_at: new Date(),
     updated_at: new Date(),
   });
 
-  return NextResponse.json(newBucket, {
+  return NextResponse.json(newTask, {
     status: 200,
   });
 }
