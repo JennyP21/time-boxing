@@ -4,6 +4,6 @@
 
 @layer components {
   .sidebar__icon {
-    @apply rounded-full transition-all duration-200 cursor-pointer object-contain;
+    @apply rounded-full transition-all duration-200 cursor-pointer object-contain ml-[1px];
   }
 }
