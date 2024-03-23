@@ -87,7 +87,7 @@ export const labelsRelations = relations(
 );
 
 export const tasks_labels = pgTable("tasks_labels", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").primaryKey().defaultRandom(),
   task_id: uuid("task_id").references(() => tasks.id),
   label_id: uuid("label_id").references(() => labels.id),
 });

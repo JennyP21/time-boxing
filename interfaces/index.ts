@@ -30,3 +30,9 @@ export interface Label {
   created_at: Date;
   updated_at: Date;
 }
+
+export interface Task_Label {
+  id: string;
+  task_id: string;
+  label_id: string;
+}
