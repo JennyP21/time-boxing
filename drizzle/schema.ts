@@ -39,8 +39,8 @@ export const tasks = pgTable("tasks", {
     .references(() => users.id),
   bucket_id: uuid("bucket_id").references(() => buckets.id),
   title: text("title").notNull(),
-  start_date: date("start_date").notNull(),
-  end_date: date("end_date").notNull(),
+  start_date: date("start_date"),
+  end_date: date("end_date"),
   severity: text("severity", {
     enum: ["low", "medium", "high", "urgent"],
   }).default("medium"),
