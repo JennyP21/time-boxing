@@ -40,3 +40,7 @@ export const validatePatchTask = z.object({
     .optional(),
   steps: z.string().array().max(20).optional(),
 });
+
+export const validateLabel = z.object({
+  name: z.string().min(3),
+});
