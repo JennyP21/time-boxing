@@ -36,7 +36,6 @@ const LeftPanel = () => {
             py={3}
             width={isOpen ? "12%" : "3.5%"}
             minWidth={isOpen ? "170px" : "55px"}
-            height="100vh"
         >
             <Box width="100%">
                 {isOpen ?

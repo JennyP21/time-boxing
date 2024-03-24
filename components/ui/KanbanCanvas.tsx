@@ -1,8 +1,12 @@
+import { Grid } from '@chakra-ui/react'
 import Bucket from './Bucket'
 
 const KanbanCanvas = () => {
     return (
-        <Bucket />
+        <Grid className='grid-flow-col justify-start'>
+            <Bucket />
+            <Bucket />
+        </Grid>
     )
 }
 
