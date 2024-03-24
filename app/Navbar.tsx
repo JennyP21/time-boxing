@@ -7,7 +7,7 @@ const Navbar = async () => {
     const session = await getServerSession();
 
     return (
-        <Box as="nav" borderBottom="1px" borderColor={'gray.300'} width='100%' height="fit-content">
+        <Box as="nav" className='z-50 w-full fixed bg-white' borderBottom="1px" borderColor={'gray.300'}>
             <Flex py={{ sm: 2, base: 0.5 }} px={2} justify={'space-between'}>
                 <Logo />
                 <NavLinks session={session} />

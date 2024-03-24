@@ -29,13 +29,14 @@ const LeftPanel = () => {
 
     return (
         <VStack
-            className='transition-all duration-300 max-md:hidden overflow-hidden'
+            className='transition-all duration-300 max-md:hidden overflow-hidden min-h-full'
             borderRight="1px"
             borderColor={'gray.300'}
             px={3}
             py={3}
             width={isOpen ? "12%" : "3.5%"}
             minWidth={isOpen ? "170px" : "55px"}
+            maxWidth={isOpen ? "170px" : "55px"}
         >
             <Box width="100%">
                 {isOpen ?

@@ -24,15 +24,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${openSans.className} overflow-x-hidden`}>
+      <body className={`${openSans.className} overflow-hidden`}>
         <AuthProvider>
           <UIProvider>
-            <Flex>
-              <LeftPanel />
-              <Box width='100%'>
-                <Navbar />
+            <Flex direction={'column'}>
+              <Navbar />
+              <Flex width='100%' mt={16}>
+                <LeftPanel />
                 {children}
-              </Box>
+              </Flex>
             </Flex>
           </UIProvider>
         </AuthProvider>
