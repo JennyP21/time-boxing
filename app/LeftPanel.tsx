@@ -1,13 +1,10 @@
 "use client";
-import { Box, Flex, HStack, Icon, Link, Text, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Flex, Icon, Link, Text, VStack } from '@chakra-ui/react';
 import { BsKanban } from "react-icons/bs";
-import { FaRegArrowAltCircleLeft, FaRegListAlt } from "react-icons/fa";
+import { FaRegListAlt } from "react-icons/fa";
 import { IoHomeOutline } from "react-icons/io5";
-import { RiMenuUnfoldFill } from "react-icons/ri";
 
 const LeftPanel = () => {
-    const [isOpen, setIsOpen] = useState(false);
 
     const panelItems = [
         {
@@ -29,29 +26,18 @@ const LeftPanel = () => {
 
     return (
         <VStack
-            className='transition-all duration-300 max-md:hidden overflow-hidden min-h-full'
+            className='transition-all duration-300 max-md:!hidden min-h-full fixed'
             borderRight="1px"
             borderColor={'gray.300'}
-            px={3}
-            py={3}
-            width={isOpen ? "12%" : "3.5%"}
-            minWidth={isOpen ? "170px" : "55px"}
-            maxWidth={isOpen ? "170px" : "55px"}
+            py={1}
         >
-            <Box width="100%">
-                {isOpen ?
-                    <Icon className={isOpen ? "sidebar__icon opacity-1" : "sidebar__icon opacity-0"} as={FaRegArrowAltCircleLeft} w={7} h={7} onClick={() => setIsOpen(false)} />
-                    :
-                    <Icon className={isOpen ? "sidebar__icon opacity-0" : "sidebar__icon opacity-1"} as={RiMenuUnfoldFill} w={7} h={7} onClick={() => setIsOpen(true)} />
-                }
-            </Box>
-            <Flex className='whitespace-nowrap w-full' flexDir="column" marginTop={10} gap={6}>
+            <Flex className='whitespace-nowrap w-full' flexDir="column" gap={4}>
                 {panelItems.map(item => (
                     <Link href={item.href} key={item.name}>
-                        <HStack _hover={{ bg: "gray.200" }} rounded="5px" spacing={5} cursor='pointer'>
+                        <VStack _hover={{ bg: "gray.50" }} rounded="5px" spacing={2} p={1} cursor='pointer'>
                             <Icon as={item.icon} w={7} h={7} />
-                            <Text>{item.name}</Text>
-                        </HStack>
+                            <Text fontSize='x-small'>{item.name}</Text>
+                        </VStack>
                     </Link>
                 ))}
             </Flex>

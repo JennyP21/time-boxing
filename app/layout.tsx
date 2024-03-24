@@ -31,7 +31,9 @@ export default function RootLayout({
               <Navbar />
               <Flex width='100%' mt={16}>
                 <LeftPanel />
-                {children}
+                <Box className="md:ml-[4.4rem]">
+                  {children}
+                </Box>
               </Flex>
             </Flex>
           </UIProvider>
