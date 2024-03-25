@@ -2,6 +2,7 @@
 import { Grid } from '@chakra-ui/react'
 import Bucket from './Bucket'
 import { useGetBucketsQuery } from '@/lib/features/bucketApi'
+import AddBucket from './AddBucket'
 
 const KanbanCanvas = () => {
     const { data: buckets, error, isLoading } = useGetBucketsQuery();
@@ -15,6 +16,7 @@ const KanbanCanvas = () => {
                     {buckets?.map(bucket => (
                         <Bucket key={bucket.id} id={bucket.id} name={bucket.name} />
                     ))}
+                    <AddBucket />
                 </Grid>
             }
         </>

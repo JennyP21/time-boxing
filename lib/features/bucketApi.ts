@@ -13,7 +13,21 @@ export const bucketApi = createApi({
     getBuckets: builder.query<Bucket[], void>({
       query: () => "bucket/",
     }),
+    addBucket: builder.mutation<Bucket, Bucket>({
+      query: (data: { name: string }) => ({
+        url: "bucket/",
+        method: "POST",
+        body: data,
+      }),
+    }),
+    deleteBucket: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `bucket/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetBucketsQuery } = bucketApi;
+export const { useGetBucketsQuery, useAddBucketMutation } =
+  bucketApi;

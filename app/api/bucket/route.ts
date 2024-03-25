@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const data = await request.json();
+
   const validation = validateBucket.safeParse(data);
 
   if (!validation.success)
