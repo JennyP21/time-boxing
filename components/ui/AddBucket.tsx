@@ -10,8 +10,6 @@ const AddBucket = () => {
     const [name, setName] = useState("");
     const session = useSession();
 
-    if (session) console.log(session);
-
     const [addBucket] = useAddBucketMutation();
 
     const handleOnBlur = async () => {

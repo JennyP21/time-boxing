@@ -1,28 +1,16 @@
-import { Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react'
-import KanbanTask from './KanbanTask'
-import { HiOutlineDotsHorizontal } from "react-icons/hi";
-
+import { VStack } from '@chakra-ui/react';
+import BucketHeader from './BucketHeader';
+import KanbanTask from './KanbanTask';
 
 interface Props {
     id: string;
     name: string;
 }
 
-const Bucket = ({ name }: Props) => {
+const Bucket = ({ name, id }: Props) => {
     return (
         <VStack minWidth="280px" maxWidth="300px" ml={2} p={2}>
-            <Flex className='w-full justify-between'>
-                <Text size="md" align='left' width="100%">{name}</Text>
-                <Menu placement='bottom-end'>
-                    <MenuButton>
-                        <Icon as={HiOutlineDotsHorizontal} w={4} h={4} />
-                    </MenuButton>
-                    <MenuList>
-                        <MenuItem>Delete</MenuItem>
-                        <MenuItem>Rename</MenuItem>
-                    </MenuList>
-                </Menu>
-            </Flex>
+            <BucketHeader name={name} id={id} />
             <KanbanTask />
             <KanbanTask />
         </VStack>

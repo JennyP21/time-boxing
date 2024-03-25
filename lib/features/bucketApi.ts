@@ -29,5 +29,8 @@ export const bucketApi = createApi({
   }),
 });
 
-export const { useGetBucketsQuery, useAddBucketMutation } =
-  bucketApi;
+export const {
+  useGetBucketsQuery,
+  useAddBucketMutation,
+  useDeleteBucketMutation,
+} = bucketApi;
