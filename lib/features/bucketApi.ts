@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 export const bucketApi = createApi({
+  tagTypes: ["bucket"],
   reducerPath: "bucketApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/api",
@@ -12,6 +13,7 @@ export const bucketApi = createApi({
   endpoints: (builder) => ({
     getBuckets: builder.query<Bucket[], void>({
       query: () => "bucket/",
+      providesTags: ["bucket"],
     }),
     addBucket: builder.mutation<Bucket, Bucket>({
       query: (data: { name: string }) => ({
@@ -19,12 +21,14 @@ export const bucketApi = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["bucket"],
     }),
     deleteBucket: builder.mutation<void, string>({
       query: (id) => ({
         url: `bucket/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["bucket"],
     }),
   }),
 });
