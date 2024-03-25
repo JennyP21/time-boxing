@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import UIProvider from "./UIProvider";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
+import ReduxProvider from "./ReduxProvider";
 
 const openSans = Open_Sans({
   weight: ["300", "500", "700"],
@@ -25,19 +26,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${openSans.className}`}>
-        <AuthProvider>
-          <UIProvider>
-            <Flex direction={'column'}>
-              <Navbar />
-              <Flex width='100%' mt={16}>
-                <LeftPanel />
-                <Box className="md:ml-[4.4rem] w-full">
-                  {children}
-                </Box>
+        <ReduxProvider>
+          <AuthProvider>
+            <UIProvider>
+              <Flex direction={'column'}>
+                <Navbar />
+                <Flex width='100%' mt={16}>
+                  <LeftPanel />
+                  <Box className="md:ml-[4.4rem] w-full">
+                    {children}
+                  </Box>
+                </Flex>
               </Flex>
-            </Flex>
-          </UIProvider>
-        </AuthProvider>
+            </UIProvider>
+          </AuthProvider>
+        </ReduxProvider>
       </body>
     </html>
   );
