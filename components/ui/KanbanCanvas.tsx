@@ -5,6 +5,7 @@ const KanbanCanvas = () => {
     return (
         <Grid className='grid-flow-col justify-start'>
             <Bucket />
+            <Bucket />
         </Grid>
     )
 }

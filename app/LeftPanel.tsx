@@ -30,6 +30,7 @@ const LeftPanel = () => {
             borderRight="1px"
             borderColor={'gray.300'}
             py={1}
+            bg="white"
         >
             <Flex className='whitespace-nowrap w-full' flexDir="column" gap={4}>
                 {panelItems.map(item => (

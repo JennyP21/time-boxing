@@ -1,14 +1,14 @@
 import KanbanCanvas from '@/components/ui/KanbanCanvas'
-import { Box, Flex, Heading } from '@chakra-ui/react'
+import { Box, Heading } from '@chakra-ui/react'
 
 const KanbanView = () => {
     return (
-        <Flex className='overflow-hidden flex-col h-[91vh] w-full'>
+        <Box>
             <Heading size="lg" as={"h3"} lineHeight="1" fontWeight="normal" borderBottom="1px" p={3} borderColor={"gray.300"}>Kanban View</Heading>
-            <Box className='overflow-scroll h-[100%]'>
+            <Box className=''>
                 <KanbanCanvas />
             </Box>
-        </Flex>
+        </Box>
     )
 }
 
