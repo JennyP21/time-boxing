@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const validateBucket = z.object({
-  name: z.string().min(3),
+  name: z.string(),
   user_id: z.string(),
 });
 

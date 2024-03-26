@@ -1,4 +1,6 @@
 "use client"
+import { toast } from '@/app/api/Toast';
+import { addBucketError } from '@/constants';
 import { Bucket } from '@/interfaces';
 import { useAddBucketMutation } from '@/lib/features/bucketApi';
 import { Box, Input, Text } from '@chakra-ui/react';
@@ -10,7 +12,7 @@ const AddBucket = () => {
     const [name, setName] = useState("");
     const session = useSession();
 
-    const [addBucket] = useAddBucketMutation();
+    const [addBucket, { error }] = useAddBucketMutation();
 
     const handleOnBlur = async () => {
         const data = {
@@ -23,6 +25,10 @@ const AddBucket = () => {
         };
         setActive(false);
     }
+
+    if (error) toast.error(addBucketError.message, {
+        toastId: addBucketError.type
+    });
 
     return (
         <Box minWidth="280px" maxWidth="300px" ml={2} p={2}>

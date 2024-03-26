@@ -1,4 +1,6 @@
 "use client"
+import { toast } from '@/app/api/Toast';
+import { deleteBucketError, updateBucketError } from '@/constants';
 import { Bucket } from '@/interfaces';
 import { useDeleteBucketMutation, useUpdateBucketMutation } from '@/lib/features/bucketApi';
 import { Flex, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
@@ -16,8 +18,8 @@ const BucketHeader = ({ id, name }: Props) => {
     const [updatedName, setUpdatedName] = useState(name);
 
     const session = useSession();
-    const [deleteBucket] = useDeleteBucketMutation();
-    const [updateBucket] = useUpdateBucketMutation();
+    const [deleteBucket, { error: deleteError }] = useDeleteBucketMutation();
+    const [updateBucket, { error: updateError }] = useUpdateBucketMutation();
 
     const handleDelete = async () => {
         await deleteBucket(id);
@@ -34,6 +36,14 @@ const BucketHeader = ({ id, name }: Props) => {
         }
         setActive(false);
     }
+
+    if (updateError) toast.error(updateBucketError.message, {
+        toastId: updateBucketError.type
+    });
+
+    if (deleteError) toast.error(deleteBucketError.message, {
+        toastId: deleteBucketError.type
+    });
 
     return (
         <Flex className='w-full justify-between'>
