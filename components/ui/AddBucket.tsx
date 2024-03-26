@@ -19,6 +19,7 @@ const AddBucket = () => {
         } as Bucket;
         if (name) {
             await addBucket(data);
+            setName("");
         };
         setActive(false);
     }

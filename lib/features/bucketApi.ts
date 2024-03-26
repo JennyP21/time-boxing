@@ -23,6 +23,14 @@ export const bucketApi = createApi({
       }),
       invalidatesTags: ["bucket"],
     }),
+    updateBucket: builder.mutation<Bucket, Bucket>({
+      query: (data: { name: string; id: string }) => ({
+        url: `bucket/${data.id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["bucket"],
+    }),
     deleteBucket: builder.mutation<void, string>({
       query: (id) => ({
         url: `bucket/${id}`,
@@ -36,5 +44,6 @@ export const bucketApi = createApi({
 export const {
   useGetBucketsQuery,
   useAddBucketMutation,
+  useUpdateBucketMutation,
   useDeleteBucketMutation,
 } = bucketApi;

@@ -1,8 +1,10 @@
 "use client"
-import { useDeleteBucketMutation } from '@/lib/features/bucketApi';
-import { Flex, Menu, MenuButton, Icon, MenuList, MenuItem, Text } from '@chakra-ui/react'
-import React from 'react'
-import { HiOutlineDotsHorizontal } from 'react-icons/hi'
+import { Bucket } from '@/interfaces';
+import { useDeleteBucketMutation, useUpdateBucketMutation } from '@/lib/features/bucketApi';
+import { Flex, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 
 interface Props {
     id: string;
@@ -10,23 +12,41 @@ interface Props {
 }
 
 const BucketHeader = ({ id, name }: Props) => {
+    const [active, setActive] = useState(false);
+    const [updatedName, setUpdatedName] = useState(name);
 
+    const session = useSession();
     const [deleteBucket] = useDeleteBucketMutation();
+    const [updateBucket] = useUpdateBucketMutation();
 
     const handleDelete = async () => {
         await deleteBucket(id);
     }
 
+    const handleUpdate = async () => {
+        const data = {
+            name: updatedName,
+            id,
+            user_id: session.data?.user?.id,
+        } as Bucket;
+        if (name !== updatedName) {
+            await updateBucket(data);
+        }
+        setActive(false);
+    }
+
     return (
         <Flex className='w-full justify-between'>
-            <Text size="md" align='left' width="100%">{name}</Text>
+            {active ? <Input autoFocus size={"sm"} value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} onBlur={handleUpdate} /> :
+                <Text size="md" align='left' width="100%">{name}</Text>
+            }
             <Menu placement='bottom-end'>
                 <MenuButton>
                     <Icon as={HiOutlineDotsHorizontal} w={4} h={4} />
                 </MenuButton>
                 <MenuList>
                     <MenuItem onClick={handleDelete}>Delete</MenuItem>
-                    <MenuItem>Rename</MenuItem>
+                    <MenuItem onClick={() => setActive(true)}>Rename</MenuItem>
                 </MenuList>
             </Menu>
         </Flex>
