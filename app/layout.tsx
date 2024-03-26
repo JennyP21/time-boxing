@@ -7,6 +7,7 @@ import UIProvider from "./UIProvider";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
 import ReduxProvider from "./ReduxProvider";
+import { ToastContainer } from "./api/Toast";
 
 const openSans = Open_Sans({
   weight: ["300", "500", "700"],
@@ -41,6 +42,7 @@ export default function RootLayout({
             </UIProvider>
           </AuthProvider>
         </ReduxProvider>
+        <ToastContainer position='bottom-right' />
       </body>
     </html>
   );
