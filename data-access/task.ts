@@ -1,6 +1,6 @@
 import { db } from "@/drizzle";
 import { tasks } from "@/drizzle/schema";
-import { Task } from "@/interfaces";
+import { TaskI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
 export async function getTasks() {
@@ -18,7 +18,7 @@ export async function getTasksByBucket(bucket_id: string) {
   return tasksByBucket;
 }
 
-export async function addTask(task: Task) {
+export async function addTask(task: TaskI) {
   const newTask = await db
     .insert(tasks)
     .values(task)
@@ -40,7 +40,7 @@ export async function deleteTask(id: string) {
   await db.delete(tasks).where(eq(tasks.id, id));
 }
 
-export async function updateTask(id: string, task: Task) {
+export async function updateTask(id: string, task: TaskI) {
   const updatedTask = await db
     .update(tasks)
     .set(task)

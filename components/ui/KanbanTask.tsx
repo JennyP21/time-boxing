@@ -1,8 +1,13 @@
 "use client"
 import { Flex, Heading, Stack, Text, useDisclosure } from '@chakra-ui/react';
 import Task from './Task';
+import { TaskI } from '@/interfaces';
 
-const KanbanTask = () => {
+interface Props {
+    task: TaskI
+}
+
+const KanbanTask = ({ task }: Props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Stack
@@ -10,18 +15,19 @@ const KanbanTask = () => {
             p={2}
             textAlign="left"
             width="100%"
+            cursor="pointer"
             onClick={onOpen}
         >
             <Heading as="h6" size="sm">
-                Task
+                {task.title}
             </Heading>
             <Flex flexDir="column">
-                <Text>Task 1</Text>
-                <Text>Task 2</Text>
-                <Text>Task 3</Text>
+                {task.steps.map(step => (
+                    <Text key={step}>{step}</Text>
+                ))}
             </Flex>
-            <Text>Assigned to JP</Text>
-            <Text>Due by 2024-04-01</Text>
+            <Text></Text>
+            <Text>Due by {task.end_date}</Text>
             <Task isOpen={isOpen} onClose={onClose} />
         </Stack>
     )

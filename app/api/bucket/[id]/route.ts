@@ -4,7 +4,7 @@ import {
   updateBucket,
 } from "@/data-access/bucket";
 import { getUserById } from "@/data-access/user";
-import { Bucket } from "@/interfaces";
+import { BucketI } from "@/interfaces";
 import { validateBucket } from "@/validation";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
@@ -63,7 +63,7 @@ export async function PATCH(
   }
 
   const session = await getServerSession();
-  const data: Bucket = await request.json();
+  const data: BucketI = await request.json();
 
   if (!session)
     return NextResponse.json("Unauthorized access", {

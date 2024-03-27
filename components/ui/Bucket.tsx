@@ -1,6 +1,6 @@
 import { VStack } from '@chakra-ui/react';
 import BucketHeader from './BucketHeader';
-import KanbanTask from './KanbanTask';
+import TasksList from './TasksList';
 
 interface Props {
     id: string;
@@ -11,8 +11,7 @@ const Bucket = ({ name, id }: Props) => {
     return (
         <VStack minWidth="280px" maxWidth="300px" ml={2} p={2}>
             <BucketHeader name={name} id={id} />
-            <KanbanTask />
-            <KanbanTask />
+            <TasksList bucket_id={id} />
         </VStack>
     )
 }

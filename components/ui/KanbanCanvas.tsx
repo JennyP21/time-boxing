@@ -12,19 +12,17 @@ const KanbanCanvas = () => {
         toastId: "Bucket error"
     });
 
+    if (isLoading) return <Spinner size={"md"} m={5} />;
+
     return (
         <>
             {!error &&
-                <>
-                    {isLoading ? <Spinner size={"md"} m={5} /> :
-                        <Grid className='grid-flow-col justify-start'>
-                            {buckets?.map(bucket => (
-                                <Bucket key={bucket.id} id={bucket.id} name={bucket.name} />
-                            ))}
-                            <AddBucket />
-                        </Grid>
-                    }
-                </>
+                <Grid className='grid-flow-col justify-start'>
+                    {buckets?.map(bucket => (
+                        <Bucket key={bucket.id} id={bucket.id} name={bucket.name} />
+                    ))}
+                    <AddBucket />
+                </Grid>
             }
         </>
     )

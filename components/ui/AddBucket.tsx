@@ -1,7 +1,7 @@
 "use client"
 import { toast } from '@/app/api/Toast';
 import { addBucketError } from '@/constants';
-import { Bucket } from '@/interfaces';
+import { BucketI } from '@/interfaces';
 import { useAddBucketMutation } from '@/lib/features/bucketApi';
 import { Box, Input, Text } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
@@ -18,7 +18,7 @@ const AddBucket = () => {
         const data = {
             name,
             user_id: session.data?.user?.id
-        } as Bucket;
+        } as BucketI;
         if (name) {
             await addBucket(data);
             setName("");

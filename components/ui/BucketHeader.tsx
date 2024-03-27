@@ -1,7 +1,7 @@
 "use client"
 import { toast } from '@/app/api/Toast';
 import { deleteBucketError, updateBucketError } from '@/constants';
-import { Bucket } from '@/interfaces';
+import { BucketI } from '@/interfaces';
 import { useDeleteBucketMutation, useUpdateBucketMutation } from '@/lib/features/bucketApi';
 import { Flex, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
@@ -30,7 +30,7 @@ const BucketHeader = ({ id, name }: Props) => {
             name: updatedName,
             id,
             user_id: session.data?.user?.id,
-        } as Bucket;
+        } as BucketI;
         if (name !== updatedName) {
             await updateBucket(data);
         }

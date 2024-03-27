@@ -1,6 +1,6 @@
 import { db } from "@/drizzle";
 import { labels } from "@/drizzle/schema";
-import { Label } from "@/interfaces";
+import { LabelI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
 export async function getLabels() {
@@ -9,7 +9,7 @@ export async function getLabels() {
   return labels;
 }
 
-export async function addLabel(label: Label) {
+export async function addLabel(label: LabelI) {
   const newLabel = await db
     .insert(labels)
     .values(label)
@@ -33,7 +33,7 @@ export async function deleteLabel(id: string) {
 
 export async function updateLabel(
   id: string,
-  label: Label
+  label: LabelI
 ) {
   const updatedLabel = await db
     .update(labels)

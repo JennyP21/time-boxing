@@ -1,9 +1,9 @@
 import { db } from "@/drizzle";
 import { tasks_labels } from "@/drizzle/schema";
-import { Task_Label } from "@/interfaces";
+import { Task_LabelI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
-export async function assignLabel(data: Task_Label) {
+export async function assignLabel(data: Task_LabelI) {
   const newAssignment = await db
     .insert(tasks_labels)
     .values(data)

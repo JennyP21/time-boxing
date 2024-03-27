@@ -1,6 +1,6 @@
 import { db } from "@/drizzle";
 import { buckets } from "@/drizzle/schema";
-import { Bucket } from "@/interfaces";
+import { BucketI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
 export async function getBuckets() {
@@ -9,7 +9,7 @@ export async function getBuckets() {
   return buckets;
 }
 
-export async function addBucket(bucket: Bucket) {
+export async function addBucket(bucket: BucketI) {
   const newBucket = await db
     .insert(buckets)
     .values(bucket)
@@ -33,7 +33,7 @@ export async function deleteBucket(id: string) {
 
 export async function updateBucket(
   id: string,
-  bucket: Bucket
+  bucket: BucketI
 ) {
   const updatedBucket = await db
     .update(buckets)

@@ -1,4 +1,4 @@
-import { Bucket } from "@/interfaces";
+import { BucketI } from "@/interfaces";
 import {
   createApi,
   fetchBaseQuery,
@@ -11,11 +11,11 @@ export const bucketApi = createApi({
     baseUrl: "http://localhost:3000/api",
   }),
   endpoints: (builder) => ({
-    getBuckets: builder.query<Bucket[], void>({
+    getBuckets: builder.query<BucketI[], void>({
       query: () => "bucket/",
       providesTags: ["bucket"],
     }),
-    addBucket: builder.mutation<Bucket, Bucket>({
+    addBucket: builder.mutation<BucketI, BucketI>({
       query: (data: { name: string }) => ({
         url: "bucket/",
         method: "POST",
@@ -23,7 +23,7 @@ export const bucketApi = createApi({
       }),
       invalidatesTags: ["bucket"],
     }),
-    updateBucket: builder.mutation<Bucket, Bucket>({
+    updateBucket: builder.mutation<BucketI, BucketI>({
       query: (data: { name: string; id: string }) => ({
         url: `bucket/${data.id}`,
         method: "PATCH",
