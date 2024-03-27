@@ -26,13 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${openSans.className}`}>
+      <body className={`${openSans.className} overflow-hidden`}>
         <ReduxProvider>
           <AuthProvider>
             <UIProvider>
-              <Flex direction={'column'}>
+              <Flex className="flex-col h-full">
                 <Navbar />
-                <Flex width='100%' mt={16}>
+                <Flex className="w-full h-full mt-16">
                   <LeftPanel />
                   <Box className="md:ml-[4.4rem] w-full">
                     {children}
