@@ -19,9 +19,22 @@ export interface TaskI {
     | "In Progress"
     | "On Hold"
     | "Completed";
+  note: string;
   steps: string[];
   created_at: Date;
   updated_at: Date;
+}
+
+export interface UserI {
+  id: string;
+  image: string;
+  name: string;
+  email: string;
+}
+
+export interface TaskWithUserI {
+  tasks: TaskI;
+  user: UserI;
 }
 
 export interface LabelI {

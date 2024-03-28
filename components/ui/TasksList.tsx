@@ -20,7 +20,7 @@ const TasksList = ({ bucket_id }: Props) => {
     return (
         <>
             {data?.map(task => (
-                <KanbanTask key={task.id} task={task} />
+                <KanbanTask key={task.tasks.id} taskWithUser={task} />
             ))}
         </>
     )

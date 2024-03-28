@@ -1,5 +1,5 @@
 import { db } from "@/drizzle";
-import { tasks } from "@/drizzle/schema";
+import { tasks, users } from "@/drizzle/schema";
 import { TaskI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
@@ -13,8 +13,8 @@ export async function getTasksByBucket(bucket_id: string) {
   const tasksByBucket = await db
     .select()
     .from(tasks)
+    .innerJoin(users, eq(tasks.user_id, users.id))
     .where(eq(tasks.bucket_id, bucket_id));
-
   return tasksByBucket;
 }
 

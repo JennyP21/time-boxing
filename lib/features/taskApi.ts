@@ -1,4 +1,4 @@
-import { TaskI } from "@/interfaces";
+import { TaskWithUserI } from "@/interfaces";
 import {
   createApi,
   fetchBaseQuery,
@@ -11,7 +11,10 @@ export const taskApi = createApi({
     baseUrl: "http://localhost:3000/api",
   }),
   endpoints: (builder) => ({
-    getTasksByBucket: builder.query<TaskI[], string>({
+    getTasksByBucket: builder.query<
+      TaskWithUserI[],
+      string
+    >({
       query: (id: string) => `/bucket/${id}/tasks`,
       providesTags: ["tasks"],
     }),

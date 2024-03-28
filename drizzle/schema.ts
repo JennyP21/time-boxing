@@ -8,6 +8,7 @@ import {
   text,
   timestamp,
   uuid,
+  varchar,
 } from "drizzle-orm/pg-core";
 
 export const buckets = pgTable("bucket", {
@@ -51,6 +52,7 @@ export const tasks = pgTable("tasks", {
       "Completed",
     ],
   }).default("Not Started"),
+  note: varchar("note", { length: 1500 }),
   steps: text("steps").array(20),
   created_at: timestamp("created_at"),
   updated_at: timestamp("updated_at"),

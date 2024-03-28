@@ -44,9 +44,9 @@ const Task = ({ isOpen, onClose }: Props) => {
                                 <Icon as={TiUserAddOutline} w={6} h={6} />
                             </MenuButton>
                             <MenuList>
-                                <MenuItem>Jay Swaminarayan</MenuItem>
-                                <MenuItem>Jay Shri Krishna</MenuItem>
-                                <MenuItem>Jay Shri Ram</MenuItem>
+                                <MenuItem>User 1</MenuItem>
+                                <MenuItem>User 2</MenuItem>
+                                <MenuItem>User 3</MenuItem>
                             </MenuList>
                         </Menu>
                         <Icon as={CgProfile} w={6} h={6} />
