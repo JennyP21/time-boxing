@@ -22,7 +22,7 @@ const KanbanTask = ({ taskWithUser }: Props) => {
             className='cursor-pointer w-full text-left shadow-sm hover:shadow-md transition-all'
         >
             <CardHeader alignItems="center" px={3} py={1}>
-                <Flex className='gap-1 mb-3 flex-wrap'>
+                <Flex className='gap-1 my-3 flex-wrap'>
                     <Label labels={["Objective"]} />
                 </Flex>
                 <Flex alignItems="center" gap={1}>

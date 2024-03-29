@@ -53,6 +53,9 @@ export const tasks = pgTable("tasks", {
     ],
   }).default("Not Started"),
   note: varchar("note", { length: 1500 }),
+  showOnTask: text("showOnTask", {
+    enum: ["note", "steps"],
+  }),
   steps: text("steps").array(20),
   created_at: timestamp("created_at"),
   updated_at: timestamp("updated_at"),
