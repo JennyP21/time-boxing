@@ -16,3 +16,16 @@ export const deleteBucketError = {
   type: "Delete Bucket Error",
   message: "Unable to delete bucket.",
 };
+
+export const taskSeverity = [
+  "Low",
+  "Medium",
+  "High",
+  "Urgent",
+];
+export const taskProgress = [
+  "Not Started",
+  "In Progress",
+  "On Hold",
+  "Completed",
+];

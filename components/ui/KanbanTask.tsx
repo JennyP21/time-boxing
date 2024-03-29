@@ -1,10 +1,9 @@
 "use client"
 import { TaskWithUserI } from '@/interfaces';
-import { Box, Card, CardBody, CardFooter, CardHeader, Checkbox, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
-import Task from './Task';
-import Image from 'next/image';
-import { TiUserAddOutline } from 'react-icons/ti';
+import { Card, CardBody, CardFooter, CardHeader, Checkbox, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import AddUserToTask from './AddUserToTask';
 import Label from './Label';
+import Task from './Task';
 
 interface Props {
     taskWithUser: TaskWithUserI
@@ -33,32 +32,23 @@ const KanbanTask = ({ taskWithUser }: Props) => {
                 </Flex>
             </CardHeader>
             <CardBody px={3} pt={0}>
-                <Flex flexDir="column">
-                    {task.steps.map(step => (
-                        <Flex key={step} alignItems="center" gap={1} fontSize="small">
-                            <Checkbox size={"md"} />
-                            {step}
-                        </Flex>
-                    ))}
-                </Flex>
-                <Text className='text-xs overflow-clip whitespace-nowrap'>{task.note}</Text>
+                {task.showOnTask === "note" ?
+                    <Text className='text-xs overflow-clip whitespace-nowrap'>{task.note}</Text>
+                    :
+                    <Flex flexDir="column">
+                        {task.steps.map(step => (
+                            <Flex key={step} alignItems="center" gap={1} fontSize="small">
+                                <Checkbox size={"md"} />
+                                {step}
+                            </Flex>
+                        ))}
+                    </Flex>
+                }
             </CardBody>
-            <CardFooter px={3} py={2} borderTop={"1px"} borderColor={"gray.200"}>
-                <Flex className='gap-1 justify-center'>
-                    <Menu>
-                        <MenuButton>
-                            <Icon as={TiUserAddOutline} w={6} h={6} />
-                        </MenuButton>
-                        <MenuList>
-                            <MenuItem>User 1</MenuItem>
-                            <MenuItem>User 2</MenuItem>
-                            <MenuItem>User 3</MenuItem>
-                        </MenuList>
-                    </Menu>
-                    <Image className='rounded-full' src={user.image} width={30} height={30} alt={user.name} />
-                </Flex>
+            <CardFooter px={3} py={0} borderTop={"1px"} borderColor={"gray.200"}>
+                <AddUserToTask image={user.image} name={user.name} />
             </CardFooter>
-            <Task isOpen={isOpen} onClose={onClose} />
+            <Task taskWithUser={taskWithUser} isOpen={isOpen} onClose={onClose} />
         </Card >
     )
 }

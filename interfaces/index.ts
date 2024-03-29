@@ -20,6 +20,7 @@ export interface TaskI {
     | "On Hold"
     | "Completed";
   note: string;
+  showOnTask: "note" | "steps";
   steps: string[];
   created_at: Date;
   updated_at: Date;

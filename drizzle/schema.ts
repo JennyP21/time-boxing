@@ -42,8 +42,8 @@ export const tasks = pgTable("tasks", {
   start_date: date("start_date"),
   end_date: date("end_date"),
   severity: text("severity", {
-    enum: ["low", "medium", "high", "urgent"],
-  }).default("medium"),
+    enum: ["Low", "Medium", "High", "Urgent"],
+  }).default("Medium"),
   progress: text("progress", {
     enum: [
       "Not Started",
