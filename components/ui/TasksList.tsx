@@ -1,5 +1,5 @@
 import { useGetTasksByBucketQuery } from '@/lib/features/taskApi';
-import KanbanTask from './KanbanTask';
+import Task from './Task';
 import { Spinner } from '@chakra-ui/react';
 import { toast } from '@/app/api/Toast';
 
@@ -20,7 +20,7 @@ const TasksList = ({ bucket_id }: Props) => {
     return (
         <>
             {data?.map(task => (
-                <KanbanTask key={task.tasks.id} taskWithUser={task} />
+                <Task key={task.tasks.id} taskWithUser={task} />
             ))}
         </>
     )

@@ -5,7 +5,7 @@ import { BucketI } from '@/interfaces';
 import { useAddBucketMutation } from '@/lib/features/bucketApi';
 import { Box, Input, Text } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
-import React, { useState } from 'react'
+import { useState } from 'react';
 
 const AddBucket = () => {
     const [active, setActive] = useState(false);

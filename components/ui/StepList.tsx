@@ -4,7 +4,7 @@ interface Props {
     steps: string[]
 }
 
-const TaskList = ({ steps }: Props) => {
+const StepList = ({ steps }: Props) => {
 
     return (
         <Box my={2}>
@@ -50,4 +50,4 @@ const TaskList = ({ steps }: Props) => {
     )
 }
 
-export default TaskList
+export default StepList

@@ -1,14 +1,13 @@
-import { Flex, Menu, MenuButton, Icon, MenuList, MenuItem } from '@chakra-ui/react'
-import React from 'react'
-import { TiUserAddOutline } from 'react-icons/ti'
+import { Flex, Icon, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import Image from "next/image";
+import { TiUserAddOutline } from 'react-icons/ti';
 
 interface Props {
     image: string,
     name: string
 }
 
-const AddUserToTask = ({ image, name }: Props) => {
+const AssignUserToTask = ({ image, name }: Props) => {
     return (
         <Flex className='gap-1 my-1 p-1'>
             <Menu>
@@ -26,4 +25,4 @@ const AddUserToTask = ({ image, name }: Props) => {
     )
 }
 
-export default AddUserToTask
+export default AssignUserToTask

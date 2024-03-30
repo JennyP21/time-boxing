@@ -1,60 +1,55 @@
-import { taskProgress, taskSeverity } from '@/constants';
+"use client"
 import { TaskWithUserI } from '@/interfaces';
-import { Box, Button, Checkbox, Flex, Grid, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, Textarea } from '@chakra-ui/react';
-import AddUserToTask from './AddUserToTask';
-import TaskList from './TaskList';
-import TaskSelect from './TaskSelect';
+import { Card, CardBody, CardFooter, CardHeader, Checkbox, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import AssignUserToTask from './AssignUserToTask';
+import Label from './Label';
+import TaskDetails from './TaskDetails';
 
 interface Props {
-    taskWithUser: TaskWithUserI;
-    isOpen: boolean;
-    onClose: () => void;
+    taskWithUser: TaskWithUserI
 }
 
-const Task = ({ isOpen, onClose, taskWithUser }: Props) => {
-    const { severity, progress, note, steps, title, start_date, end_date } = taskWithUser.tasks;
-    const { image, name } = taskWithUser.user;
+const Task = ({ taskWithUser }: Props) => {
+    const task = taskWithUser.tasks;
+    const user = taskWithUser.user;
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
-        <form>
-            <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent p={1} my={5} minWidth="45%">
-                    <ModalHeader fontWeight="500" fontSize="small" pb={0}>
-                        <Text mb={0.5} fontWeight={"700"}>Tasks</Text>
-                        <Input className='font-medium' placeholder='Name of task' defaultValue={title} border="none" />
-                        <AddUserToTask image={image} name={name} />
-                    </ModalHeader>
-                    <ModalBody py={0}>
-                        <Stack textAlign="left" bg="white" width="100%" justifyContent="center">
-                            <Grid templateAreas={{
-                                base: `"item1" "item2" "item3" "item4"`,
-                                md: `"item1 item2" "item3 item4"`
-                            }} gap={2}>
-                                <Input type="date" placeholder='Start Date' defaultValue={start_date} />
-                                <Input type="date" placeholder='Start Date' defaultValue={end_date} />
-                                <TaskSelect defaultValue={severity} options={taskSeverity} />
-                                <TaskSelect defaultValue={progress} options={taskProgress} />
-                            </Grid>
-                            <Box width="100%">
-                                <Flex justifyContent="space-between">
-                                    <Text fontSize="small">Note:</Text>
-                                    <Checkbox my={1} size={"md"} colorScheme='blue'><Text fontSize={"small"}>Show on card</Text></Checkbox>
-                                </Flex>
-                                <Textarea resize="none" fontSize="small" defaultValue={note} />
-                            </Box>
-                            <TaskList steps={steps} />
-                        </Stack>
-                    </ModalBody>
-                    <ModalFooter pt={0}>
-                        <Button colorScheme='blue' mr={3} isDisabled={true}>
-                            Save
-                        </Button>
-                        <Button variant='ghost' onClick={onClose}>Close</Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
-        </form>
+        <Card
+            backgroundColor="gray.50"
+            className='cursor-pointer w-full text-left shadow-sm hover:shadow-md transition-all'
+        >
+            <CardHeader alignItems="center" px={3} py={1}>
+                <Flex className='gap-1 my-3 flex-wrap'>
+                    <Label labels={["Objective"]} />
+                </Flex>
+                <Flex alignItems="center" gap={1}>
+                    <Checkbox size={"md"} />
+                    <Text onClick={onOpen}>
+                        {task.title}
+                    </Text>
+                </Flex>
+            </CardHeader>
+            <CardBody px={3} pt={0}>
+                {task.showOnTask === "note" ?
+                    <Text className='text-xs overflow-clip whitespace-nowrap'>{task.note}</Text>
+                    :
+                    <Flex flexDir="column">
+                        {task.steps.map(step => (
+                            <Flex key={step} alignItems="center" gap={1} fontSize="small">
+                                <Checkbox size={"md"} />
+                                {step}
+                            </Flex>
+                        ))}
+                    </Flex>
+                }
+            </CardBody>
+            <CardFooter px={3} py={0} borderTop={"1px"} borderColor={"gray.200"}>
+                <AssignUserToTask image={user.image} name={user.name} />
+            </CardFooter>
+            <TaskDetails taskWithUser={taskWithUser} isOpen={isOpen} onClose={onClose} />
+        </Card >
     )
 }
 

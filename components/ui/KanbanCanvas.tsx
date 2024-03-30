@@ -1,9 +1,9 @@
 "use client"
-import { Grid, Spinner } from '@chakra-ui/react'
-import Bucket from './Bucket'
-import { useGetBucketsQuery } from '@/lib/features/bucketApi'
-import AddBucket from './AddBucket'
 import { toast } from '@/app/api/Toast'
+import { useGetBucketsQuery } from '@/lib/features/bucketApi'
+import { Grid, Spinner } from '@chakra-ui/react'
+import AddBucket from './AddBucket'
+import Bucket from './Bucket'
 
 const KanbanCanvas = () => {
     const { data: buckets, error, isLoading } = useGetBucketsQuery();
