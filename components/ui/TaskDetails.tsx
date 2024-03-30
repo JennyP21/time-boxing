@@ -4,6 +4,7 @@ import { Box, Button, Checkbox, Flex, Grid, Input, Modal, ModalBody, ModalConten
 import AssignUserToTask from './AssignUserToTask';
 import StepList from './StepList';
 import TaskSelect from './TaskSelect';
+import TaskDetailsHeader from './TaskDetailsHeader';
 
 interface Props {
     taskWithUser: TaskWithUserI;
@@ -12,8 +13,8 @@ interface Props {
 }
 
 const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
-    const { severity, progress, note, steps, title, start_date, end_date } = taskWithUser.tasks;
-    const { image, name } = taskWithUser.user;
+    const { id, severity, progress, note, steps, title, start_date, end_date } = taskWithUser.tasks;
+    const { id: user_id, image, name } = taskWithUser.user;
 
     return (
         <form>
@@ -21,9 +22,7 @@ const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
                 <ModalOverlay />
                 <ModalContent p={1} my={5} minWidth="45%">
                     <ModalHeader fontWeight="500" fontSize="small" pb={0}>
-                        <Text mb={0.5} fontWeight={"700"}>Tasks</Text>
-                        <Input className='font-medium' placeholder='Name of task' defaultValue={title} border="none" />
-                        <AssignUserToTask image={image} name={name} />
+                        <TaskDetailsHeader task_id={id} user_id={user_id} image={image} currentTitle={title} name={name} />
                     </ModalHeader>
                     <ModalBody py={0}>
                         <Stack textAlign="left" bg="white" width="100%" justifyContent="center">

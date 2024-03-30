@@ -26,6 +26,14 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ["tasks"],
     }),
+    updateTask: builder.mutation<TaskI, TaskI>({
+      query: (data: TaskI) => ({
+        url: `/task/${data.id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["tasks"],
+    }),
     deleteTask: builder.mutation<null, string>({
       query: (id: string) => ({
         url: `/task/${id}`,
@@ -39,5 +47,6 @@ export const taskApi = createApi({
 export const {
   useGetTasksByBucketQuery,
   useAddTaskMutation,
+  useUpdateTaskMutation,
   useDeleteTaskMutation,
 } = taskApi;

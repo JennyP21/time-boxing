@@ -24,7 +24,7 @@ export const bucketApi = createApi({
       invalidatesTags: ["bucket"],
     }),
     updateBucket: builder.mutation<BucketI, BucketI>({
-      query: (data: { name: string; id: string }) => ({
+      query: (data: BucketI) => ({
         url: `bucket/${data.id}`,
         method: "PATCH",
         body: data,
