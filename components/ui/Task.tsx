@@ -1,6 +1,8 @@
 "use client"
 import { TaskWithUserI } from '@/interfaces';
-import { Card, CardBody, CardFooter, CardHeader, Checkbox, Flex, Text, useDisclosure } from '@chakra-ui/react';
+import { useDeleteTaskMutation } from '@/lib/features/taskApi';
+import { Card, CardBody, CardFooter, CardHeader, Checkbox, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
+import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import AssignUserToTask from './AssignUserToTask';
 import Label from './Label';
 import TaskDetails from './TaskDetails';
@@ -14,13 +16,26 @@ const Task = ({ taskWithUser }: Props) => {
     const user = taskWithUser.user;
 
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [deleteTask] = useDeleteTaskMutation();
+
+    const handleDelete = async () => {
+        await deleteTask(task.id);
+    }
 
     return (
         <Card
             backgroundColor="gray.50"
-            className='cursor-pointer w-full text-left shadow-sm hover:shadow-md transition-all'
+            className='relative cursor-pointer w-full text-left shadow-sm hover:shadow-md transition-all'
         >
             <CardHeader alignItems="center" px={3} py={1}>
+                <Menu placement='bottom-end'>
+                    <MenuButton className='absolute right-2 top-1'>
+                        <Icon as={HiOutlineDotsHorizontal} w={4} h={4} />
+                    </MenuButton>
+                    <MenuList>
+                        <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                    </MenuList>
+                </Menu>
                 <Flex className='gap-1 my-3 flex-wrap'>
                     <Label labels={["Objective"]} />
                 </Flex>
