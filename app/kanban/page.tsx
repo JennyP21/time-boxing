@@ -5,7 +5,7 @@ const KanbanView = () => {
     return (
         <Flex className='w-full h-full flex-col'>
             <Heading size="lg" as={"h3"} lineHeight="1" fontWeight="normal" borderBottom="1px" p={3} borderColor={"gray.300"}>Kanban View</Heading>
-            <Box className='overflow-x-scroll flex-1'>
+            <Box className='overflow-x-scroll overflow-y-hidden flex-[1_0_0]'>
                 <KanbanCanvas />
             </Box>
         </Flex>
