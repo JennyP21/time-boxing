@@ -11,14 +11,18 @@ export const validateTask = z.object({
   title: z.string().min(3),
   start_date: z.date().optional(),
   end_date: z.date().optional(),
-  severity: z.enum(["low", "medium", "high", "urgent"]),
-  progress: z.enum([
-    "Not Started",
-    "In Progress",
-    "On Hold",
-    "Completed",
-  ]),
-  steps: z.string().array().max(20),
+  severity: z
+    .enum(["low", "medium", "high", "urgent"])
+    .optional(),
+  progress: z
+    .enum([
+      "Not Started",
+      "In Progress",
+      "On Hold",
+      "Completed",
+    ])
+    .optional(),
+  steps: z.string().array().max(20).optional(),
 });
 
 export const validatePatchTask = z.object({

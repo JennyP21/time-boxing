@@ -36,7 +36,7 @@ const Task = ({ taskWithUser }: Props) => {
                     <Text className='text-xs overflow-clip whitespace-nowrap'>{task.note}</Text>
                     :
                     <Flex flexDir="column">
-                        {task.steps.map(step => (
+                        {task.steps && task.steps.map(step => (
                             <Flex key={step} alignItems="center" gap={1} fontSize="small">
                                 <Checkbox size={"md"} />
                                 {step}

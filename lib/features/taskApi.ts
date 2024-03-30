@@ -1,4 +1,4 @@
-import { TaskWithUserI } from "@/interfaces";
+import { TaskI, TaskWithUserI } from "@/interfaces";
 import {
   createApi,
   fetchBaseQuery,
@@ -18,7 +18,18 @@ export const taskApi = createApi({
       query: (id: string) => `/bucket/${id}/tasks`,
       providesTags: ["tasks"],
     }),
+    addTask: builder.mutation<TaskI, TaskI>({
+      query: (task: TaskI) => ({
+        url: `/task`,
+        method: "POST",
+        body: task,
+      }),
+      invalidatesTags: ["tasks"],
+    }),
   }),
 });
 
-export const { useGetTasksByBucketQuery } = taskApi;
+export const {
+  useGetTasksByBucketQuery,
+  useAddTaskMutation,
+} = taskApi;

@@ -13,7 +13,7 @@ const StepList = ({ steps }: Props) => {
                 <Checkbox my={1} size={"md"} colorScheme='blue'><Text fontSize={"small"}>Show on card</Text></Checkbox>
             </HStack>
             <Flex flexDir="column" maxHeight={"40vh"} overflowY={"scroll"}>
-                {steps.map((step, index) => (
+                {steps && steps.map((step, index) => (
                     <InputGroup py={1} px={2} gap={1} rounded="full" key={index} _hover={{
                         background: "gray.100"
                     }}>

@@ -13,7 +13,7 @@ export interface TaskI {
   title: string;
   start_date: string;
   end_date: string;
-  severity: "low" | "medium" | "high" | "urgent";
+  severity: "Low" | "Medium" | "High" | "Urgent";
   progress:
     | "Not Started"
     | "In Progress"
