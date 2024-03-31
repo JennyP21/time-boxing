@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { isDate } from "lodash";
 
 export const validateBucket = z.object({
   name: z.string(),
@@ -24,6 +23,7 @@ export const validateTask = z.object({
     ])
     .optional(),
   steps: z.string().array().max(20).optional(),
+  showOnCard: z.enum(["steps", "note"]).optional(),
 });
 
 export const validatePatchTask = z.object({
@@ -44,6 +44,7 @@ export const validatePatchTask = z.object({
     ])
     .optional(),
   steps: z.string().array().max(20).optional(),
+  showOnCard: z.enum(["steps", "note"]).optional(),
 });
 
 export const validateLabel = z.object({

@@ -1,16 +1,27 @@
-import { Box, Checkbox, Flex, HStack, Input, InputGroup, Text } from '@chakra-ui/react';
+import { TaskI } from '@/interfaces';
+import { useUpdateTaskMutation } from '@/lib/features/taskApi';
+import { Box, Checkbox, Flex, HStack, Input, InputGroup, Radio, Text } from '@chakra-ui/react';
 
 interface Props {
     steps: string[]
+    task_id: string;
+    user_id: string;
 }
 
-const StepList = ({ steps }: Props) => {
+const StepList = ({ steps, task_id, user_id }: Props) => {
+
+    const [updateTask] = useUpdateTaskMutation();
+
+    const handleShowOnCard = async () => {
+        const data = { showOnTask: "steps", id: task_id, user_id } as TaskI;
+        await updateTask(data);
+    }
 
     return (
         <Box my={2}>
             <HStack justifyContent="space-between" fontSize="small">
                 <Text>Checklist 0 / 20</Text>
-                <Checkbox my={1} size={"md"} colorScheme='blue'><Text fontSize={"small"}>Show on card</Text></Checkbox>
+                <Radio my={1} size={"md"} colorScheme='blue' value='steps' onChange={handleShowOnCard}><Text fontSize={"small"}>Show on card</Text></Radio>
             </HStack>
             <Flex flexDir="column" maxHeight={"40vh"} overflowY={"scroll"}>
                 {steps && steps.map((step, index) => (

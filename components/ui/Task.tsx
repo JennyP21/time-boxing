@@ -47,9 +47,10 @@ const Task = ({ taskWithUser }: Props) => {
                 </Flex>
             </CardHeader>
             <CardBody px={3} pt={0}>
-                {task.showOnTask === "note" ?
+                {task.showOnTask === "note" &&
                     <Text className='text-xs overflow-clip whitespace-nowrap'>{task.note}</Text>
-                    :
+                }
+                {task.showOnTask === "steps" &&
                     <Flex flexDir="column">
                         {task.steps && task.steps.map(step => (
                             <Flex key={step} alignItems="center" gap={1} fontSize="small">

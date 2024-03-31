@@ -1,5 +1,5 @@
 import { TaskWithUserI } from '@/interfaces';
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack } from '@chakra-ui/react';
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, RadioGroup, Stack } from '@chakra-ui/react';
 import StepList from './StepList';
 import TaskAttributes from './TaskAttributes';
 import TaskDetailsHeader from './TaskDetailsHeader';
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
-    const { id, severity, progress, note, steps, title, start_date, end_date } = taskWithUser.tasks;
+    const { id, severity, progress, note, steps, title, start_date, end_date, showOnTask } = taskWithUser.tasks;
     const { id: user_id, image, name } = taskWithUser.user;
 
     return (
@@ -26,8 +26,10 @@ const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
                     <ModalBody py={0}>
                         <Stack textAlign="left" bg="white" width="100%" justifyContent="center">
                             <TaskAttributes task_id={id} user_id={user_id} start_date={start_date} end_date={end_date} progress={progress} severity={severity} />
-                            <TaskNote task_id={id} user_id={user_id} note={note} />
-                            <StepList steps={steps} />
+                            <RadioGroup defaultValue={showOnTask}>
+                                <TaskNote task_id={id} user_id={user_id} note={note} />
+                                <StepList task_id={id} user_id={user_id} steps={steps} />
+                            </RadioGroup>
                         </Stack>
                     </ModalBody>
                     <ModalFooter pt={0}>
