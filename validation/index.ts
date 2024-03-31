@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { isDate } from "lodash";
 
 export const validateBucket = z.object({
   name: z.string(),
@@ -29,10 +30,10 @@ export const validatePatchTask = z.object({
   user_id: z.string(),
   bucket_id: z.string().optional(),
   title: z.string().min(3).optional(),
-  start_date: z.date().optional(),
-  end_date: z.date().optional(),
+  start_date: z.string().optional(),
+  end_date: z.string().optional(),
   severity: z
-    .enum(["low", "medium", "high", "urgent"])
+    .enum(["Low", "Medium", "High", "Urgent"])
     .optional(),
   progress: z
     .enum([

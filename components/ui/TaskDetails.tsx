@@ -1,9 +1,7 @@
-import { taskProgress, taskSeverity } from '@/constants';
 import { TaskWithUserI } from '@/interfaces';
-import { Box, Button, Checkbox, Flex, Grid, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, Textarea } from '@chakra-ui/react';
-import AssignUserToTask from './AssignUserToTask';
+import { Box, Button, Checkbox, Flex, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, Textarea } from '@chakra-ui/react';
 import StepList from './StepList';
-import TaskSelect from './TaskSelect';
+import TaskAttributes from './TaskAttributes';
 import TaskDetailsHeader from './TaskDetailsHeader';
 
 interface Props {
@@ -26,15 +24,7 @@ const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
                     </ModalHeader>
                     <ModalBody py={0}>
                         <Stack textAlign="left" bg="white" width="100%" justifyContent="center">
-                            <Grid templateAreas={{
-                                base: `"item1" "item2" "item3" "item4"`,
-                                md: `"item1 item2" "item3 item4"`
-                            }} gap={2}>
-                                <Input type="date" placeholder='Start Date' defaultValue={start_date} />
-                                <Input type="date" placeholder='Start Date' defaultValue={end_date} />
-                                <TaskSelect defaultValue={severity} options={taskSeverity} />
-                                <TaskSelect defaultValue={progress} options={taskProgress} />
-                            </Grid>
+                            <TaskAttributes task_id={id} user_id={user_id} start_date={start_date} end_date={end_date} progress={progress} severity={severity} />
                             <Box width="100%">
                                 <Flex justifyContent="space-between">
                                     <Text fontSize="small">Note:</Text>

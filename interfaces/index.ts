@@ -38,6 +38,15 @@ export interface TaskWithUserI {
   user: UserI;
 }
 
+export interface TaskAttributesProps {
+  task_id: string;
+  user_id: string;
+  start_date: string;
+  end_date: string;
+  severity: string;
+  progress: string;
+}
+
 export interface LabelI {
   id: string;
   name: string;

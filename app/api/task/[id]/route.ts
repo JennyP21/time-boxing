@@ -45,6 +45,7 @@ export async function PATCH(
   const id = params.id;
   const data = await request.json();
   const validation = validatePatchTask.safeParse(data);
+  console.log(data);
 
   if (!validation.success)
     return NextResponse.json(validation.error.message, {
