@@ -1,8 +1,9 @@
 import { TaskWithUserI } from '@/interfaces';
-import { Box, Button, Checkbox, Flex, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack, Text, Textarea } from '@chakra-ui/react';
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Stack } from '@chakra-ui/react';
 import StepList from './StepList';
 import TaskAttributes from './TaskAttributes';
 import TaskDetailsHeader from './TaskDetailsHeader';
+import TaskNote from './TaskNote';
 
 interface Props {
     taskWithUser: TaskWithUserI;
@@ -25,13 +26,7 @@ const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
                     <ModalBody py={0}>
                         <Stack textAlign="left" bg="white" width="100%" justifyContent="center">
                             <TaskAttributes task_id={id} user_id={user_id} start_date={start_date} end_date={end_date} progress={progress} severity={severity} />
-                            <Box width="100%">
-                                <Flex justifyContent="space-between">
-                                    <Text fontSize="small">Note:</Text>
-                                    <Checkbox my={1} size={"md"} colorScheme='blue'><Text fontSize={"small"}>Show on card</Text></Checkbox>
-                                </Flex>
-                                <Textarea resize="none" fontSize="small" defaultValue={note} />
-                            </Box>
+                            <TaskNote task_id={id} user_id={user_id} note={note} />
                             <StepList steps={steps} />
                         </Stack>
                     </ModalBody>
