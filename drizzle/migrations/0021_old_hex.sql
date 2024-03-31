@@ -1,0 +1,1 @@
+ALTER TABLE "tasks" ALTER COLUMN "steps" SET DATA TYPE uuid[20] USING steps::uuid[];

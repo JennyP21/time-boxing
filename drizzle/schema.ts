@@ -1,8 +1,10 @@
 import type { AdapterAccount } from "@auth/core/adapters";
 import { relations } from "drizzle-orm";
 import {
+  boolean,
   date,
   integer,
+  json,
   pgTable,
   primaryKey,
   text,
@@ -56,9 +58,18 @@ export const tasks = pgTable("tasks", {
   showOnTask: text("showOnTask", {
     enum: ["note", "steps"],
   }),
-  steps: text("steps").array(20),
+  steps: uuid("steps")
+    .array(20)
+    .references(() => step.id),
   created_at: timestamp("created_at"),
   updated_at: timestamp("updated_at"),
+});
+
+export const step = pgTable("step", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  value: text("value").notNull(),
+  order: integer("order").notNull(),
+  checked: boolean("checked").default(false),
 });
 
 export const tasksRelations = relations(

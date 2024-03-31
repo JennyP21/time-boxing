@@ -120,6 +120,13 @@
       "when": 1711913772406,
       "tag": "0019_medical_monster_badoon",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "5",
+      "when": 1711921215208,
+      "tag": "0021_old_hex",
+      "breakpoints": true
     }
   ]
 }
