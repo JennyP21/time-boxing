@@ -1,4 +1,4 @@
-import { LabelI } from "@/interfaces";
+import { LabelI, Task_LabelI } from "@/interfaces";
 import {
   createApi,
   fetchBaseQuery,
@@ -27,10 +27,36 @@ export const labelApi = createApi({
         "updateLabel",
       ],
     }),
+    addLabel: builder.mutation<LabelI, LabelI>({
+      query: (data: LabelI) => ({
+        url: `label`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["addLabel"],
+    }),
+    updateLabel: builder.mutation<LabelI, LabelI>({
+      query: (data: LabelI) => ({
+        url: `label/${data.id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["updateLabel"],
+    }),
+    deleteLabel: builder.mutation<void, string>({
+      query: (id: string) => ({
+        url: `label/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["updateLabel"],
+    }),
   }),
 });
 
 export const {
   useGetLabelsQuery,
   useGetLabelsByTaskQuery,
+  useAddLabelMutation,
+  useUpdateLabelMutation,
+  useDeleteLabelMutation,
 } = labelApi;

@@ -4,7 +4,7 @@ import { useDeleteTaskMutation } from '@/lib/features/taskApi';
 import { Card, CardBody, CardFooter, CardHeader, Checkbox, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import AssignUserToTask from './AssignUserToTask';
-import Label from './Label';
+import LabelDisplay from './LabelDisplay';
 import TaskDetails from './TaskDetails';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 
@@ -39,7 +39,7 @@ const Task = ({ taskWithUser }: Props) => {
                     </MenuList>
                 </Menu>
                 <Flex className='gap-1 my-3 flex-wrap'>
-                    <Label task_id={task.id} />
+                    <LabelDisplay task_id={task.id} />
                 </Flex>
                 <Flex alignItems="center" gap={1}>
                     <Checkbox size={"md"} />

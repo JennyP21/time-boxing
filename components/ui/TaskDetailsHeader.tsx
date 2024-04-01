@@ -4,6 +4,7 @@ import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { Input, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import AssignUserToTask from './AssignUserToTask';
+import LabelDetails from './LabelDetails';
 
 interface Props {
     image: string;
@@ -40,6 +41,7 @@ const TaskDetailsHeader = ({ task_id, user_id, image, name, currentTitle }: Prop
                 onBlur={handleSubmit}
             />
             <AssignUserToTask image={image} name={name} />
+            <LabelDetails task_id={task_id} />
         </>
     )
 }

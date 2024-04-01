@@ -78,7 +78,7 @@ const StepsDetails = ({ steps, task_id }: Props) => {
                         }
                         }
                     />
-                    <InputRightElement onClick={() => handleDeleteStep(step.id)} _groupHover={{ visibility: "visible" }} className='rounded-full hover:bg-gray-300 !h-7 !w-7' visibility="hidden" alignSelf="center" children={<MdOutlineDelete />} />
+                    <InputRightElement onClick={() => handleDeleteStep(step.id)} _groupHover={{ visibility: "visible" }} className='rounded-full hover:bg-gray-300 !h-7 !w-7' visibility="hidden" children={<MdOutlineDelete />} />
                 </InputGroup>
             ))}
             {steps.length < 20 &&

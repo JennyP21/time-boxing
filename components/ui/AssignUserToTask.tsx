@@ -9,10 +9,10 @@ interface Props {
 
 const AssignUserToTask = ({ image, name }: Props) => {
     return (
-        <Flex className='gap-1 my-1 p-1'>
+        <Flex className='gap-1 my-1'>
             <Menu>
                 <MenuButton>
-                    <Icon as={TiUserAddOutline} w={6} h={6} />
+                    <Icon as={TiUserAddOutline} w={6} h={6} mr={2} />
                 </MenuButton>
                 <MenuList>
                     <MenuItem>User 1</MenuItem>
