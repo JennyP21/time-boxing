@@ -15,6 +15,7 @@ import {
 export const buckets = pgTable("bucket", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
+  order: integer("order").notNull(),
   user_id: text("user_id")
     .notNull()
     .references(() => users.id),
@@ -79,7 +80,9 @@ export const tasksRelations = relations(
 
 export const steps = pgTable("steps", {
   id: uuid("id").primaryKey().defaultRandom(),
-  task_id: uuid("task_id").references(() => tasks.id),
+  task_id: uuid("task_id").references(() => tasks.id, {
+    onDelete: "cascade",
+  }),
   value: text("value").notNull(),
   order: integer("order").notNull(),
   checked: boolean("checked").default(false),

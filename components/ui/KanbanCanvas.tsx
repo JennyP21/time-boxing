@@ -21,7 +21,7 @@ const KanbanCanvas = () => {
                     {buckets?.map(bucket => (
                         <Bucket key={bucket.id} id={bucket.id} name={bucket.name} />
                     ))}
-                    <AddBucket />
+                    <AddBucket lastBucketOrder={(buckets && buckets.length > 0) ? buckets[buckets.length - 1].order : 0} />
                 </Grid>
             }
         </>

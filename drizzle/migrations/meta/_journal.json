@@ -162,6 +162,20 @@
       "when": 1711931115379,
       "tag": "0026_burly_whistler",
       "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "5",
+      "when": 1712013580725,
+      "tag": "0027_typical_husk",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "5",
+      "when": 1712013844187,
+      "tag": "0028_minor_veda",
+      "breakpoints": true
     }
   ]
 }

@@ -4,9 +4,12 @@ import { BucketI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
 export async function getBuckets() {
-  const buckets = await db.query.buckets.findMany();
+  const allBuckets = await db
+    .select()
+    .from(buckets)
+    .orderBy(buckets.order);
 
-  return buckets;
+  return allBuckets;
 }
 
 export async function addBucket(bucket: BucketI) {

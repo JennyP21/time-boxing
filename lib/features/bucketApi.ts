@@ -16,7 +16,7 @@ export const bucketApi = createApi({
       providesTags: ["bucket"],
     }),
     addBucket: builder.mutation<BucketI, BucketI>({
-      query: (data: { name: string }) => ({
+      query: (data: BucketI) => ({
         url: "bucket/",
         method: "POST",
         body: data,

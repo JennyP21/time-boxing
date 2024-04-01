@@ -7,7 +7,11 @@ import { Box, Input, Text } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
-const AddBucket = () => {
+interface Props {
+    lastBucketOrder: number;
+}
+
+const AddBucket = ({ lastBucketOrder }: Props) => {
     const [active, setActive] = useState(false);
     const [name, setName] = useState("");
     const session = useSession();
@@ -17,6 +21,7 @@ const AddBucket = () => {
     const handleOnBlur = async () => {
         const data = {
             name,
+            order: lastBucketOrder + 1,
             user_id: session.data?.user?.id
         } as BucketI;
         if (name) {
