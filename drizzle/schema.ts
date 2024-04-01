@@ -4,7 +4,6 @@ import {
   boolean,
   date,
   integer,
-  json,
   pgTable,
   primaryKey,
   text,
@@ -62,6 +61,22 @@ export const tasks = pgTable("tasks", {
   updated_at: timestamp("updated_at"),
 });
 
+export const tasksRelations = relations(
+  tasks,
+  ({ many, one }) => ({
+    tasks_labels: many(tasks_labels),
+    steps: many(steps),
+    bucket: one(buckets, {
+      fields: [tasks.bucket_id],
+      references: [buckets.id],
+    }),
+    users: one(users, {
+      fields: [tasks.user_id],
+      references: [users.id],
+    }),
+  })
+);
+
 export const steps = pgTable("steps", {
   id: uuid("id").primaryKey().defaultRandom(),
   task_id: uuid("task_id").references(() => tasks.id),
@@ -70,17 +85,12 @@ export const steps = pgTable("steps", {
   checked: boolean("checked").default(false),
 });
 
-export const tasksRelations = relations(
-  tasks,
-  ({ many, one }) => ({
-    tasks_labels: many(tasks_labels),
-    bucket: one(buckets, {
-      fields: [tasks.bucket_id],
-      references: [buckets.id],
-    }),
-    users: one(users, {
-      fields: [tasks.user_id],
-      references: [users.id],
+export const stepsRelations = relations(
+  steps,
+  ({ one }) => ({
+    task: one(tasks, {
+      fields: [steps.task_id],
+      references: [tasks.id],
     }),
   })
 );
