@@ -24,6 +24,7 @@ const AddTask = ({ bucket_id }: Props) => {
     const handleSubmit = async () => {
         await addTask(data as TaskI);
         setData(initialData);
+        setActive(false);
     }
 
     return (
@@ -38,7 +39,7 @@ const AddTask = ({ bucket_id }: Props) => {
             </Button>
             {active && <Card background="gray.50">
                 <CardHeader>
-                    <Input autoFocus placeholder='Enter a task name.' py={0} onChange={(e) => {
+                    <Input autoFocus placeholder='Enter a task name.' py={0} h={7} defaultValue={data.title} onChange={(e) => {
                         setData({ ...data, title: e.target.value });
                     }} onBlur={(e) => (
                         e.target.value.trim() === "" && setActive(false)
