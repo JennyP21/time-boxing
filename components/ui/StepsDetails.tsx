@@ -56,8 +56,8 @@ const StepsDetails = ({ steps, task_id }: Props) => {
 
     return (
         <Flex flexDir="column" maxHeight={"40vh"} overflowY={"scroll"}>
-            {steps && steps.map((step, index) => (
-                <InputGroup className='py-1 px-2 gap-1 my-0.5 rounded-full flex items-center' key={index} _hover={{
+            {steps.map((step) => (
+                <InputGroup className='py-1 px-2 gap-1 my-0.5 rounded-full flex items-center' key={step.id} _hover={{
                     background: "gray.100"
                 }}>
                     <Checkbox id={step.id} size={"md"} colorScheme='blue' defaultChecked={step.checked} onChange={() => handleStepStatus(step.id, step.checked)} />
