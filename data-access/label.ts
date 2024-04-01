@@ -1,5 +1,9 @@
 import { db } from "@/drizzle";
-import { labels } from "@/drizzle/schema";
+import {
+  labels,
+  tasks,
+  tasks_labels,
+} from "@/drizzle/schema";
 import { LabelI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
@@ -7,6 +11,19 @@ export async function getLabels() {
   const labels = await db.query.labels.findMany();
 
   return labels;
+}
+
+export async function getLabelsByTaskId(task_id: string) {
+  const labelsByTask = await db
+    .select({
+      id: labels.id,
+      name: labels.name,
+    })
+    .from(tasks_labels)
+    .fullJoin(labels, eq(tasks_labels.label_id, labels.id))
+    .fullJoin(tasks, eq(tasks_labels.task_id, tasks.id))
+    .where(eq(tasks.id, task_id));
+  return labelsByTask;
 }
 
 export async function addLabel(label: LabelI) {

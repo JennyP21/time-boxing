@@ -1,15 +1,20 @@
-import { Box } from '@chakra-ui/react'
-import React from 'react'
+import { useGetLabelsByTaskQuery } from '@/lib/features/labelApi';
+import { Box } from '@chakra-ui/react';
 
 interface Props {
-    labels: string[]
+    task_id: string;
 }
 
-const Label = ({ labels }: Props) => {
+const Label = ({ task_id }: Props) => {
+
+    const { data: labels } = useGetLabelsByTaskQuery(task_id);
+
+    if (!labels) return null;
+
     return (
         <>
-            {labels.map((label, index) => (
-                <Box as={"span"} className='rounded-md text-xs p-1' bg={"gray.300"} key={index}>{label}</Box>
+            {labels.map((label) => (
+                <Box as={"span"} className='rounded-md text-xs p-1' bg={"gray.300"} key={label.id}>{label.name}</Box>
             ))}
         </>
     )

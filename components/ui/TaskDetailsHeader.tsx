@@ -1,9 +1,9 @@
 "use client"
+import { TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { Input, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import AssignUserToTask from './AssignUserToTask';
-import { TaskI } from '@/interfaces';
 
 interface Props {
     image: string;
@@ -24,7 +24,7 @@ const TaskDetailsHeader = ({ task_id, user_id, image, name, currentTitle }: Prop
                 user_id,
                 title,
             } as TaskI;
-            const updatedTask = await updateTask(data);
+            await updateTask(data);
         }
     };
 
