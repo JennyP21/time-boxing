@@ -55,7 +55,7 @@ export const validateStep = z.object({
   task_id: z.string().uuid(),
   value: z.string(),
   order: z.number().positive(),
-  checked: z.boolean(),
+  checked: z.boolean().optional(),
 });
 
 export const validatePatchStep = z.object({

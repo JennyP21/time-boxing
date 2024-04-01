@@ -2,11 +2,7 @@ import { addStep } from "@/data-access/step";
 import { validateStep } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const id = params.id;
+export async function POST(request: NextRequest) {
   const data = await request.json();
 
   const validation = validateStep.safeParse(data);

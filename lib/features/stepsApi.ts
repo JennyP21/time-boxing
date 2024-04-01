@@ -15,30 +15,35 @@ export const stepsApi = createApi({
       query: (id: string) => `/task/${id}/step`,
       providesTags: ["steps"],
     }),
-    // addTask: builder.mutation<TaskI, TaskI>({
-    //   query: (task: TaskI) => ({
-    //     url: `/task`,
-    //     method: "POST",
-    //     body: task,
-    //   }),
-    //   invalidatesTags: ["tasks"],
-    // }),
-    // updateTask: builder.mutation<TaskI, TaskI>({
-    //   query: (data: TaskI) => ({
-    //     url: `/task/${data.id}`,
-    //     method: "PATCH",
-    //     body: data,
-    //   }),
-    //   invalidatesTags: ["tasks"],
-    // }),
-    // deleteTask: builder.mutation<null, string>({
-    //   query: (id: string) => ({
-    //     url: `/task/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: ["tasks"],
-    // }),
+    addStep: builder.mutation<StepsI, StepsI>({
+      query: (task: StepsI) => ({
+        url: `/step`,
+        method: "POST",
+        body: task,
+      }),
+      invalidatesTags: ["steps"],
+    }),
+    updateStep: builder.mutation<StepsI, StepsI>({
+      query: (data: StepsI) => ({
+        url: `/step/${data.id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["steps"],
+    }),
+    deleteStep: builder.mutation<null, string>({
+      query: (id: string) => ({
+        url: `/step/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["steps"],
+    }),
   }),
 });
 
-export const { useGetStepsByTaskIdQuery } = stepsApi;
+export const {
+  useGetStepsByTaskIdQuery,
+  useAddStepMutation,
+  useDeleteStepMutation,
+  useUpdateStepMutation,
+} = stepsApi;

@@ -7,7 +7,8 @@ export async function getStepsByTaskId(task_id: string) {
   const result = await db
     .select()
     .from(steps)
-    .where(eq(steps.task_id, task_id));
+    .where(eq(steps.task_id, task_id))
+    .orderBy(steps.order);
 
   return result;
 }
