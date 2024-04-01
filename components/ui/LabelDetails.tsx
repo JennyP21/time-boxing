@@ -1,7 +1,7 @@
 "use client"
 import Skeleton from "@/components/ui/Skeleton";
-import { LabelI } from "@/interfaces";
-import { useGetLabelsByTaskQuery, useGetLabelsQuery, useUpdateLabelMutation } from '@/lib/features/labelApi';
+import { LabelI, Task_LabelI } from "@/interfaces";
+import { useAssignLabelMutation, useGetLabelsByTaskQuery, useGetLabelsQuery, useUnassignLabelMutation, useUpdateLabelMutation } from '@/lib/features/labelApi';
 import { Box, Flex, Icon, Input, InputGroup, InputRightElement, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { SyntheticEvent, useState } from "react";
 import { IoClose } from "react-icons/io5";
@@ -34,6 +34,26 @@ const LabelDetails = ({ task_id }: Props) => {
             } as LabelI;
             await updateLabel(newLabel);
         }
+        setEditLabel(initialState);
+    }
+
+    const [assignLabel] = useAssignLabelMutation();
+    const handleLabelAssignment = async () => {
+        const data = {
+            task_id,
+            label_id: editLabel.labelId
+        } as Task_LabelI;
+        await assignLabel(data);
+    }
+
+    const [unassignLabel] = useUnassignLabelMutation();
+    const handleLabelUnAssignment = async () => {
+        const data = {
+            task_id,
+            label_id: editLabel.labelId
+        } as Task_LabelI;
+        await unassignLabel(data)
+
         setEditLabel(initialState);
     }
 

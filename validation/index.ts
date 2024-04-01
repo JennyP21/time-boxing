@@ -64,3 +64,8 @@ export const validatePatchStep = z.object({
   order: z.number().positive().optional(),
   checked: z.boolean().optional(),
 });
+
+export const validateLabelAssignment = z.object({
+  task_id: z.string().uuid(),
+  label_id: z.string().uuid(),
+});

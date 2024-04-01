@@ -1,7 +1,7 @@
 import { db } from "@/drizzle";
 import { tasks_labels } from "@/drizzle/schema";
 import { Task_LabelI } from "@/interfaces";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 export async function assignLabel(data: Task_LabelI) {
   const newAssignment = await db
@@ -12,8 +12,13 @@ export async function assignLabel(data: Task_LabelI) {
   return newAssignment;
 }
 
-export async function unAssignLabel(id: string) {
+export async function unAssignLabel(data: Task_LabelI) {
   await db
     .delete(tasks_labels)
-    .where(eq(tasks_labels.id, id));
+    .where(
+      and(
+        eq(tasks_labels.task_id, data.task_id),
+        eq(tasks_labels.label_id, data.label_id)
+      )
+    );
 }

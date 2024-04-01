@@ -18,6 +18,7 @@ export async function getLabelsByTaskId(task_id: string) {
     .select({
       id: labels.id,
       name: labels.name,
+      assignmentId: tasks_labels.id,
     })
     .from(tasks_labels)
     .fullJoin(labels, eq(tasks_labels.label_id, labels.id))
