@@ -29,7 +29,7 @@ const StepList = ({ task_id, user_id }: Props) => {
     return (
         <Box my={2}>
             <HStack justifyContent="space-between" fontSize="small">
-                <Text>Checklist 0 / 20</Text>
+                <Text>{`Checklist ${data.length} / 20`}</Text>
                 <Radio my={1} size={"md"} colorScheme='blue' value='steps' onChange={handleShowOnCard}><Text fontSize={"small"}>Show on card</Text></Radio>
             </HStack>
             <StepsDetails steps={data} task_id={task_id} />

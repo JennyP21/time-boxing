@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 export const stepsApi = createApi({
-  tagTypes: ["steps"],
+  tagTypes: ["addStep", "updateStep", "deleteStep"],
   reducerPath: "stepsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/api",
@@ -13,7 +13,7 @@ export const stepsApi = createApi({
   endpoints: (builder) => ({
     getStepsByTaskId: builder.query<StepsI[], string>({
       query: (id: string) => `/task/${id}/step`,
-      providesTags: ["steps"],
+      providesTags: ["addStep", "updateStep", "deleteStep"],
     }),
     addStep: builder.mutation<StepsI, StepsI>({
       query: (task: StepsI) => ({
@@ -21,7 +21,7 @@ export const stepsApi = createApi({
         method: "POST",
         body: task,
       }),
-      invalidatesTags: ["steps"],
+      invalidatesTags: ["addStep"],
     }),
     updateStep: builder.mutation<StepsI, StepsI>({
       query: (data: StepsI) => ({
@@ -29,14 +29,14 @@ export const stepsApi = createApi({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["steps"],
+      invalidatesTags: ["updateStep"],
     }),
     deleteStep: builder.mutation<null, string>({
       query: (id: string) => ({
         url: `/step/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["steps"],
+      invalidatesTags: ["deleteStep"],
     }),
   }),
 });
