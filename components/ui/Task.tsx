@@ -18,7 +18,7 @@ const Task = ({ taskWithUser }: Props) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [deleteTask] = useDeleteTaskMutation();
-    const { data: steps, error, isLoading } = useGetStepsByTaskIdQuery(task.id);
+    const { data: steps } = useGetStepsByTaskIdQuery(task.id);
 
     const handleDelete = async () => {
         await deleteTask(task.id);
@@ -38,9 +38,7 @@ const Task = ({ taskWithUser }: Props) => {
                         <MenuItem onClick={handleDelete}>Delete</MenuItem>
                     </MenuList>
                 </Menu>
-                <Flex className='gap-1 my-3 flex-wrap'>
-                    <LabelDisplay task_id={task.id} />
-                </Flex>
+                <LabelDisplay task_id={task.id} />
                 <Flex alignItems="center" gap={1}>
                     <Checkbox size={"md"} />
                     <Text onClick={onOpen}>
