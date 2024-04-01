@@ -21,9 +21,16 @@ export interface TaskI {
     | "Completed";
   note: string;
   showOnTask: "note" | "steps";
-  steps: string[];
   created_at: Date;
   updated_at: Date;
+}
+
+export interface StepsI {
+  id: string;
+  task_id: string;
+  value: string;
+  order: number;
+  checked: boolean;
 }
 
 export interface UserI {

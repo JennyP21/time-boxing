@@ -17,6 +17,11 @@ export const deleteBucketError = {
   message: "Unable to delete bucket.",
 };
 
+export const getStepsError = {
+  type: "Get Steps Error",
+  message: "Unable to get steps",
+};
+
 export const taskSeverity = [
   "Low",
   "Medium",

@@ -6,6 +6,7 @@ import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import AssignUserToTask from './AssignUserToTask';
 import Label from './Label';
 import TaskDetails from './TaskDetails';
+import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 
 interface Props {
     taskWithUser: TaskWithUserI
@@ -17,6 +18,7 @@ const Task = ({ taskWithUser }: Props) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [deleteTask] = useDeleteTaskMutation();
+    const { data: steps, error, isLoading } = useGetStepsByTaskIdQuery(task.id);
 
     const handleDelete = async () => {
         await deleteTask(task.id);
@@ -52,10 +54,10 @@ const Task = ({ taskWithUser }: Props) => {
                 }
                 {task.showOnTask === "steps" &&
                     <Flex flexDir="column">
-                        {task.steps && task.steps.map(step => (
-                            <Flex key={step} alignItems="center" gap={1} fontSize="small">
+                        {steps && steps.map(step => (
+                            <Flex key={step.id} alignItems="center" gap={1} fontSize="small">
                                 <Checkbox size={"md"} />
-                                {step}
+                                {step.value}
                             </Flex>
                         ))}
                     </Flex>

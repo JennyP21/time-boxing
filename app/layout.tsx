@@ -7,7 +7,7 @@ import UIProvider from "./UIProvider";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
 import ReduxProvider from "./ReduxProvider";
-import { ToastContainer } from "./api/Toast";
+import { ToastContainer } from "../components/ui/Toast";
 
 const openSans = Open_Sans({
   weight: ["300", "500", "700"],

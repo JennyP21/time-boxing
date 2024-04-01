@@ -12,7 +12,7 @@ interface Props {
 }
 
 const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
-    const { id, severity, progress, note, steps, title, start_date, end_date, showOnTask } = taskWithUser.tasks;
+    const { id, severity, progress, note, title, start_date, end_date, showOnTask } = taskWithUser.tasks;
     const { id: user_id, image, name } = taskWithUser.user;
 
     return (
@@ -28,7 +28,7 @@ const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
                             <TaskAttributes task_id={id} user_id={user_id} start_date={start_date} end_date={end_date} progress={progress} severity={severity} />
                             <RadioGroup defaultValue={showOnTask}>
                                 <TaskNote task_id={id} user_id={user_id} note={note} />
-                                <StepList task_id={id} user_id={user_id} steps={steps} />
+                                <StepList task_id={id} user_id={user_id} />
                             </RadioGroup>
                         </Stack>
                     </ModalBody>
