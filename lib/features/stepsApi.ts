@@ -12,7 +12,7 @@ export const stepsApi = createApi({
   }),
   endpoints: (builder) => ({
     getStepsByTaskId: builder.query<StepsI[], string>({
-      query: (id: string) => `/task/${id}/steps`,
+      query: (id: string) => `/task/${id}/step`,
       providesTags: ["steps"],
     }),
     // addTask: builder.mutation<TaskI, TaskI>({

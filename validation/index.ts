@@ -50,3 +50,17 @@ export const validatePatchTask = z.object({
 export const validateLabel = z.object({
   name: z.string().min(3),
 });
+
+export const validateStep = z.object({
+  task_id: z.string().uuid(),
+  value: z.string(),
+  order: z.number().positive(),
+  checked: z.boolean(),
+});
+
+export const validatePatchStep = z.object({
+  task_id: z.string().uuid(),
+  value: z.string().optional(),
+  order: z.number().positive().optional(),
+  checked: z.boolean().optional(),
+});
