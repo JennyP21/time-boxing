@@ -58,15 +58,13 @@ export const tasks = pgTable("tasks", {
   showOnTask: text("showOnTask", {
     enum: ["note", "steps"],
   }),
-  steps: uuid("steps")
-    .array(20)
-    .references(() => step.id),
   created_at: timestamp("created_at"),
   updated_at: timestamp("updated_at"),
 });
 
-export const step = pgTable("step", {
+export const steps = pgTable("steps", {
   id: uuid("id").primaryKey().defaultRandom(),
+  task_id: uuid("task_id").references(() => tasks.id),
   value: text("value").notNull(),
   order: integer("order").notNull(),
   checked: boolean("checked").default(false),
