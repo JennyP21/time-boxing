@@ -7,6 +7,7 @@ import AssignUserToTask from './AssignUserToTask';
 import LabelDisplay from './LabelDisplay';
 import TaskDetails from './TaskDetails';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
+import MoveTask from './MoveTask';
 
 interface Props {
     taskWithUser: TaskWithUserI
@@ -16,7 +17,8 @@ const Task = ({ taskWithUser }: Props) => {
     const task = taskWithUser.tasks;
     const user = taskWithUser.user;
 
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { isOpen: isOpenTask, onOpen: onOpenTask, onClose: onCloseTask } = useDisclosure();
+    const { isOpen: isOpenMoveTask, onOpen: onOpenMoveTask, onClose: onCloseMoveTask } = useDisclosure();
     const [deleteTask] = useDeleteTaskMutation();
     const { data: steps } = useGetStepsByTaskIdQuery(task.id);
 
@@ -36,12 +38,13 @@ const Task = ({ taskWithUser }: Props) => {
                     </MenuButton>
                     <MenuList>
                         <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                        <MenuItem onClick={onOpenMoveTask}>Move</MenuItem>
                     </MenuList>
                 </Menu>
                 <LabelDisplay task_id={task.id} />
                 <Flex alignItems="center" gap={1}>
                     <Checkbox size={"md"} />
-                    <Text onClick={onOpen}>
+                    <Text onClick={onOpenTask}>
                         {task.title}
                     </Text>
                 </Flex>
@@ -64,7 +67,8 @@ const Task = ({ taskWithUser }: Props) => {
             <CardFooter px={3} py={0} borderTop={"1px"} borderColor={"gray.200"}>
                 <AssignUserToTask image={user.image} name={user.name} />
             </CardFooter>
-            <TaskDetails taskWithUser={taskWithUser} isOpen={isOpen} onClose={onClose} />
+            <MoveTask user_id={user.id} bucket_id={task.bucket_id} task_id={task.id} isOpen={isOpenMoveTask} onClose={onCloseMoveTask} />
+            <TaskDetails taskWithUser={taskWithUser} isOpen={isOpenTask} onClose={onCloseTask} />
         </Card >
     )
 }

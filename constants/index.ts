@@ -22,6 +22,11 @@ export const getStepsError = {
   message: "Unable to get steps",
 };
 
+export const moveTaskError = {
+  type: "Not enough buckets error",
+  message: "You need more than 2 buckets",
+};
+
 export const taskSeverity = [
   "Low",
   "Medium",

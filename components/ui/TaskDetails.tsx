@@ -17,7 +17,7 @@ const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
 
     return (
         <form>
-            <Modal isOpen={isOpen} onClose={onClose}>
+            <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent p={1} my={5} minWidth="45%">
                     <ModalHeader fontWeight="500" fontSize="small" pb={0}>

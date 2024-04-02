@@ -70,7 +70,7 @@ const LabelDetails = ({ task_id }: Props) => {
                 </MenuList>
             </Menu>}
             <Flex gap={2}>
-                {labels?.map((label) => (
+                {labels && labels[0].id !== null && labels.map((label) => (
                     <Flex key={label.id} alignContent="center">
                         {editLabel.editing && label.id === editLabel.labelId ?
                             <InputGroup>
