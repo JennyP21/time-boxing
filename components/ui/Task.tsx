@@ -8,6 +8,9 @@ import LabelDisplay from './LabelDisplay';
 import TaskDetails from './TaskDetails';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 import MoveTask from './MoveTask';
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import StepList from './StepList';
+import StepsDetails from './StepsDetails';
 
 interface Props {
     taskWithUser: TaskWithUserI
@@ -37,8 +40,8 @@ const Task = ({ taskWithUser }: Props) => {
                         <Icon as={HiOutlineDotsHorizontal} w={4} h={4} />
                     </MenuButton>
                     <MenuList>
-                        <MenuItem onClick={handleDelete}>Delete</MenuItem>
                         <MenuItem onClick={onOpenMoveTask}>Move</MenuItem>
+                        <MenuItem onClick={handleDelete}>Delete</MenuItem>
                     </MenuList>
                 </Menu>
                 <LabelDisplay task_id={task.id} />
@@ -49,20 +52,19 @@ const Task = ({ taskWithUser }: Props) => {
                     </Text>
                 </Flex>
             </CardHeader>
-            <CardBody px={3} pt={0}>
+            <CardBody px={3} py={1}>
                 {task.showOnTask === "note" &&
                     <Text className='text-xs overflow-clip whitespace-nowrap'>{task.note}</Text>
                 }
-                {task.showOnTask === "steps" &&
-                    <Flex flexDir="column">
-                        {steps && steps.map(step => (
-                            <Flex key={step.id} alignItems="center" gap={1} fontSize="small">
-                                <Checkbox size={"md"} />
-                                {step.value}
-                            </Flex>
-                        ))}
-                    </Flex>
+                {task.showOnTask === "steps" && steps &&
+                    <StepsDetails steps={steps} task_id={task.id} showMinimumVersion={true} />
                 }
+                {steps && steps.length > 0 && <Flex mt={2} alignItems="center">
+                    <Icon as={IoIosCheckmarkCircleOutline} w={4} h={4} mr={1} />
+                    {steps &&
+                        `${steps.filter(step => step.checked === true).length} / ${steps.length}`
+                    }
+                </Flex>}
             </CardBody>
             <CardFooter px={3} py={0} borderTop={"1px"} borderColor={"gray.200"}>
                 <AssignUserToTask image={user.image} name={user.name} />

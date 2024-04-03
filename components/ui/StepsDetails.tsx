@@ -6,9 +6,10 @@ import { MdOutlineDelete } from "react-icons/md";
 interface Props {
     steps: StepsI[];
     task_id: string;
+    showMinimumVersion: boolean;
 }
 
-const StepsDetails = ({ steps, task_id }: Props) => {
+const StepsDetails = ({ steps, task_id, showMinimumVersion }: Props) => {
     const [addStep] = useAddStepMutation();
     const handleAddStep = async (value: string) => {
         if (value) {
@@ -57,7 +58,7 @@ const StepsDetails = ({ steps, task_id }: Props) => {
     return (
         <Flex flexDir="column" maxHeight={"40vh"} overflowY={"scroll"}>
             {steps.map((step) => (
-                <InputGroup className='py-1 px-2 gap-1 my-0.5 rounded-full flex items-center' key={step.id} _hover={{
+                <InputGroup className='px-2 gap-1 rounded-full flex items-center' py={showMinimumVersion ? 0.5 : 1} key={step.id} _hover={{
                     background: "gray.100"
                 }}>
                     <Checkbox id={step.id} size={"md"} colorScheme='blue' defaultChecked={step.checked} onChange={() => handleStepStatus(step.id, step.checked)} />
@@ -81,7 +82,7 @@ const StepsDetails = ({ steps, task_id }: Props) => {
                     <InputRightElement onClick={() => handleDeleteStep(step.id)} _groupHover={{ visibility: "visible" }} className='rounded-full hover:bg-gray-300 !h-7 !w-7' visibility="hidden" children={<MdOutlineDelete />} />
                 </InputGroup>
             ))}
-            {steps.length < 20 &&
+            {steps.length < 20 && !showMinimumVersion &&
                 <InputGroup py={1} px={2} gap={1} rounded="full" _hover={{
                     background: "gray.100"
                 }}>
