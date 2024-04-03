@@ -1,7 +1,7 @@
 import { VStack } from '@chakra-ui/react';
+import AddTask from './AddTask';
 import BucketHeader from './BucketHeader';
 import TasksList from './TasksList';
-import AddTask from './AddTask';
 
 interface Props {
     id: string;

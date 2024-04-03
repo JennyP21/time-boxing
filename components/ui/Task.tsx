@@ -1,16 +1,15 @@
 "use client"
 import { TaskWithUserI } from '@/interfaces';
+import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 import { useDeleteTaskMutation } from '@/lib/features/taskApi';
 import { Card, CardBody, CardFooter, CardHeader, Checkbox, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import AssignUserToTask from './AssignUserToTask';
 import LabelDisplay from './LabelDisplay';
-import TaskDetails from './TaskDetails';
-import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 import MoveTask from './MoveTask';
-import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import StepList from './StepList';
 import StepsDetails from './StepsDetails';
+import TaskDetails from './TaskDetails';
 
 interface Props {
     taskWithUser: TaskWithUserI
@@ -59,7 +58,7 @@ const Task = ({ taskWithUser }: Props) => {
                 {task.showOnTask === "steps" && steps &&
                     <StepsDetails steps={steps} task_id={task.id} showMinimumVersion={true} />
                 }
-                {steps && steps.length > 0 && <Flex mt={2} alignItems="center">
+                {steps && steps.length > 0 && <Flex mt={2} alignItems="center" fontSize="small">
                     <Icon as={IoIosCheckmarkCircleOutline} w={4} h={4} mr={1} />
                     {steps &&
                         `${steps.filter(step => step.checked === true).length} / ${steps.length}`
@@ -71,7 +70,7 @@ const Task = ({ taskWithUser }: Props) => {
             </CardFooter>
             <MoveTask user_id={user.id} bucket_id={task.bucket_id} task_id={task.id} isOpen={isOpenMoveTask} onClose={onCloseMoveTask} />
             <TaskDetails taskWithUser={taskWithUser} isOpen={isOpenTask} onClose={onCloseTask} />
-        </Card >
+        </Card>
     )
 }
 

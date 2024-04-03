@@ -1,7 +1,7 @@
-import { useGetTasksByBucketQuery } from '@/lib/features/taskApi';
-import Task from './Task';
-import { Spinner } from '@chakra-ui/react';
 import { toast } from '@/components/ui/Toast';
+import { useGetTasksByBucketQuery } from '@/lib/features/taskApi';
+import { Spinner } from '@chakra-ui/react';
+import Task from './Task';
 
 interface Props {
     bucket_id: string;

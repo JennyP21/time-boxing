@@ -56,7 +56,7 @@ const StepsDetails = ({ steps, task_id, showMinimumVersion }: Props) => {
     };
 
     return (
-        <Flex flexDir="column" maxHeight={"40vh"} overflowY={"scroll"}>
+        <Flex flexDir="column" maxHeight={"40vh"} overflowY={showMinimumVersion ? "unset" : "scroll"}>
             {steps.map((step) => (
                 <InputGroup className='px-2 gap-1 rounded-full flex items-center' py={showMinimumVersion ? 0.5 : 1} key={step.id} _hover={{
                     background: "gray.100"
