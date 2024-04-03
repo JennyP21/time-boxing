@@ -1,9 +1,10 @@
 import { TaskWithUserI } from '@/interfaces';
-import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, RadioGroup, Stack } from '@chakra-ui/react';
+import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, RadioGroup, Stack, Text } from '@chakra-ui/react';
 import StepList from './StepList';
 import TaskAttributes from './TaskAttributes';
 import TaskDetailsHeader from './TaskDetailsHeader';
 import TaskNote from './TaskNote';
+import { formatDate } from '../utils';
 
 interface Props {
     taskWithUser: TaskWithUserI;
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
-    const { id, severity, progress, note, title, start_date, end_date, showOnTask } = taskWithUser.tasks;
+    const { id, severity, progress, note, title, start_date, end_date, showOnTask, created_at } = taskWithUser.tasks;
     const { id: user_id, image, name } = taskWithUser.user;
 
     return (
@@ -32,10 +33,10 @@ const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
                             </RadioGroup>
                         </Stack>
                     </ModalBody>
-                    <ModalFooter pt={0}>
-                        <Button colorScheme='blue' mr={3} isDisabled={true}>
-                            Save
-                        </Button>
+                    <ModalFooter py={1} justifyContent="space-between">
+                        <Text fontSize="small" textColor="gray.500">
+                            {`Created at ${formatDate(created_at)}`}
+                        </Text>
                         <Button variant='ghost' onClick={onClose}>Close</Button>
                     </ModalFooter>
                 </ModalContent>
