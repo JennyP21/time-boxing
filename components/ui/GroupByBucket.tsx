@@ -5,7 +5,7 @@ import { Grid, Spinner } from '@chakra-ui/react'
 import AddBucket from './AddBucket'
 import Bucket from './Bucket'
 
-const KanbanCanvas = () => {
+const GroupByBucket = () => {
     const { data: buckets, error, isLoading } = useGetBucketsQuery();
 
     if (error) toast.error("Something went wrong. Please try again later", {
@@ -28,4 +28,4 @@ const KanbanCanvas = () => {
     )
 }
 
-export default KanbanCanvas
+export default GroupByBucket

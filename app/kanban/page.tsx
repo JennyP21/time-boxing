@@ -1,4 +1,4 @@
-import KanbanCanvas from '@/components/ui/KanbanCanvas'
+import KanbanCanvas from '@/app/kanban/KanbanCanvas'
 import { Box, Flex, Heading } from '@chakra-ui/react'
 
 const KanbanView = () => {

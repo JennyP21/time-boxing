@@ -1,4 +1,4 @@
-import { VStack } from '@chakra-ui/react';
+import Stack from '@/components/ui/Stack';
 import AddTask from './AddTask';
 import BucketHeader from './BucketHeader';
 import TasksList from './TasksList';
@@ -10,11 +10,11 @@ interface Props {
 
 const Bucket = ({ name, id }: Props) => {
     return (
-        <VStack className='overflow-y-scroll' minWidth="280px" maxWidth="300px" ml={2} px={1}>
+        <Stack>
             <BucketHeader name={name} id={id} />
             <AddTask bucket_id={id} />
             <TasksList bucket_id={id} />
-        </VStack>
+        </Stack>
     )
 }
 
