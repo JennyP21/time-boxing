@@ -1,10 +1,10 @@
 "use client"
-import GroupByLabel from '@/components/ui/GroupByLabel';
-import GroupByProgress from '@/components/ui/GroupByProgress';
-import GroupBySeverity from '@/components/ui/GroupBySeverity';
+import GroupByLabel from '@/components/ui/Label/GroupByLabel';
+import GroupByProgress from '@/components/ui/Progress/GroupByProgress';
+import GroupBySeverity from '@/components/ui/Severity/GroupBySeverity';
 import { groupTypes } from '@/constants';
 import { useRouter, useSearchParams } from 'next/navigation';
-import GroupByBucket from '../../components/ui/GroupByBucket';
+import GroupByBucket from '../../components/ui/Bucket/GroupByBucket';
 
 const KanbanCanvas = () => {
     const router = useRouter();

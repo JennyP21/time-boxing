@@ -6,7 +6,7 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 
 interface Props {
-    bucket_id: string
+    bucket_id?: string
 }
 
 const AddTask = ({ bucket_id }: Props) => {

@@ -1,7 +1,7 @@
 import Stack from '@/components/ui/Stack';
-import AddTask from './AddTask';
+import AddTask from '../AddTask';
 import BucketHeader from './BucketHeader';
-import TasksList from './TasksList';
+import TasksList from '../TasksList';
 
 interface Props {
     id: string;

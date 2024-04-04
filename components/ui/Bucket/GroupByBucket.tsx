@@ -4,7 +4,7 @@ import { useGetBucketsQuery } from '@/lib/features/bucketApi'
 import { Spinner } from '@chakra-ui/react'
 import AddBucket from './AddBucket'
 import Bucket from './Bucket'
-import GroupByContainer from './GroupByContainer'
+import GroupByContainer from '../GroupByContainer'
 
 const GroupByBucket = () => {
     const { data: buckets, error, isLoading } = useGetBucketsQuery();

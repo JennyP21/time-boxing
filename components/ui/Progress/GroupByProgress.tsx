@@ -1,5 +1,5 @@
 import { taskProgress } from '@/constants'
-import GroupByContainer from './GroupByContainer'
+import GroupByContainer from '../GroupByContainer'
 
 const GroupByProgress = () => {
     return (

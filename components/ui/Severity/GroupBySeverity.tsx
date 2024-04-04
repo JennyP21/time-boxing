@@ -1,11 +1,12 @@
 import { taskSeverity } from '@/constants'
-import GroupByContainer from './GroupByContainer'
+import GroupByContainer from '../GroupByContainer'
+import Severity from './Severity'
 
 const GroupBySeverity = () => {
     return (
         <GroupByContainer>
             {taskSeverity.map(severity => (
-                <p key={severity}>{severity}</p>
+                <Severity name={severity} />
             ))}
         </GroupByContainer>
     )
