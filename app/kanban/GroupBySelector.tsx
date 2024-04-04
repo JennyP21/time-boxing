@@ -1,6 +1,6 @@
 "use client"
 import { groupTypes } from '@/constants';
-import { Button, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
+import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaAngleDown } from 'react-icons/fa';
 
@@ -21,7 +21,7 @@ const GroupBySelector = () => {
             </MenuButton>
             <MenuList>
                 {groupTypes.map(type => (
-                    <MenuItem key={type.name} onClick={() => changeGroupType(type.name)}>{type.name}</MenuItem>
+                    <MenuItem key={type} onClick={() => changeGroupType(type)}>{type}</MenuItem>
                 ))}
             </MenuList>
         </Menu>

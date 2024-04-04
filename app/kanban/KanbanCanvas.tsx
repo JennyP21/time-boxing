@@ -1,6 +1,10 @@
 "use client"
-import { useRouter, useSearchParams } from 'next/navigation'
-import GroupByBucket from '../../components/ui/GroupByBucket'
+import GroupByLabel from '@/components/ui/GroupByLabel';
+import GroupByProgress from '@/components/ui/GroupByProgress';
+import GroupBySeverity from '@/components/ui/GroupBySeverity';
+import { groupTypes } from '@/constants';
+import { useRouter, useSearchParams } from 'next/navigation';
+import GroupByBucket from '../../components/ui/GroupByBucket';
 
 const KanbanCanvas = () => {
     const router = useRouter();
@@ -11,9 +15,21 @@ const KanbanCanvas = () => {
         params.set("groupBy", "Bucket");
         router.push("?" + params);
     }
+    if (groupBy && !groupTypes.includes(groupBy)) {
+        return null;
+    }
+
+    const groupByMapping: { [key: string]: () => JSX.Element } = {
+        Bucket: GroupByBucket,
+        Severity: GroupBySeverity,
+        Progress: GroupByProgress,
+        Label: GroupByLabel
+    }
+
+    const Content = groupBy ? groupByMapping[groupBy] : groupByMapping["Bucket"];
 
     return (
-        <GroupByBucket />
+        <Content />
     )
 }
 
