@@ -39,3 +39,18 @@ export const taskProgress = [
   "On Hold",
   "Completed",
 ];
+
+export const groupTypes = [
+  {
+    name: "Bucket",
+  },
+  {
+    name: "Progress",
+  },
+  {
+    name: "Severity",
+  },
+  {
+    name: "Label",
+  },
+];
