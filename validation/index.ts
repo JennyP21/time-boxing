@@ -9,8 +9,8 @@ export const validateTask = z.object({
   user_id: z.string(),
   bucket_id: z.string(),
   title: z.string().min(3),
-  start_date: z.date().optional(),
-  end_date: z.date().optional(),
+  start_date: z.string().optional(),
+  end_date: z.string().optional(),
   severity: z
     .enum(["low", "medium", "high", "urgent"])
     .optional(),

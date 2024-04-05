@@ -1,11 +1,15 @@
 import { taskProgress } from '@/constants'
+import React from 'react'
 import GroupByContainer from '../GroupByContainer'
+import Progress from './Progress'
 
 const GroupByProgress = () => {
     return (
         <GroupByContainer>
             {taskProgress.map(progress => (
-                <p key={progress}>{progress}</p>
+                <React.Fragment key={progress}>
+                    <Progress progress={progress} />
+                </React.Fragment>
             ))}
         </GroupByContainer>
     )
