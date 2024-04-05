@@ -8,7 +8,7 @@ const GroupBySeverity = () => {
         <GroupByContainer>
             {taskSeverity.map(severity => (
                 <React.Fragment key={severity}>
-                    <Severity name={severity} />
+                    <Severity severity={severity} />
                 </React.Fragment>
             ))}
         </GroupByContainer>

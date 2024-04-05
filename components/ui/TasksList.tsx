@@ -1,21 +1,11 @@
-import { toast } from '@/components/ui/Toast';
-import { useGetTasksByBucketQuery } from '@/lib/features/taskApi';
-import { Spinner } from '@chakra-ui/react';
+import { TaskWithUserI } from '@/interfaces';
 import Task from './Task';
 
 interface Props {
-    bucket_id: string;
+    data: TaskWithUserI[] | undefined;
 }
 
-const TasksList = ({ bucket_id }: Props) => {
-
-    const { data, error, isLoading } = useGetTasksByBucketQuery(bucket_id);
-
-    if (error) toast.error("Something went wrong. Please try again later", {
-        toastId: "Task error"
-    });
-
-    if (isLoading) return <Spinner />;
+const TasksList = ({ data }: Props) => {
 
     return (
         <>

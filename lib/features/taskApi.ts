@@ -11,6 +11,10 @@ export const taskApi = createApi({
     baseUrl: "http://localhost:3000/api",
   }),
   endpoints: (builder) => ({
+    getTasks: builder.query<TaskWithUserI[], void>({
+      query: () => `/task`,
+      providesTags: ["tasks"],
+    }),
     getTasksByBucket: builder.query<
       TaskWithUserI[],
       string
@@ -45,6 +49,7 @@ export const taskApi = createApi({
 });
 
 export const {
+  useGetTasksQuery,
   useGetTasksByBucketQuery,
   useAddTaskMutation,
   useUpdateTaskMutation,

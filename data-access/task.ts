@@ -4,9 +4,12 @@ import { TaskI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
 export async function getTasks() {
-  const tasks = await db.query.tasks.findMany();
+  const allTasks = await db
+    .select()
+    .from(tasks)
+    .innerJoin(users, eq(tasks.user_id, users.id));
 
-  return tasks;
+  return allTasks;
 }
 
 export async function getTasksByBucket(bucket_id: string) {

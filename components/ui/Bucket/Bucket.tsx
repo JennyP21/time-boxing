@@ -1,7 +1,10 @@
 import Stack from '@/components/ui/Stack';
+import { toast } from '@/components/ui/Toast';
+import { useGetTasksByBucketQuery } from '@/lib/features/taskApi';
 import AddTask from '../AddTask';
-import BucketHeader from './BucketHeader';
 import TasksList from '../TasksList';
+import BucketHeader from './BucketHeader';
+
 
 interface Props {
     id: string;
@@ -9,11 +12,18 @@ interface Props {
 }
 
 const Bucket = ({ name, id }: Props) => {
+
+    const { data, error } = useGetTasksByBucketQuery(id);
+
+    if (error) toast.error("Something went wrong. Please try again later", {
+        toastId: "Task error"
+    });
+
     return (
         <Stack>
             <BucketHeader name={name} id={id} />
             <AddTask bucket_id={id} />
-            <TasksList bucket_id={id} />
+            <TasksList data={data} />
         </Stack>
     )
 }
