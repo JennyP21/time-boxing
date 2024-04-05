@@ -1,9 +1,10 @@
 "use client"
 import { TaskI } from '@/interfaces';
 import { useAddTaskMutation } from '@/lib/features/taskApi';
-import { Button, Card, CardBody, CardFooter, CardHeader, Input } from '@chakra-ui/react';
+import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Input, InputGroup, Text } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
+import BucketSelector from './BucketSelector';
 
 interface Props {
     bucket_id?: string
@@ -16,7 +17,8 @@ const AddTask = ({ bucket_id }: Props) => {
 
     const initialData = {
         title: "",
-        bucket_id,
+        end_date: "",
+        bucket_id: bucket_id || "",
         user_id: session.data?.user.id,
     };
     const [data, setData] = useState(initialData);
@@ -46,13 +48,20 @@ const AddTask = ({ bucket_id }: Props) => {
                     )} />
                 </CardHeader>
                 <CardBody py={0}>
-                    Due Date coming soon...
+                    <Flex flexDir="column" justifyContent="left" gap={3}>
+                        {!bucket_id && <BucketSelector selectedTask={data as TaskI} setSelectedTask={setData} />}
+                        <InputGroup alignItems="center" gap={2}>
+                            <Text>Due:</Text>
+                            <Input type='Date' w="fit-content" size="md" onChange={(e) => setData({ ...data, end_date: e.target.value })} />
+                        </InputGroup>
+                    </Flex>
                 </CardBody>
                 <CardFooter>
                     <Button
                         className='p-2 rounded-sm w-full text-center shadow-sm hover:shadow-md transition-all'
                         background="blackAlpha.300"
                         fontWeight="normal"
+                        isDisabled={data.bucket_id === "" || data.title === ""}
                         onClick={handleSubmit}
                     >
                         Add Task
