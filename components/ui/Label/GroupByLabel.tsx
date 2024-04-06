@@ -6,11 +6,9 @@ import Label from './Label';
 const GroupByLabel = () => {
     const { data: labels } = useGetLabelsQuery();
 
-    if (!labels) return <></>;
-
     return (
         <GroupByContainer>
-            {labels.map(label => (
+            {labels?.map(label => (
                 <React.Fragment key={label.id}>
                     <Label label={label} />
                 </React.Fragment>

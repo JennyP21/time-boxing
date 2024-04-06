@@ -1,5 +1,6 @@
 "use client"
 import { TaskWithUserI } from '@/interfaces';
+import { useGetBucketsQuery } from '@/lib/features/bucketApi';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 import { useDeleteTaskMutation } from '@/lib/features/taskApi';
 import { Card, CardBody, CardFooter, CardHeader, Checkbox, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
@@ -21,6 +22,9 @@ const Task = ({ taskWithUser }: Props) => {
 
     const { isOpen: isOpenTask, onOpen: onOpenTask, onClose: onCloseTask } = useDisclosure();
     const { isOpen: isOpenMoveTask, onOpen: onOpenMoveTask, onClose: onCloseMoveTask } = useDisclosure();
+
+    const { data: buckets } = useGetBucketsQuery();
+
     const [deleteTask] = useDeleteTaskMutation();
     const { data: steps } = useGetStepsByTaskIdQuery(task.id);
 
@@ -68,7 +72,7 @@ const Task = ({ taskWithUser }: Props) => {
             <CardFooter px={3} py={0} borderTop={"1px"} borderColor={"gray.200"}>
                 <AssignUserToTask image={user.image} name={user.name} />
             </CardFooter>
-            <MoveTask user_id={user.id} bucket_id={task.bucket_id} task_id={task.id} isOpen={isOpenMoveTask} onClose={onCloseMoveTask} />
+            {buckets && <MoveTask user_id={user.id} bucket_id={task.bucket_id} task_id={task.id} isOpen={isOpenMoveTask} onClose={onCloseMoveTask} buckets={buckets} />}
             <TaskDetails taskWithUser={taskWithUser} isOpen={isOpenTask} onClose={onCloseTask} />
         </Card>
     )

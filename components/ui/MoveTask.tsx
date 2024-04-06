@@ -1,8 +1,5 @@
 "use client"
-import { toast } from "@/components/error/Toast";
-import { moveTaskError } from '@/constants';
-import { TaskI } from "@/interfaces";
-import { useGetBucketsQuery } from '@/lib/features/bucketApi';
+import { BucketI, TaskI } from "@/interfaces";
 import { useUpdateTaskMutation } from "@/lib/features/taskApi";
 import { Button, Flex, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Text } from '@chakra-ui/react';
 import { useState } from 'react';
@@ -13,15 +10,12 @@ interface Props {
     task_id: string;
     user_id: string;
     bucket_id: string;
+    buckets: BucketI[];
 }
 
-const MoveTask = ({ isOpen, onClose, task_id, bucket_id, user_id }: Props) => {
-    const { data: buckets } = useGetBucketsQuery();
-    const currentBucket = buckets?.filter(bucket => bucket.id === bucket_id)[0];
-    const moveBuckets = buckets?.filter(bucket => bucket.id !== bucket_id);
-
-    if (!moveBuckets)
-        return toast.error(moveTaskError.message, { toastId: moveTaskError.type });
+const MoveTask = ({ isOpen, onClose, task_id, bucket_id, user_id, buckets }: Props) => {
+    const currentBucket = buckets.filter(bucket => bucket.id === bucket_id)[0];
+    const moveBuckets = buckets.filter(bucket => bucket.id !== bucket_id);
 
     const [selectedBucket, setSelectedBucket] = useState(moveBuckets[0].id);
 
