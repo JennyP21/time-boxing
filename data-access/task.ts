@@ -1,5 +1,10 @@
 import { db } from "@/drizzle";
-import { tasks, users } from "@/drizzle/schema";
+import {
+  labels,
+  tasks,
+  tasks_labels,
+  users,
+} from "@/drizzle/schema";
 import { TaskI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
@@ -19,6 +24,18 @@ export async function getTasksByBucket(bucket_id: string) {
     .innerJoin(users, eq(tasks.user_id, users.id))
     .where(eq(tasks.bucket_id, bucket_id));
   return tasksByBucket;
+}
+
+export async function getTasksByLabelId(label_id: string) {
+  const tasksByLabel = await db
+    .select({
+      task: tasks,
+    })
+    .from(tasks_labels)
+    .fullJoin(labels, eq(tasks_labels.label_id, labels.id))
+    .fullJoin(tasks, eq(tasks_labels.task_id, tasks.id))
+    .where(eq(labels.id, label_id));
+  return tasksByLabel;
 }
 
 export async function addTask(task: TaskI) {
