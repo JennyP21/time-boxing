@@ -1,5 +1,5 @@
 "use client"
-import Skeleton from "@/components/ui/Skeleton";
+import Skeleton from "@/components/loading/Skeleton";
 import { LabelI, Task_LabelI } from "@/interfaces";
 import { useAssignLabelMutation, useGetLabelsByTaskQuery, useGetLabelsQuery, useUnassignLabelMutation, useUpdateLabelMutation } from '@/lib/features/labelApi';
 import { Flex, Icon, Input, InputGroup, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';

@@ -5,7 +5,7 @@ interface Props {
     name: string;
 }
 
-const Attribute = ({ children, name }: Props) => {
+const AttributeContainer = ({ children, name }: Props) => {
     return (
         <Box>
             <Text fontSize="small" textColor="gray.500" >{name}:</Text>
@@ -14,4 +14,4 @@ const Attribute = ({ children, name }: Props) => {
     )
 }
 
-export default Attribute
+export default AttributeContainer

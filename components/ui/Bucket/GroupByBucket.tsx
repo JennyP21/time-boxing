@@ -1,5 +1,5 @@
 "use client"
-import { toast } from '@/components/ui/Toast'
+import { toast } from '@/components/error/Toast'
 import { useGetBucketsQuery } from '@/lib/features/bucketApi'
 import { Spinner } from '@chakra-ui/react'
 import AddBucket from './AddBucket'

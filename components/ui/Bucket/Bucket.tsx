@@ -1,5 +1,5 @@
 import Stack from '@/components/ui/Stack';
-import { toast } from '@/components/ui/Toast';
+import { toast } from '@/components/error/Toast';
 import { useGetTasksByBucketQuery } from '@/lib/features/taskApi';
 import AddTask from '../AddTask';
 import TasksList from '../TasksList';

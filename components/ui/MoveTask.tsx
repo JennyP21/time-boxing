@@ -1,5 +1,5 @@
 "use client"
-import { toast } from "@/components/ui/Toast";
+import { toast } from "@/components/error/Toast";
 import { moveTaskError } from '@/constants';
 import { TaskI } from "@/interfaces";
 import { useGetBucketsQuery } from '@/lib/features/bucketApi';

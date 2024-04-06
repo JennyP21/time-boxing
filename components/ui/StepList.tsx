@@ -1,4 +1,4 @@
-import { toast } from "@/components/ui/Toast";
+import { toast } from "@/components/error/Toast";
 import { useGetStepsByTaskIdQuery } from "@/lib/features/stepsApi";
 import { useUpdateTaskMutation } from "@/lib/features/taskApi";
 import { Box, HStack, Radio, Text } from "@chakra-ui/react";

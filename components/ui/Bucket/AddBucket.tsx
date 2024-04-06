@@ -1,5 +1,5 @@
 "use client"
-import { toast } from '@/components/ui/Toast';
+import { toast } from '@/components/error/Toast';
 import { addBucketError } from '@/constants';
 import { BucketI } from '@/interfaces';
 import { useAddBucketMutation } from '@/lib/features/bucketApi';

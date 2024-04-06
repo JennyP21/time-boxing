@@ -38,6 +38,7 @@ const StepsDetails = ({ steps, task_id, showMinimumVersion }: Props) => {
             await updateStep(data);
         }
     }
+
     const handleStepStatus = async (id: string, currentStatus: boolean) => {
         const data = {
             id,
