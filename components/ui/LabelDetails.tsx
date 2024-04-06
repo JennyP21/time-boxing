@@ -1,11 +1,11 @@
 "use client"
 import Skeleton from "@/components/loading/Skeleton";
 import { LabelI, Task_LabelI } from "@/interfaces";
-import { useAssignLabelMutation, useGetLabelsByTaskQuery, useGetLabelsQuery, useUnassignLabelMutation, useUpdateLabelMutation } from '@/lib/features/labelApi';
-import { Flex, Icon, Input, InputGroup, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { useAddLabelMutation, useAssignLabelMutation, useDeleteLabelMutation, useGetLabelsByTaskQuery, useGetLabelsQuery, useUnassignLabelMutation, useUpdateLabelMutation } from '@/lib/features/labelApi';
+import { Flex, Icon, Input, InputGroup, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import { SyntheticEvent, useState } from "react";
 import { IoClose } from "react-icons/io5";
-import { MdOutlineNewLabel } from "react-icons/md";
+import { MdOutlineDelete, MdOutlineNewLabel } from "react-icons/md";
 
 interface Props {
     task_id: string;
@@ -32,10 +32,21 @@ const LabelDetails = ({ task_id }: Props) => {
                 id: currentLabel?.id,
                 name: newValue
             } as LabelI;
-            console.log(newLabel);
             await updateLabel(newLabel);
         }
         setEditLabel(initialState);
+    }
+
+    const [addLabel] = useAddLabelMutation();
+    const handleLabelAdd = async (e: SyntheticEvent) => {
+        const input = e.target as HTMLInputElement;
+        await addLabel({ name: input.value } as LabelI);
+        input.value = "";
+    }
+
+    const [deleteLabel] = useDeleteLabelMutation();
+    const handleLabelDelete = async (id: string) => {
+        await deleteLabel(id);
     }
 
     const [assignLabel] = useAssignLabelMutation();
@@ -64,7 +75,27 @@ const LabelDetails = ({ task_id }: Props) => {
                 </MenuButton>
                 <MenuList>
                     {filteredLabels.map(label => (
-                        <MenuItem key={label.id} onClick={() => handleLabelAssignment(label.id)}>{label.name}</MenuItem>
+                        <MenuItem key={label.id} onClick={() => handleLabelAssignment(label.id)}>
+                            <Flex className="justify-between items-center w-full" role="group">
+                                <Text>{label.name}</Text>
+                                <Icon
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleLabelDelete(label.id)
+                                    }}
+                                    as={MdOutlineDelete}
+                                    _groupHover={{ visibility: "visible" }}
+                                    visibility='hidden'
+                                    rounded="100%"
+                                    w={6}
+                                    h={6}
+                                    p={1}
+                                    _hover={{
+                                        bg: "gray.300"
+                                    }}
+                                />
+                            </Flex>
+                        </MenuItem>
                     ))}
                     {isLoading && <Skeleton count={3} width="100%" height="25px" />}
                 </MenuList>
@@ -74,7 +105,7 @@ const LabelDetails = ({ task_id }: Props) => {
                     <Flex key={label.id} alignContent="center">
                         {editLabel.editing && label.id === editLabel.labelId ?
                             <InputGroup>
-                                <Input autoFocus className='!w-fit !h-fit rounded-md !text-xs !p-1' bg={"gray.300"} defaultValue={label.name} onBlur={(e) => handleLabelUpdate(e)} />
+                                <Input autoFocus size="sm" w="fit-content" h="fit-content" p={1} className='rounded-md' bg={"gray.300"} defaultValue={label.name} onBlur={(e) => handleLabelUpdate(e)} />
                             </InputGroup>
                             :
                             <Flex as={"span"} className='items-center rounded-md text-xs p-1 gap-1' bg={"gray.300"} onClick={() => setEditLabel({
@@ -88,6 +119,19 @@ const LabelDetails = ({ task_id }: Props) => {
                         }
                     </Flex>
                 ))}
+                <Input autoFocus
+                    onBlur={(e) => handleLabelAdd(e)}
+                    onKeyDown={(e) => e.key === "Enter" && handleLabelAdd(e)}
+                    className='rounded-lg'
+                    outline="none"
+                    border="none"
+                    _focus={{ boxShadow: "none" }}
+                    size="sm"
+                    minW="fit-content"
+                    h="fit-content"
+                    p={1}
+                    placeholder="Add a new label"
+                />
             </Flex>
         </Flex>
     )
