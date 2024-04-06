@@ -31,7 +31,7 @@ const Task = ({ taskWithUser }: Props) => {
     return (
         <Card
             backgroundColor="gray.50"
-            className='relative cursor-pointer w-full text-left shadow-sm hover:shadow-md transition-all'
+            className='relative w-full text-left shadow-sm hover:shadow-md transition-all'
         >
             <CardHeader alignItems="center" px={3} py={1}>
                 <Menu placement='bottom-end'>
@@ -46,7 +46,7 @@ const Task = ({ taskWithUser }: Props) => {
                 <LabelDisplay task_id={task.id} />
                 <Flex alignItems="center" gap={1}>
                     <Checkbox size={"md"} />
-                    <Text onClick={onOpenTask}>
+                    <Text className='cursor-pointer hover:underline' onClick={onOpenTask}>
                         {task.title}
                     </Text>
                 </Flex>
