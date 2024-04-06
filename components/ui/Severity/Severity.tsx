@@ -1,8 +1,8 @@
 import Stack from '@/components/ui/Stack';
-import { Heading } from "@chakra-ui/react";
-import AddTask from '../AddTask';
-import TasksList from '../TasksList';
 import { useGetTasksQuery } from '@/lib/features/taskApi';
+import AddTask from '../AddTask';
+import GroupHeader from '../GroupHeader';
+import TasksList from '../TasksList';
 
 interface Props {
     severity: string;
@@ -16,7 +16,7 @@ const Severity = ({ severity }: Props) => {
 
     return (
         <Stack>
-            <Heading textAlign="start" fontWeight="normal" w="100%" size="medium">{severity}</Heading>
+            <GroupHeader>{severity}</GroupHeader>
             <AddTask />
             <TasksList data={filteredData} />
         </Stack>

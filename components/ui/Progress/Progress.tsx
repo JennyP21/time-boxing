@@ -1,7 +1,7 @@
 import Stack from '@/components/ui/Stack';
 import { useGetTasksQuery } from '@/lib/features/taskApi';
-import { Heading } from "@chakra-ui/react";
 import AddTask from '../AddTask';
+import GroupHeader from '../GroupHeader';
 import TasksList from '../TasksList';
 
 interface Props {
@@ -16,7 +16,7 @@ const Progress = ({ progress }: Props) => {
 
     return (
         <Stack>
-            <Heading textAlign="start" fontWeight="normal" w="100%" size="medium">{progress}</Heading>
+            <GroupHeader>{progress}</GroupHeader>
             <AddTask />
             <TasksList data={filteredData} />
         </Stack>

@@ -1,8 +1,8 @@
 import Stack from '@/components/ui/Stack';
 import { LabelI } from '@/interfaces';
 import { useGetTasksByLabelQuery } from '@/lib/features/taskApi';
-import { Heading } from "@chakra-ui/react";
 import AddTask from '../AddTask';
+import GroupHeader from '../GroupHeader';
 import TasksList from '../TasksList';
 
 interface Props {
@@ -17,7 +17,7 @@ const Label = ({ label }: Props) => {
 
     return (
         <Stack>
-            <Heading textAlign="start" fontWeight="normal" w="100%" size="medium">{label.name}</Heading>
+            <GroupHeader>{label.name}</GroupHeader>
             <AddTask />
             <TasksList data={data} />
         </Stack>
