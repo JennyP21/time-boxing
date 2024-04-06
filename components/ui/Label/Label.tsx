@@ -1,24 +1,25 @@
 import Stack from '@/components/ui/Stack';
-import { useGetTasksQuery } from '@/lib/features/taskApi';
+import { LabelI } from '@/interfaces';
+import { useGetTasksByLabelQuery } from '@/lib/features/taskApi';
 import { Heading } from "@chakra-ui/react";
 import AddTask from '../AddTask';
 import TasksList from '../TasksList';
 
 interface Props {
-    progress: string;
+    label: LabelI;
 }
 
-const Label = ({ progress }: Props) => {
+const Label = ({ label }: Props) => {
 
-    const { data: tasks } = useGetTasksQuery();
+    const { data } = useGetTasksByLabelQuery(label.id);
 
-    const filteredData = tasks?.filter(task => task.tasks.progress === progress)
+    if (!data) return null;
 
     return (
         <Stack>
-            <Heading textAlign="start" fontWeight="normal" w="100%" size="medium">{progress}</Heading>
+            <Heading textAlign="start" fontWeight="normal" w="100%" size="medium">{label.name}</Heading>
             <AddTask />
-            <TasksList data={filteredData} />
+            <TasksList data={data} />
         </Stack>
     )
 }

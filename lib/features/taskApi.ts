@@ -22,10 +22,16 @@ export const taskApi = createApi({
       query: (id: string) => `/bucket/${id}/tasks`,
       providesTags: ["addTask", "deleteTask", "updateTask"],
     }),
-    getTasksByLabel: builder.query<TaskI[], string>({
-      query: (id: string) => `label/${id}/task`,
-      providesTags: ["addTask", "deleteTask", "updateTask"],
-    }),
+    getTasksByLabel: builder.query<TaskWithUserI[], string>(
+      {
+        query: (id: string) => `label/${id}/task`,
+        providesTags: [
+          "addTask",
+          "deleteTask",
+          "updateTask",
+        ],
+      }
+    ),
     addTask: builder.mutation<TaskI, TaskI>({
       query: (task: TaskI) => ({
         url: `/task`,
@@ -55,6 +61,7 @@ export const taskApi = createApi({
 export const {
   useGetTasksQuery,
   useGetTasksByBucketQuery,
+  useGetTasksByLabelQuery,
   useAddTaskMutation,
   useUpdateTaskMutation,
   useDeleteTaskMutation,

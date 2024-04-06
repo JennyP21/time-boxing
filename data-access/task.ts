@@ -29,11 +29,13 @@ export async function getTasksByBucket(bucket_id: string) {
 export async function getTasksByLabelId(label_id: string) {
   const tasksByLabel = await db
     .select({
-      task: tasks,
+      tasks,
+      user: users,
     })
     .from(tasks_labels)
     .fullJoin(labels, eq(tasks_labels.label_id, labels.id))
     .fullJoin(tasks, eq(tasks_labels.task_id, tasks.id))
+    .innerJoin(users, eq(tasks.user_id, users.id))
     .where(eq(labels.id, label_id));
   return tasksByLabel;
 }
