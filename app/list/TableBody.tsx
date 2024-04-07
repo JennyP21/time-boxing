@@ -4,6 +4,7 @@ import TaskTitle from './TaskTitle';
 import AssignUserToTask from '@/components/ui/AssignUserToTask';
 import AttributeSelector from './AttributeSelector';
 import { taskProgress, taskSeverity } from '@/constants';
+import DueDate from './DueDate';
 
 interface Props {
     data: TaskWithUserI[] | undefined;
@@ -14,7 +15,7 @@ const TableBody = ({ data }: Props) => {
         <Tbody>
             {data?.map(item => (
                 <Tr key={item.tasks.id}>
-                    <Td>
+                    <Td px={3}>
                         <Checkbox />
                     </Td>
                     <Td px={1} overflow="clip">
@@ -41,7 +42,13 @@ const TableBody = ({ data }: Props) => {
                             data={taskSeverity}
                         />
                     </Td>
-                    <Td px={1}>{item.tasks.end_date}</Td>
+                    <Td px={1}>
+                        <DueDate
+                            task_id={item.tasks.id}
+                            user_id={item.user.id}
+                            currDueDate={item.tasks.end_date}
+                        />
+                    </Td>
                     <Td px={1}>{item.tasks.bucket_id}</Td>
                 </Tr>
             ))}
