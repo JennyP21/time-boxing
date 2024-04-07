@@ -1,5 +1,6 @@
-import { TaskWithUserI } from '@/interfaces'
-import { Checkbox, Input, Tbody, Td, Tr } from '@chakra-ui/react'
+import { TaskWithUserI } from '@/interfaces';
+import { Checkbox, Tbody, Td, Tr } from '@chakra-ui/react';
+import TaskTitle from './TaskTitle';
 
 interface Props {
     data: TaskWithUserI[] | undefined;
@@ -13,7 +14,9 @@ const TableBody = ({ data }: Props) => {
                     <Td>
                         <Checkbox />
                     </Td>
-                    <Td px={0}>{item.tasks.title}</Td>
+                    <Td px={0}>
+                        <TaskTitle taskWithUser={item} />
+                    </Td>
                     <Td px={0}>{item.user.name}</Td>
                     <Td px={0}>{item.tasks.progress}</Td>
                     <Td px={0}>{item.tasks.severity}</Td>

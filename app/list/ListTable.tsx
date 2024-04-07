@@ -7,11 +7,13 @@ import TableHead from './TableHead'
 const ListTable = () => {
     const { data } = useGetTasksQuery();
 
+    const inCompleteTasks = data?.filter(item => item.tasks.progress !== "Completed");
+
     return (
         <TableContainer className='h-full flex-[1_0_0]'>
             <Table variant='simple'>
                 <TableHead />
-                <TableBody data={data} />
+                <TableBody data={inCompleteTasks} />
             </Table>
         </TableContainer>
     )
