@@ -79,6 +79,7 @@ const LabelDetails = ({ task_id }: Props) => {
                             <Flex className="justify-between items-center w-full" role="group">
                                 <Text>{label.name}</Text>
                                 <Icon
+                                    className="w-6 h-6 p-1 rounded-full"
                                     onClick={(e) => {
                                         e.preventDefault();
                                         handleLabelDelete(label.id)
@@ -86,10 +87,6 @@ const LabelDetails = ({ task_id }: Props) => {
                                     as={MdOutlineDelete}
                                     _groupHover={{ visibility: "visible" }}
                                     visibility='hidden'
-                                    rounded="100%"
-                                    w={6}
-                                    h={6}
-                                    p={1}
                                     _hover={{
                                         bg: "gray.300"
                                     }}

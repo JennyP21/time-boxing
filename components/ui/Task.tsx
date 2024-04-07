@@ -33,7 +33,7 @@ const Task = ({ taskWithUser }: Props) => {
         const data = {
             id: task.id,
             user_id: task.user_id,
-            progress: "Completed",
+            progress: task.progress === "Completed" ? "In Progress" : "Completed",
         } as TaskI;
         await updateTask(data);
     };
