@@ -28,6 +28,7 @@ const MoveTask = ({ isOpen, onClose, task_id, bucket_id, user_id, buckets }: Pro
             bucket_id: selectedBucket,
         } as TaskI;
         await updateTask(data);
+        onClose();
     }
 
     return (
