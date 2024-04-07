@@ -48,10 +48,12 @@ export const groupTypes = [
 ];
 
 export const tableHeaderRow = [
-  { label: "Task Name", width: "30%" },
-  { label: "Assigned To", width: "20%" },
+  { label: "", width: "3%" },
+  { label: "Task Name", width: "27%" },
+  { label: "Assigned To", width: "15%" },
   { label: "Progress", width: "15%" },
   { label: "Severity", width: "15%" },
   { label: "Due", width: "10%" },
-  { label: "Bucket", width: "10%" },
+  { label: "Label", width: "12%" },
+  { label: "", width: "3%" },
 ];

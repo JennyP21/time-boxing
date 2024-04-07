@@ -37,7 +37,7 @@ const AttributeSelector = ({ data, defaultValue, dataToUpdate, task_id, user_id 
     return (
         <Select size="sm" defaultValue={defaultValue} onChange={(e) => handleTaskUpdate(e)}>
             {data.map(item => (
-                <option className='p-0' value={item}>{item}</option>
+                <option className='p-0' value={item} key={item}>{item}</option>
             ))}
         </Select>
     )

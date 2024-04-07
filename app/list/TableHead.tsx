@@ -6,9 +6,8 @@ const TableHead = () => {
     return (
         <Thead>
             <Tr>
-                <Th p={0}></Th>
-                {tableHeaderRow.map(col => (
-                    <Th px={1} key={col.label} width={col.width}>{col.label}</Th>
+                {tableHeaderRow.map((col, index) => (
+                    <Th px={1} key={index} width={col.width}>{col.label}</Th>
                 ))}
             </Tr>
         </Thead>

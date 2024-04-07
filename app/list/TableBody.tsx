@@ -1,10 +1,12 @@
+import AssignUserToTask from '@/components/ui/AssignUserToTask';
+import LabelDisplay from '@/components/ui/LabelDisplay';
+import { taskProgress, taskSeverity } from '@/constants';
 import { TaskWithUserI } from '@/interfaces';
 import { Checkbox, Tbody, Td, Tr } from '@chakra-ui/react';
-import TaskTitle from './TaskTitle';
-import AssignUserToTask from '@/components/ui/AssignUserToTask';
 import AttributeSelector from './AttributeSelector';
-import { taskProgress, taskSeverity } from '@/constants';
 import DueDate from './DueDate';
+import MoreOptions from './MoreOptions';
+import TaskTitle from './TaskTitle';
 
 interface Props {
     data: TaskWithUserI[] | undefined;
@@ -49,7 +51,12 @@ const TableBody = ({ data }: Props) => {
                             currDueDate={item.tasks.end_date}
                         />
                     </Td>
-                    <Td px={1}>{item.tasks.bucket_id}</Td>
+                    <Td p={1}>
+                        <LabelDisplay task_id={item.tasks.id} />
+                    </Td>
+                    <Td p={1}>
+                        <MoreOptions />
+                    </Td>
                 </Tr>
             ))}
         </Tbody>
