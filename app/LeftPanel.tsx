@@ -29,7 +29,7 @@ const LeftPanel = () => {
 
     return (
         <VStack
-            className='transition-all duration-300 max-md:!hidden min-h-full fixed'
+            className='transition-all duration-300 max-md:!hidden min-h-full w-[4.4rem] fixed'
             borderRight="1px"
             borderColor={'gray.300'}
             py={1}
