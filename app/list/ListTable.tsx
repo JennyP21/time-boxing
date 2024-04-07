@@ -1,15 +1,17 @@
+"use client"
+import { useGetTasksQuery } from '@/lib/features/taskApi'
 import { Table, TableContainer } from '@chakra-ui/react'
 import TableBody from './TableBody'
-import TableFoot from './TableFoot'
 import TableHead from './TableHead'
 
 const ListTable = () => {
+    const { data } = useGetTasksQuery();
+
     return (
-        <TableContainer>
+        <TableContainer className='h-full flex-[1_0_0]'>
             <Table variant='simple'>
                 <TableHead />
-                <TableBody />
-                <TableFoot />
+                <TableBody data={data} />
             </Table>
         </TableContainer>
     )
