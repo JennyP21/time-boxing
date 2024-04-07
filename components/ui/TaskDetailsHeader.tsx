@@ -33,6 +33,7 @@ const TaskDetailsHeader = ({ task_id, user_id, image, name, currentTitle }: Prop
         <>
             <Text mb={0.5} fontWeight={"700"}>Tasks</Text>
             <Input
+                autoFocus
                 className='font-medium'
                 placeholder='Name of task'
                 defaultValue={title}

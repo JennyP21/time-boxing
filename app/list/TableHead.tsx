@@ -6,9 +6,9 @@ const TableHead = () => {
     return (
         <Thead>
             <Tr>
-                <Th p={0} w="32px"></Th>
+                <Th p={0}></Th>
                 {tableHeaderRow.map(col => (
-                    <Th px={0} key={col.label} width={col.width}>{col.label}</Th>
+                    <Th px={1} key={col.label} width={col.width}>{col.label}</Th>
                 ))}
             </Tr>
         </Thead>
