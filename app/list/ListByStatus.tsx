@@ -1,35 +1,35 @@
 "use client"
-import { groupTypes } from '@/constants';
+import { listByTypes } from '@/constants';
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { FaAngleDown } from 'react-icons/fa';
 
-const GroupBySelector = () => {
+const ListByStatus = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const changeGroupType = (groupBy: string) => {
+    const changeGroupType = (listBy: string) => {
         const params = new URLSearchParams(searchParams);
-        params.set("groupBy", groupBy);
+        params.set("listBy", listBy);
         router.push("?" + params.toString());
     }
 
     useEffect(() => {
-        if (!searchParams.get("groupBy")) {
+        if (!searchParams.get("listBy")) {
             const params = new URLSearchParams(searchParams);
-            params.set("groupBy", "Bucket");
-            router.push("?" + params);
+            params.set("listBy", "Active");
+            router.push("?" + params.toString());
         }
     }, [])
 
     return (
         <Menu>
             <MenuButton fontWeight="normal" fontSize="medium" as={Button} p={2} m={0} border="1px" borderColor="gray.300" rounded="10px" rightIcon={<FaAngleDown />}>
-                Group By {searchParams.get("groupBy")}
+                {searchParams.get("listBy")}
             </MenuButton>
             <MenuList>
-                {groupTypes.map(type => (
+                {listByTypes.map(type => (
                     <MenuItem key={type} onClick={() => changeGroupType(type)}>{type}</MenuItem>
                 ))}
             </MenuList>
@@ -37,4 +37,4 @@ const GroupBySelector = () => {
     )
 }
 
-export default GroupBySelector
+export default ListByStatus

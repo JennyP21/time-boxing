@@ -47,6 +47,8 @@ export const groupTypes = [
   "Label",
 ];
 
+export const listByTypes = ["Active", "Completed"];
+
 export const tableHeaderRow = [
   { label: "", width: "3%" },
   { label: "Task Name", width: "27%" },
