@@ -5,7 +5,6 @@ import { TaskWithUserI } from '@/interfaces';
 import { Checkbox, Tbody, Td, Tr } from '@chakra-ui/react';
 import AttributeSelector from './AttributeSelector';
 import DueDate from './DueDate';
-import MoreOptions from './MoreOptions';
 import TaskTitle from './TaskTitle';
 
 interface Props {
@@ -53,9 +52,6 @@ const TableBody = ({ data }: Props) => {
                     </Td>
                     <Td p={1}>
                         <LabelDisplay task_id={item.tasks.id} />
-                    </Td>
-                    <Td p={1}>
-                        <MoreOptions />
                     </Td>
                 </Tr>
             ))}

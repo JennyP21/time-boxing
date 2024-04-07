@@ -54,6 +54,5 @@ export const tableHeaderRow = [
   { label: "Progress", width: "15%" },
   { label: "Severity", width: "15%" },
   { label: "Due", width: "10%" },
-  { label: "Label", width: "12%" },
-  { label: "", width: "3%" },
+  { label: "Label", width: "15%" },
 ];
