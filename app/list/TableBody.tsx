@@ -1,13 +1,14 @@
 import AssignUserToTask from '@/components/ui/AssignUserToTask';
-import LabelDisplay from '@/components/ui/LabelDisplay';
 import { taskProgress, taskSeverity } from '@/constants';
 import { TaskWithUserI } from '@/interfaces';
 import { Checkbox, Tbody, Td, Tr } from '@chakra-ui/react';
+import AddListTask from './AddListTask';
 import AttributeSelector from './AttributeSelector';
 import DueDate from './DueDate';
-import TaskTitle from './TaskTitle';
-import AddListTask from './AddListTask';
 import MoreOptions from './MoreOptions';
+import TaskTitle from './TaskTitle';
+import ListBucket from './ListBucket';
+import UpdateBucket from './UpdateBucket';
 
 interface Props {
     data: TaskWithUserI[] | undefined;
@@ -16,7 +17,6 @@ interface Props {
 const TableBody = ({ data }: Props) => {
     return (
         <Tbody>
-            <AddListTask />
             {data?.map(item => (
                 <Tr key={item.tasks.id}>
                     <Td px={3}>
@@ -27,6 +27,9 @@ const TableBody = ({ data }: Props) => {
                     </Td>
                     <Td py={0} px={1}>
                         <AssignUserToTask image={item.user.image} name={item.user.name} />
+                    </Td>
+                    <Td p={1}>
+                        <UpdateBucket currData={item.tasks} />
                     </Td>
                     <Td px={1}>
                         <AttributeSelector
@@ -54,13 +57,11 @@ const TableBody = ({ data }: Props) => {
                         />
                     </Td>
                     <Td p={1}>
-                        <LabelDisplay task_id={item.tasks.id} />
-                    </Td>
-                    <Td p={1}>
                         <MoreOptions />
                     </Td>
                 </Tr>
             ))}
+            <AddListTask />
         </Tbody>
     )
 }

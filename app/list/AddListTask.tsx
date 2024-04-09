@@ -53,9 +53,12 @@ const AddListTask = () => {
             <Td px={1}></Td>
             <Td p={1}></Td>
             <Td p={1}>
-                <Flex className='justify-center items-center' visibility={(data.title === "" && data.bucket_id === "") ? "hidden" : "visible"}>
+                <Flex className='justify-center items-center' visibility={(data.title === "" || data.bucket_id === "") ? "hidden" : "visible"}>
                     <Icon as={IoIosCheckmark} className='rounded-full' w={8} h={8} _hover={{ bg: "gray.200" }} onClick={handleAddTask} />
-                    <Icon as={IoIosClose} className='rounded-full' w={8} h={8} _hover={{ bg: "gray.200" }} onClick={() => setNewTask(false)} />
+                    <Icon as={IoIosClose} className='rounded-full' w={8} h={8} _hover={{ bg: "gray.200" }} onClick={() => {
+                        setData(initialData);
+                        setNewTask(false);
+                    }} />
                 </Flex>
             </Td>
         </Tr>
