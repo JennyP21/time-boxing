@@ -7,7 +7,6 @@ import AttributeSelector from './AttributeSelector';
 import DueDate from './DueDate';
 import MoreOptions from './MoreOptions';
 import TaskTitle from './TaskTitle';
-import ListBucket from './ListBucket';
 import UpdateBucket from './UpdateBucket';
 
 interface Props {
@@ -22,7 +21,7 @@ const TableBody = ({ data }: Props) => {
                     <Td px={3}>
                         <Checkbox />
                     </Td>
-                    <Td px={1} overflow="clip">
+                    <Td p={1} overflow="clip">
                         <TaskTitle taskWithUser={item} />
                     </Td>
                     <Td py={0} px={1}>
@@ -31,7 +30,7 @@ const TableBody = ({ data }: Props) => {
                     <Td p={1}>
                         <UpdateBucket currData={item.tasks} />
                     </Td>
-                    <Td px={1}>
+                    <Td p={1}>
                         <AttributeSelector
                             dataToUpdate='progress'
                             task_id={item.tasks.id}
@@ -40,7 +39,7 @@ const TableBody = ({ data }: Props) => {
                             data={taskProgress}
                         />
                     </Td>
-                    <Td px={1}>
+                    <Td p={1}>
                         <AttributeSelector
                             dataToUpdate='severity'
                             task_id={item.tasks.id}
@@ -49,7 +48,7 @@ const TableBody = ({ data }: Props) => {
                             data={taskSeverity}
                         />
                     </Td>
-                    <Td px={1}>
+                    <Td p={1}>
                         <DueDate
                             task_id={item.tasks.id}
                             user_id={item.user.id}

@@ -5,9 +5,10 @@ import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 interface Props {
     selectedTask: TaskI;
     setSelectedTask: (task: TaskI) => void;
+    handleTaskUpdate?: () => void;
 }
 
-const BucketSelector = ({ selectedTask, setSelectedTask }: Props) => {
+const BucketSelector = ({ selectedTask, setSelectedTask, handleTaskUpdate }: Props) => {
 
     const { data: buckets } = useGetBucketsQuery();
 
@@ -16,8 +17,8 @@ const BucketSelector = ({ selectedTask, setSelectedTask }: Props) => {
     const selectedBucket = buckets.find(bucket => bucket.id === selectedTask.bucket_id);
 
     return (
-        <Menu>
-            <MenuButton as={Button} justifyContent="left" width="fit-content">
+        <Menu size="sm">
+            <MenuButton as={Button} justifyContent="left" width="fit-content" fontWeight="normal" onBlur={handleTaskUpdate}>
                 {selectedBucket ? selectedBucket.name : "Select a bucket"}
             </MenuButton>
             <MenuList>

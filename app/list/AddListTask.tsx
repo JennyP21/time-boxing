@@ -1,4 +1,5 @@
 "use client"
+import BucketSelector from '@/components/ui/BucketSelector';
 import { TaskI } from '@/interfaces';
 import { useAddTaskMutation } from '@/lib/features/taskApi';
 import { Flex, Icon, Input, Td, Text, Tr } from '@chakra-ui/react';
@@ -12,16 +13,15 @@ const AddListTask = () => {
 
     const initialData = {
         title: "",
-        end_date: "",
         bucket_id: "",
-        user_id: session.data?.user.id,
     } as TaskI;
+
     const [data, setData] = useState(initialData);
 
     const [addTask] = useAddTaskMutation();
 
     const handleAddTask = async () => {
-        await addTask(data);
+        await addTask({ ...data, user_id: session.data!.user.id });
         setData(initialData);
         setNewTask(false);
     }
@@ -48,9 +48,11 @@ const AddListTask = () => {
                 }
             </Td>
             <Td py={0} px={1}></Td>
-            <Td px={1}></Td>
-            <Td px={1}></Td>
-            <Td px={1}></Td>
+            <Td p={1}>
+                <BucketSelector selectedTask={data} setSelectedTask={setData} />
+            </Td>
+            <Td p={1}></Td>
+            <Td p={1}></Td>
             <Td p={1}></Td>
             <Td p={1}>
                 <Flex className='justify-center items-center' visibility={(data.title === "" || data.bucket_id === "") ? "hidden" : "visible"}>

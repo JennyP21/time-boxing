@@ -1,8 +1,8 @@
 "use client"
+import BucketSelector from '@/components/ui/BucketSelector';
 import { TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { useState } from 'react';
-import ListBucket from './ListBucket';
 
 interface Props {
     currData: TaskI;
@@ -23,7 +23,7 @@ const UpdateBucket = ({ currData }: Props) => {
     }
 
     return (
-        <ListBucket data={data} setData={setData} handleTaskUpdate={handleTaskUpdate} />
+        <BucketSelector selectedTask={data} setSelectedTask={setData} handleTaskUpdate={handleTaskUpdate} />
     )
 }
 
