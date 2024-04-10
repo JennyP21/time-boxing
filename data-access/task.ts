@@ -10,7 +10,10 @@ import { eq } from "drizzle-orm";
 
 export async function getTasks() {
   const allTasks = await db
-    .select()
+    .select({
+      task: tasks,
+      user: users,
+    })
     .from(tasks)
     .innerJoin(users, eq(tasks.user_id, users.id));
 
@@ -19,7 +22,10 @@ export async function getTasks() {
 
 export async function getTasksByBucket(bucket_id: string) {
   const tasksByBucket = await db
-    .select()
+    .select({
+      task: tasks,
+      user: users,
+    })
     .from(tasks)
     .innerJoin(users, eq(tasks.user_id, users.id))
     .where(eq(tasks.bucket_id, bucket_id));
@@ -29,7 +35,7 @@ export async function getTasksByBucket(bucket_id: string) {
 export async function getTasksByLabelId(label_id: string) {
   const tasksByLabel = await db
     .select({
-      tasks,
+      task: tasks,
       user: users,
     })
     .from(tasks_labels)
