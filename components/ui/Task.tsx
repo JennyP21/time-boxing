@@ -29,9 +29,7 @@ const Task = ({ taskWithUser }: Props) => {
     const [deleteTask] = useDeleteTaskMutation();
     const { data: steps } = useGetStepsByTaskIdQuery(task.id);
 
-    const handleDelete = async () => {
-        await deleteTask(task.id);
-    }
+    const handleDelete = async () => await deleteTask(task.id);
 
     return (
         <Card

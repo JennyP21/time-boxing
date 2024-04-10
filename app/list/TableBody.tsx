@@ -57,7 +57,7 @@ const TableBody = ({ data }: Props) => {
                         />
                     </Td>
                     <Td p={1}>
-                        <MoreOptions />
+                        <MoreOptions task={item.task} />
                     </Td>
                 </Tr>
             ))}
