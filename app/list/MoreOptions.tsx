@@ -1,5 +1,6 @@
-import { deleteTask } from '@/data-access/task';
+"use client"
 import { TaskI } from '@/interfaces';
+import { useDeleteTaskMutation } from '@/lib/features/taskApi';
 import { Icon, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
@@ -8,8 +9,10 @@ interface Props {
 }
 
 const MoreOptions = ({ task }: Props) => {
-
-    const handleDelete = async () => await deleteTask(task.id);
+    const [deleteTask] = useDeleteTaskMutation();
+    const handleTaskDelete = async () => {
+        await deleteTask(task.id);
+    }
 
     return (
         <Menu>
@@ -17,7 +20,7 @@ const MoreOptions = ({ task }: Props) => {
                 <Icon as={BsThreeDotsVertical} className='rounded-full mx-auto' w={4} h={4} _hover={{ bg: "gray.200" }} />
             </MenuButton>
             <MenuList>
-                <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                <MenuItem onClick={handleTaskDelete}>Delete</MenuItem>
                 <MenuItem>Move</MenuItem>
             </MenuList>
         </Menu>
