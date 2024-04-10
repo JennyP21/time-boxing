@@ -42,7 +42,7 @@ export interface UserI {
 }
 
 export interface TaskWithUserI {
-  tasks: TaskI;
+  task: TaskI;
   user: UserI;
 }
 

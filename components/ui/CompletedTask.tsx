@@ -18,7 +18,7 @@ const CompletedTask = ({ data }: Props) => {
                 </AccordionButton>
                 <AccordionPanel p={0} my={1}>
                     {data?.map(task => (
-                        <Task key={task.tasks.id} taskWithUser={task} />
+                        <Task key={task.task.id} taskWithUser={task} />
                     ))}
                 </AccordionPanel>
             </AccordionItem>

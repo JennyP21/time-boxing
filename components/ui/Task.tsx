@@ -1,9 +1,9 @@
 "use client"
-import { TaskI, TaskWithUserI } from '@/interfaces';
+import { TaskWithUserI } from '@/interfaces';
 import { useGetBucketsQuery } from '@/lib/features/bucketApi';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
-import { useDeleteTaskMutation, useUpdateTaskMutation } from '@/lib/features/taskApi';
-import { Card, CardBody, CardFooter, CardHeader, Checkbox, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
+import { useDeleteTaskMutation } from '@/lib/features/taskApi';
+import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import AssignUserToTask from './AssignUserToTask';
@@ -11,13 +11,14 @@ import LabelDisplay from './LabelDisplay';
 import MoveTask from './MoveTask';
 import StepsDetails from './StepsDetails';
 import TaskDetails from './TaskDetails';
+import CompleteTask from './CompleteTask';
 
 interface Props {
     taskWithUser: TaskWithUserI
 }
 
 const Task = ({ taskWithUser }: Props) => {
-    const task = taskWithUser.tasks;
+    const task = taskWithUser.task;
     const user = taskWithUser.user;
 
     const { isOpen: isOpenTask, onOpen: onOpenTask, onClose: onCloseTask } = useDisclosure();
@@ -27,16 +28,6 @@ const Task = ({ taskWithUser }: Props) => {
 
     const [deleteTask] = useDeleteTaskMutation();
     const { data: steps } = useGetStepsByTaskIdQuery(task.id);
-
-    const [updateTask] = useUpdateTaskMutation();
-    const handleTaskUpdate = async () => {
-        const data = {
-            id: task.id,
-            user_id: task.user_id,
-            progress: task.progress === "Completed" ? "In Progress" : "Completed",
-        } as TaskI;
-        await updateTask(data);
-    };
 
     const handleDelete = async () => {
         await deleteTask(task.id);
@@ -59,7 +50,7 @@ const Task = ({ taskWithUser }: Props) => {
                 </Menu>
                 <LabelDisplay task_id={task.id} />
                 <Flex alignItems="center" gap={1}>
-                    <Checkbox size={"md"} defaultChecked={task.progress === "Completed"} onChange={() => handleTaskUpdate()} />
+                    <CompleteTask task={task} />
                     <Text
                         className='cursor-pointer hover:underline'
                         textDecor={task.progress === "Completed" ? "line-through" : ""}

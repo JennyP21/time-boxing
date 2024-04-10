@@ -12,7 +12,7 @@ const Severity = ({ severity }: Props) => {
 
     const { data: tasks, error } = useGetTasksQuery();
 
-    const filteredData = tasks?.filter(task => task.tasks.severity === severity)
+    const filteredData = tasks?.filter(task => task.task.severity === severity)
 
     return (
         <Stack>

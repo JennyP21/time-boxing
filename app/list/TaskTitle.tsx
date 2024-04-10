@@ -13,10 +13,10 @@ const TaskTitle = ({ taskWithUser }: Props) => {
         <>
             <Text
                 className='hover:underline hover:underline-offset-1 cursor-pointer'
-                textDecor={taskWithUser.tasks.progress === "Completed" ? "line-through" : ""}
+                textDecor={taskWithUser.task.progress === "Completed" ? "line-through" : ""}
                 onClick={onOpen}
             >
-                {taskWithUser.tasks.title}
+                {taskWithUser.task.title}
             </Text>
             <TaskDetails isOpen={isOpen} onClose={onClose} taskWithUser={taskWithUser} />
         </>

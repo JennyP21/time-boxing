@@ -13,7 +13,7 @@ interface Props {
 }
 
 const TaskDetails = ({ isOpen, onClose, taskWithUser }: Props) => {
-    const { id, severity, progress, note, title, start_date, end_date, showOnTask, created_at } = taskWithUser.tasks;
+    const { id, severity, progress, note, title, start_date, end_date, showOnTask, created_at } = taskWithUser.task;
     const { id: user_id, image, name } = taskWithUser.user;
 
     return (

@@ -15,8 +15,8 @@ const ListTable = () => {
         return null;
     }
 
-    const inCompleteTasks = data?.filter(item => item.tasks.progress !== "Completed");
-    const completedTasks = data?.filter(item => item.tasks.progress === "Completed");
+    const inCompleteTasks = data?.filter(item => item.task.progress !== "Completed");
+    const completedTasks = data?.filter(item => item.task.progress === "Completed");
 
     return (
         <TableContainer className='h-full flex-[1_0_0]'>

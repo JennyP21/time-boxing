@@ -12,7 +12,7 @@ const Progress = ({ progress }: Props) => {
 
     const { data: tasks } = useGetTasksQuery();
 
-    const filteredData = tasks?.filter(task => task.tasks.progress === progress)
+    const filteredData = tasks?.filter(task => task.task.progress === progress)
 
     return (
         <Stack>
