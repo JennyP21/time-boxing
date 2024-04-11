@@ -9,15 +9,26 @@ import DueDate from './DueDate';
 import MoreOptions from './MoreOptions';
 import TaskTitle from './TaskTitle';
 import UpdateBucket from './UpdateBucket';
+import { useSearchParams } from 'next/navigation';
+import _ from "lodash";
 
 interface Props {
     data: TaskWithUserI[] | undefined;
 }
 
 const TableBody = ({ data }: Props) => {
+
+    const searchParams = useSearchParams();
+    const sortBy = searchParams.get("sortBy") as "title" | "progress" | "end_date" | "severity" | null;
+    const dir = searchParams.get("dir") as "asc" | "desc" | null;
+
+    const sortedData = sortBy && dir ? _.orderBy(data, function (item) {
+        return item.task[sortBy];
+    }, dir) : data;
+
     return (
         <Tbody>
-            {data?.map(item => (
+            {sortedData?.map(item => (
                 <Tr key={item.task.id}>
                     <Td px={3}>
                         <CompleteTask task={item.task} />

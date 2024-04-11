@@ -50,12 +50,12 @@ export const groupTypes = [
 export const listByTypes = ["Active", "Completed"];
 
 export const tableHeaderRow = [
-  { sort: false, label: "", width: "3%" },
-  { sort: true, label: "Task Name", width: "25%" },
-  { sort: false, label: "Assigned To", width: "12%" },
-  { sort: true, label: "Bucket", width: "15%" },
-  { sort: true, label: "Progress", width: "15%" },
-  { sort: true, label: "Severity", width: "15%" },
-  { sort: true, label: "Due", width: "10%" },
-  { sort: false, label: "", width: "5%" },
+  { sortKey: null, label: "", width: "3%" },
+  { sortKey: "title", label: "Task Name", width: "25%" },
+  { sortKey: null, label: "Assigned To", width: "12%" },
+  { sortKey: null, label: "Bucket", width: "15%" },
+  { sortKey: "progress", label: "Progress", width: "15%" },
+  { sortKey: "severity", label: "Severity", width: "15%" },
+  { sortKey: "end_date", label: "Due", width: "10%" },
+  { sortKey: null, label: "", width: "5%" },
 ];

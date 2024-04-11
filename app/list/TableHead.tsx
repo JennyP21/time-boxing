@@ -2,7 +2,6 @@
 import { tableHeaderRow } from '@/constants'
 import { Flex, Icon, Th, Thead, Tr } from '@chakra-ui/react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
 import { BsArrowDown, BsArrowUp } from 'react-icons/bs'
 
 const TableHead = () => {
@@ -24,21 +23,21 @@ const TableHead = () => {
             <Tr>
                 {tableHeaderRow.map((col, index) => (
                     <Th
-                        cursor={col.sort ? "pointer" : ""}
-                        _hover={{ bg: col.sort ? "gray.100" : "" }}
+                        cursor={col.sortKey ? "pointer" : ""}
+                        _hover={{ bg: col.sortKey ? "gray.100" : "" }}
                         px={1}
                         key={index}
                         width={col.width}
-                        onClick={col.sort ? (() =>
-                            changeSort(col.label,
-                                sortBy === col.label ?
+                        onClick={col.sortKey ? (() =>
+                            changeSort(col.sortKey,
+                                sortBy === col.sortKey ?
                                     dir === "asc" ? "desc" : "asc"
                                     : "asc"))
                             : undefined
                         }
                     >
                         <Flex className='items-center'>
-                            {col.label} {col.label === sortBy && <Icon as={dir === "asc" ? BsArrowUp : BsArrowDown} />}
+                            {col.label} {col.sortKey && col.sortKey === sortBy && <Icon as={dir === "asc" ? BsArrowUp : BsArrowDown} />}
                         </Flex>
                     </Th>
                 ))}
