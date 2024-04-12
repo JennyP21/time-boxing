@@ -22,13 +22,23 @@ export const projects = pgTable("projects", {
   updated_at: timestamp("updated_at"),
 });
 
+export const projectsRelations = relations(
+  projects,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [projects.user_id],
+      references: [users.id],
+    }),
+  })
+);
+
 export const buckets = pgTable("buckets", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
   order: integer("order").notNull(),
-  user_id: text("user_id")
+  project_id: uuid("project_id")
     .notNull()
-    .references(() => users.id),
+    .references(() => projects.id),
   created_at: timestamp("created_at"),
   updated_at: timestamp("updated_at"),
 });
@@ -37,9 +47,9 @@ export const bucketsRelations = relations(
   buckets,
   ({ many, one }) => ({
     tasks: many(tasks),
-    user: one(users, {
-      fields: [buckets.user_id],
-      references: [users.id],
+    projects: one(projects, {
+      fields: [buckets.project_id],
+      references: [projects.id],
     }),
   })
 );
@@ -161,9 +171,9 @@ export const usersRelation = relations(
   users,
   ({ many }) => ({
     tasks: many(tasks),
-    buckets: many(buckets),
     sessions: many(sessions),
     accounts: many(accounts),
+    projects: many(projects),
   })
 );
 
