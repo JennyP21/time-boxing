@@ -3,7 +3,7 @@ import { projects } from "@/drizzle/schema";
 import { ProjectI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
-export async function getProjectById(id: string) {
+export async function getProject(id: string) {
   const result = await db
     .select()
     .from(projects)
