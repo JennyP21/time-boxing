@@ -1,3 +1,7 @@
+import { BsKanban } from "react-icons/bs";
+import { FaRegListAlt } from "react-icons/fa";
+import { IoHomeOutline } from "react-icons/io5";
+
 // Error messages
 
 // 1) Bucket
@@ -58,4 +62,22 @@ export const tableHeaderRow = [
   { sortKey: "severity", label: "Severity", width: "15%" },
   { sortKey: "end_date", label: "Due", width: "10%" },
   { sortKey: null, label: "", width: "5%" },
+];
+
+export const panelItems = [
+  {
+    name: "Dashboard",
+    icon: IoHomeOutline,
+    href: "/",
+  },
+  {
+    name: "Kanban View",
+    icon: BsKanban,
+    href: "/kanban",
+  },
+  {
+    name: "List View",
+    icon: FaRegListAlt,
+    href: "/list",
+  },
 ];

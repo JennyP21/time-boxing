@@ -10,7 +10,7 @@ export interface BucketI {
   id: string;
   name: string;
   order: number;
-  user_id: string;
+  project_id: string;
   created_at: Date;
   updated_at: Date;
 }

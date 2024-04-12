@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --left-panel-size: 12rem;
+}
+
 html,
 body {
   height: 100%;
