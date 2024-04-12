@@ -3,7 +3,7 @@ import GroupByLabel from '@/components/ui/Label/GroupByLabel';
 import GroupByProgress from '@/components/ui/Progress/GroupByProgress';
 import GroupBySeverity from '@/components/ui/Severity/GroupBySeverity';
 import { groupTypes } from '@/constants';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import GroupByBucket from '../../components/ui/Bucket/GroupByBucket';
 
 const KanbanCanvas = () => {

@@ -23,7 +23,7 @@ export const projectsApi = createApi({
         "deleteProject",
       ],
     }),
-    getProjects: builder.query<ProjectI[], null>({
+    getProjects: builder.query<ProjectI[], void>({
       query: () => `/project`,
       providesTags: [
         "addProject",

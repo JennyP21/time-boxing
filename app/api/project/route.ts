@@ -11,7 +11,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET() {
   const projects = await getProjects();
 
-  return projects;
+  return NextResponse.json(projects);
 }
 
 export async function POST(request: NextRequest) {
