@@ -13,7 +13,7 @@ const LeftPanelAccordion = ({ title, children }: Props) => {
             <AccordionItem border="none">
                 <AccordionButton className='rounded-lg' p={1} gap={1} _hover={{ bg: "gray.100" }}>
                     <AccordionIcon as={GoTriangleUp} w={4} h={4} />
-                    <Text>
+                    <Text fontSize="small" fontWeight="bold">
                         {title}
                     </Text>
                 </AccordionButton>
