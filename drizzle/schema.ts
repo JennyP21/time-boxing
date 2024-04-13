@@ -56,9 +56,6 @@ export const bucketsRelations = relations(
 
 export const tasks = pgTable("tasks", {
   id: uuid("id").primaryKey().defaultRandom(),
-  user_id: text("user_id")
-    .notNull()
-    .references(() => users.id),
   bucket_id: uuid("bucket_id").references(() => buckets.id),
   title: text("title").notNull(),
   start_date: date("start_date"),
@@ -90,10 +87,6 @@ export const tasksRelations = relations(
     bucket: one(buckets, {
       fields: [tasks.bucket_id],
       references: [buckets.id],
-    }),
-    users: one(users, {
-      fields: [tasks.user_id],
-      references: [users.id],
     }),
   })
 );
@@ -170,7 +163,6 @@ export const users = pgTable("user", {
 export const usersRelation = relations(
   users,
   ({ many }) => ({
-    tasks: many(tasks),
     sessions: many(sessions),
     accounts: many(accounts),
     projects: many(projects),
