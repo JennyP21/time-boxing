@@ -24,11 +24,12 @@ export const projects = pgTable("projects", {
 
 export const projectsRelations = relations(
   projects,
-  ({ one }) => ({
+  ({ one, many }) => ({
     user: one(users, {
       fields: [projects.user_id],
       references: [users.id],
     }),
+    tasks: many(tasks),
   })
 );
 
@@ -56,6 +57,9 @@ export const bucketsRelations = relations(
 
 export const tasks = pgTable("tasks", {
   id: uuid("id").primaryKey().defaultRandom(),
+  project_id: uuid("project_id").references(
+    () => projects.id
+  ),
   bucket_id: uuid("bucket_id").references(() => buckets.id),
   title: text("title").notNull(),
   start_date: date("start_date"),
@@ -87,6 +91,10 @@ export const tasksRelations = relations(
     bucket: one(buckets, {
       fields: [tasks.bucket_id],
       references: [buckets.id],
+    }),
+    project: one(projects, {
+      fields: [tasks.project_id],
+      references: [projects.id],
     }),
   })
 );
