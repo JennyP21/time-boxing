@@ -22,7 +22,7 @@ const GroupByBucket: React.FC<PropsWithProject> = ({ project }: PropsWithProject
             {!error &&
                 <GroupByContainer>
                     {buckets?.map(bucket => (
-                        <Bucket key={bucket.id} id={bucket.id} name={bucket.name} />
+                        <Bucket key={bucket.id} id={bucket.id} name={bucket.name} project={project} />
                     ))}
                     <AddBucket project={project} lastBucketOrder={(buckets && buckets.length > 0) ? buckets[buckets.length - 1].order : 0} />
                 </GroupByContainer>

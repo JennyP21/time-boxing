@@ -1,23 +1,22 @@
 "use client"
 import { toast } from '@/components/error/Toast';
 import { deleteBucketError, updateBucketError } from '@/constants';
-import { BucketI } from '@/interfaces';
+import { BucketI, ProjectI } from '@/interfaces';
 import { useDeleteBucketMutation, useUpdateBucketMutation } from '@/lib/features/bucketApi';
 import { Flex, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
-import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 
 interface Props {
     id: string;
     name: string;
+    project: ProjectI;
 }
 
-const BucketHeader = ({ id, name }: Props) => {
+const BucketHeader = ({ id, name, project }: Props) => {
     const [active, setActive] = useState(false);
     const [updatedName, setUpdatedName] = useState(name);
 
-    const session = useSession();
     const [deleteBucket, { error: deleteError }] = useDeleteBucketMutation();
     const [updateBucket, { error: updateError }] = useUpdateBucketMutation();
 
@@ -29,7 +28,7 @@ const BucketHeader = ({ id, name }: Props) => {
         const data = {
             name: updatedName,
             id,
-            user_id: session.data?.user?.id,
+            project_id: project.id
         } as BucketI;
         if (name !== updatedName) {
             await updateBucket(data);
