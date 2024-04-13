@@ -12,6 +12,18 @@ export async function getBuckets() {
   return allBuckets;
 }
 
+export async function getBucketsByProjectId(
+  project_id: string
+) {
+  const bucketsByProjectId = await db
+    .select()
+    .from(buckets)
+    .orderBy(buckets.order)
+    .where(eq(buckets.project_id, project_id));
+
+  return bucketsByProjectId;
+}
+
 export async function addBucket(bucket: BucketI) {
   const newBucket = await db
     .insert(buckets)

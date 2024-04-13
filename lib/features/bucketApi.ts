@@ -5,7 +5,7 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 export const bucketApi = createApi({
-  tagTypes: ["bucket"],
+  tagTypes: ["addBucket", "updateBucket", "deleteBucket"],
   reducerPath: "bucketApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/api",
@@ -13,15 +13,30 @@ export const bucketApi = createApi({
   endpoints: (builder) => ({
     getBuckets: builder.query<BucketI[], void>({
       query: () => "bucket/",
-      providesTags: ["bucket"],
+      providesTags: [
+        "addBucket",
+        "updateBucket",
+        "deleteBucket",
+      ],
     }),
+    getBucketsByProjectId: builder.query<BucketI[], string>(
+      {
+        query: (project_id: string) =>
+          `project/${project_id}/bucket`,
+        providesTags: [
+          "addBucket",
+          "updateBucket",
+          "deleteBucket",
+        ],
+      }
+    ),
     addBucket: builder.mutation<BucketI, BucketI>({
       query: (data: BucketI) => ({
         url: "bucket/",
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["bucket"],
+      invalidatesTags: ["addBucket"],
     }),
     updateBucket: builder.mutation<BucketI, BucketI>({
       query: (data: BucketI) => ({
@@ -29,20 +44,21 @@ export const bucketApi = createApi({
         method: "PATCH",
         body: data,
       }),
-      invalidatesTags: ["bucket"],
+      invalidatesTags: ["updateBucket"],
     }),
     deleteBucket: builder.mutation<void, string>({
       query: (id) => ({
         url: `bucket/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["bucket"],
+      invalidatesTags: ["deleteBucket"],
     }),
   }),
 });
 
 export const {
   useGetBucketsQuery,
+  useGetBucketsByProjectIdQuery,
   useAddBucketMutation,
   useUpdateBucketMutation,
   useDeleteBucketMutation,
