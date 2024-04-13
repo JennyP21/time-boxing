@@ -11,7 +11,7 @@ export const validateBucket = z.object({
 });
 
 export const validateTask = z.object({
-  user_id: z.string(),
+  project_id: z.string(),
   bucket_id: z.string(),
   title: z.string().min(3),
   start_date: z.string().optional(),
@@ -33,7 +33,7 @@ export const validateTask = z.object({
 
 export const validatePatchTask = z.object({
   user_id: z.string(),
-  bucket_id: z.string().optional(),
+  project_id: z.string().optional(),
   title: z.string().min(3).optional(),
   start_date: z.string().optional(),
   end_date: z.string().optional(),

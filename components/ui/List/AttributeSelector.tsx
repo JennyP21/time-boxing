@@ -9,10 +9,9 @@ interface Props {
     defaultValue: string;
     dataToUpdate: "progress" | "severity";
     task_id: string;
-    user_id: string;
 }
 
-const AttributeSelector = ({ data, defaultValue, dataToUpdate, task_id, user_id }: Props) => {
+const AttributeSelector = ({ data, defaultValue, dataToUpdate, task_id }: Props) => {
 
     const [updateTask] = useUpdateTaskMutation();
 
@@ -22,11 +21,9 @@ const AttributeSelector = ({ data, defaultValue, dataToUpdate, task_id, user_id 
         if (defaultValue !== newValue) {
             const data = dataToUpdate === "progress" ? {
                 id: task_id,
-                user_id,
                 progress: newValue
             } as TaskI : {
                 id: task_id,
-                user_id,
                 severity: newValue
             } as TaskI;
 

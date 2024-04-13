@@ -1,24 +1,24 @@
 "use client"
 import TaskDetails from '@/components/ui/TaskDetails';
-import { TaskWithUserI } from '@/interfaces';
+import { TaskI, TaskWithUserI } from '@/interfaces';
 import { Text, useDisclosure } from '@chakra-ui/react';
 
 interface Props {
-    taskWithUser: TaskWithUserI;
+    task: TaskI;
 }
 
-const TaskTitle = ({ taskWithUser }: Props) => {
+const TaskTitle = ({ task }: Props) => {
     const { onOpen, onClose, isOpen } = useDisclosure();
     return (
         <>
             <Text
                 className='hover:underline hover:underline-offset-1 cursor-pointer'
-                textDecor={taskWithUser.task.progress === "Completed" ? "line-through" : ""}
+                textDecor={task.progress === "Completed" ? "line-through" : ""}
                 onClick={onOpen}
             >
-                {taskWithUser.task.title}
+                {task.title}
             </Text>
-            <TaskDetails isOpen={isOpen} onClose={onClose} taskWithUser={taskWithUser} />
+            <TaskDetails isOpen={isOpen} onClose={onClose} task={task} />
         </>
     )
 }

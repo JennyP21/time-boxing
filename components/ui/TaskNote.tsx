@@ -7,23 +7,22 @@ import { useState } from 'react';
 interface Props {
     note: string;
     task_id: string;
-    user_id: string;
 }
 
-const TaskNote = ({ note, task_id, user_id }: Props) => {
+const TaskNote = ({ note, task_id }: Props) => {
     const [newNote, setNote] = useState(note);
 
     const [updateTask] = useUpdateTaskMutation();
 
     const handleSubmit = async () => {
         if (newNote !== note) {
-            const data = { note: newNote, id: task_id, user_id } as TaskI;
+            const data = { note: newNote, id: task_id } as TaskI;
             await updateTask(data);
         }
     }
 
     const handleShowOnCard = async () => {
-        const data = { showOnTask: "note", id: task_id, user_id } as TaskI;
+        const data = { showOnTask: "note", id: task_id } as TaskI;
         await updateTask(data);
     }
 

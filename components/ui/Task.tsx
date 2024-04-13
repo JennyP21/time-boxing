@@ -1,25 +1,22 @@
 "use client"
-import { TaskWithUserI } from '@/interfaces';
+import { TaskI } from '@/interfaces';
 import { useGetBucketsQuery } from '@/lib/features/bucketApi';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 import { useDeleteTaskMutation } from '@/lib/features/taskApi';
 import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import AssignUserToTask from './AssignUserToTask';
+import CompleteTask from './CompleteTask';
 import LabelDisplay from './LabelDisplay';
 import MoveTask from './MoveTask';
 import StepsDetails from './StepsDetails';
 import TaskDetails from './TaskDetails';
-import CompleteTask from './CompleteTask';
 
 interface Props {
-    taskWithUser: TaskWithUserI
+    task: TaskI
 }
 
-const Task = ({ taskWithUser }: Props) => {
-    const task = taskWithUser.task;
-    const user = taskWithUser.user;
+const Task = ({ task }: Props) => {
 
     const { isOpen: isOpenTask, onOpen: onOpenTask, onClose: onCloseTask } = useDisclosure();
     const { isOpen: isOpenMoveTask, onOpen: onOpenMoveTask, onClose: onCloseMoveTask } = useDisclosure();
@@ -74,10 +71,10 @@ const Task = ({ taskWithUser }: Props) => {
                 </Flex>}
             </CardBody>
             <CardFooter px={3} py={0} borderTop={"1px"} borderColor={"gray.200"}>
-                <AssignUserToTask image={user.image} name={user.name} />
+                {/* <AssignUserToTask image={user.image} name={user.name} /> */}
             </CardFooter>
-            {buckets && <MoveTask user_id={user.id} bucket_id={task.bucket_id} task_id={task.id} isOpen={isOpenMoveTask} onClose={onCloseMoveTask} buckets={buckets} />}
-            <TaskDetails taskWithUser={taskWithUser} isOpen={isOpenTask} onClose={onCloseTask} />
+            {buckets && <MoveTask bucket_id={task.bucket_id} task_id={task.id} isOpen={isOpenMoveTask} onClose={onCloseMoveTask} buckets={buckets} />}
+            <TaskDetails task={task} isOpen={isOpenTask} onClose={onCloseTask} />
         </Card>
     )
 }

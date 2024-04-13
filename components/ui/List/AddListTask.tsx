@@ -1,19 +1,18 @@
 "use client"
 import BucketSelector from '@/components/ui/BucketSelector';
-import { TaskI } from '@/interfaces';
+import { PropsWithProject, TaskI } from '@/interfaces';
 import { useAddTaskMutation } from '@/lib/features/taskApi';
 import { Flex, Icon, Input, Td, Text, Tr } from '@chakra-ui/react';
-import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { IoIosCheckmark, IoIosClose } from 'react-icons/io';
 
-const AddListTask = () => {
-    const session = useSession();
+const AddListTask = ({ project }: PropsWithProject) => {
     const [newTask, setNewTask] = useState(false);
 
     const initialData = {
         title: "",
         bucket_id: "",
+        project_id: project.id
     } as TaskI;
 
     const [data, setData] = useState(initialData);
@@ -21,7 +20,7 @@ const AddListTask = () => {
     const [addTask] = useAddTaskMutation();
 
     const handleAddTask = async () => {
-        await addTask({ ...data, user_id: session.data!.user.id });
+        await addTask({ ...data });
         setData(initialData);
         setNewTask(false);
     }

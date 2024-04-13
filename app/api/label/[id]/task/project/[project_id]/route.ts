@@ -6,11 +6,16 @@ export async function GET(
   {
     params,
   }: {
-    params: { id: string };
+    params: { id: string; project_id: string };
   }
 ) {
-  const id = params.id;
-  const tasks = await getTasksByLabelId(id);
+  const label_id = params.id;
+  const project_id = params.project_id;
+
+  const tasks = await getTasksByLabelId(
+    label_id,
+    project_id
+  );
 
   return NextResponse.json(tasks);
 }

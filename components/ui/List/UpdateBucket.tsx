@@ -1,14 +1,15 @@
 "use client"
 import BucketSelector from '@/components/ui/BucketSelector';
-import { TaskI } from '@/interfaces';
+import { ProjectI, TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { useState } from 'react';
 
 interface Props {
     currData: TaskI;
+    project: ProjectI;
 }
 
-const UpdateBucket = ({ currData }: Props) => {
+const UpdateBucket = ({ currData, project }: Props) => {
     const [data, setData] = useState(currData);
 
     const [updateTask] = useUpdateTaskMutation();
@@ -17,7 +18,7 @@ const UpdateBucket = ({ currData }: Props) => {
             await updateTask({
                 id: data.id,
                 bucket_id: data.bucket_id,
-                user_id: data.user_id,
+                project_id: project.id
             } as TaskI);
         }
     }

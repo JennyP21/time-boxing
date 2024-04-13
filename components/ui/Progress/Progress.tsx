@@ -1,23 +1,25 @@
 import Stack from '@/components/ui/Stack';
-import { useGetTasksQuery } from '@/lib/features/taskApi';
+import { useGetTasksByProjectIdQuery } from '@/lib/features/taskApi';
 import AddTask from '../AddTask';
 import GroupHeader from '../GroupHeader';
 import TasksList from '../TasksList';
+import { ProjectI } from '@/interfaces';
 
 interface Props {
     progress: string;
+    project: ProjectI;
 }
 
-const Progress = ({ progress }: Props) => {
+const Progress = ({ progress, project }: Props) => {
 
-    const { data: tasks } = useGetTasksQuery();
+    const { data: tasks } = useGetTasksByProjectIdQuery(project.id);
 
-    const filteredData = tasks?.filter(task => task.task.progress === progress)
+    const filteredData = tasks?.filter(task => task.progress === progress)
 
     return (
         <Stack>
             <GroupHeader>{progress}</GroupHeader>
-            <AddTask />
+            <AddTask project={project} />
             <TasksList data={filteredData} />
         </Stack>
     )

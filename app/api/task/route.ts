@@ -1,12 +1,6 @@
-import { addTask, getTasks } from "@/data-access/task";
+import { addTask } from "@/data-access/task";
 import { validateTask } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
-
-export async function GET(request: NextRequest) {
-  const tasks = await getTasks();
-
-  return NextResponse.json(tasks);
-}
 
 export async function POST(request: NextRequest) {
   const data = await request.json();

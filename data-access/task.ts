@@ -6,43 +6,42 @@ import {
   users,
 } from "@/drizzle/schema";
 import { TaskI } from "@/interfaces";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
-export async function getTasks() {
+export async function getTasksByProjectId(
+  project_id: string
+) {
   const allTasks = await db
-    .select({
-      task: tasks,
-      user: users,
-    })
+    .select()
     .from(tasks)
-    .innerJoin(users, eq(tasks.user_id, users.id));
+    .where(eq(tasks.project_id, project_id));
 
   return allTasks;
 }
 
 export async function getTasksByBucket(bucket_id: string) {
   const tasksByBucket = await db
-    .select({
-      task: tasks,
-      user: users,
-    })
+    .select()
     .from(tasks)
-    .innerJoin(users, eq(tasks.user_id, users.id))
     .where(eq(tasks.bucket_id, bucket_id));
   return tasksByBucket;
 }
 
-export async function getTasksByLabelId(label_id: string) {
+export async function getTasksByLabelId(
+  label_id: string,
+  project_id: string
+) {
   const tasksByLabel = await db
-    .select({
-      task: tasks,
-      user: users,
-    })
+    .select()
     .from(tasks_labels)
     .fullJoin(labels, eq(tasks_labels.label_id, labels.id))
     .fullJoin(tasks, eq(tasks_labels.task_id, tasks.id))
-    .innerJoin(users, eq(tasks.user_id, users.id))
-    .where(eq(labels.id, label_id));
+    .where(
+      and(
+        eq(tasks.project_id, project_id),
+        eq(labels.id, label_id)
+      )
+    );
   return tasksByLabel;
 }
 

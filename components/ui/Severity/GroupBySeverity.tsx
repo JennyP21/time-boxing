@@ -9,7 +9,7 @@ const GroupBySeverity: React.FC<PropsWithProject> = ({ project }: PropsWithProje
         <GroupByContainer>
             {taskSeverity.map(severity => (
                 <React.Fragment key={severity}>
-                    <Severity severity={severity} />
+                    <Severity severity={severity} project={project} />
                 </React.Fragment>
             ))}
         </GroupByContainer>

@@ -8,7 +8,7 @@ import { useState } from 'react';
 import AttributeContainer from './AttributeContainer';
 import TaskSelect from './TaskSelect';
 
-const TaskAttributes = ({ start_date, end_date, severity, progress, task_id, user_id }: TaskAttributesProps) => {
+const TaskAttributes = ({ start_date, end_date, severity, progress, task_id }: TaskAttributesProps) => {
     const [startDate, setStartDate] = useState(start_date);
     const [endDate, setEndDate] = useState(end_date);
     const [newSeverity, setNewSeverity] = useState(severity);
@@ -29,7 +29,7 @@ const TaskAttributes = ({ start_date, end_date, severity, progress, task_id, use
             newData = { progress: newProgress };
         }
         if (!isEmpty(newData)) {
-            await updateTask({ id: task_id, user_id, ...newData } as TaskI);
+            await updateTask({ id: task_id, ...newData } as TaskI);
         }
     }
 

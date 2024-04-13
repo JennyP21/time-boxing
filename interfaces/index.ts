@@ -17,7 +17,7 @@ export interface BucketI {
 
 export interface TaskI {
   id: string;
-  user_id: string;
+  project_id: string;
   bucket_id: string;
   title: string;
   start_date: string;
@@ -56,7 +56,6 @@ export interface TaskWithUserI {
 
 export interface TaskAttributesProps {
   task_id: string;
-  user_id: string;
   start_date: string;
   end_date: string;
   severity: string;
@@ -83,4 +82,13 @@ export interface TabI {
 
 export interface PropsWithProject {
   project: ProjectI;
+}
+
+export interface PropsWithTaskI {
+  tasks: TaskI;
+}
+
+export interface LabelWithProject {
+  label_id: string;
+  project_id: string;
 }

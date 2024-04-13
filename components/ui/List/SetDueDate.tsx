@@ -7,11 +7,10 @@ interface Props {
     isOpen: boolean;
     onClose: () => void;
     task_id: string;
-    user_id: string;
     currDueDate: string;
 }
 
-const SetDueDate = ({ isOpen, onClose, task_id, user_id, currDueDate }: Props) => {
+const SetDueDate = ({ isOpen, onClose, task_id, currDueDate }: Props) => {
 
     const [updateTask] = useUpdateTaskMutation();
 
@@ -19,7 +18,7 @@ const SetDueDate = ({ isOpen, onClose, task_id, user_id, currDueDate }: Props) =
         const newValue = (e.target as HTMLSelectElement).value;
 
         if (currDueDate !== newValue) {
-            const data = { id: task_id, user_id, end_date: newValue } as TaskI;
+            const data = { id: task_id, end_date: newValue } as TaskI;
             await updateTask(data);
         }
     }

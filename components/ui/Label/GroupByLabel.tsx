@@ -11,7 +11,7 @@ const GroupByLabel: React.FC<PropsWithProject> = ({ project }: PropsWithProject)
         <GroupByContainer>
             {labels?.map(label => (
                 <React.Fragment key={label.id}>
-                    <Label label={label} />
+                    <Label label={label} project={project} />
                 </React.Fragment>
             ))}
         </GroupByContainer>

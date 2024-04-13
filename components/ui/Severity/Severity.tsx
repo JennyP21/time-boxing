@@ -1,23 +1,25 @@
 import Stack from '@/components/ui/Stack';
-import { useGetTasksQuery } from '@/lib/features/taskApi';
+import { ProjectI } from '@/interfaces';
+import { useGetTasksByProjectIdQuery } from '@/lib/features/taskApi';
 import AddTask from '../AddTask';
 import GroupHeader from '../GroupHeader';
 import TasksList from '../TasksList';
 
 interface Props {
     severity: string;
+    project: ProjectI;
 }
 
-const Severity = ({ severity }: Props) => {
+const Severity = ({ severity, project }: Props) => {
 
-    const { data: tasks, error } = useGetTasksQuery();
+    const { data: tasks, error } = useGetTasksByProjectIdQuery(project.id);
 
-    const filteredData = tasks?.filter(task => task.task.severity === severity)
+    const filteredData = tasks?.filter(task => task.severity === severity)
 
     return (
         <Stack>
             <GroupHeader>{severity}</GroupHeader>
-            <AddTask />
+            <AddTask project={project} />
             <TasksList data={filteredData} />
         </Stack>
     )

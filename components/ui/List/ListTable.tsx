@@ -1,18 +1,18 @@
 "use client"
 import { listByTypes } from '@/constants'
-import { useGetTasksQuery } from '@/lib/features/taskApi'
+import { ProjectI } from '@/interfaces'
+import { useGetTasksByProjectIdQuery } from '@/lib/features/taskApi'
 import { Table, TableContainer } from '@chakra-ui/react'
 import { useSearchParams } from 'next/navigation'
 import TableBody from './TableBody'
 import TableHead from './TableHead'
-import { ProjectI } from '@/interfaces'
 
 interface Props {
     project: ProjectI;
 }
 
 const ListTable = ({ project }: Props) => {
-    const { data } = useGetTasksQuery();
+    const { data } = useGetTasksByProjectIdQuery(project.id);
 
     const listBy = useSearchParams().get("listBy");
 
@@ -20,14 +20,14 @@ const ListTable = ({ project }: Props) => {
         return null;
     }
 
-    const incompleteTasks = data?.filter(item => item.task.progress !== "Completed");
-    const completedTasks = data?.filter(item => item.task.progress === "Completed");
+    const incompleteTasks = data?.filter(item => item.progress !== "Completed");
+    const completedTasks = data?.filter(item => item.progress === "Completed");
 
     return (
         <TableContainer className='h-full flex-[1_0_0]'>
             <Table variant='simple'>
                 <TableHead />
-                <TableBody data={listBy === "Completed" ? completedTasks : incompleteTasks} />
+                <TableBody project={project} data={listBy === "Completed" ? completedTasks : incompleteTasks} />
             </Table>
         </TableContainer>
     )

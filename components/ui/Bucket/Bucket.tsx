@@ -24,7 +24,7 @@ const Bucket = ({ name, id, project }: Props) => {
     return (
         <Stack>
             <BucketHeader name={name} id={id} project={project} />
-            <AddTask bucket_id={id} />
+            <AddTask bucket_id={id} project={project} />
             <TasksList data={data} />
         </Stack>
     )

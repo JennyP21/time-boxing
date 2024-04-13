@@ -1,4 +1,8 @@
-import { TaskI, TaskWithUserI } from "@/interfaces";
+import {
+  LabelWithProject,
+  PropsWithTaskI,
+  TaskI,
+} from "@/interfaces";
 import {
   createApi,
   fetchBaseQuery,
@@ -11,27 +15,23 @@ export const taskApi = createApi({
     baseUrl: "http://localhost:3000/api",
   }),
   endpoints: (builder) => ({
-    getTasks: builder.query<TaskWithUserI[], void>({
-      query: () => `/task`,
+    getTasksByProjectId: builder.query<TaskI[], string>({
+      query: (project_id: string) =>
+        `/project/${project_id}/task`,
       providesTags: ["addTask", "deleteTask", "updateTask"],
     }),
-    getTasksByBucket: builder.query<
-      TaskWithUserI[],
-      string
-    >({
+    getTasksByBucket: builder.query<TaskI[], string>({
       query: (id: string) => `/bucket/${id}/tasks`,
       providesTags: ["addTask", "deleteTask", "updateTask"],
     }),
-    getTasksByLabel: builder.query<TaskWithUserI[], string>(
-      {
-        query: (id: string) => `label/${id}/task`,
-        providesTags: [
-          "addTask",
-          "deleteTask",
-          "updateTask",
-        ],
-      }
-    ),
+    getTasksByLabel: builder.query<
+      PropsWithTaskI[],
+      LabelWithProject
+    >({
+      query: ({ label_id, project_id }) =>
+        `label/${label_id}/task/project/${project_id}`,
+      providesTags: ["addTask", "deleteTask", "updateTask"],
+    }),
     addTask: builder.mutation<TaskI, TaskI>({
       query: (task: TaskI) => ({
         url: `/task`,
@@ -59,7 +59,7 @@ export const taskApi = createApi({
 });
 
 export const {
-  useGetTasksQuery,
+  useGetTasksByProjectIdQuery,
   useGetTasksByBucketQuery,
   useGetTasksByLabelQuery,
   useAddTaskMutation,

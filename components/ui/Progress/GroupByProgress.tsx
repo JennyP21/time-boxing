@@ -9,7 +9,7 @@ const GroupByProgress: React.FC<PropsWithProject> = ({ project }: PropsWithProje
         <GroupByContainer>
             {taskProgress.map(progress => (
                 <React.Fragment key={progress}>
-                    <Progress progress={progress} />
+                    <Progress progress={progress} project={project} />
                 </React.Fragment>
             ))}
         </GroupByContainer>

@@ -8,12 +8,11 @@ interface Props {
     isOpen: boolean;
     onClose: () => void;
     task_id: string;
-    user_id: string;
     bucket_id: string;
     buckets: BucketI[];
 }
 
-const MoveTask = ({ isOpen, onClose, task_id, bucket_id, user_id, buckets }: Props) => {
+const MoveTask = ({ isOpen, onClose, task_id, bucket_id, buckets }: Props) => {
     const currentBucket = buckets.filter(bucket => bucket.id === bucket_id)[0];
     const moveBuckets = buckets.filter(bucket => bucket.id !== bucket_id);
 
@@ -24,7 +23,6 @@ const MoveTask = ({ isOpen, onClose, task_id, bucket_id, user_id, buckets }: Pro
     const handleTaskMove = async () => {
         const data = {
             id: task_id,
-            user_id,
             bucket_id: selectedBucket,
         } as TaskI;
         await updateTask(data);

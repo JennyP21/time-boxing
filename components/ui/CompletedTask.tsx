@@ -1,9 +1,9 @@
-import { TaskWithUserI } from '@/interfaces';
+import { TaskI } from '@/interfaces';
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from '@chakra-ui/react';
 import Task from './Task';
 
 interface Props {
-    data: TaskWithUserI[];
+    data: TaskI[];
 }
 
 const CompletedTask = ({ data }: Props) => {
@@ -18,7 +18,7 @@ const CompletedTask = ({ data }: Props) => {
                 </AccordionButton>
                 <AccordionPanel p={0} my={1}>
                     {data?.map(task => (
-                        <Task key={task.task.id} taskWithUser={task} />
+                        <Task key={task.id} task={task} />
                     ))}
                 </AccordionPanel>
             </AccordionItem>

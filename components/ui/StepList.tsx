@@ -8,14 +8,13 @@ import { getStepsError } from "@/constants";
 
 interface Props {
     task_id: string;
-    user_id: string;
 }
 
-const StepList = ({ task_id, user_id }: Props) => {
+const StepList = ({ task_id }: Props) => {
 
     const [updateTask] = useUpdateTaskMutation();
     const handleShowOnCard = async () => {
-        const data = { showOnTask: "steps", id: task_id, user_id } as TaskI;
+        const data = { showOnTask: "steps", id: task_id } as TaskI;
         await updateTask(data);
     }
 

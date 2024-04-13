@@ -7,14 +7,11 @@ import AssignUserToTask from './AssignUserToTask';
 import LabelDetails from './LabelDetails';
 
 interface Props {
-    image: string;
-    name: string;
     currentTitle: string;
     task_id: string;
-    user_id: string;
 }
 
-const TaskDetailsHeader = ({ task_id, user_id, image, name, currentTitle }: Props) => {
+const TaskDetailsHeader = ({ task_id, currentTitle }: Props) => {
     const [title, setTitle] = useState(currentTitle);
     const [updateTask] = useUpdateTaskMutation();
 
@@ -22,7 +19,6 @@ const TaskDetailsHeader = ({ task_id, user_id, image, name, currentTitle }: Prop
         if (title !== currentTitle) {
             const data = {
                 id: task_id,
-                user_id,
                 title,
             } as TaskI;
             await updateTask(data);
@@ -41,7 +37,7 @@ const TaskDetailsHeader = ({ task_id, user_id, image, name, currentTitle }: Prop
                 onChange={(e) => setTitle(e.target.value)}
                 onBlur={handleSubmit}
             />
-            <AssignUserToTask image={image} name={name} />
+            {/* <AssignUserToTask image={image} name={name} /> */}
             <LabelDetails task_id={task_id} />
         </>
     )

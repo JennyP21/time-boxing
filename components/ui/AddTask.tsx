@@ -1,5 +1,5 @@
 "use client"
-import { TaskI } from '@/interfaces';
+import { ProjectI, TaskI } from '@/interfaces';
 import { useAddTaskMutation } from '@/lib/features/taskApi';
 import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Input, InputGroup, Text } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
@@ -8,18 +8,18 @@ import BucketSelector from './BucketSelector';
 
 interface Props {
     bucket_id?: string
+    project: ProjectI;
 }
 
-const AddTask = ({ bucket_id }: Props) => {
-    const session = useSession();
+const AddTask = ({ bucket_id, project }: Props) => {
     const [active, setActive] = useState(false);
     const [addTask] = useAddTaskMutation();
 
     const initialData = {
         title: "",
         end_date: "",
+        project_id: project.id,
         bucket_id: bucket_id || "",
-        user_id: session.data?.user.id,
     };
     const [data, setData] = useState(initialData);
 
