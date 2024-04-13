@@ -4,7 +4,7 @@ import GroupByProgress from '@/components/ui/Progress/GroupByProgress';
 import GroupBySeverity from '@/components/ui/Severity/GroupBySeverity';
 import { groupTypes } from '@/constants';
 import { useSearchParams } from 'next/navigation';
-import GroupByBucket from '../components/ui/Bucket/GroupByBucket';
+import GroupByBucket from '../Bucket/GroupByBucket';
 
 const KanbanCanvas = () => {
     const groupBy = useSearchParams().get("groupBy");

@@ -88,7 +88,7 @@ export const tabsList = [
     active: true,
   },
   {
-    name: "Bucket",
+    name: "Kanban",
     active: false,
   },
 ];

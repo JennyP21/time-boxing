@@ -1,8 +1,8 @@
-import GroupBySelector from '@/app/GroupBySelector';
+import GroupBySelector from '@/components/ui/Kanban/GroupBySelector';
 import { ProjectI, TabI } from '@/interfaces';
 import { HStack, Heading } from '@chakra-ui/react';
 import ViewTabs from './ViewTabs';
-import ListByStatus from '@/app/list/ListByStatus';
+import ListByStatus from '@/components/ui/List/ListByStatus';
 
 interface Props {
     project: ProjectI;
@@ -12,8 +12,6 @@ interface Props {
 
 const ProjectHeader = ({ project, tabs, setTabs }: Props) => {
     const activeTab = tabs.find(tab => tab.active)!;
-
-
 
     return (
         <HStack className='w-full justify-between' borderBottom="1px" p={1} borderColor={"gray.300"}>
