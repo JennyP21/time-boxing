@@ -24,7 +24,7 @@ const AddProject = () => {
     }
 
     return (
-        <ListItem className='px-1 rounded-lg' _hover={{ bg: "gray.100" }}>
+        <ListItem className='px-1 rounded-lg border-2 border-gray-300' _hover={{ bg: "gray.100" }}>
             {active ?
                 <Input
                     autoFocus
