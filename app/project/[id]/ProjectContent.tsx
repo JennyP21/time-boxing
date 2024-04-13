@@ -1,5 +1,6 @@
-import { ProjectI, TabI } from '@/interfaces'
-import React from 'react'
+import KanbanCanvas from '@/app/KanbanCanvas';
+import ListTable from '@/app/list/ListTable';
+import { ProjectI, TabI } from '@/interfaces';
 
 interface Props {
     project: ProjectI;
@@ -7,8 +8,16 @@ interface Props {
 }
 
 const ProjectContent = ({ project, tabs }: Props) => {
+    const activeTab = tabs.find(tab => tab.active)!;
+
     return (
-        <div>{project.name}</div>
+        <>
+            {activeTab.name === "List" ?
+                <ListTable />
+                :
+                <KanbanCanvas />
+            }
+        </>
     )
 }
 
