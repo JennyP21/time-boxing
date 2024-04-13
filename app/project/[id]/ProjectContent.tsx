@@ -1,20 +1,21 @@
 import KanbanCanvas from '@/components/ui/Kanban/KanbanCanvas';
 import ListTable from '@/components/ui/List/ListTable';
-import { TabI } from '@/interfaces';
+import { ProjectI, TabI } from '@/interfaces';
 
 interface Props {
+    project: ProjectI;
     tabs: TabI[];
 }
 
-const ProjectContent = ({ tabs }: Props) => {
+const ProjectContent = ({ tabs, project }: Props) => {
     const activeTab = tabs.find(tab => tab.active)!;
 
     return (
         <>
             {activeTab.name === "List" ?
-                <ListTable />
+                <ListTable project={project} />
                 :
-                <KanbanCanvas />
+                <KanbanCanvas project={project} />
             }
         </>
     )

@@ -2,8 +2,9 @@ import { taskSeverity } from '@/constants'
 import GroupByContainer from '../GroupByContainer'
 import Severity from './Severity'
 import React from 'react'
+import { PropsWithProject } from '@/interfaces'
 
-const GroupBySeverity = () => {
+const GroupBySeverity: React.FC<PropsWithProject> = ({ project }: PropsWithProject) => {
     return (
         <GroupByContainer>
             {taskSeverity.map(severity => (

@@ -5,8 +5,13 @@ import { Table, TableContainer } from '@chakra-ui/react'
 import { useSearchParams } from 'next/navigation'
 import TableBody from './TableBody'
 import TableHead from './TableHead'
+import { ProjectI } from '@/interfaces'
 
-const ListTable = () => {
+interface Props {
+    project: ProjectI;
+}
+
+const ListTable = ({ project }: Props) => {
     const { data } = useGetTasksQuery();
 
     const listBy = useSearchParams().get("listBy");

@@ -80,3 +80,7 @@ export interface TabI {
   name: string;
   active: boolean;
 }
+
+export interface PropsWithProject {
+  project: ProjectI;
+}

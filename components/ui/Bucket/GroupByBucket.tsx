@@ -1,12 +1,14 @@
 "use client"
 import { toast } from '@/components/error/Toast'
+import { PropsWithProject } from '@/interfaces'
 import { useGetBucketsQuery } from '@/lib/features/bucketApi'
 import { Spinner } from '@chakra-ui/react'
+import React from 'react'
+import GroupByContainer from '../GroupByContainer'
 import AddBucket from './AddBucket'
 import Bucket from './Bucket'
-import GroupByContainer from '../GroupByContainer'
 
-const GroupByBucket = () => {
+const GroupByBucket: React.FC<PropsWithProject> = ({ project }: PropsWithProject) => {
     const { data: buckets, error, isLoading } = useGetBucketsQuery();
 
     if (error) toast.error("Something went wrong. Please try again later", {
