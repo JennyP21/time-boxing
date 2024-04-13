@@ -81,3 +81,14 @@ export const panelItems = [
     href: "/list",
   },
 ];
+
+export const tabsList = [
+  {
+    name: "List",
+    active: true,
+  },
+  {
+    name: "Bucket",
+    active: false,
+  },
+];

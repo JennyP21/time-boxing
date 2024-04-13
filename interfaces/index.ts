@@ -75,3 +75,8 @@ export interface Task_LabelI {
   task_id: string;
   label_id: string;
 }
+
+export interface TabI {
+  name: string;
+  active: boolean;
+}
