@@ -3,7 +3,6 @@ import {
   getBucket,
   updateBucket,
 } from "@/data-access/bucket";
-import { getUserById } from "@/data-access/user";
 import { BucketI } from "@/interfaces";
 import { validateBucket } from "@/validation";
 import { getServerSession } from "next-auth";
@@ -76,13 +75,6 @@ export async function PATCH(
     return NextResponse.json(validation.error.message, {
       status: 400,
     });
-
-  const user = await getUserById(data.user_id);
-  if (session.user.email !== user.email) {
-    return NextResponse.json("Invalid user id", {
-      status: 400,
-    });
-  }
 
   const updatedBucket = await updateBucket(id, {
     ...data,

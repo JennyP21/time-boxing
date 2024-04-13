@@ -27,6 +27,7 @@ const ViewTabs = ({ tabs, setTabs }: Props) => {
         <HStack className='border-y border-gray-300 mx-4'>
             {tabs.map(tab => (
                 <StackItem
+                    key={tab.name}
                     className='cursor-pointer text-lg'
                     fontWeight={tab.active ? "semibold" : "normal"}
                     _hover={{ bg: "gray.100" }}

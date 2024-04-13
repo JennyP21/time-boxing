@@ -1,32 +1,30 @@
 "use client"
 import { toast } from '@/components/error/Toast';
 import { addBucketError } from '@/constants';
-import { BucketI } from '@/interfaces';
+import { BucketI, ProjectI } from '@/interfaces';
 import { useAddBucketMutation } from '@/lib/features/bucketApi';
 import { Box, Input, Text } from '@chakra-ui/react';
-import { useSession } from 'next-auth/react';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 
 interface Props {
     lastBucketOrder: number;
+    project: ProjectI;
 }
 
-const AddBucket = ({ lastBucketOrder }: Props) => {
+const AddBucket = ({ lastBucketOrder, project }: Props) => {
     const [active, setActive] = useState(false);
-    const [name, setName] = useState("");
-    const session = useSession();
 
     const [addBucket, { error }] = useAddBucketMutation();
 
-    const handleOnBlur = async () => {
-        const data = {
-            name,
-            order: lastBucketOrder + 1,
-            user_id: session.data?.user?.id
-        } as BucketI;
-        if (name) {
+    const handleAddBucket = async (e: SyntheticEvent) => {
+        const target = (e.target as HTMLInputElement);
+        if (target.value) {
+            const data = {
+                name: target.value,
+                order: lastBucketOrder + 1,
+                project_id: project.id
+            } as BucketI;
             await addBucket(data);
-            setName("");
         };
         setActive(false);
     }
@@ -38,7 +36,13 @@ const AddBucket = ({ lastBucketOrder }: Props) => {
     return (
         <Box minWidth="280px" maxWidth="300px" ml={2} p={2}>
             {active ?
-                <Input size={"xs"} autoFocus placeholder='Add a name to your bucket' onChange={(e) => setName(e.target.value)} onBlur={handleOnBlur} />
+                <Input
+                    autoFocus
+                    size={"xs"}
+                    placeholder='Add a name to your bucket'
+                    onBlur={(e) => handleAddBucket(e)}
+                    onKeyDown={(e) => e.key === "Enter" && handleAddBucket(e)}
+                />
                 :
                 <Text cursor="pointer" onClick={() => setActive(true)}>Add new Bucket</Text>
             }

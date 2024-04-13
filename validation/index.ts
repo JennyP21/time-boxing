@@ -2,12 +2,12 @@ import { z } from "zod";
 
 export const validateProject = z.object({
   name: z.string(),
-  user_id: z.string(),
+  project_id: z.string(),
 });
 
 export const validateBucket = z.object({
   name: z.string(),
-  user_id: z.string(),
+  project_id: z.string(),
 });
 
 export const validateTask = z.object({
