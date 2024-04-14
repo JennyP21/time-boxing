@@ -105,7 +105,7 @@ export interface PropsWithProject {
   project: ProjectI;
 }
 
-export interface PropsWithTeam {
+export interface PropsWithTeamI {
   team: TeamI;
 }
 

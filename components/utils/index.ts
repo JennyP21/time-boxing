@@ -1,3 +1,4 @@
+import { PropsWithTeamI, TeamI } from "@/interfaces";
 import { PropsWithTaskI, TaskI } from "@/interfaces";
 
 export const formatDate = (date: Date) => {
@@ -17,6 +18,20 @@ export const convertToTaskList = (
 
   data.forEach((item) => {
     newList.push(item.tasks);
+  });
+
+  return newList;
+};
+
+export const convertToTeamList = (
+  data: PropsWithTeamI[] | undefined
+) => {
+  const newList: TeamI[] = [];
+
+  if (!data) return newList;
+
+  data.forEach((item) => {
+    newList.push(item.team);
   });
 
   return newList;

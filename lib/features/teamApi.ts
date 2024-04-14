@@ -1,5 +1,5 @@
 import {
-  PropsWithTeam,
+  PropsWithTeamI,
   Team_UserIdI,
   TeamI,
   TeamMemberI,
@@ -18,7 +18,7 @@ export const teamApi = createApi({
   }),
   endpoints: (builder) => ({
     getTeamsByUserId: builder.query<
-      PropsWithTeam[],
+      PropsWithTeamI[],
       string
     >({
       query: (user_id) => `team/user/${user_id}`,
@@ -74,3 +74,13 @@ export const teamApi = createApi({
     }),
   }),
 });
+
+export const {
+  useAddMemberMutation,
+  useAddTeamMutation,
+  useDeleteTeamMutation,
+  useGetTeamsByUserIdQuery,
+  useRemoveMemberMutation,
+  useUpdateTeamMemberRoleMutation,
+  useUpdateTeamMutation,
+} = teamApi;

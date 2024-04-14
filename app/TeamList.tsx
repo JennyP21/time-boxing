@@ -1,12 +1,13 @@
 import { useGetProjectsQuery } from '@/lib/features/projectApi'
 import { Link, List, ListItem } from '@chakra-ui/react'
 import LeftPanelAccordion from './LeftPanelAccordion'
+import { PropsWithTeamI } from '@/interfaces';
 
-const TeamList = () => {
+const TeamList = ({ team }: PropsWithTeamI) => {
     const { data: projects } = useGetProjectsQuery();
 
     return (
-        <LeftPanelAccordion title='Test'>
+        <LeftPanelAccordion title={team.name}>
             <List>
                 {projects?.map((project) => (
                     <ListItem key={project.id} className='px-1 rounded-lg cursor-pointer' _hover={{ bg: "gray.100" }}>
