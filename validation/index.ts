@@ -1,5 +1,21 @@
 import { z } from "zod";
 
+export const validateTeam = z.object({
+  name: z.string(),
+  desc: z.string().max(2000).optional(),
+});
+
+export const validatePatchTeam = z.object({
+  name: z.string().optional(),
+  desc: z.string().max(2000).optional(),
+});
+
+export const validateTeamMember = z.object({
+  team_id: z.string(),
+  user_id: z.string(),
+  role: z.enum(["owner", "member"]),
+});
+
 export const validateProject = z.object({
   name: z.string(),
   user_id: z.string(),

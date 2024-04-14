@@ -5,7 +5,7 @@ import { and, eq } from "drizzle-orm";
 
 export async function getTeamsByUserId(user_id: string) {
   const teamsByUserId = await db
-    .select()
+    .select({ teams })
     .from(teams)
     .leftJoin(
       team_members,
@@ -37,10 +37,14 @@ export async function addTeam(
   return result;
 }
 
-export async function updateTeam(team: TeamI) {
+export async function updateTeam(
+  team_id: string,
+  team: TeamI
+) {
   const updatedTeam = await db
     .update(teams)
     .set(team)
+    .where(eq(teams.id, team_id))
     .returning();
 
   return updatedTeam;
@@ -49,10 +53,7 @@ export async function updateTeam(team: TeamI) {
 export async function addTeamMember(
   teamMember: TeamMemberI
 ) {
-  await db
-    .insert(team_members)
-    .values(teamMember)
-    .returning();
+  await db.insert(team_members).values(teamMember);
 }
 
 export async function removeTeamMember(
