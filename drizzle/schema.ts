@@ -12,6 +12,47 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
+export const teams = pgTable("teams", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  desc: varchar("desc", { length: 2000 }),
+  created_at: timestamp("created_at"),
+  updated_at: timestamp("updated_at"),
+});
+
+export const teamsRelations = relations(
+  teams,
+  ({ many }) => ({
+    team_members: many(team_members),
+  })
+);
+
+export const team_members = pgTable("team_members", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  team_id: uuid("team_id")
+    .notNull()
+    .references(() => teams.id),
+  user_id: text("user_id")
+    .notNull()
+    .references(() => users.id),
+  role: text("role", { enum: ["owner", "member"] }),
+  created_at: timestamp("created_at"),
+});
+
+export const teamMembersRelations = relations(
+  team_members,
+  ({ one }) => ({
+    teams: one(teams, {
+      fields: [team_members.team_id],
+      references: [teams.id],
+    }),
+    users: one(users, {
+      fields: [team_members.user_id],
+      references: [users.id],
+    }),
+  })
+);
+
 export const projects = pgTable("projects", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
@@ -174,6 +215,7 @@ export const usersRelation = relations(
     sessions: many(sessions),
     accounts: many(accounts),
     projects: many(projects),
+    team_members: many(team_members),
   })
 );
 
