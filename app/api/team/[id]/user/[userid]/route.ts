@@ -1,4 +1,5 @@
 import { removeTeamMember } from "@/data-access/team";
+import { validateTeamMember } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Props {

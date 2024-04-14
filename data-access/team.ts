@@ -74,6 +74,12 @@ export async function updateRole(teamMember: TeamMemberI) {
   const updatedMember = db
     .update(team_members)
     .set(teamMember)
+    .where(
+      and(
+        eq(team_members.team_id, teamMember.team_id),
+        eq(team_members.user_id, teamMember.user_id)
+      )
+    )
     .returning();
 
   return updatedMember;

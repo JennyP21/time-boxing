@@ -70,6 +70,11 @@ export interface TaskWithUserI {
   user: UserI;
 }
 
+export interface TeamWithUserI {
+  team: TeamI;
+  user_id: string;
+}
+
 export interface TaskAttributesProps {
   task_id: string;
   start_date: string;
@@ -98,6 +103,15 @@ export interface TabI {
 
 export interface PropsWithProject {
   project: ProjectI;
+}
+
+export interface PropsWithTeam {
+  team: TeamI;
+}
+
+export interface Team_UserIdI {
+  team_id: string;
+  user_id: string;
 }
 
 export interface PropsWithTaskI {
