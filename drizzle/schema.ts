@@ -31,10 +31,10 @@ export const team_members = pgTable("team_members", {
   id: uuid("id").primaryKey().defaultRandom(),
   team_id: uuid("team_id")
     .notNull()
-    .references(() => teams.id),
+    .references(() => teams.id, { onDelete: "cascade" }),
   user_id: text("user_id")
     .notNull()
-    .references(() => users.id),
+    .references(() => users.id, { onDelete: "cascade" }),
   role: text("role", { enum: ["owner", "member"] }),
   created_at: timestamp("created_at"),
 });

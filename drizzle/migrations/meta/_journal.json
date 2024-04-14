@@ -211,6 +211,13 @@
       "when": 1713122100516,
       "tag": "0033_tan_shotgun",
       "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "5",
+      "when": 1713125516130,
+      "tag": "0034_demonic_onslaught",
+      "breakpoints": true
     }
   ]
 }

@@ -1,3 +1,19 @@
+export interface TeamI {
+  id: string;
+  name: string;
+  desc: string;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface TeamMemberI {
+  id: string;
+  team_id: string;
+  user_id: string;
+  role: "owner" | "member";
+  created_at: Date;
+}
+
 export interface ProjectI {
   id: string;
   name: string;
