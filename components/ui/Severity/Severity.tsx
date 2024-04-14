@@ -1,7 +1,7 @@
 import Stack from '@/components/ui/Stack';
 import { ProjectI } from '@/interfaces';
 import { useGetTasksByProjectIdQuery } from '@/lib/features/taskApi';
-import AddTask from '../AddTask';
+import AddTaskContainer from '../AddTaskContainer';
 import GroupHeader from '../GroupHeader';
 import TasksList from '../TasksList';
 
@@ -19,7 +19,7 @@ const Severity = ({ severity, project }: Props) => {
     return (
         <Stack>
             <GroupHeader>{severity}</GroupHeader>
-            <AddTask project={project} />
+            <AddTaskContainer project={project} type='bucket' />
             <TasksList data={filteredData} />
         </Stack>
     )

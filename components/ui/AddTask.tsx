@@ -1,33 +1,18 @@
 "use client"
-import { ProjectI, TaskI } from '@/interfaces';
-import { useAddTaskMutation } from '@/lib/features/taskApi';
+import { TaskI } from '@/interfaces';
 import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Input, InputGroup, Text } from '@chakra-ui/react';
-import { useSession } from 'next-auth/react';
-import { useState } from 'react';
 import BucketSelector from './BucketSelector';
 
 interface Props {
-    bucket_id?: string
-    project: ProjectI;
+    active: boolean,
+    setActive: (value: boolean) => void;
+    data: TaskI;
+    setData: (value: TaskI) => void;
+    hadBucketSelector: boolean;
+    handleSubmit: () => void;
 }
 
-const AddTask = ({ bucket_id, project }: Props) => {
-    const [active, setActive] = useState(false);
-    const [addTask] = useAddTaskMutation();
-
-    const initialData = {
-        title: "",
-        end_date: "",
-        project_id: project.id,
-        bucket_id: bucket_id || "",
-    };
-    const [data, setData] = useState(initialData);
-
-    const handleSubmit = async () => {
-        await addTask(data as TaskI);
-        setData(initialData);
-        setActive(false);
-    }
+const AddTask = ({ active, setActive, data, setData, hadBucketSelector, handleSubmit }: Props) => {
 
     return (
         <>
@@ -49,7 +34,7 @@ const AddTask = ({ bucket_id, project }: Props) => {
                 </CardHeader>
                 <CardBody py={0}>
                     <Flex flexDir="column" justifyContent="left" gap={3}>
-                        {!bucket_id && <BucketSelector selectedTask={data as TaskI} setSelectedTask={setData} />}
+                        {hadBucketSelector && <BucketSelector selectedTask={data as TaskI} setSelectedTask={setData} />}
                         <InputGroup alignItems="center" gap={2}>
                             <Text>Due:</Text>
                             <Input type='Date' w="fit-content" size="md" onChange={(e) => setData({ ...data, end_date: e.target.value })} />

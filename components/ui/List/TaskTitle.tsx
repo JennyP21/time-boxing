@@ -1,5 +1,5 @@
 "use client"
-import TaskDetails from '@/components/ui/TaskDetails';
+import TaskDetails from '@/components/ui/TaskDetails/TaskDetails';
 import { TaskI, TaskWithUserI } from '@/interfaces';
 import { Text, useDisclosure } from '@chakra-ui/react';
 

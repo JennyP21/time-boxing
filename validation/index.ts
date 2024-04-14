@@ -32,8 +32,8 @@ export const validateTask = z.object({
 });
 
 export const validatePatchTask = z.object({
-  user_id: z.string(),
   project_id: z.string().optional(),
+  bucket_id: z.string().optional(),
   title: z.string().min(3).optional(),
   start_date: z.string().optional(),
   end_date: z.string().optional(),

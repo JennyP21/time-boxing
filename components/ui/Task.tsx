@@ -9,8 +9,8 @@ import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import CompleteTask from './CompleteTask';
 import LabelDisplay from './LabelDisplay';
 import MoveTask from './MoveTask';
-import StepsDetails from './StepsDetails';
-import TaskDetails from './TaskDetails';
+import StepsDetails from './TaskDetails/StepsDetails';
+import TaskDetails from './TaskDetails/TaskDetails';
 
 interface Props {
     task: TaskI

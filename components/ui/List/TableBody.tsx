@@ -10,6 +10,7 @@ import DueDate from './DueDate';
 import MoreOptions from './MoreOptions';
 import TaskTitle from './TaskTitle';
 import UpdateBucket from './UpdateBucket';
+import AddTaskContainer from '../AddTaskContainer';
 
 interface Props {
     data: TaskI[] | undefined;
@@ -69,7 +70,7 @@ const TableBody = ({ data, project }: Props) => {
                     </Td>
                 </Tr>
             ))}
-            <AddListTask project={project} />
+            <AddTaskContainer project={project} type='list' />
         </Tbody>
     )
 }

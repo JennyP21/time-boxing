@@ -1,10 +1,10 @@
-import { TaskI, TaskWithUserI } from '@/interfaces';
+import { TaskI } from '@/interfaces';
 import { Button, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, RadioGroup, Stack, Text } from '@chakra-ui/react';
+import { formatDate } from '../../utils';
 import StepList from './StepList';
 import TaskAttributes from './TaskAttributes';
 import TaskDetailsHeader from './TaskDetailsHeader';
 import TaskNote from './TaskNote';
-import { formatDate } from '../utils';
 
 interface Props {
     task: TaskI;

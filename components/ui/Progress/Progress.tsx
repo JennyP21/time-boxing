@@ -1,9 +1,9 @@
 import Stack from '@/components/ui/Stack';
+import { ProjectI } from '@/interfaces';
 import { useGetTasksByProjectIdQuery } from '@/lib/features/taskApi';
-import AddTask from '../AddTask';
+import AddTaskContainer from '../AddTaskContainer';
 import GroupHeader from '../GroupHeader';
 import TasksList from '../TasksList';
-import { ProjectI } from '@/interfaces';
 
 interface Props {
     progress: string;
@@ -19,7 +19,7 @@ const Progress = ({ progress, project }: Props) => {
     return (
         <Stack>
             <GroupHeader>{progress}</GroupHeader>
-            <AddTask project={project} />
+            <AddTaskContainer project={project} type='bucket' />
             <TasksList data={filteredData} />
         </Stack>
     )

@@ -2,10 +2,9 @@ import { toast } from '@/components/error/Toast';
 import Stack from '@/components/ui/Stack';
 import { ProjectI } from '@/interfaces';
 import { useGetTasksByBucketQuery } from '@/lib/features/taskApi';
-import AddTask from '../AddTask';
+import AddTaskContainer from '../AddTaskContainer';
 import TasksList from '../TasksList';
 import BucketHeader from './BucketHeader';
-
 
 interface Props {
     id: string;
@@ -24,7 +23,7 @@ const Bucket = ({ name, id, project }: Props) => {
     return (
         <Stack>
             <BucketHeader name={name} id={id} project={project} />
-            <AddTask bucket_id={id} project={project} />
+            <AddTaskContainer project={project} type='bucket' bucket_id={id} />
             <TasksList data={data} />
         </Stack>
     )

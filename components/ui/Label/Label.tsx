@@ -1,10 +1,10 @@
 import Stack from '@/components/ui/Stack';
+import { convertToTaskList } from '@/components/utils';
 import { LabelI, ProjectI } from '@/interfaces';
 import { useGetTasksByLabelQuery } from '@/lib/features/taskApi';
-import AddTask from '../AddTask';
+import AddTaskContainer from '../AddTaskContainer';
 import GroupHeader from '../GroupHeader';
 import TasksList from '../TasksList';
-import { convertToTaskList } from '@/components/utils';
 
 interface Props {
     label: LabelI;
@@ -20,7 +20,7 @@ const Label = ({ label, project }: Props) => {
     return (
         <Stack>
             <GroupHeader>{label.name}</GroupHeader>
-            <AddTask project={project} />
+            <AddTaskContainer project={project} type='bucket' />
             <TasksList data={newData} />
         </Stack>
     )
