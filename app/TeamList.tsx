@@ -1,9 +1,10 @@
-import { useGetProjectsQuery } from '@/lib/features/projectApi'
-import { Link, List, ListItem } from '@chakra-ui/react'
-import LeftPanelAccordion from './LeftPanelAccordion'
+"use client"
 import { PropsWithTeamI } from '@/interfaces';
+import { useGetProjectsQuery } from '@/lib/features/projectApi';
+import { Link, List, ListItem } from '@chakra-ui/react';
+import LeftPanelAccordion from './LeftPanelAccordion';
 
-const TeamList = ({ team }: PropsWithTeamI) => {
+const TeamList = ({ teams: team }: PropsWithTeamI) => {
     const { data: projects } = useGetProjectsQuery();
 
     return (

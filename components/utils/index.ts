@@ -31,7 +31,7 @@ export const convertToTeamList = (
   if (!data) return newList;
 
   data.forEach((item) => {
-    newList.push(item.team);
+    newList.push(item.teams);
   });
 
   return newList;

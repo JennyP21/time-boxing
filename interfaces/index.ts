@@ -106,7 +106,7 @@ export interface PropsWithProject {
 }
 
 export interface PropsWithTeamI {
-  team: TeamI;
+  teams: TeamI;
 }
 
 export interface Team_UserIdI {
