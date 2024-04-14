@@ -2,7 +2,7 @@
 import { HStack, Icon, Link, Text, VStack } from '@chakra-ui/react';
 import { IoHomeOutline } from 'react-icons/io5';
 import PersonalList from './PersonalList';
-import SharedList from './SharedList';
+import Teams from './Teams';
 
 const LeftPanel = () => {
 
@@ -23,7 +23,7 @@ const LeftPanel = () => {
                 </HStack>
             </Link>
             <PersonalList />
-            <SharedList />
+            <Teams />
         </VStack>
     )
 }

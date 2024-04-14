@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --left-panel-size: 12rem;
+  --left-panel-size: 14rem;
 }
 
 html,
