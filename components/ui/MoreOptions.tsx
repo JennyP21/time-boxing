@@ -1,27 +1,22 @@
 "use client"
-import { TaskI } from '@/interfaces';
-import { useDeleteTaskMutation } from '@/lib/features/taskApi';
 import { Icon, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 
 interface Props {
-    task: TaskI;
+    onOpen: () => void;
+    handleTaskDelete: () => void;
+    align: "center" | "end";
 }
 
-const MoreOptions = ({ task }: Props) => {
-    const [deleteTask] = useDeleteTaskMutation();
-    const handleTaskDelete = async () => {
-        await deleteTask(task.id);
-    }
-
+const MoreOptions = ({ handleTaskDelete, onOpen, align }: Props) => {
     return (
         <Menu>
-            <MenuButton className='w-full'>
+            <MenuButton className={align === "end" ? 'absolute right-2 top-1' : "w-full"}>
                 <Icon as={BsThreeDotsVertical} className='rounded-full mx-auto' w={4} h={4} _hover={{ bg: "gray.200" }} />
             </MenuButton>
             <MenuList>
                 <MenuItem onClick={handleTaskDelete}>Delete</MenuItem>
-                <MenuItem>Move</MenuItem>
+                <MenuItem onClick={onOpen}>Move</MenuItem>
             </MenuList>
         </Menu>
     )

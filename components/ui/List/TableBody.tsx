@@ -4,13 +4,12 @@ import { ProjectI, TaskI } from '@/interfaces';
 import { Tbody, Td, Tr } from '@chakra-ui/react';
 import _ from "lodash";
 import { useSearchParams } from 'next/navigation';
-import AddListTask from './AddListTask';
+import AddTaskContainer from '../AddTaskContainer';
+import MoreOptionsContainer from '../MoreOptionsContainer';
 import AttributeSelector from './AttributeSelector';
 import DueDate from './DueDate';
-import MoreOptions from './MoreOptions';
 import TaskTitle from './TaskTitle';
 import UpdateBucket from './UpdateBucket';
-import AddTaskContainer from '../AddTaskContainer';
 
 interface Props {
     data: TaskI[] | undefined;
@@ -65,8 +64,8 @@ const TableBody = ({ data, project }: Props) => {
                             currDueDate={item.end_date}
                         />
                     </Td>
-                    <Td p={1}>
-                        <MoreOptions task={item} />
+                    <Td p={1} position="relative">
+                        <MoreOptionsContainer task={item} align="center" />
                     </Td>
                 </Tr>
             ))}

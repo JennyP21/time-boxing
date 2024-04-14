@@ -1,16 +1,13 @@
 "use client"
 import { TaskI } from '@/interfaces';
-import { useGetBucketsQuery } from '@/lib/features/bucketApi';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
-import { useDeleteTaskMutation } from '@/lib/features/taskApi';
-import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
-import { HiOutlineDotsHorizontal } from 'react-icons/hi';
+import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Text, useDisclosure } from '@chakra-ui/react';
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import CheckTask from '../CheckTask';
-import LabelDisplay from './LabelDisplay';
-import MoveTask from '../MoveTask';
+import MoreOptionsContainer from '../MoreOptionsContainer';
 import StepsDetails from '../TaskDetails/StepsDetails';
 import TaskDetails from '../TaskDetails/TaskDetails';
+import LabelDisplay from './LabelDisplay';
 
 interface Props {
     task: TaskI
@@ -19,14 +16,7 @@ interface Props {
 const Task = ({ task }: Props) => {
 
     const { isOpen: isOpenTask, onOpen: onOpenTask, onClose: onCloseTask } = useDisclosure();
-    const { isOpen: isOpenMoveTask, onOpen: onOpenMoveTask, onClose: onCloseMoveTask } = useDisclosure();
-
-    const { data: buckets } = useGetBucketsQuery();
-
-    const [deleteTask] = useDeleteTaskMutation();
     const { data: steps } = useGetStepsByTaskIdQuery(task.id);
-
-    const handleDelete = async () => await deleteTask(task.id);
 
     return (
         <Card
@@ -34,15 +24,7 @@ const Task = ({ task }: Props) => {
             className='relative w-full text-left shadow-sm hover:shadow-md transition-all'
         >
             <CardHeader alignItems="center" px={3} py={1}>
-                <Menu placement='bottom-end'>
-                    <MenuButton className='absolute right-2 top-1'>
-                        <Icon as={HiOutlineDotsHorizontal} w={4} h={4} />
-                    </MenuButton>
-                    <MenuList>
-                        <MenuItem onClick={onOpenMoveTask}>Move</MenuItem>
-                        <MenuItem onClick={handleDelete}>Delete</MenuItem>
-                    </MenuList>
-                </Menu>
+                <MoreOptionsContainer task={task} align='end' />
                 <LabelDisplay task_id={task.id} />
                 <Flex alignItems="center" gap={1}>
                     <CheckTask task={task} />
@@ -73,7 +55,6 @@ const Task = ({ task }: Props) => {
             <CardFooter px={3} py={0} borderTop={"1px"} borderColor={"gray.200"}>
                 {/* <AssignUserToTask image={user.image} name={user.name} /> */}
             </CardFooter>
-            {buckets && <MoveTask bucket_id={task.bucket_id} task_id={task.id} isOpen={isOpenMoveTask} onClose={onCloseMoveTask} buckets={buckets} />}
             <TaskDetails task={task} isOpen={isOpenTask} onClose={onCloseTask} />
         </Card>
     )
