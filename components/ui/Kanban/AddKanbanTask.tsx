@@ -1,7 +1,7 @@
 "use client"
 import { TaskI } from '@/interfaces';
 import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Input, InputGroup, Text } from '@chakra-ui/react';
-import BucketSelector from './BucketSelector';
+import BucketSelector from '../BucketSelector';
 
 interface Props {
     active: boolean,

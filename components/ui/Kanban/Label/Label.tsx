@@ -1,8 +1,8 @@
-import Stack from '@/components/ui/Stack';
+import Stack from '@/components/ui/Kanban/Stack';
 import { convertToTaskList } from '@/components/utils';
 import { LabelI, ProjectI } from '@/interfaces';
 import { useGetTasksByLabelQuery } from '@/lib/features/taskApi';
-import AddTaskContainer from '../AddTaskContainer';
+import AddTaskContainer from '../../AddTaskContainer';
 import GroupHeader from '../GroupHeader';
 import TasksList from '../TasksList';
 

@@ -1,6 +1,6 @@
 import { TaskI } from '@/interfaces';
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from '@chakra-ui/react';
-import Task from './Task';
+import Task from './Kanban/Task';
 
 interface Props {
     data: TaskI[];

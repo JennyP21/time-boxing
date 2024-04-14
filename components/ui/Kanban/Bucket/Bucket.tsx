@@ -1,8 +1,8 @@
 import { toast } from '@/components/error/Toast';
-import Stack from '@/components/ui/Stack';
+import Stack from '@/components/ui/Kanban/Stack';
 import { ProjectI } from '@/interfaces';
 import { useGetTasksByBucketQuery } from '@/lib/features/taskApi';
-import AddTaskContainer from '../AddTaskContainer';
+import AddTaskContainer from '../../AddTaskContainer';
 import TasksList from '../TasksList';
 import BucketHeader from './BucketHeader';
 

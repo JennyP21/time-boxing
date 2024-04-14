@@ -1,12 +1,12 @@
 "use client"
-import GroupByLabel from '@/components/ui/Label/GroupByLabel';
-import GroupByProgress from '@/components/ui/Progress/GroupByProgress';
-import GroupBySeverity from '@/components/ui/Severity/GroupBySeverity';
+import GroupByLabel from '@/components/ui/Kanban/Label/GroupByLabel';
+import GroupByProgress from '@/components/ui/Kanban/Progress/GroupByProgress';
+import GroupBySeverity from '@/components/ui/Kanban/Severity/GroupBySeverity';
 import { groupTypes } from '@/constants';
 import { PropsWithProject } from '@/interfaces';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
-import GroupByBucket from '../Bucket/GroupByBucket';
+import GroupByBucket from './Bucket/GroupByBucket';
 
 const KanbanCanvas = ({ project }: PropsWithProject) => {
     const groupBy = useSearchParams().get("groupBy");

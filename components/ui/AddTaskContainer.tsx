@@ -1,7 +1,7 @@
 import { ProjectI, TaskI } from '@/interfaces';
 import { useAddTaskMutation } from '@/lib/features/taskApi';
 import { useState } from 'react';
-import AddTask from './AddTask';
+import AddTask from './Kanban/AddKanbanTask';
 import AddListTask from './List/AddListTask';
 
 interface Props {

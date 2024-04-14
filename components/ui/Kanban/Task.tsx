@@ -6,11 +6,11 @@ import { useDeleteTaskMutation } from '@/lib/features/taskApi';
 import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text, useDisclosure } from '@chakra-ui/react';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import CompleteTask from './CompleteTask';
+import CheckTask from '../CheckTask';
 import LabelDisplay from './LabelDisplay';
-import MoveTask from './MoveTask';
-import StepsDetails from './TaskDetails/StepsDetails';
-import TaskDetails from './TaskDetails/TaskDetails';
+import MoveTask from '../MoveTask';
+import StepsDetails from '../TaskDetails/StepsDetails';
+import TaskDetails from '../TaskDetails/TaskDetails';
 
 interface Props {
     task: TaskI
@@ -45,7 +45,7 @@ const Task = ({ task }: Props) => {
                 </Menu>
                 <LabelDisplay task_id={task.id} />
                 <Flex alignItems="center" gap={1}>
-                    <CompleteTask task={task} />
+                    <CheckTask task={task} />
                     <Text
                         className='cursor-pointer hover:underline'
                         textDecor={task.progress === "Completed" ? "line-through" : ""}

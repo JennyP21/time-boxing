@@ -1,4 +1,4 @@
-import CompleteTask from '@/components/ui/CompleteTask';
+import CheckTask from '@/components/ui/CheckTask';
 import { taskProgress, taskSeverity } from '@/constants';
 import { ProjectI, TaskI } from '@/interfaces';
 import { Tbody, Td, Tr } from '@chakra-ui/react';
@@ -32,7 +32,7 @@ const TableBody = ({ data, project }: Props) => {
             {sortedData?.map(item => (
                 <Tr key={item.id}>
                     <Td px={3}>
-                        <CompleteTask task={item} />
+                        <CheckTask task={item} />
                     </Td>
                     <Td p={1} overflow="clip">
                         <TaskTitle task={item} />

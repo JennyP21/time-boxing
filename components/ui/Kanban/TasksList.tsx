@@ -1,5 +1,5 @@
 import { TaskI } from '@/interfaces';
-import CompletedTask from './CompletedTask';
+import CompletedTask from '../CompletedTask';
 import Task from './Task';
 
 interface Props {

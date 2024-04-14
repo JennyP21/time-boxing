@@ -1,28 +1,28 @@
-import Stack from '@/components/ui/Stack';
+import Stack from '@/components/ui/Kanban/Stack';
 import { ProjectI } from '@/interfaces';
 import { useGetTasksByProjectIdQuery } from '@/lib/features/taskApi';
-import AddTaskContainer from '../AddTaskContainer';
+import AddTaskContainer from '../../AddTaskContainer';
 import GroupHeader from '../GroupHeader';
 import TasksList from '../TasksList';
 
 interface Props {
-    progress: string;
+    severity: string;
     project: ProjectI;
 }
 
-const Progress = ({ progress, project }: Props) => {
+const Severity = ({ severity, project }: Props) => {
 
-    const { data: tasks } = useGetTasksByProjectIdQuery(project.id);
+    const { data: tasks, error } = useGetTasksByProjectIdQuery(project.id);
 
-    const filteredData = tasks?.filter(task => task.progress === progress)
+    const filteredData = tasks?.filter(task => task.severity === severity)
 
     return (
         <Stack>
-            <GroupHeader>{progress}</GroupHeader>
+            <GroupHeader>{severity}</GroupHeader>
             <AddTaskContainer project={project} type='bucket' />
             <TasksList data={filteredData} />
         </Stack>
     )
 }
 
-export default Progress;
+export default Severity;

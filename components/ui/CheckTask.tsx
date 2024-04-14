@@ -6,7 +6,7 @@ interface Props {
     task: TaskI;
 }
 
-const CompleteTask = ({ task }: Props) => {
+const CheckTask = ({ task }: Props) => {
     const [updateTask] = useUpdateTaskMutation();
     const handleTaskUpdate = async () => {
         const data = {
@@ -21,4 +21,4 @@ const CompleteTask = ({ task }: Props) => {
     )
 }
 
-export default CompleteTask
+export default CheckTask
