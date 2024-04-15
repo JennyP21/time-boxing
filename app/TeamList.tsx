@@ -1,12 +1,12 @@
 "use client"
 import { PropsWithTeamI } from '@/interfaces';
-import { useGetProjectsQuery } from '@/lib/features/projectApi';
 import { List, ListItem } from '@chakra-ui/react';
 import LeftPanelAccordion from './LeftPanelAccordion';
 import { Link } from '@chakra-ui/next-js';
+import { useGetProjectsByTeamIdQuery } from '@/lib/features/projectApi';
 
 const TeamList = ({ teams: team }: PropsWithTeamI) => {
-    const { data: projects } = useGetProjectsQuery();
+    const { data: projects } = useGetProjectsByTeamIdQuery(team.id);
 
     return (
         <LeftPanelAccordion title={team.name} link={`/team/${team.id}`}>

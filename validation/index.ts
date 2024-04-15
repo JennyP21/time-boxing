@@ -18,7 +18,8 @@ export const validateTeamMember = z.object({
 
 export const validateProject = z.object({
   name: z.string(),
-  user_id: z.string(),
+  user_id: z.string().optional(),
+  team_id: z.string().optional(),
 });
 
 export const validateBucket = z.object({

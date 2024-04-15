@@ -24,6 +24,7 @@ export const teamsRelations = relations(
   teams,
   ({ many }) => ({
     team_members: many(team_members),
+    projects: many(projects),
   })
 );
 
@@ -68,6 +69,10 @@ export const projectsRelations = relations(
     user: one(users, {
       fields: [projects.user_id],
       references: [users.id],
+    }),
+    team: one(teams, {
+      fields: [projects.team_id],
+      references: [teams.id],
     }),
     tasks: many(tasks),
   })

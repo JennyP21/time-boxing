@@ -23,8 +23,18 @@ export const projectsApi = createApi({
         "deleteProject",
       ],
     }),
-    getProjects: builder.query<ProjectI[], void>({
-      query: () => `/project`,
+    getProjectsByTeamId: builder.query<ProjectI[], string>({
+      query: (team_id: string) =>
+        `/project/team/${team_id}`,
+      providesTags: [
+        "addProject",
+        "updateProject",
+        "deleteProject",
+      ],
+    }),
+    getProjectsByUserId: builder.query<ProjectI[], string>({
+      query: (user_id: string) =>
+        `/project/user/${user_id}`,
       providesTags: [
         "addProject",
         "updateProject",
@@ -58,7 +68,8 @@ export const projectsApi = createApi({
 });
 
 export const {
-  useGetProjectsQuery,
+  useGetProjectsByTeamIdQuery,
+  useGetProjectsByUserIdQuery,
   useGetProjectQuery,
   useAddProjectMutation,
   useUpdateProjectMutation,

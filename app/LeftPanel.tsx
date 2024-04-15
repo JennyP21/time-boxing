@@ -1,5 +1,6 @@
 "use client";
-import { HStack, Icon, Link, Text, VStack } from '@chakra-ui/react';
+import { Link } from '@chakra-ui/next-js';
+import { HStack, Icon, Text, VStack } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { IoHomeOutline } from 'react-icons/io5';
 import PersonalList from './PersonalList';
@@ -24,7 +25,7 @@ const LeftPanel = () => {
                     <Icon as={IoHomeOutline} w={4} h={4} />
                 </HStack>
             </Link>
-            <PersonalList />
+            {session.data && <PersonalList user_id={session.data.user.id} />}
             {session.data && <Teams user_id={session.data.user.id} />}
         </VStack>
     )

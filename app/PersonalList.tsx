@@ -1,12 +1,16 @@
 "use client"
 import AddProject from '@/components/ui/AddProject';
-import { useGetProjectsQuery } from '@/lib/features/projectApi';
+import { useGetProjectsByUserIdQuery } from '@/lib/features/projectApi';
 import { Link } from '@chakra-ui/next-js';
 import { List, ListItem } from '@chakra-ui/react';
 import LeftPanelAccordion from './LeftPanelAccordion';
 
-const PersonalList = () => {
-    const { data: projects } = useGetProjectsQuery();
+interface Props {
+    user_id: string;
+}
+
+const PersonalList = ({ user_id }: Props) => {
+    const { data: projects } = useGetProjectsByUserIdQuery(user_id);
 
     return (
         <LeftPanelAccordion title='Personal plans'>

@@ -1,18 +1,9 @@
-import {
-  addProject,
-  getProjects,
-} from "@/data-access/project";
+import { addProject } from "@/data-access/project";
 import { getUserById } from "@/data-access/user";
 import { ProjectI } from "@/interfaces";
 import { validateProject } from "@/validation";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-
-export async function GET() {
-  const projects = await getProjects();
-
-  return NextResponse.json(projects);
-}
 
 export async function POST(request: NextRequest) {
   const session = await getServerSession();

@@ -12,8 +12,22 @@ export async function getProject(id: string) {
   return result;
 }
 
-export async function getProjects() {
-  const result = await db.query.projects.findMany();
+export async function getProjectsByUserId(user_id: string) {
+  const result = await db
+    .select()
+    .from(projects)
+    .where(eq(projects.user_id, user_id));
+
+  return result;
+}
+
+export async function getProjectsByProjectId(
+  project_id: string
+) {
+  const result = await db
+    .select()
+    .from(projects)
+    .where(eq(projects.user_id, project_id));
 
   return result;
 }
