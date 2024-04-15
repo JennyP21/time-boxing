@@ -21,7 +21,7 @@ const Label = ({ label, project }: Props) => {
         <Stack>
             <GroupHeader>{label.name}</GroupHeader>
             <AddTaskContainer project={project} type='bucket' />
-            <TasksList data={newData} />
+            <TasksList data={newData} project={project} />
         </Stack>
     )
 }

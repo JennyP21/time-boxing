@@ -65,7 +65,7 @@ const TableBody = ({ data, project }: Props) => {
                         />
                     </Td>
                     <Td p={1} position="relative">
-                        <MoreOptionsContainer task={item} align="center" />
+                        <MoreOptionsContainer task={item} align="center" project={project} />
                     </Td>
                 </Tr>
             ))}

@@ -1,5 +1,5 @@
 "use client"
-import { TaskI } from '@/interfaces';
+import { ProjectI, TaskI } from '@/interfaces';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Text, useDisclosure } from '@chakra-ui/react';
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
@@ -10,10 +10,11 @@ import TaskDetails from '../TaskDetails/TaskDetails';
 import LabelDisplay from './LabelDisplay';
 
 interface Props {
-    task: TaskI
+    task: TaskI;
+    project: ProjectI;
 }
 
-const Task = ({ task }: Props) => {
+const Task = ({ task, project }: Props) => {
 
     const { isOpen: isOpenTask, onOpen: onOpenTask, onClose: onCloseTask } = useDisclosure();
     const { data: steps } = useGetStepsByTaskIdQuery(task.id);
@@ -24,7 +25,7 @@ const Task = ({ task }: Props) => {
             className='relative w-full text-left shadow-sm hover:shadow-md transition-all'
         >
             <CardHeader alignItems="center" px={3} py={1}>
-                <MoreOptionsContainer task={task} align='end' />
+                <MoreOptionsContainer task={task} align='end' project={project} />
                 <LabelDisplay task_id={task.id} />
                 <Flex alignItems="center" gap={1}>
                     <CheckTask task={task} />

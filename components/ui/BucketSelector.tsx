@@ -1,5 +1,5 @@
 import { ProjectI, TaskI } from '@/interfaces';
-import { useGetBucketsByProjectIdQuery, useGetBucketsQuery } from '@/lib/features/bucketApi';
+import { useGetBucketsByProjectIdQuery } from '@/lib/features/bucketApi';
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
 interface Props {
