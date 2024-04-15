@@ -16,6 +16,16 @@ export async function getTeamsByUserId(user_id: string) {
   return teamsByUserId;
 }
 
+export async function getTeamMembers(team_id: string) {
+  const teamMembers = await db
+    .select()
+    .from(team_members)
+    .leftJoin(teams, eq(team_members.team_id, teams.id))
+    .where(eq(team_members.team_id, team_id));
+
+  return teamMembers;
+}
+
 export async function addTeam(
   team: TeamI,
   user_id: string

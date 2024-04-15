@@ -11,7 +11,13 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 export const teamApi = createApi({
-  tagTypes: ["addTeam", "updateTeam", "deleteTeam"],
+  tagTypes: [
+    "addTeam",
+    "updateTeam",
+    "deleteTeam",
+    "addMember",
+    "updateMember",
+  ],
   reducerPath: "teamApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/api",
@@ -23,6 +29,10 @@ export const teamApi = createApi({
     >({
       query: (user_id) => `team/user/${user_id}`,
       providesTags: ["addTeam", "updateTeam", "deleteTeam"],
+    }),
+    getTeamMembers: builder.query<any, string>({
+      query: (team_id) => `team/${team_id}/members`,
+      providesTags: ["addMember", "updateMember"],
     }),
     addTeam: builder.mutation<TeamI, TeamWithUserI>({
       query: ({ team, user_id }) => ({
@@ -53,14 +63,14 @@ export const teamApi = createApi({
         method: "POST",
         body: teamMember,
       }),
-      invalidatesTags: ["updateTeam"],
+      invalidatesTags: ["addMember"],
     }),
     removeMember: builder.mutation<void, Team_UserIdI>({
       query: ({ team_id, user_id }) => ({
         url: `team/${team_id}/user/${user_id}`,
         method: "POST",
       }),
-      invalidatesTags: ["updateTeam"],
+      invalidatesTags: ["updateMember"],
     }),
     updateTeamMemberRole: builder.mutation<
       TeamMemberI,
