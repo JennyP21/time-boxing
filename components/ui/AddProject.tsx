@@ -2,11 +2,14 @@
 import { ProjectI } from '@/interfaces';
 import { useAddProjectMutation } from '@/lib/features/projectApi';
 import { Input, ListItem, Text } from '@chakra-ui/react';
-import { useSession } from 'next-auth/react';
 import { SyntheticEvent, useState } from 'react';
 
-const AddProject = () => {
-    const session = useSession();
+interface Props {
+    user_id?: string;
+    team_id?: string;
+}
+
+const AddProject = ({ user_id, team_id }: Props) => {
     const [active, setActive] = useState(false);
 
     const [addProject] = useAddProjectMutation();
@@ -14,9 +17,12 @@ const AddProject = () => {
     const handleProjectAddition = async (e: SyntheticEvent) => {
         const name = (e.target as HTMLInputElement).value;
         if (name) {
-            const data = {
+            const data = user_id ? {
                 name,
-                user_id: session.data?.user.id
+                user_id
+            } as ProjectI : {
+                name,
+                team_id
             } as ProjectI;
             await addProject(data);
         }
@@ -37,7 +43,7 @@ const AddProject = () => {
                 />
                 :
                 <Text className='cursor-pointer' onClick={() => setActive(true)}>
-                    Add new project
+                    {user_id ? "Add personal project" : "Add team project"}
                 </Text>
             }
         </ListItem>

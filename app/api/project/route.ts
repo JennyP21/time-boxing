@@ -21,13 +21,6 @@ export async function POST(request: NextRequest) {
       status: 400,
     });
 
-  const user = await getUserById(data.user_id);
-  if (session.user.email !== user.email) {
-    return NextResponse.json("Invalid user id", {
-      status: 400,
-    });
-  }
-
   const newProject = await addProject({
     ...data,
     created_at: new Date(),

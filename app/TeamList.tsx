@@ -1,9 +1,10 @@
 "use client"
+import AddProject from '@/components/ui/AddProject';
 import { PropsWithTeamI } from '@/interfaces';
+import { useGetProjectsByTeamIdQuery } from '@/lib/features/projectApi';
+import { Link } from '@chakra-ui/next-js';
 import { List, ListItem } from '@chakra-ui/react';
 import LeftPanelAccordion from './LeftPanelAccordion';
-import { Link } from '@chakra-ui/next-js';
-import { useGetProjectsByTeamIdQuery } from '@/lib/features/projectApi';
 
 const TeamList = ({ teams: team }: PropsWithTeamI) => {
     const { data: projects } = useGetProjectsByTeamIdQuery(team.id);
@@ -18,6 +19,7 @@ const TeamList = ({ teams: team }: PropsWithTeamI) => {
                         </Link>
                     </ListItem>
                 ))}
+                <AddProject team_id={team.id} />
             </List>
         </LeftPanelAccordion>
     )

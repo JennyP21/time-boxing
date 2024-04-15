@@ -25,7 +25,7 @@ const LeftPanelAccordion = ({ title, children, link }: Props) => {
                         </Text>
                     }
                 </AccordionButton>
-                <AccordionPanel pl={6} fontSize="small">
+                <AccordionPanel mx="auto" py={1} fontSize="small">
                     {children}
                 </AccordionPanel>
             </AccordionItem>

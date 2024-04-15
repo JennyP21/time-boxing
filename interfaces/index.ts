@@ -18,6 +18,7 @@ export interface ProjectI {
   id: string;
   name: string;
   user_id: string;
+  team_id: string;
   created_at: Date;
   updated_at: Date;
 }

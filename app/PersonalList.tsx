@@ -22,7 +22,7 @@ const PersonalList = ({ user_id }: Props) => {
                         </Link>
                     </ListItem>
                 ))}
-                <AddProject />
+                <AddProject user_id={user_id} />
             </List>
         </LeftPanelAccordion>
     )

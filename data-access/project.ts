@@ -21,13 +21,11 @@ export async function getProjectsByUserId(user_id: string) {
   return result;
 }
 
-export async function getProjectsByProjectId(
-  project_id: string
-) {
+export async function getProjectsByTeamId(team_id: string) {
   const result = await db
     .select()
     .from(projects)
-    .where(eq(projects.user_id, project_id));
+    .where(eq(projects.team_id, team_id));
 
   return result;
 }
