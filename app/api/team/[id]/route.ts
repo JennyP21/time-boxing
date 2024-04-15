@@ -16,7 +16,10 @@ export async function PATCH(
     });
   }
 
-  const updatedTeam = await updateTeam(params.id, data);
+  const updatedTeam = await updateTeam(params.id, {
+    ...data,
+    updated_at: new Date(),
+  });
 
   return NextResponse.json(updatedTeam);
 }

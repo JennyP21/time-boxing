@@ -13,7 +13,7 @@ const Team = ({ params }: { params: { id: string } }) => {
             Members:
             <List>
                 {members && members.map(member => (
-                    <ListItem>{member.user_id} {member.role}</ListItem>
+                    <ListItem key={member.id}>{member.user_id} {member.role}</ListItem>
                 ))}
             </List>
         </div>

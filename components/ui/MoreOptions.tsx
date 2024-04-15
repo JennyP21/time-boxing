@@ -12,7 +12,7 @@ const MoreOptions = ({ handleTaskDelete, onOpen, align }: Props) => {
     return (
         <Menu>
             <MenuButton className={align === "end" ? 'absolute right-2 top-1' : "w-full"}>
-                <Icon as={BsThreeDotsVertical} className='rounded-full mx-auto' w={4} h={4} _hover={{ bg: "gray.200" }} />
+                <Icon as={BsThreeDotsVertical} w={4} h={4} />
             </MenuButton>
             <MenuList>
                 <MenuItem onClick={handleTaskDelete}>Delete</MenuItem>

@@ -1,5 +1,5 @@
 import { TeamI } from '@/interfaces';
-import { useAddTeamMutation } from '@/lib/features/teamApi';
+import { useAddTeamMutation, useUpdateTeamMutation } from '@/lib/features/teamApi';
 import { validateTeam } from '@/validation';
 import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Text, Textarea } from '@chakra-ui/react';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,18 +8,25 @@ import { useForm } from "react-hook-form";
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    user_id: string;
+    user_id?: string;
+    currentTeam?: TeamI;
 }
 
-const AddTeam = ({ isOpen, onClose, user_id }: Props) => {
-    const { register, reset, formState: { errors }, handleSubmit } = useForm<TeamI>({
-        resolver: zodResolver(validateTeam)
+const AddOrUpdateTeam = ({ isOpen, onClose, user_id, currentTeam }: Props) => {
+    const { register, reset, formState: { errors, isDirty, isValid }, handleSubmit } = useForm<TeamI>({
+        resolver: zodResolver(validateTeam),
+        defaultValues: currentTeam
     });
 
-    const [addTeam, { isLoading }] = useAddTeamMutation();
+    const [addTeam, { isLoading: isAdding }] = useAddTeamMutation();
+    const [updateTeam, { isLoading: isUpdating }] = useUpdateTeamMutation();
     const onSubmit = async (data: TeamI) => {
-        await addTeam({ team: data, user_id });
-        reset();
+        if (currentTeam) {
+            await updateTeam({ ...data, id: currentTeam.id });
+        } else if (user_id) {
+            await addTeam({ team: data, user_id });
+            reset();
+        }
         onClose();
     };
 
@@ -28,7 +35,7 @@ const AddTeam = ({ isOpen, onClose, user_id }: Props) => {
             <ModalOverlay />
             <ModalContent>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <ModalHeader>Add new team</ModalHeader>
+                    <ModalHeader>{currentTeam ? "Update" : "Add new"} team</ModalHeader>
                     <ModalBody>
                         <Flex className='flex-col gap-2'>
                             <Input placeholder="Name you team" {...register("name")} />
@@ -38,7 +45,13 @@ const AddTeam = ({ isOpen, onClose, user_id }: Props) => {
                         </Flex>
                     </ModalBody>
                     <ModalFooter gap={2}>
-                        <Button type='submit' colorScheme="blue">Add {isLoading && <Spinner />}</Button>
+                        <Button
+                            type='submit'
+                            colorScheme="blue"
+                            isDisabled={!isValid}
+                        >
+                            {currentTeam ? "Update " : "Add "} {(isUpdating || isAdding) && <Spinner />}
+                        </Button>
                         <Button variant='ghost' onClick={onClose}>Close</Button>
                     </ModalFooter>
                 </form>
@@ -47,4 +60,4 @@ const AddTeam = ({ isOpen, onClose, user_id }: Props) => {
     )
 }
 
-export default AddTeam
+export default AddOrUpdateTeam

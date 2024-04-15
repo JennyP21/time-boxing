@@ -1,9 +1,20 @@
-import React from 'react'
+"use client"
+import { useSession } from 'next-auth/react';
+import TeamsGrid from './TeamsGrid';
+import { Box, Heading } from '@chakra-ui/react';
 
-const Teams = () => {
+const TeamsPage = () => {
+    const session = useSession();
+    const user_id = session.data?.user.id;
+
     return (
-        <div>This shows all the team in card like structure</div>
+        <Box>
+            <Heading className='p-3' borderBottom="1px" borderColor="gray.200">All Teams</Heading>
+            <Box className='p-5'>
+                {user_id && <TeamsGrid user_id={user_id} />}
+            </Box>
+        </Box>
     )
 }
 
-export default Teams
+export default TeamsPage
