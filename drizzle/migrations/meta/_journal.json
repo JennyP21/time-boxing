@@ -218,6 +218,13 @@
       "when": 1713125516130,
       "tag": "0034_demonic_onslaught",
       "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "5",
+      "when": 1713143537980,
+      "tag": "0035_swift_goblin_queen",
+      "breakpoints": true
     }
   ]
 }

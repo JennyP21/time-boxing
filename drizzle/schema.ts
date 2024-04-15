@@ -56,9 +56,8 @@ export const teamMembersRelations = relations(
 export const projects = pgTable("projects", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
-  user_id: text("user_id")
-    .notNull()
-    .references(() => users.id),
+  user_id: text("user_id").references(() => users.id),
+  team_id: uuid("team_id").references(() => teams.id),
   created_at: timestamp("created_at"),
   updated_at: timestamp("updated_at"),
 });
