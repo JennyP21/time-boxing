@@ -1,5 +1,6 @@
 import {
   PropsWithTeamI,
+  PropsWithTeamMembersI,
   Team_UserIdI,
   TeamI,
   TeamMemberI,
@@ -30,7 +31,10 @@ export const teamApi = createApi({
       query: (user_id) => `team/user/${user_id}`,
       providesTags: ["addTeam", "updateTeam", "deleteTeam"],
     }),
-    getTeamMembers: builder.query<any, string>({
+    getTeamMembers: builder.query<
+      PropsWithTeamMembersI[],
+      string
+    >({
       query: (team_id) => `team/${team_id}/members`,
       providesTags: ["addMember", "updateMember"],
     }),
@@ -86,11 +90,12 @@ export const teamApi = createApi({
 });
 
 export const {
+  useGetTeamMembersQuery,
+  useGetTeamsByUserIdQuery,
   useAddMemberMutation,
   useAddTeamMutation,
-  useDeleteTeamMutation,
-  useGetTeamsByUserIdQuery,
-  useRemoveMemberMutation,
-  useUpdateTeamMemberRoleMutation,
   useUpdateTeamMutation,
+  useUpdateTeamMemberRoleMutation,
+  useDeleteTeamMutation,
+  useRemoveMemberMutation,
 } = teamApi;

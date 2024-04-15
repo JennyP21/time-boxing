@@ -106,6 +106,10 @@ export interface PropsWithProject {
   project: ProjectI;
 }
 
+export interface PropsWithTeamMembersI {
+  team_members: TeamMemberI;
+}
+
 export interface PropsWithTeamI {
   teams: TeamI;
 }

@@ -18,7 +18,7 @@ export async function getTeamsByUserId(user_id: string) {
 
 export async function getTeamMembers(team_id: string) {
   const teamMembers = await db
-    .select()
+    .select({ team_members })
     .from(team_members)
     .leftJoin(teams, eq(team_members.team_id, teams.id))
     .where(eq(team_members.team_id, team_id));
