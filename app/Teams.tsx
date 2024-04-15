@@ -18,7 +18,7 @@ const Teams = ({ user_id }: Props) => {
 
     return (
         <LeftPanelAccordion title='Teams'>
-            {teams && teams?.map(team => (
+            {teams && teams.map(team => (
                 <React.Fragment key={team.id}>
                     <TeamList teams={team} />
                 </React.Fragment>
