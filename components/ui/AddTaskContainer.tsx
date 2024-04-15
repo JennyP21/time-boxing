@@ -37,6 +37,7 @@ const AddTaskContainer = ({ type, bucket_id, project }: Props) => {
                     setActive={setActive}
                     hadBucketSelector={bucket_id === undefined}
                     handleSubmit={handleSubmit}
+                    project={project}
                 />
             }{type === "list" &&
                 <AddListTask
@@ -45,6 +46,7 @@ const AddTaskContainer = ({ type, bucket_id, project }: Props) => {
                     active={active}
                     setActive={setActive}
                     handleSubmit={handleSubmit}
+                    project={project}
                 />
             }
         </>

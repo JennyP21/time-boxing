@@ -1,16 +1,17 @@
-import { TaskI } from '@/interfaces';
-import { useGetBucketsQuery } from '@/lib/features/bucketApi';
+import { ProjectI, TaskI } from '@/interfaces';
+import { useGetBucketsByProjectIdQuery, useGetBucketsQuery } from '@/lib/features/bucketApi';
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 
 interface Props {
     selectedTask: TaskI;
     setSelectedTask: (task: TaskI) => void;
     handleTaskUpdate?: () => void;
+    project: ProjectI;
 }
 
-const BucketSelector = ({ selectedTask, setSelectedTask, handleTaskUpdate }: Props) => {
+const BucketSelector = ({ selectedTask, setSelectedTask, handleTaskUpdate, project }: Props) => {
 
-    const { data: buckets } = useGetBucketsQuery();
+    const { data: buckets } = useGetBucketsByProjectIdQuery(project.id);
 
     if (!buckets) return null;
 

@@ -1,6 +1,6 @@
 "use client"
 import BucketSelector from '@/components/ui/BucketSelector';
-import { TaskI } from '@/interfaces';
+import { ProjectI, TaskI } from '@/interfaces';
 import { Flex, Icon, Input, Td, Text, Tr } from '@chakra-ui/react';
 import { IoIosCheckmark, IoIosClose } from 'react-icons/io';
 
@@ -10,9 +10,10 @@ interface Props {
     data: TaskI;
     setData: (value: TaskI) => void;
     handleSubmit: () => void;
+    project: ProjectI;
 }
 
-const AddListTask = ({ active, setActive, data, setData, handleSubmit }: Props) => {
+const AddListTask = ({ active, setActive, data, setData, handleSubmit, project }: Props) => {
     return (
         <Tr role='group'>
             <Td px={3}></Td>
@@ -36,7 +37,7 @@ const AddListTask = ({ active, setActive, data, setData, handleSubmit }: Props) 
             </Td>
             <Td py={0} px={1}></Td>
             <Td p={1}>
-                <BucketSelector selectedTask={data} setSelectedTask={setData} />
+                <BucketSelector project={project} selectedTask={data} setSelectedTask={setData} />
             </Td>
             <Td p={1}></Td>
             <Td p={1}></Td>

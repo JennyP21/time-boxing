@@ -11,14 +11,6 @@ export const bucketApi = createApi({
     baseUrl: "http://localhost:3000/api",
   }),
   endpoints: (builder) => ({
-    getBuckets: builder.query<BucketI[], void>({
-      query: () => "bucket/",
-      providesTags: [
-        "addBucket",
-        "updateBucket",
-        "deleteBucket",
-      ],
-    }),
     getBucketsByProjectId: builder.query<BucketI[], string>(
       {
         query: (project_id: string) =>
@@ -57,7 +49,6 @@ export const bucketApi = createApi({
 });
 
 export const {
-  useGetBucketsQuery,
   useGetBucketsByProjectIdQuery,
   useAddBucketMutation,
   useUpdateBucketMutation,

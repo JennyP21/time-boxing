@@ -3,15 +3,6 @@ import { buckets } from "@/drizzle/schema";
 import { BucketI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
-export async function getBuckets() {
-  const allBuckets = await db
-    .select()
-    .from(buckets)
-    .orderBy(buckets.order);
-
-  return allBuckets;
-}
-
 export async function getBucketsByProjectId(
   project_id: string
 ) {

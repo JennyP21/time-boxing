@@ -24,7 +24,7 @@ const UpdateBucket = ({ currData, project }: Props) => {
     }
 
     return (
-        <BucketSelector selectedTask={data} setSelectedTask={setData} handleTaskUpdate={handleTaskUpdate} />
+        <BucketSelector selectedTask={data} setSelectedTask={setData} handleTaskUpdate={handleTaskUpdate} project={project} />
     )
 }
 

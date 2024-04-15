@@ -1,17 +1,8 @@
-import {
-  addBucket,
-  getBuckets,
-} from "@/data-access/bucket";
+import { addBucket } from "@/data-access/bucket";
 import { BucketI } from "@/interfaces";
 import { validateBucket } from "@/validation";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-
-export async function GET(request: NextRequest) {
-  const buckets = await getBuckets();
-
-  return NextResponse.json(buckets);
-}
 
 export async function POST(request: NextRequest) {
   const session = await getServerSession();
