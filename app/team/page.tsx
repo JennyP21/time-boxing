@@ -1,7 +1,8 @@
 "use client"
+import { Box } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
+import TeamHeading from './TeamHeading';
 import TeamsGrid from './TeamsGrid';
-import { Box, Heading } from '@chakra-ui/react';
 
 const TeamsPage = () => {
     const session = useSession();
@@ -9,7 +10,7 @@ const TeamsPage = () => {
 
     return (
         <Box>
-            <Heading className='p-3' borderBottom="1px" borderColor="gray.200">All Teams</Heading>
+            <TeamHeading>All Teams</TeamHeading>
             <Box className='p-5'>
                 {user_id && <TeamsGrid user_id={user_id} />}
             </Box>

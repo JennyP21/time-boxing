@@ -16,6 +16,15 @@ export async function getTeamsByUserId(user_id: string) {
   return teamsByUserId;
 }
 
+export async function getTeamById(team_id: string) {
+  const team = await db
+    .select()
+    .from(teams)
+    .where(eq(teams.id, team_id));
+
+  return team;
+}
+
 export async function getTeamMembers(team_id: string) {
   const teamMembers = await db
     .select({ team_members })

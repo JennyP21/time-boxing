@@ -17,7 +17,7 @@ const Teams = ({ user_id }: Props) => {
     const teams = convertToTeamList(data);
 
     return (
-        <LeftPanelAccordion title='Teams'>
+        <LeftPanelAccordion title='Teams' link='/team'>
             {teams && teams.map(team => (
                 <React.Fragment key={team.id}>
                     <TeamList teams={team} />
