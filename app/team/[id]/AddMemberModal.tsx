@@ -1,5 +1,9 @@
-import { TeamI } from '@/interfaces';
-import { CloseButton, Flex, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalContent, ModalHeader, ModalOverlay, Spinner } from '@chakra-ui/react';
+import { AddMemberI, TeamI } from '@/interfaces';
+import { useAddMemberMutation } from '@/lib/features/teamApi';
+import { validateAddTeamMember } from '@/validation';
+import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Spinner, Text } from '@chakra-ui/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 interface Props {
     team: TeamI;
@@ -8,23 +12,45 @@ interface Props {
 }
 
 const AddMemberModal = ({ isOpen, onClose, team }: Props) => {
+    const [addMember, { isLoading }] = useAddMemberMutation();
+    const { register, handleSubmit, formState: { errors } } = useForm<AddMemberI>({
+        resolver: zodResolver(validateAddTeamMember)
+    });
+
+    const onSubmit = async (data: AddMemberI) => {
+        const updateData = {
+            ...data,
+            team_id: team.id,
+        }
+        await addMember(updateData);
+        onClose();
+    };
+
     return (
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
             <ModalOverlay />
             <ModalContent className='relative'>
-                <CloseButton className='absolute right-1 top-1' onClick={onClose} alignSelf="end" />
-                <ModalHeader>Add new members to {team.name} Team</ModalHeader>
-                <ModalBody>
-                    <InputGroup>
-                        <Input placeholder='Enter the email of the person' />
-                        <InputRightElement>
-                            <Spinner color="gray.300" />
-                        </InputRightElement>
-                    </InputGroup>
-                    <Flex className='flex-col gap-1 my-3 p-1 min-h-48 rounded-md border-2 border-gray.200'>
-
-                    </Flex>
-                </ModalBody>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <ModalHeader>Add new members to {team.name} Team</ModalHeader>
+                    <ModalBody>
+                        <Flex className='flex-col gap-2 my-3 p-1 rounded-md'>
+                            <Input type="email" isRequired placeholder='Enter the email of the person' {...register("user_email")} />
+                            {errors &&
+                                <Text>
+                                    {errors.user_email?.message}
+                                </Text>
+                            }
+                            <Select placeholder='Select Role' {...register("role")}>
+                                <option value="owner">Owner</option>
+                                <option value="member">Member</option>
+                            </Select>
+                        </Flex>
+                    </ModalBody>
+                    <ModalFooter gap={2}>
+                        <Button colorScheme="blue" type='submit'>Add {isLoading && <Spinner />}</Button>
+                        <Button type='reset' onClick={onClose}>Close</Button>
+                    </ModalFooter>
+                </form>
             </ModalContent>
         </Modal>
     )

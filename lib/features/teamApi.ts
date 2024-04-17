@@ -1,7 +1,8 @@
 import {
+  AddMemberI,
   PropsWithTeamI,
   PropsWithTeamMembersI,
-  Team_UserIdI,
+  RemoveMemberI,
   TeamI,
   TeamMemberI,
   TeamWithUserI,
@@ -71,15 +72,15 @@ export const teamApi = createApi({
       }),
       invalidatesTags: ["deleteTeam"],
     }),
-    addMember: builder.mutation<void, TeamMemberI>({
-      query: (teamMember) => ({
-        url: `team/${teamMember.team_id}/member`,
+    addMember: builder.mutation<void, AddMemberI>({
+      query: (newMember) => ({
+        url: `team/${newMember.team_id}/member`,
         method: "POST",
-        body: teamMember,
+        body: newMember,
       }),
       invalidatesTags: ["addMember"],
     }),
-    removeMember: builder.mutation<void, Team_UserIdI>({
+    removeMember: builder.mutation<void, RemoveMemberI>({
       query: ({ team_id, user_id }) => ({
         url: `team/${team_id}/member/${user_id}`,
         method: "POST",

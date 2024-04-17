@@ -14,6 +14,17 @@ export interface TeamMemberI {
   created_at: Date;
 }
 
+export interface AddMemberI {
+  team_id: string;
+  user_email: string;
+  role: "owner" | "member";
+}
+
+export interface RemoveMemberI {
+  team_id: string;
+  user_id: string;
+}
+
 export interface ProjectI {
   id: string;
   name: string;
@@ -107,17 +118,12 @@ export interface PropsWithProject {
 }
 
 export interface PropsWithTeamMembersI {
-  team_members: TeamMemberI;
-  users: UserI;
+  team_members: TeamMemberI | null;
+  users: UserI | null;
 }
 
 export interface PropsWithTeamI {
   teams: TeamI;
-}
-
-export interface Team_UserIdI {
-  team_id: string;
-  user_id: string;
 }
 
 export interface PropsWithTaskI {

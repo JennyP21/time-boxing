@@ -16,8 +16,8 @@ export const teams = pgTable("teams", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
   desc: varchar("desc", { length: 2000 }),
-  created_at: timestamp("created_at"),
-  updated_at: timestamp("updated_at"),
+  created_at: timestamp("created_at").notNull(),
+  updated_at: timestamp("updated_at").notNull(),
 });
 
 export const teamsRelations = relations(
@@ -36,8 +36,10 @@ export const team_members = pgTable("team_members", {
   user_id: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  role: text("role", { enum: ["owner", "member"] }),
-  created_at: timestamp("created_at"),
+  role: text("role", {
+    enum: ["owner", "member"],
+  }).notNull(),
+  created_at: timestamp("created_at").notNull(),
 });
 
 export const teamMembersRelations = relations(
@@ -59,8 +61,8 @@ export const projects = pgTable("projects", {
   name: text("name").notNull(),
   user_id: text("user_id").references(() => users.id),
   team_id: uuid("team_id").references(() => teams.id),
-  created_at: timestamp("created_at"),
-  updated_at: timestamp("updated_at"),
+  created_at: timestamp("created_at").notNull(),
+  updated_at: timestamp("updated_at").notNull(),
 });
 
 export const projectsRelations = relations(
@@ -85,8 +87,8 @@ export const buckets = pgTable("buckets", {
   project_id: uuid("project_id")
     .notNull()
     .references(() => projects.id),
-  created_at: timestamp("created_at"),
-  updated_at: timestamp("updated_at"),
+  created_at: timestamp("created_at").notNull(),
+  updated_at: timestamp("updated_at").notNull(),
 });
 
 export const bucketsRelations = relations(
@@ -124,8 +126,8 @@ export const tasks = pgTable("tasks", {
   showOnTask: text("showOnTask", {
     enum: ["note", "steps"],
   }),
-  created_at: timestamp("created_at"),
-  updated_at: timestamp("updated_at"),
+  created_at: timestamp("created_at").notNull(),
+  updated_at: timestamp("updated_at").notNull(),
 });
 
 export const tasksRelations = relations(
@@ -167,8 +169,8 @@ export const stepsRelations = relations(
 export const labels = pgTable("labels", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("title").notNull(),
-  created_at: timestamp("created_at"),
-  updated_at: timestamp("updated_at"),
+  created_at: timestamp("created_at").notNull(),
+  updated_at: timestamp("updated_at").notNull(),
 });
 
 export const labelsRelations = relations(

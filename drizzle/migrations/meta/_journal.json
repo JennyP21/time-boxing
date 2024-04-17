@@ -225,6 +225,20 @@
       "when": 1713143537980,
       "tag": "0035_swift_goblin_queen",
       "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "5",
+      "when": 1713324536565,
+      "tag": "0036_foamy_klaw",
+      "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "5",
+      "when": 1713324643549,
+      "tag": "0037_smart_sue_storm",
+      "breakpoints": true
     }
   ]
 }

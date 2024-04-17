@@ -16,6 +16,13 @@ export const validateTeamMember = z.object({
   role: z.enum(["owner", "member"]),
 });
 
+export const validateAddTeamMember = z.object({
+  user_email: z
+    .string()
+    .email({ message: "Email required" }),
+  role: z.enum(["owner", "member"]),
+});
+
 export const validateProject = z.object({
   name: z.string(),
   user_id: z.string().optional(),

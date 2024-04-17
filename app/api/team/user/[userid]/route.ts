@@ -31,7 +31,13 @@ export async function POST(
     });
   }
 
-  const newTeam = await addTeam(data, userid);
+  const newTeam = await addTeam(
+    {
+      ...data,
+      created_at: new Date(),
+    },
+    userid
+  );
 
   return NextResponse.json(newTeam);
 }
