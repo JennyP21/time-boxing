@@ -1,6 +1,8 @@
-import { convertToTeamMembersList } from '@/components/utils';
+import { convertToCustomMembersList } from '@/components/utils';
 import { useGetTeamMembersQuery } from '@/lib/features/teamApi';
-import { List, ListItem } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import AccordionTeamUserList from './AccordionTeamUserList';
+import AddMember from './AddMember';
 
 interface Props {
     team_id: string;
@@ -8,14 +10,17 @@ interface Props {
 
 const ManageMembers = ({ team_id }: Props) => {
     const { data } = useGetTeamMembersQuery(team_id);
-    const members = convertToTeamMembersList(data);
+    const users = convertToCustomMembersList(data);
+
+    const owners = users.filter(user => user.role === "owner");
+    const members = users.filter(user => user.role === "member");
 
     return (
-        <List>
-            {members && members.map(member => (
-                <ListItem key={member.id}>{member.user_id} {member.role}</ListItem>
-            ))}
-        </List>
+        <Flex className='flex-col gap-3'>
+            <AddMember team_id={team_id} />
+            <AccordionTeamUserList label='Owners' list={owners} />
+            <AccordionTeamUserList label='Members' list={members} />
+        </Flex >
     )
 }
 

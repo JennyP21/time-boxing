@@ -108,6 +108,7 @@ export interface PropsWithProject {
 
 export interface PropsWithTeamMembersI {
   team_members: TeamMemberI;
+  users: UserI;
 }
 
 export interface PropsWithTeamI {
@@ -126,4 +127,13 @@ export interface PropsWithTaskI {
 export interface LabelWithProject {
   label_id: string;
   project_id: string;
+}
+
+export interface CustomMembers {
+  id: string;
+  user_id: string;
+  name: string;
+  email: string;
+  image: string;
+  role: "owner" | "member";
 }

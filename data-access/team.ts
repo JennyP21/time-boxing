@@ -1,5 +1,9 @@
 import { db } from "@/drizzle";
-import { team_members, teams } from "@/drizzle/schema";
+import {
+  team_members,
+  teams,
+  users,
+} from "@/drizzle/schema";
 import { TeamI, TeamMemberI } from "@/interfaces";
 import { and, eq } from "drizzle-orm";
 
@@ -27,9 +31,10 @@ export async function getTeamById(team_id: string) {
 
 export async function getTeamMembers(team_id: string) {
   const teamMembers = await db
-    .select({ team_members })
+    .select({ team_members, users })
     .from(team_members)
     .leftJoin(teams, eq(team_members.team_id, teams.id))
+    .fullJoin(users, eq(team_members.user_id, users.id))
     .where(eq(team_members.team_id, team_id));
 
   return teamMembers;

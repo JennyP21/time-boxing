@@ -1,10 +1,11 @@
 import {
+  CustomMembers,
+  PropsWithTaskI,
   PropsWithTeamI,
   PropsWithTeamMembersI,
+  TaskI,
   TeamI,
-  TeamMemberI,
 } from "@/interfaces";
-import { PropsWithTaskI, TaskI } from "@/interfaces";
 
 export const formatDate = (date: Date) => {
   const parsedDate = new Date(date);
@@ -42,15 +43,23 @@ export const convertToTeamList = (
   return newList;
 };
 
-export const convertToTeamMembersList = (
+export const convertToCustomMembersList = (
   data: PropsWithTeamMembersI[] | undefined
 ) => {
-  const newList: TeamMemberI[] = [];
+  const newList: CustomMembers[] = [];
 
   if (!data) return newList;
 
   data.forEach((item) => {
-    newList.push(item.team_members);
+    const newData = {
+      id: item.team_members.id,
+      user_id: item.users.id,
+      name: item.users.name,
+      email: item.users.email,
+      image: item.users.image,
+      role: item.team_members.role,
+    };
+    newList.push(newData);
   });
 
   return newList;
