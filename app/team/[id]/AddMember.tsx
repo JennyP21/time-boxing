@@ -1,13 +1,23 @@
-import { Button } from '@chakra-ui/react';
-import React from 'react'
+"use client"
+import { TeamI } from '@/interfaces';
+import { Button, Icon, useDisclosure } from '@chakra-ui/react';
+import { BsPlus } from 'react-icons/bs';
+import AddMemberModal from './AddMemberModal';
 
 interface Props {
-    team_id: string;
+    team: TeamI;
 }
 
-const AddMember = ({ team_id }: Props) => {
+const AddMember = ({ team }: Props) => {
+    const { onOpen, onClose, isOpen } = useDisclosure();
+
     return (
-        <Button className='self-start w-fit' colorScheme='blue'>+ Add Member</Button>
+        <>
+            <Button onClick={onOpen} className='self-start w-fit' colorScheme='blue'>
+                <Icon as={BsPlus} w={5} h={5} /> Add Member
+            </Button>
+            <AddMemberModal isOpen={isOpen} onClose={onClose} team={team} />
+        </>
     )
 }
 

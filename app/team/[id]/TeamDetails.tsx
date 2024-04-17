@@ -1,6 +1,6 @@
 import { useGetTeamByIdQuery } from '@/lib/features/teamApi';
 import { Link } from '@chakra-ui/next-js';
-import { Box, Flex, Icon, Text, Grid } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import { FaCaretRight } from "react-icons/fa6";
 import TeamHeading from '../TeamHeading';
 import ManageMembers from './ManageMembers';
@@ -26,7 +26,7 @@ const TeamDetails = ({ team_id }: Props) => {
             </TeamHeading>
             <Flex className='flex-col gap-3 p-5'>
                 <TeamInfo name={team.name} desc={team.desc} />
-                <ManageMembers team_id={team_id} />
+                <ManageMembers team={team} />
             </Flex>
         </>
     )
