@@ -45,7 +45,7 @@ export const teamApi = createApi({
       PropsWithTeamMembersI[],
       string
     >({
-      query: (team_id) => `team/${team_id}/members`,
+      query: (team_id) => `team/${team_id}/member`,
       providesTags: ["addMember", "updateMember"],
     }),
     addTeam: builder.mutation<TeamI, TeamWithUserI>({
@@ -73,7 +73,7 @@ export const teamApi = createApi({
     }),
     addMember: builder.mutation<void, TeamMemberI>({
       query: (teamMember) => ({
-        url: `team/member`,
+        url: `team/${teamMember.team_id}/member`,
         method: "POST",
         body: teamMember,
       }),
@@ -81,7 +81,7 @@ export const teamApi = createApi({
     }),
     removeMember: builder.mutation<void, Team_UserIdI>({
       query: ({ team_id, user_id }) => ({
-        url: `team/${team_id}/user/${user_id}`,
+        url: `team/${team_id}/member/${user_id}`,
         method: "POST",
       }),
       invalidatesTags: ["updateMember"],
@@ -91,7 +91,7 @@ export const teamApi = createApi({
       TeamMemberI
     >({
       query: (teamMember) => ({
-        url: `team/member`,
+        url: `team/${teamMember.team_id}/member`,
         method: "PATCH",
         body: teamMember,
       }),

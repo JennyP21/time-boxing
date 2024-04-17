@@ -1,9 +1,8 @@
 import { removeTeamMember } from "@/data-access/team";
-import { validateTeamMember } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Props {
-  params: { id: string; userid: string };
+  params: { id: string; memberid: string };
 }
 
 export async function POST(
@@ -11,7 +10,7 @@ export async function POST(
   { params }: Props
 ) {
   const team_id = params.id;
-  const user_id = params.userid;
+  const user_id = params.memberid;
 
   await removeTeamMember(team_id, user_id);
 
