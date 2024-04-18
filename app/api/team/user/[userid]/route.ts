@@ -1,7 +1,4 @@
-import {
-  addTeam,
-  getTeamsByUserId,
-} from "@/data-access/team";
+import { addTeam, getTeamsByUserId } from "@/data-access/team";
 import { validateTeam } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -35,6 +32,7 @@ export async function POST(
     {
       ...data,
       created_at: new Date(),
+      updated_at: new Date(),
     },
     userid
   );
