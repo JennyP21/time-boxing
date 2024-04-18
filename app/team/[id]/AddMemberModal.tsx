@@ -45,7 +45,7 @@ const AddMemberModal = ({ isOpen, onClose, team }: Props) => {
                         </Flex>
                     </ModalBody>
                     <ModalFooter gap={2}>
-                        <Button colorScheme="blue" type='submit'>Add {isLoading && <Spinner />}</Button>
+                        <Button colorScheme="blue" type='submit'>Add  {isLoading && <Spinner />}</Button>
                         <Button type='reset' onClick={onClose}>Close</Button>
                     </ModalFooter>
                 </form>
