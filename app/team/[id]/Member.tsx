@@ -30,7 +30,7 @@ const Member = ({ user, hasOneOwner }: Props) => {
             </Td>
             <Td>
                 <Center>
-                    <Icon as={MdOutlineDelete} onClick={onOpen} className='p-1 rounded-full' cursor={hasOneOwner ? "not-allowed" : "pointer"} w={8} h={8} _hover={{ bg: "gray.300" }} />
+                    <Icon as={MdOutlineDelete} onClick={hasOneOwner ? undefined : onOpen} className='p-1 rounded-full' cursor={hasOneOwner ? "not-allowed" : "pointer"} w={8} h={8} _hover={{ bg: "gray.300" }} />
                     <ConfirmRemove user={user} isOpen={isOpen} onClose={onClose} />
                 </Center>
             </Td>
