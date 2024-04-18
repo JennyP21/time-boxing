@@ -96,6 +96,7 @@ export const teamApi = createApi({
         method: "PATCH",
         body: teamMember,
       }),
+      invalidatesTags: ["updateMember"],
     }),
   }),
 });

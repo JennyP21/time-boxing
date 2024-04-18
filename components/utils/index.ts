@@ -52,7 +52,8 @@ export const convertToCustomMembersList = (
 
   data.forEach((item) => {
     const newData = {
-      id: item.team_members.id,
+      team_member_id: item.team_members.id,
+      team_id: item.team_members.team_id,
       user_id: item.users.id,
       name: item.users.name,
       email: item.users.email,

@@ -1,5 +1,6 @@
 import { CustomMembers } from '@/interfaces';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Table, Tbody, Text, Th, Thead, Tr } from '@chakra-ui/react';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Table, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
+import React from 'react';
 import { GoTriangleUp } from 'react-icons/go';
 import Member from './Member';
 
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const AccordionTeamUserList = ({ label, list }: Props) => {
+    const countOwners = label === "Owners" && list.length;
+    console.log(countOwners);
     return (
         <Accordion allowToggle>
             <AccordionItem border={0}>
@@ -28,9 +31,11 @@ const AccordionTeamUserList = ({ label, list }: Props) => {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {list.length > 0 ? list.map(user => (
-                                <Member user={user} />
-                            )) : <Text fontSize="small" textColor="gray.600">No {label} Found.</Text>}
+                            {list.length > 0 && list.map(user => (
+                                <React.Fragment key={user.team_member_id}>
+                                    <Member user={user} hasOneOwner={countOwners === 1} />
+                                </React.Fragment>
+                            ))}
                         </Tbody>
                     </Table>
                 </AccordionPanel>

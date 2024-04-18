@@ -118,8 +118,8 @@ export interface PropsWithProject {
 }
 
 export interface PropsWithTeamMembersI {
-  team_members: TeamMemberI | null;
-  users: UserI | null;
+  team_members: TeamMemberI;
+  users: UserI;
 }
 
 export interface PropsWithTeamI {
@@ -136,7 +136,8 @@ export interface LabelWithProject {
 }
 
 export interface CustomMembers {
-  id: string;
+  team_member_id: string;
+  team_id: string;
   user_id: string;
   name: string;
   email: string;
