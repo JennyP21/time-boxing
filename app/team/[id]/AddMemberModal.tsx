@@ -1,9 +1,10 @@
 import { AddMemberI, TeamI } from '@/interfaces';
 import { useAddMemberMutation } from '@/lib/features/teamApi';
 import { validateAddTeamMember } from '@/validation';
-import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Spinner, Text } from '@chakra-ui/react';
+import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Text } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import RoleSelector from './RoleSelector';
 
 interface Props {
     team: TeamI;
@@ -40,10 +41,7 @@ const AddMemberModal = ({ isOpen, onClose, team }: Props) => {
                                     {errors.user_email?.message}
                                 </Text>
                             }
-                            <Select placeholder='Select Role' {...register("role")}>
-                                <option value="owner">Owner</option>
-                                <option value="member">Member</option>
-                            </Select>
+                            <RoleSelector register={register} />
                         </Flex>
                     </ModalBody>
                     <ModalFooter gap={2}>

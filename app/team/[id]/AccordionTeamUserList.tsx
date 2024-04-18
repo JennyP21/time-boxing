@@ -1,7 +1,7 @@
 import { CustomMembers } from '@/interfaces';
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Flex, List, ListItem, Text } from '@chakra-ui/react';
-import Image from 'next/image';
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Table, Tbody, Text, Th, Thead, Tr } from '@chakra-ui/react';
 import { GoTriangleUp } from 'react-icons/go';
+import Member from './Member';
 
 interface Props {
     label: "Owners" | "Members";
@@ -17,18 +17,22 @@ const AccordionTeamUserList = ({ label, list }: Props) => {
                     {label}
                 </AccordionButton>
                 <AccordionPanel>
-                    <List>
-                        {list.length > 0 ? list.map(user => (
-                            <ListItem className='p-3 rounded-md w-[50%]' border="1px" borderColor="gray.300" key={user.id}>
-                                <Flex className='gap-4 items-center justify-between'>
-                                    <Image className='rounded-full' src={user.image} width={30} height={30} alt={user.name} />
-                                    <Text>{user.name}</Text>
-                                    <Text>{user.email}</Text>
-                                    <Text className='capitalize'>{user.role}</Text>
-                                </Flex>
-                            </ListItem>
-                        )) : <ListItem fontSize="small" textColor="gray.600">No {label} Found.</ListItem>}
-                    </List>
+                    <Table size="sm">
+                        <Thead>
+                            <Tr>
+                                <Th w="10%"></Th>
+                                <Th w="20%">Name</Th>
+                                <Th w="30%">Email</Th>
+                                <Th w="30%">Role</Th>
+                                <Th w="10%"></Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            {list.length > 0 ? list.map(user => (
+                                <Member user={user} />
+                            )) : <Text fontSize="small" textColor="gray.600">No {label} Found.</Text>}
+                        </Tbody>
+                    </Table>
                 </AccordionPanel>
             </AccordionItem>
         </Accordion>
