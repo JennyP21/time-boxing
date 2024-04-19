@@ -11,7 +11,6 @@ interface Props {
 
 const AccordionTeamUserList = ({ label, list }: Props) => {
     const countOwners = label === "Owners" && list.length;
-    console.log(countOwners);
     return (
         <Accordion allowToggle>
             <AccordionItem border={0}>

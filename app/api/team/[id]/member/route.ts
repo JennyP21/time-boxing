@@ -1,5 +1,6 @@
 import {
   addTeamMember,
+  getOwnersCount,
   getTeamMembers,
   updateRole,
 } from "@/data-access/team";
@@ -83,6 +84,17 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json(validation.error, {
       status: 400,
     });
+
+  const countOfOwners = await getOwnersCount(data.team_id);
+  if (
+    countOfOwners.length < 2 &&
+    countOfOwners[0].team_members.user_id === data.user_id
+  ) {
+    return NextResponse.json(
+      "You cannot change role of last owner",
+      { status: 400 }
+    );
+  }
 
   await updateRole(data);
 
