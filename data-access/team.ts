@@ -5,7 +5,7 @@ import {
   users,
 } from "@/drizzle/schema";
 import { TeamI, TeamMemberI } from "@/interfaces";
-import { and, count, eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 export async function getTeamsByUserId(user_id: string) {
   const teamsByUserId = await db

@@ -1,10 +1,8 @@
 import {
   CustomMembersI,
+  GetTeamMembersI,
   TaskContainerI,
   TeamContainerI,
-  GetTeamMembersI,
-  TaskI,
-  TeamI,
 } from "@/interfaces";
 
 export const formatDate = (date: Date) => {
@@ -18,29 +16,15 @@ export const formatDate = (date: Date) => {
 export const convertToTaskList = (
   data: TaskContainerI[] | undefined
 ) => {
-  const newList: TaskI[] = [];
-
-  if (!data) return newList;
-
-  data.forEach((item) => {
-    newList.push(item.tasks);
-  });
-
-  return newList;
+  if (!data) return [];
+  return data.map((item) => item.tasks);
 };
 
 export const convertToTeamList = (
   data: TeamContainerI[] | undefined
 ) => {
-  const newList: TeamI[] = [];
-
-  if (!data) return newList;
-
-  data.forEach((item) => {
-    newList.push(item.teams);
-  });
-
-  return newList;
+  if (!data) return [];
+  return data.map((item) => item.teams);
 };
 
 export const convertToCustomMembersList = (
