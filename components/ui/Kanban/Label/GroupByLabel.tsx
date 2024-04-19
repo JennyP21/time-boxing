@@ -1,10 +1,10 @@
+import { ProjectContainerI } from '@/interfaces';
 import { useGetLabelsQuery } from '@/lib/features/labelApi';
 import React from 'react';
 import GroupByContainer from '../GroupByContainer';
 import Label from './Label';
-import { PropsWithProject } from '@/interfaces';
 
-const GroupByLabel: React.FC<PropsWithProject> = ({ project }: PropsWithProject) => {
+const GroupByLabel: React.FC<ProjectContainerI> = ({ project }: ProjectContainerI) => {
     const { data: labels } = useGetLabelsQuery();
 
     return (

@@ -1,16 +1,20 @@
 import {
   AddMemberI,
-  PropsWithTeamI,
-  PropsWithTeamMembersI,
+  TeamContainerI,
+  GetTeamMembersI,
   RemoveMemberI,
   TeamI,
   TeamMemberI,
-  TeamWithUserI,
 } from "@/interfaces";
 import {
   createApi,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
+
+interface AddTeamI {
+  team: TeamI;
+  user_id: string;
+}
 
 export const teamApi = createApi({
   tagTypes: [
@@ -26,7 +30,7 @@ export const teamApi = createApi({
   }),
   endpoints: (builder) => ({
     getTeamsByUserId: builder.query<
-      PropsWithTeamI[],
+      TeamContainerI[],
       string
     >({
       query: (user_id) => `team/user/${user_id}`,
@@ -43,13 +47,13 @@ export const teamApi = createApi({
       ],
     }),
     getTeamMembers: builder.query<
-      PropsWithTeamMembersI[],
+      GetTeamMembersI[],
       string
     >({
       query: (team_id) => `team/${team_id}/member`,
       providesTags: ["addMember", "updateMember"],
     }),
-    addTeam: builder.mutation<TeamI, TeamWithUserI>({
+    addTeam: builder.mutation<TeamI, AddTeamI>({
       query: ({ team, user_id }) => ({
         url: `team/user/${user_id}`,
         method: "POST",

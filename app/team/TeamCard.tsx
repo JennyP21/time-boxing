@@ -1,9 +1,9 @@
-import { PropsWithTeamI } from '@/interfaces'
+import { TeamContainerI } from '@/interfaces'
 import { Card, CardBody, CardHeader, Heading, Text } from '@chakra-ui/react'
 import TeamOptionsContainer from './TeamOptionsContainer'
 import { Link } from '@chakra-ui/next-js'
 
-const TeamCard = ({ teams }: PropsWithTeamI) => {
+const TeamCard = ({ teams }: TeamContainerI) => {
     return (
         <Card className='shadow-md hover:shadow-lg' border="1px" borderColor="gray.100" maxW="14rem" minW="16rem" _hover={{
             scale: 1.1,

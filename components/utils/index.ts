@@ -1,8 +1,8 @@
 import {
   CustomMembers,
-  PropsWithTaskI,
-  PropsWithTeamI,
-  PropsWithTeamMembersI,
+  TaskContainerI,
+  TeamContainerI,
+  GetTeamMembersI,
   TaskI,
   TeamI,
 } from "@/interfaces";
@@ -16,7 +16,7 @@ export const formatDate = (date: Date) => {
 };
 
 export const convertToTaskList = (
-  data: PropsWithTaskI[] | undefined
+  data: TaskContainerI[] | undefined
 ) => {
   const newList: TaskI[] = [];
 
@@ -30,7 +30,7 @@ export const convertToTaskList = (
 };
 
 export const convertToTeamList = (
-  data: PropsWithTeamI[] | undefined
+  data: TeamContainerI[] | undefined
 ) => {
   const newList: TeamI[] = [];
 
@@ -44,7 +44,7 @@ export const convertToTeamList = (
 };
 
 export const convertToCustomMembersList = (
-  data: PropsWithTeamMembersI[] | undefined
+  data: GetTeamMembersI[] | undefined
 ) => {
   const newList: CustomMembers[] = [];
 

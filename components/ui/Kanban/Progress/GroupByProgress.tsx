@@ -1,10 +1,10 @@
 import { taskProgress } from '@/constants'
+import { ProjectContainerI } from '@/interfaces'
 import React from 'react'
 import GroupByContainer from '../GroupByContainer'
 import Progress from './Progress'
-import { PropsWithProject } from '@/interfaces'
 
-const GroupByProgress: React.FC<PropsWithProject> = ({ project }: PropsWithProject) => {
+const GroupByProgress: React.FC<ProjectContainerI> = ({ project }: ProjectContainerI) => {
     return (
         <GroupByContainer>
             {taskProgress.map(progress => (

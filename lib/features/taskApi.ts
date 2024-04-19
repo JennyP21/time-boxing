@@ -1,12 +1,13 @@
-import {
-  LabelWithProject,
-  PropsWithTaskI,
-  TaskI,
-} from "@/interfaces";
+import { TaskContainerI, TaskI } from "@/interfaces";
 import {
   createApi,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
+
+interface TaskByLabelI {
+  label_id: string;
+  project_id: string;
+}
 
 export const taskApi = createApi({
   tagTypes: ["addTask", "deleteTask", "updateTask"],
@@ -25,8 +26,8 @@ export const taskApi = createApi({
       providesTags: ["addTask", "deleteTask", "updateTask"],
     }),
     getTasksByLabel: builder.query<
-      PropsWithTaskI[],
-      LabelWithProject
+      TaskContainerI[],
+      TaskByLabelI
     >({
       query: ({ label_id, project_id }) =>
         `label/${label_id}/task/project/${project_id}`,

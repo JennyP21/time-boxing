@@ -6,6 +6,10 @@ export interface TeamI {
   updated_at: Date;
 }
 
+export interface TeamContainerI {
+  teams: TeamI;
+}
+
 export interface TeamMemberI {
   id: string;
   team_id: string;
@@ -25,6 +29,16 @@ export interface RemoveMemberI {
   user_id: string;
 }
 
+export interface CustomMembers {
+  team_member_id: string;
+  team_id: string;
+  user_id: string;
+  name: string;
+  email: string;
+  image: string;
+  role: "owner" | "member";
+}
+
 export interface ProjectI {
   id: string;
   name: string;
@@ -32,6 +46,10 @@ export interface ProjectI {
   team_id: string;
   created_at: Date;
   updated_at: Date;
+}
+
+export interface ProjectContainerI {
+  project: ProjectI;
 }
 
 export interface BucketI {
@@ -62,6 +80,10 @@ export interface TaskI {
   updated_at: Date;
 }
 
+export interface TaskContainerI {
+  tasks: TaskI;
+}
+
 export interface StepsI {
   id: string;
   task_id: string;
@@ -75,16 +97,6 @@ export interface UserI {
   image: string;
   name: string;
   email: string;
-}
-
-export interface TaskWithUserI {
-  task: TaskI;
-  user: UserI;
-}
-
-export interface TeamWithUserI {
-  team: TeamI;
-  user_id: string;
 }
 
 export interface TaskAttributesProps {
@@ -113,34 +125,7 @@ export interface TabI {
   active: boolean;
 }
 
-export interface PropsWithProject {
-  project: ProjectI;
-}
-
-export interface PropsWithTeamMembersI {
+export interface GetTeamMembersI {
   team_members: TeamMemberI;
   users: UserI;
-}
-
-export interface PropsWithTeamI {
-  teams: TeamI;
-}
-
-export interface PropsWithTaskI {
-  tasks: TaskI;
-}
-
-export interface LabelWithProject {
-  label_id: string;
-  project_id: string;
-}
-
-export interface CustomMembers {
-  team_member_id: string;
-  team_id: string;
-  user_id: string;
-  name: string;
-  email: string;
-  image: string;
-  role: "owner" | "member";
 }
