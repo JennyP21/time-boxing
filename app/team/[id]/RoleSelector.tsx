@@ -1,11 +1,11 @@
-import { AddMemberI, CustomMembers, TeamMemberI } from '@/interfaces';
+import { AddMemberI, CustomMembersI, TeamMemberI } from '@/interfaces';
 import { useUpdateTeamMemberRoleMutation } from '@/lib/features/teamApi';
 import { Select } from '@chakra-ui/react';
 import { SyntheticEvent } from 'react';
 import { UseFormRegister } from 'react-hook-form';
 
 interface Props {
-    user?: CustomMembers;
+    user?: CustomMembersI;
     register?: UseFormRegister<AddMemberI>
     hasOneOwner?: boolean;
 }

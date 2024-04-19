@@ -3,15 +3,16 @@ import { TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { Input, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import AssignUserToTask from '../AssignUserToTask';
+import AssignUserContainer from '../AssignUserContainer';
 import LabelDetails from './LabelDetails';
 
 interface Props {
+    project_id: string;
     currentTitle: string;
     task_id: string;
 }
 
-const TaskDetailsHeader = ({ task_id, currentTitle }: Props) => {
+const TaskDetailsHeader = ({ task_id, currentTitle, project_id }: Props) => {
     const [title, setTitle] = useState(currentTitle);
     const [updateTask] = useUpdateTaskMutation();
 
@@ -37,7 +38,7 @@ const TaskDetailsHeader = ({ task_id, currentTitle }: Props) => {
                 onChange={(e) => setTitle(e.target.value)}
                 onBlur={handleSubmit}
             />
-            {/* <AssignUserToTask image={image} name={name} /> */}
+            <AssignUserContainer project_id={project_id} />
             <LabelDetails task_id={task_id} />
         </>
     )

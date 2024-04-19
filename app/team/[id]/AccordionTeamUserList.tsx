@@ -1,4 +1,4 @@
-import { CustomMembers } from '@/interfaces';
+import { CustomMembersI } from '@/interfaces';
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Table, Tbody, Th, Thead, Tr } from '@chakra-ui/react';
 import React from 'react';
 import { GoTriangleUp } from 'react-icons/go';
@@ -6,7 +6,7 @@ import Member from './Member';
 
 interface Props {
     label: "Owners" | "Members";
-    list: CustomMembers[]
+    list: CustomMembersI[]
 }
 
 const AccordionTeamUserList = ({ label, list }: Props) => {

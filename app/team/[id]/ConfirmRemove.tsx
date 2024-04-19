@@ -1,12 +1,12 @@
 "use client"
-import { CustomMembers, TeamMemberI } from '@/interfaces';
+import { CustomMembersI, TeamMemberI } from '@/interfaces';
 import { useRemoveMemberMutation } from '@/lib/features/teamApi';
 import { Button, Heading, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay } from '@chakra-ui/react';
 
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    user: CustomMembers;
+    user: CustomMembersI;
 }
 
 const ConfirmRemove = ({ isOpen, onClose, user }: Props) => {

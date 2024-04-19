@@ -13,7 +13,7 @@ interface Props {
 }
 
 const TaskDetails = ({ isOpen, onClose, task }: Props) => {
-    const { id, severity, progress, note, title, start_date, end_date, showOnTask, created_at } = task;
+    const { id, severity, progress, note, title, start_date, end_date, showOnTask, project_id, created_at } = task;
 
     return (
         <form>
@@ -21,7 +21,7 @@ const TaskDetails = ({ isOpen, onClose, task }: Props) => {
                 <ModalOverlay />
                 <ModalContent p={1} my={5} minWidth="45%">
                     <ModalHeader fontWeight="500" fontSize="small" pb={0}>
-                        <TaskDetailsHeader task_id={id} currentTitle={title} />
+                        <TaskDetailsHeader task_id={id} currentTitle={title} project_id={project_id} />
                     </ModalHeader>
                     <ModalBody py={0}>
                         <Stack textAlign="left" bg="white" width="100%" justifyContent="center">

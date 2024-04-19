@@ -1,5 +1,5 @@
 import {
-  CustomMembers,
+  CustomMembersI,
   TaskContainerI,
   TeamContainerI,
   GetTeamMembersI,
@@ -46,7 +46,7 @@ export const convertToTeamList = (
 export const convertToCustomMembersList = (
   data: GetTeamMembersI[] | undefined
 ) => {
-  const newList: CustomMembers[] = [];
+  const newList: CustomMembersI[] = [];
 
   if (!data) return newList;
 

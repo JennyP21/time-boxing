@@ -29,7 +29,7 @@ export interface RemoveMemberI {
   user_id: string;
 }
 
-export interface CustomMembers {
+export interface CustomMembersI {
   team_member_id: string;
   team_id: string;
   user_id: string;

@@ -1,5 +1,5 @@
 "use client"
-import { CustomMembers } from '@/interfaces';
+import { CustomMembersI } from '@/interfaces';
 import { Center, Icon, Td, Text, Tr, useDisclosure } from '@chakra-ui/react';
 import Image from 'next/image';
 import { MdOutlineDelete } from 'react-icons/md';
@@ -7,7 +7,7 @@ import ConfirmRemove from './ConfirmRemove';
 import RoleSelector from './RoleSelector';
 
 interface Props {
-    user: CustomMembers;
+    user: CustomMembersI;
     hasOneOwner: boolean;
 }
 
