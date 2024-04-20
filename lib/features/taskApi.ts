@@ -1,4 +1,9 @@
-import { TaskContainerI, TaskI } from "@/interfaces";
+import {
+  Task_AssigneeI,
+  TaskContainerI,
+  TaskI,
+  UserI,
+} from "@/interfaces";
 import {
   createApi,
   fetchBaseQuery,
@@ -10,7 +15,13 @@ interface TaskByLabelI {
 }
 
 export const taskApi = createApi({
-  tagTypes: ["addTask", "deleteTask", "updateTask"],
+  tagTypes: [
+    "addTask",
+    "deleteTask",
+    "updateTask",
+    "assignUser",
+    "unAssignUser",
+  ],
   reducerPath: "taskApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/api",
@@ -55,6 +66,29 @@ export const taskApi = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["deleteTask"],
+    }),
+    getAssigneesByTaskId: builder.query<UserI[], string>({
+      query: (task_id) => `task/${task_id}/assignee`,
+      providesTags: ["assignUser", "unAssignUser"],
+    }),
+    assignUser: builder.mutation<
+      Task_AssigneeI,
+      Task_AssigneeI
+    >({
+      query: (data: Task_AssigneeI) => ({
+        url: "/task_assignee/assign",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["assignUser"],
+    }),
+    unAssignUser: builder.mutation<void, Task_AssigneeI>({
+      query: (data: Task_AssigneeI) => ({
+        url: "/task_assignee/unassign",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["unAssignUser"],
     }),
   }),
 });
