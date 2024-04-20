@@ -98,3 +98,8 @@ export const validateLabelAssignment = z.object({
   task_id: z.string().uuid(),
   label_id: z.string().uuid(),
 });
+
+export const validateUserAssignment = z.object({
+  task_id: z.string().uuid(),
+  user_id: z.string(),
+});

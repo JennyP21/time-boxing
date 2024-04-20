@@ -1,5 +1,5 @@
-import { unAssignLabel } from "@/data-access/tasks_labels";
-import { validateLabelAssignment } from "@/validation";
+import { unAssignUser } from "@/data-access/task_assignees";
+import { validateUserAssignment } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
@@ -8,14 +8,13 @@ export async function POST(
 ) {
   const data = await request.json();
 
-  const validation =
-    validateLabelAssignment.safeParse(data);
+  const validation = validateUserAssignment.safeParse(data);
   if (!validation.success)
     return NextResponse.json(validation.error.message, {
       status: 400,
     });
 
-  await unAssignLabel(data);
+  await unAssignUser(data);
 
   return NextResponse.json([]);
 }
