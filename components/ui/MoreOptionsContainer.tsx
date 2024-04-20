@@ -21,8 +21,8 @@ const MoreOptionsContainer = ({ task, align, project }: Props) => {
 
     return (
         <>
-            <MoreOptions handleTaskDelete={handleTaskDelete} onOpen={onOpen} align={align} />
-            {buckets && <MoveTask isOpen={isOpen} onClose={onClose} task_id={task.id} bucket_id={task.bucket_id} buckets={buckets} />}
+            <MoreOptions handleTaskDelete={handleTaskDelete} onOpen={onOpen} align={align} canMove={buckets !== undefined && buckets.length > 1} />
+            {buckets && buckets.length > 1 && <MoveTask isOpen={isOpen} onClose={onClose} task_id={task.id} bucket_id={task.bucket_id} buckets={buckets} />}
         </>
     )
 }

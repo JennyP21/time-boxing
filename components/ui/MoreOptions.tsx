@@ -6,9 +6,10 @@ interface Props {
     onOpen: () => void;
     handleTaskDelete: () => void;
     align: "center" | "end";
+    canMove: boolean;
 }
 
-const MoreOptions = ({ handleTaskDelete, onOpen, align }: Props) => {
+const MoreOptions = ({ handleTaskDelete, onOpen, align, canMove }: Props) => {
     return (
         <Menu>
             <MenuButton className={align === "end" ? 'absolute right-2 top-1' : "w-full"}>
@@ -16,7 +17,7 @@ const MoreOptions = ({ handleTaskDelete, onOpen, align }: Props) => {
             </MenuButton>
             <MenuList>
                 <MenuItem onClick={handleTaskDelete}>Delete</MenuItem>
-                <MenuItem onClick={onOpen}>Move</MenuItem>
+                {canMove && <MenuItem onClick={onOpen}>Move</MenuItem>}
             </MenuList>
         </Menu>
     )
