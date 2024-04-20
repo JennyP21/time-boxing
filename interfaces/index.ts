@@ -120,6 +120,12 @@ export interface Task_LabelI {
   label_id: string;
 }
 
+export interface Task_AssigneeI {
+  id: string;
+  task_id: string;
+  user_id: string;
+}
+
 export interface TabI {
   name: string;
   active: boolean;

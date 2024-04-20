@@ -1,4 +1,4 @@
-import { assignLabel } from "@/data-access/tasks-labels";
+import { assignLabel } from "@/data-access/tasks_labels";
 import { validateLabelAssignment } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 

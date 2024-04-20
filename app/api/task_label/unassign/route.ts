@@ -1,4 +1,4 @@
-import { unAssignLabel } from "@/data-access/tasks-labels";
+import { unAssignLabel } from "@/data-access/tasks_labels";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(

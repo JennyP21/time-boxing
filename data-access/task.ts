@@ -1,6 +1,7 @@
 import { db } from "@/drizzle";
 import {
   labels,
+  task_assignees,
   tasks,
   tasks_labels,
   users,
@@ -43,6 +44,19 @@ export async function getTasksByLabelId(
       )
     );
   return tasksByLabel;
+}
+
+export async function getAssigneesByTaskId(
+  task_id: string
+) {
+  const assigneesByTask = await db
+    .select({ users })
+    .from(task_assignees)
+    .fullJoin(users, eq(task_assignees.user_id, users.id))
+    .fullJoin(tasks, eq(task_assignees.task_id, tasks.id))
+    .where(eq(tasks.id, task_id));
+
+  return assigneesByTask.map((assignee) => assignee.users);
 }
 
 export async function addTask(task: TaskI) {
