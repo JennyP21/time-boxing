@@ -14,7 +14,7 @@ interface Props {
 const AssignUser = ({ users, task_id }: Props) => {
     const { data: assignedUsers } = useGetAssigneesByTaskIdQuery(task_id);
     const assignedUsersEmail = assignedUsers && assignedUsers[0] !== null && assignedUsers?.map(item => item.email);
-    const unAssignedUsers = assignedUsersEmail && users.filter(user => !assignedUsersEmail.includes(user.email));
+    const unAssignedUsers = assignedUsersEmail ? users.filter(user => !assignedUsersEmail.includes(user.email)) : users;
 
     const [assignUser] = useAssignUserMutation();
     const handleUserAssignment = async (user_id: string) => {
