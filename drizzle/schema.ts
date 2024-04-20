@@ -135,6 +135,7 @@ export const tasksRelations = relations(
   ({ many, one }) => ({
     tasks_labels: many(tasks_labels),
     steps: many(steps),
+    task_assignees: many(task_assignees),
     bucket: one(buckets, {
       fields: [tasks.bucket_id],
       references: [buckets.id],
@@ -142,6 +143,30 @@ export const tasksRelations = relations(
     project: one(projects, {
       fields: [tasks.project_id],
       references: [projects.id],
+    }),
+  })
+);
+
+export const task_assignees = pgTable("task_assignees", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  task_id: uuid("task_id").references(() => tasks.id, {
+    onDelete: "cascade",
+  }),
+  user_id: text("user_id").references(() => users.id, {
+    onDelete: "cascade",
+  }),
+});
+
+export const taskAssigneesRelations = relations(
+  task_assignees,
+  ({ one }) => ({
+    task: one(tasks, {
+      fields: [task_assignees.task_id],
+      references: [tasks.id],
+    }),
+    user: one(users, {
+      fields: [task_assignees.user_id],
+      references: [users.id],
     }),
   })
 );
@@ -190,7 +215,7 @@ export const tasks_labels = pgTable("tasks_labels", {
   }),
 });
 
-export const labelsToTasks = relations(
+export const labelsTasksRelations = relations(
   tasks_labels,
   ({ one }) => ({
     task: one(tasks, {
@@ -222,6 +247,7 @@ export const usersRelation = relations(
     accounts: many(accounts),
     projects: many(projects),
     team_members: many(team_members),
+    task_assignees: many(task_assignees),
   })
 );
 

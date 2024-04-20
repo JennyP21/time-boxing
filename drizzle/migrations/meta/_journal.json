@@ -239,6 +239,13 @@
       "when": 1713324643549,
       "tag": "0037_smart_sue_storm",
       "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "5",
+      "when": 1713636592670,
+      "tag": "0038_brave_riptide",
+      "breakpoints": true
     }
   ]
 }

@@ -14,15 +14,15 @@ const AssignUser = ({ users }: Props) => {
                 <MenuButton>
                     <Icon as={TiUserAddOutline} w={6} h={6} mr={2} />
                 </MenuButton>
-                <MenuList>
-                    <MenuItem>
-                        {users.map(user => (
+                <MenuList className='flex flex-col gap-2'>
+                    {users.map(user => (
+                        <MenuItem>
                             <Flex className='items-center gap-2' key={user.email}>
                                 <Image className='rounded-full' src={user.image} width={25} height={25} alt={user.name} />
                                 <Text>{user.name}</Text>
                             </Flex>
-                        ))}
-                    </MenuItem>
+                        </MenuItem>
+                    ))}
                 </MenuList>
             </Menu>
         </Flex>
