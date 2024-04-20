@@ -13,7 +13,7 @@ interface Props {
 
 const AssignUser = ({ users, task_id }: Props) => {
     const { data: assignedUsers } = useGetAssigneesByTaskIdQuery(task_id);
-    const assignedUsersEmail = assignedUsers?.map(item => item.email);
+    const assignedUsersEmail = assignedUsers && assignedUsers[0] !== null && assignedUsers?.map(item => item.email);
     const unAssignedUsers = assignedUsersEmail && users.filter(user => !assignedUsersEmail.includes(user.email));
 
     const [assignUser] = useAssignUserMutation();
@@ -42,7 +42,7 @@ const AssignUser = ({ users, task_id }: Props) => {
                 </MenuButton>
                 <MenuList className='flex flex-col gap-2'>
                     <MenuGroup title='Assigned' fontSize="small" fontWeight="normal">
-                        {assignedUsers?.map(user => (
+                        {assignedUsers && assignedUsers[0] !== null && assignedUsers.map(user => (
                             <MenuItem key={user.id}>
                                 <Flex className='items-center gap-2 w-full'>
                                     <Image className='rounded-full' src={user.image} width={25} height={25} alt={user.name} />
