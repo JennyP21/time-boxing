@@ -5,6 +5,7 @@ import { Tbody, Td, Tr } from '@chakra-ui/react';
 import _ from "lodash";
 import { useSearchParams } from 'next/navigation';
 import AddTaskContainer from '../AddTaskContainer';
+import AssignUserContainer from '../AssignUserContainer';
 import MoreOptionsContainer from '../MoreOptionsContainer';
 import AttributeSelector from './AttributeSelector';
 import DueDate from './DueDate';
@@ -28,44 +29,44 @@ const TableBody = ({ data, project }: Props) => {
 
     return (
         <Tbody>
-            {sortedData?.map(item => (
-                <Tr key={item.id}>
+            {sortedData?.map(task => (
+                <Tr key={task.id}>
                     <Td px={3}>
-                        <CheckTask task={item} />
+                        <CheckTask task={task} />
                     </Td>
                     <Td p={1} overflow="clip">
-                        <TaskTitle task={item} />
+                        <TaskTitle task={task} />
                     </Td>
                     <Td py={0} px={1}>
-                        {/* <AssignUserToTask image={item.user.image} name={item.user.name} /> */}
+                        <AssignUserContainer project_id={project.id} task_id={task.id} />
                     </Td>
                     <Td p={1}>
-                        <UpdateBucket currData={item} project={project} />
+                        <UpdateBucket currData={task} project={project} />
                     </Td>
                     <Td p={1}>
                         <AttributeSelector
                             dataToUpdate='progress'
-                            task_id={item.id}
-                            defaultValue={item.progress}
+                            task_id={task.id}
+                            defaultValue={task.progress}
                             data={taskProgress}
                         />
                     </Td>
                     <Td p={1}>
                         <AttributeSelector
                             dataToUpdate='severity'
-                            task_id={item.id}
-                            defaultValue={item.severity}
+                            task_id={task.id}
+                            defaultValue={task.severity}
                             data={taskSeverity}
                         />
                     </Td>
                     <Td p={1}>
                         <DueDate
-                            task_id={item.id}
-                            currDueDate={item.end_date}
+                            task_id={task.id}
+                            currDueDate={task.end_date}
                         />
                     </Td>
                     <Td p={1} position="relative">
-                        <MoreOptionsContainer task={item} align="center" project={project} />
+                        <MoreOptionsContainer task={task} align="center" project={project} />
                     </Td>
                 </Tr>
             ))}

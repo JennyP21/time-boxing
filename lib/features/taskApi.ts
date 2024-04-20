@@ -94,6 +94,9 @@ export const taskApi = createApi({
 });
 
 export const {
+  useGetAssigneesByTaskIdQuery,
+  useAssignUserMutation,
+  useUnAssignUserMutation,
   useGetTasksByProjectIdQuery,
   useGetTasksByBucketQuery,
   useGetTasksByLabelQuery,

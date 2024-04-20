@@ -38,7 +38,7 @@ const TaskDetailsHeader = ({ task_id, currentTitle, project_id }: Props) => {
                 onChange={(e) => setTitle(e.target.value)}
                 onBlur={handleSubmit}
             />
-            <AssignUserContainer project_id={project_id} />
+            <AssignUserContainer project_id={project_id} task_id={task_id} />
             <LabelDetails task_id={task_id} />
         </>
     )

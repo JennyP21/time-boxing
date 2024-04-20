@@ -6,10 +6,11 @@ import { convertToCustomMembersList } from '../utils';
 import AssignUser from './AssignUser';
 
 interface Props {
-    project_id: string
+    project_id: string;
+    task_id: string;
 }
 
-const AssignUserContainer = ({ project_id }: Props) => {
+const AssignUserContainer = ({ project_id, task_id }: Props) => {
 
     const { data: projects } = useGetProjectQuery(project_id);
     if (!projects) return null;
@@ -21,7 +22,7 @@ const AssignUserContainer = ({ project_id }: Props) => {
         if (!data) return null;
         const users = convertToCustomMembersList(data);
         return (
-            <AssignUser users={users} />
+            <AssignUser users={users} task_id={task_id} />
         )
     }
 
@@ -35,7 +36,7 @@ const AssignUserContainer = ({ project_id }: Props) => {
     }] as UserI[];
 
     return (
-        <AssignUser users={users} />
+        <AssignUser users={users} task_id={task_id} />
     )
 }
 
