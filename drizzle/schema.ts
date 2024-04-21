@@ -77,6 +77,7 @@ export const projectsRelations = relations(
       references: [teams.id],
     }),
     tasks: many(tasks),
+    labels: many(labels),
   })
 );
 
@@ -194,14 +195,22 @@ export const stepsRelations = relations(
 export const labels = pgTable("labels", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("title").notNull(),
+  project_id: uuid("project_id").references(
+    () => projects.id,
+    { onDelete: "cascade" }
+  ),
   created_at: timestamp("created_at").notNull(),
   updated_at: timestamp("updated_at").notNull(),
 });
 
 export const labelsRelations = relations(
   labels,
-  ({ many }) => ({
+  ({ one, many }) => ({
     tasks_labels: many(tasks_labels),
+    project: one(projects, {
+      fields: [labels.project_id],
+      references: [projects.id],
+    }),
   })
 );
 

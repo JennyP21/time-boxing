@@ -246,6 +246,13 @@
       "when": 1713636592670,
       "tag": "0038_brave_riptide",
       "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "5",
+      "when": 1713716889258,
+      "tag": "0039_brave_wrecker",
+      "breakpoints": true
     }
   ]
 }
