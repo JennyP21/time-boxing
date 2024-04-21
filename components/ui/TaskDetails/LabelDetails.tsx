@@ -1,7 +1,7 @@
 "use client"
 import Skeleton from "@/components/loading/Skeleton";
 import { LabelI, Task_LabelI } from "@/interfaces";
-import { useAddLabelMutation, useAssignLabelMutation, useDeleteLabelMutation, useGetLabelsByTaskQuery, useGetLabelsQuery, useUnassignLabelMutation, useUpdateLabelMutation } from '@/lib/features/labelApi';
+import { useAddLabelMutation, useAssignLabelMutation, useDeleteLabelMutation, useGetLabelsByTaskQuery, useGetLabelsByProjectIdQuery, useUnassignLabelMutation, useUpdateLabelMutation } from '@/lib/features/labelApi';
 import { Flex, Icon, Input, InputGroup, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import { SyntheticEvent, useState } from "react";
 import { IoClose } from "react-icons/io5";
@@ -9,11 +9,12 @@ import { MdOutlineDelete, MdOutlineNewLabel } from "react-icons/md";
 
 interface Props {
     task_id: string;
+    project_id: string;
 }
 
-const LabelDetails = ({ task_id }: Props) => {
+const LabelDetails = ({ task_id, project_id }: Props) => {
     const { data: labels } = useGetLabelsByTaskQuery(task_id);
-    const { data: allLabels, isLoading } = useGetLabelsQuery();
+    const { data: allLabels, isLoading } = useGetLabelsByProjectIdQuery(project_id);
     const filteredLabels = allLabels?.filter(label => !labels?.find(item => item.id === label.id));
 
     const initialState = {
@@ -30,7 +31,8 @@ const LabelDetails = ({ task_id }: Props) => {
         if (currentLabel?.name !== newValue) {
             const newLabel = {
                 id: currentLabel?.id,
-                name: newValue
+                name: newValue,
+                project_id
             } as LabelI;
             await updateLabel(newLabel);
         }
@@ -40,7 +42,7 @@ const LabelDetails = ({ task_id }: Props) => {
     const [addLabel] = useAddLabelMutation();
     const handleLabelAdd = async (e: SyntheticEvent) => {
         const input = e.target as HTMLInputElement;
-        await addLabel({ name: input.value } as LabelI);
+        await addLabel({ name: input.value, project_id } as LabelI);
         input.value = "";
     }
 

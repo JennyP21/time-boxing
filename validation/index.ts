@@ -78,6 +78,7 @@ export const validatePatchTask = z.object({
 
 export const validateLabel = z.object({
   name: z.string().min(3),
+  project_id: z.string().uuid(),
 });
 
 export const validateStep = z.object({

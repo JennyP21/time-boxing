@@ -1,12 +1,6 @@
-import { addLabel, getLabels } from "@/data-access/label";
+import { addLabel } from "@/data-access/label";
 import { validateLabel } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
-
-export async function GET(request: NextRequest) {
-  const labels = await getLabels();
-
-  return NextResponse.json(labels);
-}
 
 export async function POST(request: NextRequest) {
   const data = await request.json();

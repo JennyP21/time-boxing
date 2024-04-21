@@ -17,8 +17,9 @@ export const labelApi = createApi({
     baseUrl: "http://localhost:3000/api",
   }),
   endpoints: (builder) => ({
-    getLabels: builder.query<LabelI[], void>({
-      query: () => "label/",
+    getLabelsByProjectId: builder.query<LabelI[], string>({
+      query: (project_id: string) =>
+        `project/${project_id}/label`,
       providesTags: [
         "addLabel",
         "removeLabel",
@@ -82,7 +83,7 @@ export const labelApi = createApi({
 });
 
 export const {
-  useGetLabelsQuery,
+  useGetLabelsByProjectIdQuery,
   useGetLabelsByTaskQuery,
   useAddLabelMutation,
   useUpdateLabelMutation,

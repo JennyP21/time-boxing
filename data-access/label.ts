@@ -7,10 +7,15 @@ import {
 import { LabelI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
-export async function getLabels() {
-  const labels = await db.query.labels.findMany();
+export async function getLabelsByProjectId(
+  project_id: string
+) {
+  const labelsByProjectId = await db
+    .select()
+    .from(labels)
+    .where(eq(labels.project_id, project_id));
 
-  return labels;
+  return labelsByProjectId;
 }
 
 export async function getLabelsByTaskId(task_id: string) {
