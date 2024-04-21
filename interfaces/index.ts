@@ -137,8 +137,9 @@ export interface GetTeamMembersI {
   users: UserI;
 }
 
-export interface Params {
+export interface APIParams {
   params: {
     id: string;
+    project_id?: string;
   };
 }

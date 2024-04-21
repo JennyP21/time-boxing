@@ -1,59 +1,78 @@
 import {
+  notFoundError,
+  unexpectedError,
+} from "@/constants";
+import {
   deleteLabel,
   getLabel,
   updateLabel,
 } from "@/data-access/label";
-import { validateLabel } from "@/validation";
+import { APIParams } from "@/interfaces";
+import {
+  validateLabel,
+  validateRequestWithParams,
+} from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  {
-    params,
-  }: {
-    params: { id: string };
+export const GET = validateRequestWithParams(
+  async (request: NextRequest, { params }: APIParams) => {
+    try {
+      const id = params.id;
+      const label = await getLabel(id);
+
+      return NextResponse.json(label);
+    } catch (error) {
+      return NextResponse.json(unexpectedError.message, {
+        status: 500,
+      });
+    }
   }
-) {
-  const id = params.id;
-  const label = await getLabel(id);
+);
 
-  return NextResponse.json(label);
-}
-
-export async function DELETE(
+export const DELETE = async (
   request: NextRequest,
-  {
-    params,
-  }: {
-    params: { id: string };
-  }
-) {
-  const id = params.id;
-  await deleteLabel(id);
+  { params }: APIParams
+) => {
+  try {
+    const id = params.id;
+    const label = await getLabel(id);
+    if (!label)
+      return NextResponse.json(notFoundError("Label"), {
+        status: 404,
+      });
 
-  return NextResponse.json([]);
-}
-
-export async function PATCH(
-  request: NextRequest,
-  {
-    params,
-  }: {
-    params: { id: string };
-  }
-) {
-  const id = params.id;
-  const data = await request.json();
-  const validation = validateLabel.safeParse(data);
-
-  if (!validation.success)
-    return NextResponse.json(validation.error.message, {
-      status: 400,
+    await deleteLabel(id);
+    return NextResponse.json([]);
+  } catch (error) {
+    return NextResponse.json(unexpectedError.message, {
+      status: 500,
     });
-  const updatedLabel = await updateLabel(id, {
-    ...data,
-    updated_at: new Date(),
-  });
+  }
+};
 
-  return NextResponse.json(updatedLabel);
-}
+export const PATCH = async (
+  request: NextRequest,
+  { params }: APIParams
+) => {
+  try {
+    const id = params.id;
+    const data = await request.json();
+
+    const validation = validateLabel.safeParse(data);
+    if (!validation.success)
+      return NextResponse.json(validation.error.message, {
+        status: 400,
+      });
+
+    const updatedLabel = await updateLabel(id, {
+      ...data,
+      updated_at: new Date(),
+    });
+
+    return NextResponse.json(updatedLabel);
+  } catch (error) {
+    return NextResponse.json(unexpectedError.message, {
+      status: 500,
+    });
+  }
+};

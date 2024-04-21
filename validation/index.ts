@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { validate as UUIDValidate } from "uuid";
 import { NextRequest, NextResponse } from "next/server";
-import { Params } from "@/interfaces";
+import { APIParams } from "@/interfaces";
 
 export const validateTeam = z.object({
   name: z.string(),
@@ -80,8 +80,8 @@ export const validatePatchTask = z.object({
 });
 
 export const validateLabel = z.object({
-  name: z.string().min(3),
-  project_id: z.string().uuid(),
+  name: z.string().trim().min(1, "Label name is required"),
+  project_id: z.string().uuid("Invalid project id"),
 });
 
 export const validateStep = z.object({
@@ -113,19 +113,23 @@ export const validateUserAssignment = z.object({
 export const validateRequestWithParams = (
   handler: (
     request: NextRequest,
-    { params }: Params
+    { params }: APIParams
   ) => Promise<NextResponse>
 ) => {
   return async (
     request: NextRequest,
-    { params }: Params
+    { params }: APIParams
   ) => {
     const id = params.id;
-    if (!UUIDValidate(id))
+    const project_id = params.project_id;
+    if (
+      !UUIDValidate(id) ||
+      (project_id && !UUIDValidate(project_id))
+    ) {
       return NextResponse.json("Invalid Id", {
         status: 400,
       });
-    else return await handler(request, { params });
+    } else return await handler(request, { params });
   };
 };
 
