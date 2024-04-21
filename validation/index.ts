@@ -153,10 +153,12 @@ export const validateRequestWithParams = (
     const id = params.id;
     const project_id = params.project_id;
     const member_id = params.member_id;
+    const user_id = params.user_id;
     if (
       !UUIDValidate(id) ||
       (project_id && !UUIDValidate(project_id)) ||
-      (member_id && !UUIDValidate(member_id))
+      (member_id && !UUIDValidate(member_id)) ||
+      (user_id && !UUIDValidate(user_id))
     ) {
       return NextResponse.json("Invalid Id", {
         status: 400,
