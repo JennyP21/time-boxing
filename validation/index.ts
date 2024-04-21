@@ -4,17 +4,32 @@ import { validate as UUIDValidate } from "uuid";
 import { z } from "zod";
 
 export const validateTeam = z.object({
-  name: z.string(),
-  desc: z.string().max(2000).optional(),
+  name: z.string().min(1, "Team name is required"),
+  desc: z
+    .string()
+    .max(
+      2000,
+      "Description cannot be more than 2000 characters"
+    )
+    .optional(),
 });
 
 export const validatePatchTeam = z.object({
-  name: z.string().optional(),
-  desc: z.string().max(2000).optional(),
+  name: z
+    .string()
+    .min(1, "Team name is required")
+    .optional(),
+  desc: z
+    .string()
+    .max(
+      2000,
+      "Description cannot be more than 2000 characters"
+    )
+    .optional(),
 });
 
 export const validateTeamMember = z.object({
-  team_id: z.string(),
+  team_id: z.string().uuid("Invalid team id"),
   user_id: z.string(),
   role: z.enum(["owner", "member"]),
 });
@@ -137,9 +152,11 @@ export const validateRequestWithParams = (
   ) => {
     const id = params.id;
     const project_id = params.project_id;
+    const member_id = params.member_id;
     if (
       !UUIDValidate(id) ||
-      (project_id && !UUIDValidate(project_id))
+      (project_id && !UUIDValidate(project_id)) ||
+      (member_id && !UUIDValidate(member_id))
     ) {
       return NextResponse.json("Invalid Id", {
         status: 400,

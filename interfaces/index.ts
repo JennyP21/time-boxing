@@ -141,5 +141,6 @@ export interface APIParams {
   params: {
     id: string;
     project_id?: string;
+    member_id?: string;
   };
 }

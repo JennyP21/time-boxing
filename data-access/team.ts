@@ -26,7 +26,7 @@ export async function getTeamById(team_id: string) {
     .from(teams)
     .where(eq(teams.id, team_id));
 
-  return team;
+  return team[0];
 }
 
 export async function getTeamMembers(team_id: string) {
@@ -108,6 +108,22 @@ export async function removeTeamMember(
         eq(team_members.user_id, user_id)
       )
     );
+}
+
+export async function getTeamMember(
+  team_id: string,
+  user_id: string
+) {
+  const result = await db
+    .select()
+    .from(team_members)
+    .where(
+      and(
+        eq(team_members.team_id, team_id),
+        eq(team_members.user_id, user_id)
+      )
+    );
+  return result[0];
 }
 
 export async function updateRole(teamMember: TeamMemberI) {

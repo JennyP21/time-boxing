@@ -1,105 +1,143 @@
 import {
+  alreadyExists,
+  lastOwnerError,
+  notFoundError,
+  unAuthorizedError,
+  unexpectedError,
+} from "@/constants";
+import {
   addTeamMember,
   getOwnersCount,
   getTeamMembers,
   updateRole,
 } from "@/data-access/team";
 import { getUserByEmail } from "@/data-access/user";
-import { AddMemberI, TeamMemberI } from "@/interfaces";
-import { validateTeamMember } from "@/validation";
+import {
+  AddMemberI,
+  APIParams,
+  TeamMemberI,
+} from "@/interfaces";
+import {
+  validateRequest,
+  validateRequestWithParams,
+  validateTeamMember,
+} from "@/validation";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const team_id = params.id;
+export const GET = validateRequestWithParams(
+  async (request: NextRequest, { params }: APIParams) => {
+    try {
+      const team_id = params.id;
 
-  const members = await getTeamMembers(team_id);
+      const members = await getTeamMembers(team_id);
 
-  return NextResponse.json(members);
-}
+      return NextResponse.json(members);
+    } catch (error) {
+      return NextResponse.json(unexpectedError.message, {
+        status: 500,
+      });
+    }
+  }
+);
 
-export async function POST(request: NextRequest) {
-  const data: AddMemberI = await request.json();
+export const POST = validateRequest(
+  async (request: NextRequest) => {
+    try {
+      const data: AddMemberI = await request.json();
 
-  // Check the current session of the user
-  const session = await getServerSession();
-
-  if (!session)
-    return NextResponse.json("Unauthorized access", {
-      status: 401,
-    });
-
-  // Check if current user is in the team and the user is owner
-  const currentMembers = await getTeamMembers(data.team_id);
-  if (!verifyMember(session.user.email!, currentMembers)) {
-    return NextResponse.json(
-      "You are not authorized to make any change",
-      {
-        status: 401,
+      // Check if current user is in the team and the user is owner
+      const session = await getServerSession();
+      const currentMembers = await getTeamMembers(
+        data.team_id
+      );
+      if (
+        !verifyMember(session!.user.email!, currentMembers)
+      ) {
+        return NextResponse.json(
+          unAuthorizedError.message,
+          {
+            status: 401,
+          }
+        );
       }
-    );
+
+      // check if the user with email exists
+      const newMember = await getUserByEmail(
+        data.user_email
+      );
+      if (!newMember)
+        return NextResponse.json(notFoundError("Member"), {
+          status: 404,
+        });
+
+      // Check if newMember already exists
+      if (isMember(newMember, currentMembers))
+        return NextResponse.json(alreadyExists("User"));
+
+      // create a object to add member
+      const newData = {
+        team_id: data.team_id,
+        user_id: newMember.id,
+        role: data.role,
+        created_at: new Date(),
+      } as TeamMemberI;
+
+      const validation =
+        validateTeamMember.safeParse(newData);
+
+      if (!validation.success) {
+        return NextResponse.json(validation.error, {
+          status: 400,
+        });
+      }
+
+      await addTeamMember(newData);
+
+      return NextResponse.json([]);
+    } catch (error) {
+      return NextResponse.json(unexpectedError.message, {
+        status: 500,
+      });
+    }
   }
+);
 
-  // check if the user with email exists
-  const newMember = await getUserByEmail(data.user_email);
-  if (!newMember)
-    return NextResponse.json("New Member does not exists", {
-      status: 404,
-    });
+export const PATCH = validateRequest(
+  async (request: NextRequest) => {
+    try {
+      const data = await request.json();
 
-  // Check if newMember already exists
-  if (isMember(newMember, currentMembers))
-    return NextResponse.json("User already exists");
+      const validation = validateTeamMember.safeParse(data);
 
-  // create a object to add member
-  const newData = {
-    team_id: data.team_id,
-    user_id: newMember.id,
-    role: data.role,
-    created_at: new Date(),
-  } as TeamMemberI;
+      if (!validation.success)
+        return NextResponse.json(validation.error, {
+          status: 400,
+        });
 
-  const validation = validateTeamMember.safeParse(newData);
+      const countOfOwners = await getOwnersCount(
+        data.team_id
+      );
+      if (
+        countOfOwners.length < 2 &&
+        countOfOwners[0].team_members.user_id ===
+          data.user_id
+      ) {
+        return NextResponse.json(lastOwnerError.message, {
+          status: 400,
+        });
+      }
 
-  if (!validation.success) {
-    return NextResponse.json(validation.error, {
-      status: 400,
-    });
+      await updateRole(data);
+
+      return NextResponse.json([]);
+    } catch (error) {
+      return NextResponse.json(unexpectedError.message, {
+        status: 500,
+      });
+    }
   }
-
-  await addTeamMember(newData);
-
-  return NextResponse.json([]);
-}
-
-export async function PATCH(request: NextRequest) {
-  const data = await request.json();
-
-  const validation = validateTeamMember.safeParse(data);
-
-  if (!validation.success)
-    return NextResponse.json(validation.error, {
-      status: 400,
-    });
-
-  const countOfOwners = await getOwnersCount(data.team_id);
-  if (
-    countOfOwners.length < 2 &&
-    countOfOwners[0].team_members.user_id === data.user_id
-  ) {
-    return NextResponse.json(
-      "You cannot change role of last owner",
-      { status: 400 }
-    );
-  }
-
-  await updateRole(data);
-
-  return NextResponse.json([]);
-}
+);
 
 const verifyMember = (
   email: string,

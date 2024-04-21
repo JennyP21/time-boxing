@@ -33,6 +33,21 @@ export const moveTaskError = {
 
 // APIs
 
+export const unAuthorizedError = {
+  type: "Unauthorized Access Error",
+  message: "You are not authorized to make any changes",
+};
+
+export const lastOwnerError = {
+  type: "Last Owner Error",
+  message: "Cannot change or remove last owner",
+};
+
+export const alreadyExists = (name: string) => ({
+  type: "Already Exists Error",
+  message: `${name} Already Exists`,
+});
+
 export const notFoundError = (name: string) => ({
   type: "Not Found Error",
   message: `${name} Not found`,
