@@ -114,12 +114,12 @@ export const validatePatchStep = z.object({
 });
 
 export const validateLabelAssignment = z.object({
-  task_id: z.string().uuid(),
-  label_id: z.string().uuid(),
+  task_id: z.string().uuid("Invalid task id"),
+  label_id: z.string().uuid("Invalid label id"),
 });
 
 export const validateUserAssignment = z.object({
-  task_id: z.string().uuid(),
+  task_id: z.string().uuid("Invalid task id"),
   user_id: z.string(),
 });
 

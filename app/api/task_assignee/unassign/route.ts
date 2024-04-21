@@ -1,20 +1,30 @@
+import { unexpectedError } from "@/constants";
 import { unAssignUser } from "@/data-access/task_assignees";
-import { validateUserAssignment } from "@/validation";
+import {
+  validateRequest,
+  validateUserAssignment,
+} from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const data = await request.json();
+export const POST = validateRequest(
+  async (request: NextRequest) => {
+    try {
+      const data = await request.json();
 
-  const validation = validateUserAssignment.safeParse(data);
-  if (!validation.success)
-    return NextResponse.json(validation.error.message, {
-      status: 400,
-    });
+      const validation =
+        validateUserAssignment.safeParse(data);
+      if (!validation.success)
+        return NextResponse.json(validation.error.message, {
+          status: 400,
+        });
 
-  await unAssignUser(data);
+      await unAssignUser(data);
 
-  return NextResponse.json([]);
-}
+      return NextResponse.json([]);
+    } catch (error) {
+      return NextResponse.json(unexpectedError.message, {
+        status: 500,
+      });
+    }
+  }
+);
