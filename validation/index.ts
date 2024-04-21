@@ -27,7 +27,10 @@ export const validateAddTeamMember = z.object({
 });
 
 export const validateProject = z.object({
-  name: z.string(),
+  name: z
+    .string()
+    .trim()
+    .min(1, "Project name is required"),
   user_id: z.string().optional(),
   team_id: z.string().optional(),
 });

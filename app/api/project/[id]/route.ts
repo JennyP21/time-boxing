@@ -1,93 +1,93 @@
 import {
+  notFoundError,
+  unexpectedError,
+} from "@/constants";
+import {
   deleteProject,
   getProject,
   updateProject,
 } from "@/data-access/project";
 import { getUserById } from "@/data-access/user";
-import { ProjectI } from "@/interfaces";
-import { validateProject } from "@/validation";
+import { APIParams, ProjectI } from "@/interfaces";
+import {
+  validateProject,
+  validateRequestWithParams,
+} from "@/validation";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  {
-    params,
-  }: {
-    params: { id: string };
+export const GET = validateRequestWithParams(
+  async (request: NextRequest, { params }: APIParams) => {
+    try {
+      const id = params.id;
+      const project = await getProject(id);
+      return NextResponse.json(project);
+    } catch (error) {
+      return NextResponse.json(unexpectedError.message, {
+        status: 500,
+      });
+    }
   }
-) {
-  const id = params.id;
-  const project = await getProject(id);
+);
 
-  return NextResponse.json(project);
-}
-
-export async function DELETE(
-  request: NextRequest,
-  {
-    params,
-  }: {
-    params: { id: string };
+export const DELETE = validateRequestWithParams(
+  async (request: NextRequest, { params }: APIParams) => {
+    try {
+      const id = params.id;
+      const project = await getProject(id);
+      if (!project) {
+        return NextResponse.json(notFoundError("Project"), {
+          status: 404,
+        });
+      }
+      await deleteProject(id);
+      return NextResponse.json([]);
+    } catch (error) {
+      return NextResponse.json(unexpectedError.message, {
+        status: 500,
+      });
+    }
   }
-) {
-  const id = params.id;
-
-  const project = await getProject(id);
-  if (!project) {
-    return NextResponse.json("Invalid project id", {
-      status: 400,
-    });
-  }
-
-  await deleteProject(id);
-
-  return NextResponse.json([]);
-}
+);
 
 export async function PATCH(
   request: NextRequest,
-  {
-    params,
-  }: {
-    params: { id: string };
-  }
+  { params }: APIParams
 ) {
-  const id = params.id;
+  try {
+    const id = params.id;
+    const project = await getProject(id);
+    if (!project) {
+      return NextResponse.json(notFoundError("Project"), {
+        status: 404,
+      });
+    }
 
-  const project = await getProject(id);
-  if (!project) {
-    return NextResponse.json("Invalid project id", {
-      status: 400,
+    const data: ProjectI = await request.json();
+    const validation = validateProject.safeParse(data);
+
+    if (!validation.success)
+      return NextResponse.json(validation.error.message, {
+        status: 400,
+      });
+
+    const user = await getUserById(data.user_id);
+    const session = await getServerSession();
+    if (session && session.user.email !== user.email) {
+      return NextResponse.json(notFoundError("User"), {
+        status: 404,
+      });
+    }
+
+    const updatedProject = await updateProject(id, {
+      ...data,
+      updated_at: new Date(),
+    });
+
+    return NextResponse.json(updatedProject);
+  } catch (error) {
+    return NextResponse.json(unexpectedError.message, {
+      status: 500,
     });
   }
-
-  const session = await getServerSession();
-  const data: ProjectI = await request.json();
-
-  if (!session)
-    return NextResponse.json("Unauthorized access", {
-      status: 401,
-    });
-
-  const validation = validateProject.safeParse(data);
-
-  if (!validation.success)
-    return NextResponse.json(validation.error.message, {
-      status: 400,
-    });
-
-  const user = await getUserById(data.user_id);
-  if (session.user.email !== user.email) {
-    return NextResponse.json("Invalid user id", {
-      status: 400,
-    });
-  }
-
-  const updatedProject = await updateProject(id, {
-    ...data,
-    updated_at: new Date(),
-  });
-
-  return NextResponse.json(updatedProject);
 }
