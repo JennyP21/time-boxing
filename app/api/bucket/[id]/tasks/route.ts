@@ -1,8 +1,9 @@
-import { returnIfInvalidateUUID } from "@/validation";
+import { unexpectedError } from "@/constants";
 import { getTasksByBucket } from "@/data-access/task";
+import { validateRequestWithParams } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = returnIfInvalidateUUID(
+export const GET = validateRequestWithParams(
   async (
     request: NextRequest,
     { params }: { params: { id: string } }
@@ -12,10 +13,9 @@ export const GET = returnIfInvalidateUUID(
       const tasks = await getTasksByBucket(id);
       return NextResponse.json(tasks);
     } catch (error) {
-      return NextResponse.json(
-        `Unable to get Tasks by Bucket Id ${error}`,
-        { status: 404 }
-      );
+      return NextResponse.json(unexpectedError.message, {
+        status: 500,
+      });
     }
   }
 );

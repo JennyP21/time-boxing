@@ -136,3 +136,9 @@ export interface GetTeamMembersI {
   team_members: TeamMemberI;
   users: UserI;
 }
+
+export interface Params {
+  params: {
+    id: string;
+  };
+}

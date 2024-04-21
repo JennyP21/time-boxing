@@ -31,6 +31,19 @@ export const moveTaskError = {
   message: "You need more than 2 buckets",
 };
 
+// APIs
+
+export const notFoundError = (name: string) => ({
+  type: "Not Found Error",
+  message: `${name} Not found`,
+});
+
+export const unexpectedError = {
+  type: "Unknown Error",
+  message: "Unexpected error occured",
+};
+
+// Static texts
 export const taskSeverity = [
   "Low",
   "Medium",

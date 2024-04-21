@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { validate as UUIDValidate } from "uuid";
 import { NextRequest, NextResponse } from "next/server";
+import { Params } from "@/interfaces";
 
 export const validateTeam = z.object({
   name: z.string(),
@@ -32,8 +33,8 @@ export const validateProject = z.object({
 });
 
 export const validateBucket = z.object({
-  name: z.string(),
-  project_id: z.string(),
+  name: z.string().trim().min(1, "Bucket name is required"),
+  project_id: z.string().uuid("Invalid project id"),
 });
 
 export const validateTask = z.object({
@@ -109,15 +110,15 @@ export const validateUserAssignment = z.object({
 
 // Utility function to validate API Requests
 
-export const returnIfInvalidateUUID = (
+export const validateRequestWithParams = (
   handler: (
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: Params
   ) => Promise<NextResponse>
 ) => {
   return async (
     request: NextRequest,
-    { params }: { params: { id: string } }
+    { params }: Params
   ) => {
     const id = params.id;
     if (!UUIDValidate(id))
@@ -125,5 +126,13 @@ export const returnIfInvalidateUUID = (
         status: 400,
       });
     else return await handler(request, { params });
+  };
+};
+
+export const validateRequest = (
+  handler: (request: NextRequest) => Promise<NextResponse>
+) => {
+  return async (request: NextRequest) => {
+    return await handler(request);
   };
 };
