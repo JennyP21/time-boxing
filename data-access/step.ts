@@ -3,6 +3,15 @@ import { steps } from "@/drizzle/schema";
 import { StepsI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
+export async function getStepById(step_id: string) {
+  const result = await db
+    .select()
+    .from(steps)
+    .where(eq(steps.id, step_id));
+
+  return result[0];
+}
+
 export async function getStepsByTaskId(task_id: string) {
   const result = await db
     .select()

@@ -88,15 +88,18 @@ export const validateLabel = z.object({
 });
 
 export const validateStep = z.object({
-  task_id: z.string().uuid(),
-  value: z.string(),
+  task_id: z.string().uuid("Invalid task id"),
+  value: z.string().min(1, "Step value is required"),
   order: z.number().positive(),
   checked: z.boolean().optional(),
 });
 
 export const validatePatchStep = z.object({
-  task_id: z.string().uuid(),
-  value: z.string().optional(),
+  task_id: z.string().uuid("Invalid task id"),
+  value: z
+    .string()
+    .min(1, "Step value is required")
+    .optional(),
   order: z.number().positive().optional(),
   checked: z.boolean().optional(),
 });
