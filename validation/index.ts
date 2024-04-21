@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { validate as UUIDValidate } from "uuid";
+import { NextRequest, NextResponse } from "next/server";
 
 export const validateTeam = z.object({
   name: z.string(),
@@ -104,3 +106,24 @@ export const validateUserAssignment = z.object({
   task_id: z.string().uuid(),
   user_id: z.string(),
 });
+
+// Utility function to validate API Requests
+
+export const returnIfInvalidateUUID = (
+  handler: (
+    request: NextRequest,
+    { params }: { params: { id: string } }
+  ) => Promise<NextResponse>
+) => {
+  return async (
+    request: NextRequest,
+    { params }: { params: { id: string } }
+  ) => {
+    const id = params.id;
+    if (!UUIDValidate(id))
+      return NextResponse.json("Invalid Id", {
+        status: 400,
+      });
+    else return await handler(request, { params });
+  };
+};
