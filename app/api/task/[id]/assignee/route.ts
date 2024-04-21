@@ -1,13 +1,21 @@
+import { unexpectedError } from "@/constants";
 import { getAssigneesByTaskId } from "@/data-access/task";
+import { APIParams } from "@/interfaces";
+import { validateRequestWithParams } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const task_id = params.id;
+export const GET = validateRequestWithParams(
+  async (request: NextRequest, { params }: APIParams) => {
+    try {
+      const task_id = params.id;
 
-  const assignees = await getAssigneesByTaskId(task_id);
+      const assignees = await getAssigneesByTaskId(task_id);
 
-  return NextResponse.json(assignees);
-}
+      return NextResponse.json(assignees);
+    } catch (error) {
+      return NextResponse.json(unexpectedError.message, {
+        status: 500,
+      });
+    }
+  }
+);

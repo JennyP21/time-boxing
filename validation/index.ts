@@ -1,7 +1,7 @@
-import { z } from "zod";
-import { validate as UUIDValidate } from "uuid";
-import { NextRequest, NextResponse } from "next/server";
 import { APIParams } from "@/interfaces";
+import { NextRequest, NextResponse } from "next/server";
+import { validate as UUIDValidate } from "uuid";
+import { z } from "zod";
 
 export const validateTeam = z.object({
   name: z.string(),
@@ -41,9 +41,11 @@ export const validateBucket = z.object({
 });
 
 export const validateTask = z.object({
-  project_id: z.string(),
-  bucket_id: z.string(),
-  title: z.string().min(3),
+  project_id: z.string().uuid("Invalid project id"),
+  bucket_id: z.string().uuid("Invalid bucket id"),
+  title: z
+    .string()
+    .min(3, "Title must be atleast 3 charaters"),
   start_date: z.string().optional(),
   end_date: z.string().optional(),
   severity: z
@@ -57,14 +59,22 @@ export const validateTask = z.object({
       "Completed",
     ])
     .optional(),
-  steps: z.string().array().max(20).optional(),
   showOnCard: z.enum(["steps", "note"]).optional(),
 });
 
 export const validatePatchTask = z.object({
-  project_id: z.string().optional(),
-  bucket_id: z.string().optional(),
-  title: z.string().min(3).optional(),
+  project_id: z
+    .string()
+    .uuid("Invalid project id")
+    .optional(),
+  bucket_id: z
+    .string()
+    .uuid("Invalid bucket id")
+    .optional(),
+  title: z
+    .string()
+    .min(3, "Title must be atleast 3 charaters")
+    .optional(),
   start_date: z.string().optional(),
   end_date: z.string().optional(),
   severity: z
@@ -78,7 +88,6 @@ export const validatePatchTask = z.object({
       "Completed",
     ])
     .optional(),
-  steps: z.string().array().max(20).optional(),
   showOnCard: z.enum(["steps", "note"]).optional(),
 });
 
