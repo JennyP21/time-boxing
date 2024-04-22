@@ -15,7 +15,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const POST = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const team_id = params.id;
+      const team_id = params.id!;
       const user_id = params.member_id!;
 
       const member = await getTeamMember(team_id, user_id);

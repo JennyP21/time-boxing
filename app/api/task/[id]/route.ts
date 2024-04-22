@@ -17,7 +17,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id;
+      const id = params.id!;
       const task = await getTask(id);
 
       return NextResponse.json(task);
@@ -32,7 +32,7 @@ export const GET = validateRequestWithParams(
 export const DELETE = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id;
+      const id = params.id!;
       const task = await getTask(id);
       if (!task)
         return NextResponse.json(notFoundError("Task"), {
@@ -53,7 +53,7 @@ export const DELETE = validateRequestWithParams(
 export const PATCH = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id;
+      const id = params.id!;
       const task = await getTask(id);
       if (!task)
         return NextResponse.json(notFoundError("Task"), {

@@ -17,7 +17,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const PATCH = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id;
+      const id = params.id!;
 
       const step = getStepById(id);
       if (!step) {
@@ -48,7 +48,7 @@ export const PATCH = validateRequestWithParams(
 export const DELETE = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id;
+      const id = params.id!;
       const step = getStepById(id);
       if (!step) {
         return NextResponse.json(notFoundError("Step"), {

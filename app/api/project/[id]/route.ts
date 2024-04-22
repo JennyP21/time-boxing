@@ -19,7 +19,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id;
+      const id = params.id!;
       const project = await getProject(id);
       return NextResponse.json(project);
     } catch (error) {
@@ -33,7 +33,7 @@ export const GET = validateRequestWithParams(
 export const DELETE = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id;
+      const id = params.id!;
       const project = await getProject(id);
       if (!project) {
         return NextResponse.json(notFoundError("Project"), {
@@ -55,7 +55,7 @@ export async function PATCH(
   { params }: APIParams
 ) {
   try {
-    const id = params.id;
+    const id = params.id!;
     const project = await getProject(id);
     if (!project) {
       return NextResponse.json(notFoundError("Project"), {

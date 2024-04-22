@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const label_id = params.id;
+      const label_id = params.id!;
       const project_id = params.project_id!;
 
       const tasks = await getTasksByLabelId(

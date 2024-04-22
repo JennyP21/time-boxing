@@ -17,7 +17,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id;
+      const id = params.id!;
       const label = await getLabel(id);
 
       return NextResponse.json(label);
@@ -34,7 +34,7 @@ export const DELETE = async (
   { params }: APIParams
 ) => {
   try {
-    const id = params.id;
+    const id = params.id!;
     const label = await getLabel(id);
     if (!label)
       return NextResponse.json(notFoundError("Label"), {
@@ -55,7 +55,7 @@ export const PATCH = async (
   { params }: APIParams
 ) => {
   try {
-    const id = params.id;
+    const id = params.id!;
     const data = await request.json();
 
     const validation = validateLabel.safeParse(data);

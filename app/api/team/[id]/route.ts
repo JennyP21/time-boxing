@@ -17,7 +17,7 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const team_id = params.id;
+      const team_id = params.id!;
       const team = await getTeamById(team_id);
 
       return NextResponse.json(team);
@@ -32,7 +32,7 @@ export const GET = validateRequestWithParams(
 export const PATCH = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const team_id = params.id;
+      const team_id = params.id!;
       const team = await getTeamById(team_id);
       if (!team)
         return NextResponse.json(notFoundError("Team"), {
@@ -65,7 +65,7 @@ export const PATCH = validateRequestWithParams(
 export const DELETE = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const team_id = params.id;
+      const team_id = params.id!;
       const team = await getTeamById(team_id);
       if (!team)
         return NextResponse.json(notFoundError("Team"), {

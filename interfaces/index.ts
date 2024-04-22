@@ -139,9 +139,9 @@ export interface GetTeamMembersI {
 
 export interface APIParams {
   params: {
-    id: string;
+    id?: string;
+    user_id?: string;
     project_id?: string;
     member_id?: string;
-    user_id?: string;
   };
 }

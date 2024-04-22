@@ -7,7 +7,7 @@ import {
   getBucket,
   updateBucket,
 } from "@/data-access/bucket";
-import { BucketI, APIParams } from "@/interfaces";
+import { APIParams, BucketI } from "@/interfaces";
 import {
   validateBucket,
   validateRequestWithParams,
@@ -16,7 +16,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const GET = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
-    const id = params.id;
+    const id = params.id!;
     try {
       const bucket = await getBucket(id);
       return NextResponse.json(bucket);
@@ -29,16 +29,9 @@ export const GET = validateRequestWithParams(
 );
 
 export const DELETE = validateRequestWithParams(
-  async (
-    request: NextRequest,
-    {
-      params,
-    }: {
-      params: { id: string };
-    }
-  ) => {
+  async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id;
+      const id = params.id!;
       const bucket = await getBucket(id);
       if (!bucket) {
         return NextResponse.json(notFoundError("Bucket"), {
@@ -58,7 +51,7 @@ export const DELETE = validateRequestWithParams(
 export const PATCH = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id;
+      const id = params.id!;
       const bucket = await getBucket(id);
       if (!bucket) {
         return NextResponse.json(notFoundError("Bucket"), {
