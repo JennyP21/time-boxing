@@ -19,7 +19,7 @@ const Severity = ({ severity, project }: Props) => {
     return (
         <Stack>
             <GroupHeader>{severity}</GroupHeader>
-            <AddTaskContainer project={project} type='bucket' />
+            <AddTaskContainer project={project} type='bucket' severity={severity} />
             <TasksList data={filteredData} project={project} />
         </Stack>
     )

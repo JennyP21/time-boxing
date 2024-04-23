@@ -65,7 +65,7 @@ export async function addTask(task: TaskI) {
     .values(task)
     .returning();
 
-  return newTask;
+  return newTask[0];
 }
 
 export async function getTask(id: string) {

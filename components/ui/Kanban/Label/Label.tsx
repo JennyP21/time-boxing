@@ -20,7 +20,7 @@ const Label = ({ label, project }: Props) => {
     return (
         <Stack>
             <GroupHeader>{label.name}</GroupHeader>
-            <AddTaskContainer project={project} type='bucket' />
+            <AddTaskContainer project={project} type='bucket' label_id={label.id} />
             <TasksList data={newData} project={project} />
         </Stack>
     )

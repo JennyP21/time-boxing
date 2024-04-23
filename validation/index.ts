@@ -64,7 +64,7 @@ export const validateTask = z.object({
   start_date: z.string().optional(),
   end_date: z.string().optional(),
   severity: z
-    .enum(["low", "medium", "high", "urgent"])
+    .enum(["Low", "Medium", "High", "Urgent"])
     .optional(),
   progress: z
     .enum([

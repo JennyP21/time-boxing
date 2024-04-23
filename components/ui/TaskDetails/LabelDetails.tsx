@@ -81,7 +81,9 @@ const LabelDetails = ({ task_id, project_id }: Props) => {
                             <Flex className="justify-between items-center w-full" role="group">
                                 <Text>{label.name}</Text>
                                 <Icon
-                                    className="w-6 h-6 p-1 rounded-full"
+                                    className="p-1 rounded-full"
+                                    w={6}
+                                    h={6}
                                     onClick={(e) => {
                                         e.preventDefault();
                                         handleLabelDelete(label.id)

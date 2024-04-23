@@ -19,7 +19,7 @@ const Progress = ({ progress, project }: Props) => {
     return (
         <Stack>
             <GroupHeader>{progress}</GroupHeader>
-            <AddTaskContainer project={project} type='bucket' />
+            <AddTaskContainer project={project} type='bucket' progress={progress} />
             <TasksList data={filteredData} project={project} />
         </Stack>
     )
