@@ -1,5 +1,4 @@
 "use client"
-import AddProject from '@/components/ui/AddProject';
 import { TeamContainerI } from '@/interfaces';
 import { useGetProjectsByTeamIdQuery } from '@/lib/features/projectApi';
 import { Link } from '@chakra-ui/next-js';
@@ -19,7 +18,6 @@ const TeamList = ({ teams: team }: TeamContainerI) => {
                         </Link>
                     </ListItem>
                 ))}
-                <AddProject team_id={team.id} />
             </List>
         </LeftPanelAccordion>
     )

@@ -3,12 +3,12 @@ import { Link } from '@chakra-ui/next-js';
 import { HStack, Icon, Text, VStack } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { IoHomeOutline } from 'react-icons/io5';
+import AddProjectContainer from './AddProjectContainer';
 import PersonalList from './PersonalList';
 import Teams from './Teams';
 
 const LeftPanel = () => {
     const session = useSession();
-
     return (
         <VStack
             className='transition-all duration-300 max-md:!hidden min-h-full w-[var(--left-panel-size)] fixed'
@@ -25,8 +25,13 @@ const LeftPanel = () => {
                     <Icon as={IoHomeOutline} w={4} h={4} />
                 </HStack>
             </Link>
-            {session.data && <PersonalList user_id={session.data.user.id} />}
-            {session.data && <Teams user_id={session.data.user.id} />}
+            {session.data &&
+                <>
+                    <AddProjectContainer user_id={session.data.user.id} />
+                    <PersonalList user_id={session.data.user.id} />
+                    <Teams user_id={session.data.user.id} />
+                </>
+            }
         </VStack>
     )
 }

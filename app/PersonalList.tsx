@@ -1,5 +1,4 @@
 "use client"
-import AddProject from '@/components/ui/AddProject';
 import { useGetProjectsByUserIdQuery } from '@/lib/features/projectApi';
 import { Link } from '@chakra-ui/next-js';
 import { List, ListItem } from '@chakra-ui/react';
@@ -22,7 +21,6 @@ const PersonalList = ({ user_id }: Props) => {
                         </Link>
                     </ListItem>
                 ))}
-                <AddProject user_id={user_id} />
             </List>
         </LeftPanelAccordion>
     )
