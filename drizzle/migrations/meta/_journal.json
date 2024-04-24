@@ -260,6 +260,20 @@
       "when": 1713925840373,
       "tag": "0040_wealthy_magneto",
       "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "5",
+      "when": 1713927624105,
+      "tag": "0041_orange_mariko_yashida",
+      "breakpoints": true
+    },
+    {
+      "idx": 42,
+      "version": "5",
+      "when": 1713927658579,
+      "tag": "0042_furry_malcolm_colcord",
+      "breakpoints": true
     }
   ]
 }
