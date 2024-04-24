@@ -59,8 +59,12 @@ export const teamMembersRelations = relations(
 export const projects = pgTable("projects", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: text("name").notNull(),
-  user_id: text("user_id").references(() => users.id),
-  team_id: uuid("team_id").references(() => teams.id),
+  user_id: text("user_id").references(() => users.id, {
+    onDelete: "cascade",
+  }),
+  team_id: uuid("team_id").references(() => teams.id, {
+    onDelete: "cascade",
+  }),
   created_at: timestamp("created_at").notNull(),
   updated_at: timestamp("updated_at").notNull(),
 });
@@ -87,7 +91,7 @@ export const buckets = pgTable("buckets", {
   order: integer("order").notNull(),
   project_id: uuid("project_id")
     .notNull()
-    .references(() => projects.id),
+    .references(() => projects.id, { onDelete: "cascade" }),
   created_at: timestamp("created_at").notNull(),
   updated_at: timestamp("updated_at").notNull(),
 });
@@ -106,9 +110,13 @@ export const bucketsRelations = relations(
 export const tasks = pgTable("tasks", {
   id: uuid("id").primaryKey().defaultRandom(),
   project_id: uuid("project_id").references(
-    () => projects.id
+    () => projects.id,
+    { onDelete: "cascade" }
   ),
-  bucket_id: uuid("bucket_id").references(() => buckets.id),
+  bucket_id: uuid("bucket_id").references(
+    () => buckets.id,
+    { onDelete: "cascade" }
+  ),
   title: text("title").notNull(),
   start_date: date("start_date"),
   end_date: date("end_date"),

@@ -253,6 +253,13 @@
       "when": 1713716889258,
       "tag": "0039_brave_wrecker",
       "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "5",
+      "when": 1713925840373,
+      "tag": "0040_wealthy_magneto",
+      "breakpoints": true
     }
   ]
 }
