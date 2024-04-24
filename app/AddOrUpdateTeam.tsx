@@ -13,7 +13,7 @@ interface Props {
 }
 
 const AddOrUpdateTeam = ({ isOpen, onClose, user_id, currentTeam }: Props) => {
-    const { register, reset, formState: { errors, isDirty, isValid }, handleSubmit } = useForm<TeamI>({
+    const { register, reset, formState: { errors, isValid }, handleSubmit } = useForm<TeamI>({
         resolver: zodResolver(validateTeam),
         defaultValues: currentTeam
     });
@@ -50,7 +50,7 @@ const AddOrUpdateTeam = ({ isOpen, onClose, user_id, currentTeam }: Props) => {
                             colorScheme="blue"
                             isDisabled={!isValid}
                         >
-                            {currentTeam ? "Update " : "Add "} {(isUpdating || isAdding) && <Spinner />}
+                            {currentTeam ? "Update" : "Add"} {(isUpdating || isAdding) && <Spinner ml={1} size="sm" />}
                         </Button>
                         <Button variant='ghost' onClick={onClose}>Close</Button>
                     </ModalFooter>

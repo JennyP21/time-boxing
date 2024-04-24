@@ -51,13 +51,13 @@ const AddProject = ({ isOpen, onClose, teams, user_id }: Props) => {
                             </Select>
                         </Flex>
                     </ModalBody>
-                    <ModalFooter>
+                    <ModalFooter gap={2}>
                         <Button
                             type='submit'
                             colorScheme="blue"
-                            disabled={!isValid}
+                            isDisabled={!isValid}
                         >
-                            {"Add "} {isLoading && <Spinner size="sm" />}
+                            Add {isLoading && <Spinner ml={1} size="sm" />}
                         </Button>
                         <Button variant='ghost' onClick={onClose}>Close</Button>
                     </ModalFooter>

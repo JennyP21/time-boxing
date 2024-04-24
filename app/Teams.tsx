@@ -1,6 +1,6 @@
 import { convertToTeamList } from '@/components/utils';
 import { useGetTeamsByUserIdQuery } from '@/lib/features/teamApi';
-import { Text, useDisclosure } from '@chakra-ui/react';
+import { Button, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import AddOrUpdateTeam from './AddOrUpdateTeam';
 import LeftPanelAccordion from './LeftPanelAccordion';
@@ -23,9 +23,9 @@ const Teams = ({ user_id }: Props) => {
                     <TeamList teams={team} />
                 </React.Fragment>
             ))}
-            <Text className='cursor-pointer px-2 py-1 rounded-lg' onClick={onOpen} _hover={{
-                bg: "gray.100"
-            }}>Add new team</Text>
+            <Button className='w-full' size="sm" colorScheme="blue" onClick={onOpen}>
+                Add new team
+            </Button>
             <AddOrUpdateTeam isOpen={isOpen} onClose={onClose} user_id={user_id} />
         </LeftPanelAccordion>
     )
