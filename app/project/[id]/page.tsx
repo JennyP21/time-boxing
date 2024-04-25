@@ -1,6 +1,6 @@
 "use client"
-import ContentBody from "@/components/loading/ContentBody"
-import ContentHeader from "@/components/loading/ContentHeader"
+import ContentBodyLoading from "@/components/loading/ContentBodyLoading"
+import ContentHeaderLoading from "@/components/loading/ContentHeaderLoading"
 import { handleErrors } from "@/components/utils/handleErrors"
 import { getProjectError, tabsList } from "@/constants"
 import { useGetProjectQuery } from "@/lib/features/projectApi"
@@ -25,8 +25,8 @@ const Project = ({ params }: Props) => {
         <Flex className='w-full h-full flex-col'>
             {isLoading ?
                 <>
-                    <ContentHeader />
-                    <ContentBody />
+                    <ContentHeaderLoading />
+                    <ContentBodyLoading />
                 </>
                 :
 

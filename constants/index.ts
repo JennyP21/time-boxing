@@ -63,6 +63,11 @@ export const getProjectError = {
   message: "Failed to retrieve project",
 };
 
+export const getTasksError = {
+  type: "GET TASKS",
+  message: "Failed to retrieve tasks",
+};
+
 // Static texts
 export const taskSeverity = [
   "Low",
