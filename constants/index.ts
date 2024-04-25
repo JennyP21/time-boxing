@@ -58,6 +58,11 @@ export const unexpectedError = {
   message: "Unexpected error occured",
 };
 
+export const getProjectError = {
+  type: "GET PROJECT",
+  message: "Failed to retrieve project",
+};
+
 // Static texts
 export const taskSeverity = [
   "Low",

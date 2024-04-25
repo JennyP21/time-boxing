@@ -1,5 +1,8 @@
 "use client"
-import { tabsList } from "@/constants"
+import ContentBody from "@/components/loading/ContentBody"
+import ContentHeader from "@/components/loading/ContentHeader"
+import { handleErrors } from "@/components/utils/handleErrors"
+import { getProjectError, tabsList } from "@/constants"
 import { useGetProjectQuery } from "@/lib/features/projectApi"
 import { Box, Flex } from "@chakra-ui/react"
 import { useState } from "react"
@@ -11,19 +14,29 @@ interface Props {
 }
 
 const Project = ({ params }: Props) => {
-    const { data } = useGetProjectQuery(params.id);
+    const { data: project, error, isLoading } = useGetProjectQuery(params.id);
     const [tabs, setTabs] = useState(tabsList);
 
-    if (!data) return null;
+    if (error) handleErrors(error, getProjectError.type);
 
-    const project = data[0];
+    if (!project) return null;
 
     return (
         <Flex className='w-full h-full flex-col'>
-            <ProjectHeader project={project} tabs={tabs} setTabs={setTabs} />
-            <Box className='overflow-x-scroll overflow-y-hidden flex-[1_0_0]'>
-                <ProjectContent project={project} tabs={tabs} />
-            </Box>
+            {isLoading ?
+                <>
+                    <ContentHeader />
+                    <ContentBody />
+                </>
+                :
+
+                <>
+                    <ProjectHeader project={project} tabs={tabs} setTabs={setTabs} />
+                    <Box className='overflow-x-scroll overflow-y-hidden flex-[1_0_0]'>
+                        <ProjectContent project={project} tabs={tabs} />
+                    </Box>
+                </>
+            }
         </Flex>
     )
 }

@@ -9,7 +9,7 @@ export async function getProject(id: string) {
     .from(projects)
     .where(eq(projects.id, id));
 
-  return result;
+  return result[0];
 }
 
 export async function getProjectsByUserId(user_id: string) {

@@ -15,7 +15,7 @@ const AssignUserContainer = ({ project_id, task_id }: Props) => {
     const { data: projects } = useGetProjectQuery(project_id);
     if (!projects) return null;
 
-    const { team_id } = projects[0];
+    const { team_id } = projects;
 
     if (team_id) {
         const { data } = useGetTeamMembersQuery(team_id);

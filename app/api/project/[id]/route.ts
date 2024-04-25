@@ -1,4 +1,5 @@
 import {
+  getProjectError,
   notFoundError,
   unexpectedError,
 } from "@/constants";
@@ -23,7 +24,7 @@ export const GET = validateRequestWithParams(
       const project = await getProject(id);
       return NextResponse.json(project);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(getProjectError.message, {
         status: 500,
       });
     }

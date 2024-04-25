@@ -15,7 +15,7 @@ export const projectsApi = createApi({
     baseUrl: "http://localhost:3000/api",
   }),
   endpoints: (builder) => ({
-    getProject: builder.query<ProjectI[], string>({
+    getProject: builder.query<ProjectI, string>({
       query: (id: string) => `/project/${id}`,
       providesTags: [
         "addProject",
