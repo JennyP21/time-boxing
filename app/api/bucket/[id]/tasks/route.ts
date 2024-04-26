@@ -1,4 +1,4 @@
-import { unexpectedError } from "@/constants";
+import { getTasksByBucketError } from "@/constants";
 import { getTasksByBucket } from "@/data-access/task";
 import { APIParams } from "@/interfaces";
 import { validateRequestWithParams } from "@/validation";
@@ -11,9 +11,12 @@ export const GET = validateRequestWithParams(
       const tasks = await getTasksByBucket(id);
       return NextResponse.json(tasks);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
-        status: 500,
-      });
+      return NextResponse.json(
+        getTasksByBucketError.message,
+        {
+          status: 500,
+        }
+      );
     }
   }
 );

@@ -1,5 +1,7 @@
-import { toast } from '@/components/error/Toast';
+import TaskCardLoading from '@/components/loading/TaskCardLoading';
 import Stack from '@/components/ui/Kanban/Stack';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { getTasksByBucketError } from '@/constants';
 import { ProjectI } from '@/interfaces';
 import { useGetTasksByBucketQuery } from '@/lib/features/taskApi';
 import AddTaskContainer from '../../AddTaskContainer';
@@ -14,17 +16,17 @@ interface Props {
 
 const Bucket = ({ name, id, project }: Props) => {
 
-    const { data, error } = useGetTasksByBucketQuery(id);
+    const { data, error, isLoading } = useGetTasksByBucketQuery(id);
 
-    if (error) toast.error("Something went wrong. Please try again later", {
-        toastId: "Task error"
-    });
+    if (error) handleErrors(error, getTasksByBucketError.type);
 
     return (
         <Stack>
             <BucketHeader name={name} id={id} project={project} />
             <AddTaskContainer project={project} type='bucket' bucket_id={id} />
-            <TasksList data={data} project={project} />
+            {!isLoading ? <TaskCardLoading /> :
+                <TasksList data={data} project={project} />
+            }
         </Stack>
     )
 }
