@@ -1,4 +1,4 @@
-import { unexpectedError } from "@/constants";
+import { getAssigneeError } from "@/constants";
 import { getAssigneesByTaskId } from "@/data-access/task";
 import { APIParams } from "@/interfaces";
 import { validateRequestWithParams } from "@/validation";
@@ -13,7 +13,7 @@ export const GET = validateRequestWithParams(
 
       return NextResponse.json(assignees);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(getAssigneeError.message, {
         status: 500,
       });
     }

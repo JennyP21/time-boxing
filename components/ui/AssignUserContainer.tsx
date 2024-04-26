@@ -1,8 +1,10 @@
+import { getProjectError } from '@/constants';
 import { UserI } from '@/interfaces';
 import { useGetProjectQuery } from '@/lib/features/projectApi';
 import { useGetTeamMembersQuery } from '@/lib/features/teamApi';
 import { useSession } from 'next-auth/react';
 import { convertToCustomMembersList } from '../utils';
+import { handleErrors } from '../utils/handleErrors';
 import AssignUser from './AssignUser';
 
 interface Props {
@@ -12,7 +14,10 @@ interface Props {
 
 const AssignUserContainer = ({ project_id, task_id }: Props) => {
 
-    const { data: projects } = useGetProjectQuery(project_id);
+    const { data: projects, error } = useGetProjectQuery(project_id);
+
+    if (error) handleErrors(error, getProjectError.type);
+
     if (!projects) return null;
 
     const { team_id } = projects;

@@ -1,8 +1,10 @@
 "use client"
+import { getBucketsError } from '@/constants';
 import { ProjectI, TaskI } from '@/interfaces';
 import { useGetBucketsByProjectIdQuery } from '@/lib/features/bucketApi';
 import { useDeleteTaskMutation } from '@/lib/features/taskApi';
 import { useDisclosure } from '@chakra-ui/react';
+import { handleErrors } from '../utils/handleErrors';
 import MoreOptions from './MoreOptions';
 import MoveTask from './MoveTask';
 
@@ -14,7 +16,9 @@ interface Props {
 
 const MoreOptionsContainer = ({ task, align, project }: Props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { data: buckets } = useGetBucketsByProjectIdQuery(project.id);
+    const { data: buckets, error } = useGetBucketsByProjectIdQuery(project.id);
+
+    if (error) handleErrors(error, getBucketsError.type);
 
     const [deleteTask] = useDeleteTaskMutation();
     const handleTaskDelete = async () => await deleteTask(task.id);

@@ -21,17 +21,10 @@ export const deleteBucketError = {
   message: "Unable to delete bucket.",
 };
 
-export const getStepsError = {
-  type: "Get Steps Error",
-  message: "Unable to get steps",
-};
-
 export const moveTaskError = {
   type: "Not enough buckets error",
   message: "You need more than 2 buckets",
 };
-
-// APIs
 
 export const unAuthorizedError = {
   type: "Unauthorized Access Error",
@@ -76,6 +69,16 @@ export const getBucketsError = {
 export const getLabelsError = {
   type: "GET LABELS",
   message: "Failed to retrieve labels",
+};
+
+export const getStepsError = {
+  type: "GET STEPS",
+  message: "Failed to retrieve steps",
+};
+
+export const getAssigneeError = {
+  type: "GET ASSIGNEE",
+  message: "Failed to retrieve assignee",
 };
 
 // Static texts

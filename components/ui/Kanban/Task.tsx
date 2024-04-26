@@ -1,7 +1,9 @@
 "use client"
+import { handleErrors } from '@/components/utils/handleErrors';
+import { getStepsError } from '@/constants';
 import { ProjectI, TaskI } from '@/interfaces';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
-import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Text, useDisclosure } from '@chakra-ui/react';
+import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import AssignUserContainer from '../AssignUserContainer';
 import CheckTask from '../CheckTask';
@@ -16,9 +18,10 @@ interface Props {
 }
 
 const Task = ({ task, project }: Props) => {
-
     const { isOpen: isOpenTask, onOpen: onOpenTask, onClose: onCloseTask } = useDisclosure();
-    const { data: steps } = useGetStepsByTaskIdQuery(task.id);
+    const { data: steps, isLoading, error } = useGetStepsByTaskIdQuery(task.id);
+
+    if (error) handleErrors(error, getStepsError.type);
 
     return (
         <Card
@@ -45,7 +48,11 @@ const Task = ({ task, project }: Props) => {
                     <Text className='text-xs overflow-clip whitespace-nowrap'>{task.note}</Text>
                 }
                 {task.showOnTask === "steps" && steps &&
-                    <StepsDetails steps={steps} task_id={task.id} showMinimumVersion={true} />
+                    (isLoading ?
+                        <Spinner size="sm" />
+                        :
+                        <StepsDetails steps={steps} task_id={task.id} showMinimumVersion={true} />
+                    )
                 }
                 {steps && steps.length > 0 && <Flex mt={2} alignItems="center" fontSize="small">
                     <Icon as={IoIosCheckmarkCircleOutline} w={4} h={4} mr={1} />

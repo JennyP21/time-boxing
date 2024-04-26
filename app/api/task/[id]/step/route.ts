@@ -1,4 +1,4 @@
-import { unexpectedError } from "@/constants";
+import { getStepsError } from "@/constants";
 import { getStepsByTaskId } from "@/data-access/step";
 import { APIParams } from "@/interfaces";
 import { validateRequestWithParams } from "@/validation";
@@ -12,7 +12,7 @@ export const GET = validateRequestWithParams(
 
       return NextResponse.json(steps);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(getStepsError.message, {
         status: 500,
       });
     }

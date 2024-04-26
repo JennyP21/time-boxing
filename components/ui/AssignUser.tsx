@@ -1,9 +1,12 @@
+import Skeleton from "@/components/loading/Skeleton";
+import { getAssigneeError } from '@/constants';
 import { CustomMembersI, Task_AssigneeI, UserI } from '@/interfaces';
 import { useAssignUserMutation, useGetAssigneesByTaskIdQuery, useUnAssignUserMutation } from '@/lib/features/taskApi';
 import { Flex, Icon, Menu, MenuButton, MenuGroup, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import Image from 'next/image';
 import { IoIosClose } from "react-icons/io";
 import { TiUserAddOutline } from 'react-icons/ti';
+import { handleErrors } from '../utils/handleErrors';
 import AssignedUsers from './AssignedUsers';
 
 interface Props {
@@ -12,7 +15,10 @@ interface Props {
 }
 
 const AssignUser = ({ users, task_id }: Props) => {
-    const { data: assignedUsers } = useGetAssigneesByTaskIdQuery(task_id);
+    const { data: assignedUsers, isLoading, error } = useGetAssigneesByTaskIdQuery(task_id);
+
+    if (error) handleErrors(error, getAssigneeError.type);
+
     const assignedUsersEmail = assignedUsers && assignedUsers[0] !== null && assignedUsers?.map(item => item.email);
     const unAssignedUsers = assignedUsersEmail ? users.filter(user => !assignedUsersEmail.includes(user.email)) : users;
 
@@ -64,7 +70,15 @@ const AssignUser = ({ users, task_id }: Props) => {
                     </MenuGroup>}
                 </MenuList>
             </Menu>
-            <AssignedUsers users={assignedUsers} />
+            {isLoading ?
+                <Flex className='gap-1'>
+                    <Skeleton circle width={25} height={25} />
+                    <Skeleton circle width={25} height={25} />
+                    <Skeleton circle width={25} height={25} />
+                </Flex>
+                :
+                <AssignedUsers users={assignedUsers} />
+            }
         </Flex >
     )
 }
