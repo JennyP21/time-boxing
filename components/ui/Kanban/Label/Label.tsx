@@ -1,5 +1,8 @@
+import TaskCardLoading from '@/components/loading/TaskCardLoading';
 import Stack from '@/components/ui/Kanban/Stack';
 import { convertToTaskList } from '@/components/utils';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { getTasksError } from '@/constants';
 import { LabelI, ProjectI } from '@/interfaces';
 import { useGetTasksByLabelQuery } from '@/lib/features/taskApi';
 import AddTaskContainer from '../../AddTaskContainer';
@@ -13,7 +16,9 @@ interface Props {
 
 const Label = ({ label, project }: Props) => {
 
-    const { data } = useGetTasksByLabelQuery({ label_id: label.id, project_id: project.id });
+    const { data, error, isLoading } = useGetTasksByLabelQuery({ label_id: label.id, project_id: project.id });
+
+    if (error) handleErrors(error, getTasksError.type);
 
     const newData = convertToTaskList(data);
 
@@ -21,7 +26,9 @@ const Label = ({ label, project }: Props) => {
         <Stack>
             <GroupHeader>{label.name}</GroupHeader>
             <AddTaskContainer project={project} type='bucket' label_id={label.id} />
-            <TasksList data={newData} project={project} />
+            {isLoading ? <TaskCardLoading /> :
+                <TasksList data={newData} project={project} />
+            }
         </Stack>
     )
 }

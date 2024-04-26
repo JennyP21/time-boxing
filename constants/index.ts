@@ -68,14 +68,14 @@ export const getTasksError = {
   message: "Failed to retrieve tasks",
 };
 
-export const getBucketsByProjectError = {
-  type: "GET BUCKETS BY PROJECT",
+export const getBucketsError = {
+  type: "GET BUCKETS",
   message: "Failed to retrieve buckets",
 };
 
-export const getTasksByBucketError = {
-  type: "GET TASKS BY BUCKET",
-  message: "Failed to retrieve tasks",
+export const getLabelsError = {
+  type: "GET LABELS",
+  message: "Failed to retrieve labels",
 };
 
 // Static texts

@@ -1,4 +1,7 @@
+import TaskCardLoading from '@/components/loading/TaskCardLoading';
 import Stack from '@/components/ui/Kanban/Stack';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { getTasksError } from '@/constants';
 import { ProjectI } from '@/interfaces';
 import { useGetTasksByProjectIdQuery } from '@/lib/features/taskApi';
 import AddTaskContainer from '../../AddTaskContainer';
@@ -12,7 +15,9 @@ interface Props {
 
 const Progress = ({ progress, project }: Props) => {
 
-    const { data: tasks } = useGetTasksByProjectIdQuery(project.id);
+    const { data: tasks, error, isLoading } = useGetTasksByProjectIdQuery(project.id);
+
+    if (error) handleErrors(error, getTasksError.type);
 
     const filteredData = tasks?.filter(task => task.progress === progress)
 
@@ -20,7 +25,10 @@ const Progress = ({ progress, project }: Props) => {
         <Stack>
             <GroupHeader>{progress}</GroupHeader>
             <AddTaskContainer project={project} type='bucket' progress={progress} />
-            <TasksList data={filteredData} project={project} />
+            {isLoading ? <TaskCardLoading />
+                :
+                <TasksList data={filteredData} project={project} />
+            }
         </Stack>
     )
 }

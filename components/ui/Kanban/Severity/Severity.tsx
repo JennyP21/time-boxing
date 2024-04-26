@@ -1,4 +1,7 @@
+import TaskCardLoading from '@/components/loading/TaskCardLoading';
 import Stack from '@/components/ui/Kanban/Stack';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { getTasksError } from '@/constants';
 import { ProjectI } from '@/interfaces';
 import { useGetTasksByProjectIdQuery } from '@/lib/features/taskApi';
 import AddTaskContainer from '../../AddTaskContainer';
@@ -12,7 +15,9 @@ interface Props {
 
 const Severity = ({ severity, project }: Props) => {
 
-    const { data: tasks, error } = useGetTasksByProjectIdQuery(project.id);
+    const { data: tasks, error, isLoading } = useGetTasksByProjectIdQuery(project.id);
+
+    if (error) handleErrors(error, getTasksError.type);
 
     const filteredData = tasks?.filter(task => task.severity === severity)
 
@@ -20,7 +25,9 @@ const Severity = ({ severity, project }: Props) => {
         <Stack>
             <GroupHeader>{severity}</GroupHeader>
             <AddTaskContainer project={project} type='bucket' severity={severity} />
-            <TasksList data={filteredData} project={project} />
+            {isLoading ? <TaskCardLoading /> :
+                <TasksList data={filteredData} project={project} />
+            }
         </Stack>
     )
 }

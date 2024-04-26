@@ -1,4 +1,4 @@
-import { unexpectedError } from "@/constants";
+import { getLabelsError } from "@/constants";
 import { getLabelsByProjectId } from "@/data-access/label";
 import { APIParams } from "@/interfaces";
 import { validateRequestWithParams } from "@/validation";
@@ -15,7 +15,7 @@ export const GET = validateRequestWithParams(
 
       return NextResponse.json(labelsByProjectId);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(getLabelsError.message, {
         status: 500,
       });
     }

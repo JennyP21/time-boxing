@@ -1,4 +1,4 @@
-import { getBucketsByProjectError } from "@/constants";
+import { getBucketsError } from "@/constants";
 import { getBucketsByProjectId } from "@/data-access/bucket";
 import { APIParams } from "@/interfaces";
 import { validateRequestWithParams } from "@/validation";
@@ -14,12 +14,9 @@ export const GET = validateRequestWithParams(
 
       return NextResponse.json(bucketsByProjectId);
     } catch (error) {
-      return NextResponse.json(
-        getBucketsByProjectError.message,
-        {
-          status: 500,
-        }
-      );
+      return NextResponse.json(getBucketsError.message, {
+        status: 500,
+      });
     }
   }
 );

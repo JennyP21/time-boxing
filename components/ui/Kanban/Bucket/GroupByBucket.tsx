@@ -1,7 +1,7 @@
 "use client"
 import StackContentLoading from '@/components/loading/StackContentLoading'
 import { handleErrors } from '@/components/utils/handleErrors'
-import { getBucketsByProjectError } from '@/constants'
+import { getBucketsError } from '@/constants'
 import { ProjectContainerI } from '@/interfaces'
 import { useGetBucketsByProjectIdQuery } from '@/lib/features/bucketApi'
 import React from 'react'
@@ -12,7 +12,7 @@ import Bucket from './Bucket'
 const GroupByBucket: React.FC<ProjectContainerI> = ({ project }: ProjectContainerI) => {
     const { data: buckets, error, isLoading } = useGetBucketsByProjectIdQuery(project.id);
 
-    if (error) handleErrors(error, getBucketsByProjectError.type);
+    if (error) handleErrors(error, getBucketsError.type);
 
     return (
         <>
