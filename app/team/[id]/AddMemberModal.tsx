@@ -1,9 +1,10 @@
+import CustomError from '@/components/error/CustomError';
 import { handleErrors } from '@/components/utils/handleErrors';
 import { addTeamMemberError } from '@/constants';
 import { AddMemberI, TeamI } from '@/interfaces';
 import { useAddMemberMutation } from '@/lib/features/teamApi';
 import { validateAddTeamMember } from '@/validation';
-import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Text } from '@chakra-ui/react';
+import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import RoleSelector from './RoleSelector';
@@ -46,15 +47,15 @@ const AddMemberModal = ({ isOpen, onClose, team }: Props) => {
                         <Flex className='flex-col gap-2 my-3 p-1 rounded-md'>
                             <Input type="email" isRequired placeholder='Enter the email of the person' {...register("user_email")} />
                             {errors &&
-                                <Text>
+                                <CustomError>
                                     {errors.user_email?.message}
-                                </Text>
+                                </CustomError>
                             }
                             <RoleSelector register={register} />
                         </Flex>
                     </ModalBody>
                     <ModalFooter gap={2}>
-                        <Button colorScheme="blue" type='submit'>Add  {isLoading && <Spinner />}</Button>
+                        <Button colorScheme="blue" type='submit'>Add {isLoading && <Spinner size="sm" ml={1} />}</Button>
                         <Button type='reset' onClick={onClose}>Close</Button>
                     </ModalFooter>
                 </form>

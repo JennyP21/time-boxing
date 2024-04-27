@@ -1,7 +1,8 @@
+import CustomError from '@/components/error/CustomError';
 import { ProjectI, TeamI } from '@/interfaces';
 import { useAddProjectMutation } from '@/lib/features/projectApi';
 import { validateProject } from '@/validation';
-import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Spinner, Text } from '@chakra-ui/react';
+import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Spinner } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 
@@ -40,7 +41,7 @@ const AddProject = ({ isOpen, onClose, teams, user_id }: Props) => {
                     <ModalBody>
                         <Flex className='flex-col gap-2 w-full items-center justify-start'>
                             <Input placeholder='Name your project' {...register("name")} />
-                            {errors && <Text fontSize="small" textColor='red.400' alignSelf="start">{errors.name?.message}</Text>}
+                            {errors && <CustomError>{errors.name?.message}</CustomError>}
                             <Select {...register("team_id")}>
                                 <option value="">Personal</option>
                                 <optgroup label="Team">
