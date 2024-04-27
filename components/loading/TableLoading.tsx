@@ -6,8 +6,9 @@ const TableLoading = () => {
 
     return (
         <Box px={1}>
+            <Skeleton height={30} className="my-2" />
             {count.map(count => (
-                <Skeleton height={25} key={count} />
+                <Skeleton height={20} key={count} />
             ))}
         </Box>
     )
