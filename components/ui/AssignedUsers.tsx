@@ -1,7 +1,6 @@
-
-import { UserI } from '@/interfaces'
-import { Box, Flex } from '@chakra-ui/react'
-import Image from 'next/image'
+import { UserI } from '@/interfaces';
+import { Box, Flex } from '@chakra-ui/react';
+import Image from 'next/image';
 
 interface Props {
     users: UserI[] | undefined;

@@ -1,6 +1,8 @@
+import { getBucketsError } from '@/constants';
 import { ProjectI, TaskI } from '@/interfaces';
 import { useGetBucketsByProjectIdQuery } from '@/lib/features/bucketApi';
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import { handleErrors } from '../utils/handleErrors';
 
 interface Props {
     selectedTask: TaskI;
@@ -11,7 +13,9 @@ interface Props {
 
 const BucketSelector = ({ selectedTask, setSelectedTask, handleTaskUpdate, project }: Props) => {
 
-    const { data: buckets } = useGetBucketsByProjectIdQuery(project.id);
+    const { data: buckets, error } = useGetBucketsByProjectIdQuery(project.id);
+
+    if (error) handleErrors(error, getBucketsError.type);
 
     if (!buckets) return null;
 
