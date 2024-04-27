@@ -1,3 +1,5 @@
+import { ZodIssue } from "zod";
+
 export interface TeamI {
   id: string;
   name: string;
@@ -144,4 +146,9 @@ export interface APIParams {
     project_id?: string;
     member_id?: string;
   };
+}
+
+export interface ZErr {
+  issues: ZodIssue[];
+  name: string;
 }

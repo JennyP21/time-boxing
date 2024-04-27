@@ -3,6 +3,7 @@ import {
   GetTeamMembersI,
   TaskContainerI,
   TeamContainerI,
+  ZErr,
 } from "@/interfaces";
 
 export const formatDate = (date: Date) => {
@@ -49,3 +50,7 @@ export const convertToCustomMembersList = (
 
   return newList;
 };
+
+export function parseZodErr(error: ZErr) {
+  return error.issues[0].message;
+}

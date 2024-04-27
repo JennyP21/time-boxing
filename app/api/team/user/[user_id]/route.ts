@@ -1,7 +1,5 @@
-import {
-  getTeamsError,
-  unexpectedError,
-} from "@/constants";
+import { parseZodErr } from "@/components/utils";
+import { addTeamsError, getTeamsError } from "@/constants";
 import {
   addTeam,
   getTeamsByUserId,
@@ -38,9 +36,12 @@ export const POST = validateRequestWithParams(
       const validation = validateTeam.safeParse(data);
 
       if (!validation.success) {
-        return NextResponse.json(validation.error, {
-          status: 400,
-        });
+        return NextResponse.json(
+          parseZodErr(validation.error),
+          {
+            status: 400,
+          }
+        );
       }
 
       const newTeam = await addTeam(
@@ -54,7 +55,7 @@ export const POST = validateRequestWithParams(
 
       return NextResponse.json(newTeam);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(addTeamsError.message, {
         status: 500,
       });
     }

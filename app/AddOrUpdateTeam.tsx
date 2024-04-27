@@ -1,7 +1,10 @@
+import ButtonSpinner from '@/components/loading/ButtonSpinner';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { addTeamsError, updateTeamsError } from '@/constants';
 import { TeamI } from '@/interfaces';
 import { useAddTeamMutation, useUpdateTeamMutation } from '@/lib/features/teamApi';
 import { validateTeam } from '@/validation';
-import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Spinner, Text, Textarea } from '@chakra-ui/react';
+import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Textarea } from '@chakra-ui/react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
@@ -18,8 +21,12 @@ const AddOrUpdateTeam = ({ isOpen, onClose, user_id, currentTeam }: Props) => {
         defaultValues: currentTeam
     });
 
-    const [addTeam, { isLoading: isAdding }] = useAddTeamMutation();
-    const [updateTeam, { isLoading: isUpdating }] = useUpdateTeamMutation();
+    const [addTeam, { isLoading: isAdding, error: addTeamError }] = useAddTeamMutation();
+    const [updateTeam, { isLoading: isUpdating, error: updateTeamError }] = useUpdateTeamMutation();
+
+    if (addTeamError) handleErrors(addTeamError, addTeamsError.type);
+    if (updateTeamError) handleErrors(updateTeamError, updateTeamsError.type);
+
     const onSubmit = async (data: TeamI) => {
         if (currentTeam) {
             await updateTeam({ ...data, id: currentTeam.id });
@@ -50,7 +57,7 @@ const AddOrUpdateTeam = ({ isOpen, onClose, user_id, currentTeam }: Props) => {
                             colorScheme="blue"
                             isDisabled={!isValid}
                         >
-                            {currentTeam ? "Update" : "Add"} {(isUpdating || isAdding) && <Spinner ml={1} size="sm" />}
+                            {currentTeam ? "Update" : "Add"} {(isUpdating || isAdding) && <ButtonSpinner />}
                         </Button>
                         <Button variant='ghost' onClick={onClose}>Close</Button>
                     </ModalFooter>

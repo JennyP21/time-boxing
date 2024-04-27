@@ -1,8 +1,9 @@
+import { parseZodErr } from "@/components/utils";
 import {
   deleteTeamError,
   getTeamsError,
   notFoundError,
-  unexpectedError,
+  updateTeamsError,
 } from "@/constants";
 import {
   deleteTeam,
@@ -37,17 +38,23 @@ export const PATCH = validateRequestWithParams(
       const team_id = params.id!;
       const team = await getTeamById(team_id);
       if (!team)
-        return NextResponse.json(notFoundError("Team"), {
-          status: 404,
-        });
+        return NextResponse.json(
+          notFoundError("Team").message,
+          {
+            status: 404,
+          }
+        );
 
       const data = await request.json();
       const validation = validatePatchTeam.safeParse(data);
 
       if (!validation.success) {
-        return NextResponse.json(validation.error, {
-          status: 400,
-        });
+        return NextResponse.json(
+          parseZodErr(validation.error),
+          {
+            status: 400,
+          }
+        );
       }
 
       const updatedTeam = await updateTeam(team_id, {
@@ -57,7 +64,7 @@ export const PATCH = validateRequestWithParams(
 
       return NextResponse.json(updatedTeam);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(updateTeamsError.message, {
         status: 500,
       });
     }

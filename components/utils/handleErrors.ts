@@ -12,6 +12,7 @@ export function handleErrors(
       "error" in error
         ? error.error
         : (error.data as string);
+
     toast.error(errMsg, { toastId: errorId });
   } else {
     toast.error(unexpectedError.message, {
