@@ -18,6 +18,8 @@ interface Props {
 const AddMemberModal = ({ isOpen, onClose, team }: Props) => {
     const [addMember, { error, isLoading }] = useAddMemberMutation();
 
+    if (error) handleErrors(error, addTeamMemberError.type);
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm<AddMemberI>({
         resolver: zodResolver(validateAddTeamMember)
     });
@@ -28,13 +30,8 @@ const AddMemberModal = ({ isOpen, onClose, team }: Props) => {
             team_id: team.id,
         }
         await addMember(updateData);
-        if (error) {
-            handleErrors(error, addTeamMemberError.type);
-            reset();
-        } else {
-            onClose();
-            reset();
-        };
+        onClose();
+        reset();
     };
 
     return (
