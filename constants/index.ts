@@ -38,12 +38,12 @@ export const lastOwnerError = {
 
 export const alreadyExists = (name: string) => ({
   type: "Already Exists Error",
-  message: `${name} Already Exists`,
+  message: `${name} already exists`,
 });
 
 export const notFoundError = (name: string) => ({
   type: "Not Found Error",
-  message: `${name} Not found`,
+  message: `${name} not found`,
 });
 
 export const unexpectedError = {
@@ -89,6 +89,10 @@ export const getTeamsError = {
 export const getTeamMembersError = {
   type: "GET TEAM MEMBERS",
   message: "Failed to retrieve team members",
+};
+
+export const addTeamMemberError = {
+  type: "ADD TEAM MEMBER",
 };
 
 // Static texts

@@ -71,13 +71,20 @@ export const POST = validateRequest(
         data.user_email
       );
       if (!newMember)
-        return NextResponse.json(notFoundError("Member"), {
-          status: 404,
-        });
+        return NextResponse.json(
+          notFoundError("Email").message,
+          {
+            status: 404,
+          }
+        );
 
       // Check if newMember already exists
-      if (isMember(newMember, currentMembers))
-        return NextResponse.json(alreadyExists("User"));
+      if (isMember(newMember, currentMembers)) {
+        return NextResponse.json(
+          alreadyExists("User").message,
+          { status: 400 }
+        );
+      }
 
       // create a object to add member
       const newData = {
@@ -162,10 +169,7 @@ const verifyMember = (
 };
 
 const isMember = (newUser: any, members: any) => {
-  members.forEach((member: any) => {
-    if (member.team_members.user_id === newUser.id)
-      return true;
-  });
-
-  return false;
+  return members.some(
+    (member: any) => newUser.email === member.users.email
+  );
 };

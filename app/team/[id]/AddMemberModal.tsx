@@ -1,3 +1,5 @@
+import { handleErrors } from '@/components/utils/handleErrors';
+import { addTeamMemberError } from '@/constants';
 import { AddMemberI, TeamI } from '@/interfaces';
 import { useAddMemberMutation } from '@/lib/features/teamApi';
 import { validateAddTeamMember } from '@/validation';
@@ -13,8 +15,9 @@ interface Props {
 }
 
 const AddMemberModal = ({ isOpen, onClose, team }: Props) => {
-    const [addMember, { isLoading }] = useAddMemberMutation();
-    const { register, handleSubmit, formState: { errors } } = useForm<AddMemberI>({
+    const [addMember, { error, isLoading }] = useAddMemberMutation();
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<AddMemberI>({
         resolver: zodResolver(validateAddTeamMember)
     });
 
@@ -24,7 +27,13 @@ const AddMemberModal = ({ isOpen, onClose, team }: Props) => {
             team_id: team.id,
         }
         await addMember(updateData);
-        onClose();
+        if (error) {
+            handleErrors(error, addTeamMemberError.type);
+            reset();
+        } else {
+            onClose();
+            reset();
+        };
     };
 
     return (

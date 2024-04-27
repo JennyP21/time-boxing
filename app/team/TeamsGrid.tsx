@@ -20,7 +20,7 @@ const TeamsGrid = ({ user_id }: Props) => {
 
     return (
         <>
-            {!isLoading ?
+            {isLoading ?
                 <TeamsGridLoading />
                 :
                 <Flex className='gap-2 flex-wrap'>
