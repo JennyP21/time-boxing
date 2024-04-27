@@ -86,6 +86,11 @@ export const getTeamsError = {
   message: "Failed to retrieve teams",
 };
 
+export const deleteTeamError = {
+  type: "DELETE TEAM",
+  message: "Failed to delete team",
+};
+
 export const getTeamMembersError = {
   type: "GET TEAM MEMBERS",
   message: "Failed to retrieve team members",

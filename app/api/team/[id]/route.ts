@@ -1,4 +1,5 @@
 import {
+  deleteTeamError,
   getTeamsError,
   notFoundError,
   unexpectedError,
@@ -69,15 +70,18 @@ export const DELETE = validateRequestWithParams(
       const team_id = params.id!;
       const team = await getTeamById(team_id);
       if (!team)
-        return NextResponse.json(notFoundError("Team"), {
-          status: 404,
-        });
+        return NextResponse.json(
+          notFoundError("Team").message,
+          {
+            status: 404,
+          }
+        );
 
       await deleteTeam(team_id);
 
       return NextResponse.json([]);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(deleteTeamError.message, {
         status: 500,
       });
     }
