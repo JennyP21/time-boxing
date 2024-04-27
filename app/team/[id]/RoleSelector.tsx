@@ -1,3 +1,5 @@
+import { handleErrors } from '@/components/utils/handleErrors';
+import { updateTeamMemberRoleError } from '@/constants';
 import { AddMemberI, CustomMembersI, TeamMemberI } from '@/interfaces';
 import { useUpdateTeamMemberRoleMutation } from '@/lib/features/teamApi';
 import { Select } from '@chakra-ui/react';
@@ -12,7 +14,10 @@ interface Props {
 
 const RoleSelector = ({ user, register, hasOneOwner }: Props) => {
 
-    const [changeRole] = useUpdateTeamMemberRoleMutation();
+    const [changeRole, { error }] = useUpdateTeamMemberRoleMutation();
+
+    if (error) handleErrors(error, updateTeamMemberRoleError.type);
+
     const handleRoleChange = async (e: SyntheticEvent) => {
         const newRole = (e.target as HTMLSelectElement).value;
         if (user && newRole !== user.role) {

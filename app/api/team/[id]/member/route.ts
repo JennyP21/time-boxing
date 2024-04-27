@@ -5,7 +5,7 @@ import {
   lastOwnerError,
   notFoundError,
   unAuthorizedError,
-  unexpectedError,
+  updateTeamMemberRoleError,
 } from "@/constants";
 import {
   addTeamMember,
@@ -144,9 +144,12 @@ export const PATCH = validateRequest(
 
       return NextResponse.json([]);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
-        status: 500,
-      });
+      return NextResponse.json(
+        updateTeamMemberRoleError.message,
+        {
+          status: 500,
+        }
+      );
     }
   }
 );

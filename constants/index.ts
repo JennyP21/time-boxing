@@ -101,6 +101,11 @@ export const removeTeamMemberError = {
   message: "Failed to remove Team Member",
 };
 
+export const updateTeamMemberRoleError = {
+  type: "UPDATE ROLE",
+  message: "Failed to update role",
+};
+
 // Static texts
 export const taskSeverity = [
   "Low",
