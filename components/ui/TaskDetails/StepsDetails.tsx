@@ -59,7 +59,7 @@ const StepsDetails = ({ steps, task_id, showMinimumVersion }: Props) => {
     return (
         <Flex flexDir="column" maxHeight={"40vh"} overflowY={showMinimumVersion ? "unset" : "scroll"}>
             {steps.map((step) => (
-                <InputGroup className='px-2 gap-1 rounded-full flex items-center' py={showMinimumVersion ? 0.5 : 1} key={step.id} _hover={{
+                <InputGroup className='px-2 gap-1 rounded-full flex items-center' py={showMinimumVersion ? 0.5 : 1} hidden={step.checked && showMinimumVersion} key={step.id} _hover={{
                     background: "gray.100"
                 }}>
                     <Checkbox id={step.id} size={"md"} colorScheme='blue' defaultChecked={step.checked} onChange={() => handleStepStatus(step.id, step.checked)} />
@@ -72,10 +72,9 @@ const StepsDetails = ({ steps, task_id, showMinimumVersion }: Props) => {
                         rounded="5px"
                         border="none"
                         outline="none"
-                        _focus={{ border: "none", boxShadow: "none" }}
-                        {...step.checked &&
-                        {
-                            textDecoration: "line-through",
+                        _focus={{ border: "none", boxShadow: "none", textDecor: "none", textColor: "black" }}
+                        {...step.checked && {
+                            textDecor: "line-through",
                             textColor: "gray.400"
                         }
                         }
