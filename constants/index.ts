@@ -93,6 +93,12 @@ export const getTeamMembersError = {
 
 export const addTeamMemberError = {
   type: "ADD TEAM MEMBER",
+  message: "Failed to add Team Member",
+};
+
+export const removeTeamMemberError = {
+  type: "REMOVE TEAM MEMBER",
+  message: "Failed to remove Team Member",
 };
 
 // Static texts

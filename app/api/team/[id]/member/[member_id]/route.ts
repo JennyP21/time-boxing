@@ -1,7 +1,7 @@
 import {
   lastOwnerError,
   notFoundError,
-  unexpectedError,
+  removeTeamMemberError,
 } from "@/constants";
 import {
   getOwnersCount,
@@ -20,9 +20,12 @@ export const POST = validateRequestWithParams(
 
       const member = await getTeamMember(team_id, user_id);
       if (!member)
-        return NextResponse.json(notFoundError("Member"), {
-          status: 404,
-        });
+        return NextResponse.json(
+          notFoundError("Member").message,
+          {
+            status: 404,
+          }
+        );
 
       const countOfOwners = await getOwnersCount(team_id);
       if (
@@ -38,9 +41,12 @@ export const POST = validateRequestWithParams(
 
       return NextResponse.json([]);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
-        status: 500,
-      });
+      return NextResponse.json(
+        removeTeamMemberError.message,
+        {
+          status: 500,
+        }
+      );
     }
   }
 );

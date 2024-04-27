@@ -1,4 +1,7 @@
 "use client"
+import ButtonSpinner from '@/components/loading/ButtonSpinner';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { removeTeamMemberError } from '@/constants';
 import { CustomMembersI, TeamMemberI } from '@/interfaces';
 import { useRemoveMemberMutation } from '@/lib/features/teamApi';
 import { Button, Heading, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay } from '@chakra-ui/react';
@@ -10,13 +13,17 @@ interface Props {
 }
 
 const ConfirmRemove = ({ isOpen, onClose, user }: Props) => {
-    const [removeMember] = useRemoveMemberMutation();
+    const [removeMember, { isLoading, error }] = useRemoveMemberMutation();
+
+    if (error) handleErrors(error, removeTeamMemberError.type);
+
     const handleRemoveMember = async () => {
         const data = {
             team_id: user.team_id,
             user_id: user.user_id,
         } as TeamMemberI;
         await removeMember(data);
+        onClose();
     }
 
     return (
@@ -29,7 +36,7 @@ const ConfirmRemove = ({ isOpen, onClose, user }: Props) => {
                     </Heading>
                 </ModalBody>
                 <ModalFooter gap={2}>
-                    <Button colorScheme='blue' onClick={handleRemoveMember}>Remove</Button>
+                    <Button colorScheme='blue' onClick={handleRemoveMember}>Remove {isLoading && <ButtonSpinner />}</Button>
                     <Button onClick={onClose}>Close</Button>
                 </ModalFooter>
             </ModalContent>

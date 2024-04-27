@@ -1,4 +1,5 @@
 import {
+  addTeamMemberError,
   alreadyExists,
   getTeamMembersError,
   lastOwnerError,
@@ -107,7 +108,7 @@ export const POST = validateRequest(
 
       return NextResponse.json([]);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(addTeamMemberError.message, {
         status: 500,
       });
     }
