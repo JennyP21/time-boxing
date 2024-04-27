@@ -1,4 +1,5 @@
 import {
+  getBucketsError,
   notFoundError,
   unexpectedError,
 } from "@/constants";
@@ -21,7 +22,7 @@ export const GET = validateRequestWithParams(
       const bucket = await getBucket(id);
       return NextResponse.json(bucket);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(getBucketsError.message, {
         status: 500,
       });
     }

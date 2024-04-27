@@ -1,26 +1,37 @@
+import TeamsGridLoading from '@/components/loading/TeamsGridLoading';
 import { convertToTeamList } from '@/components/utils';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { getTeamsError } from '@/constants';
 import { useGetTeamsByUserIdQuery } from '@/lib/features/teamApi';
-import TeamCard from './TeamCard';
-import React from 'react';
 import { Flex } from '@chakra-ui/react';
+import React from 'react';
+import TeamCard from './TeamCard';
 
 interface Props {
     user_id: string;
 }
 
 const TeamsGrid = ({ user_id }: Props) => {
-    const { data } = useGetTeamsByUserIdQuery(user_id);
+    const { data, error, isLoading } = useGetTeamsByUserIdQuery(user_id);
+
+    if (error) handleErrors(error, getTeamsError.type);
 
     const teams = convertToTeamList(data);
 
     return (
-        <Flex className='gap-2 flex-wrap'>
-            {teams.map(team => (
-                <React.Fragment key={team.id}>
-                    <TeamCard teams={team} />
-                </React.Fragment>
-            ))}
-        </Flex>
+        <>
+            {!isLoading ?
+                <TeamsGridLoading />
+                :
+                <Flex className='gap-2 flex-wrap'>
+                    {teams.map(team => (
+                        <React.Fragment key={team.id}>
+                            <TeamCard teams={team} />
+                        </React.Fragment>
+                    ))}
+                </Flex>
+            }
+        </>
     )
 }
 

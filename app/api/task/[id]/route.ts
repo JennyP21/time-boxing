@@ -1,4 +1,5 @@
 import {
+  getTasksError,
   notFoundError,
   unexpectedError,
 } from "@/constants";
@@ -22,7 +23,7 @@ export const GET = validateRequestWithParams(
 
       return NextResponse.json(task);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(getTasksError.message, {
         status: 500,
       });
     }

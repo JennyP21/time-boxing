@@ -1,4 +1,7 @@
-import { unexpectedError } from "@/constants";
+import {
+  getTeamsError,
+  unexpectedError,
+} from "@/constants";
 import {
   addTeam,
   getTeamsByUserId,
@@ -19,7 +22,7 @@ export const GET = validateRequestWithParams(
 
       return NextResponse.json(teamsByUserId);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(getTeamsError.message, {
         status: 500,
       });
     }

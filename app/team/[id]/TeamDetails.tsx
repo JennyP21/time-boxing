@@ -1,3 +1,6 @@
+import TeamInfoLoading from '@/components/loading/TeamInfoLoading';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { getTeamsError } from '@/constants';
 import { useGetTeamByIdQuery } from '@/lib/features/teamApi';
 import { Link } from '@chakra-ui/next-js';
 import { Flex, Icon, Text } from '@chakra-ui/react';
@@ -11,7 +14,9 @@ interface Props {
 }
 
 const TeamDetails = ({ team_id }: Props) => {
-    const { data: team } = useGetTeamByIdQuery(team_id);
+    const { data: team, error, isLoading } = useGetTeamByIdQuery(team_id);
+
+    if (error) handleErrors(error, getTeamsError.type);
 
     if (!team) return null;
 
@@ -24,10 +29,13 @@ const TeamDetails = ({ team_id }: Props) => {
                     <Text>{team.name}</Text>
                 </Flex>
             </TeamHeading>
-            <Flex className='flex-col gap-3 p-5'>
-                <TeamInfo name={team.name} desc={team.desc} />
-                <ManageMembers team={team} />
-            </Flex>
+            {isLoading ? <TeamInfoLoading />
+                :
+                <Flex className='flex-col gap-3 p-5'>
+                    <TeamInfo name={team.name} desc={team.desc} />
+                    <ManageMembers team={team} />
+                </Flex>
+            }
         </>
     )
 }

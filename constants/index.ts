@@ -81,6 +81,16 @@ export const getAssigneeError = {
   message: "Failed to retrieve assignee",
 };
 
+export const getTeamsError = {
+  type: "GET TEAMS",
+  message: "Failed to retrieve teams",
+};
+
+export const getTeamMembersError = {
+  type: "GET TEAM MEMBERS",
+  message: "Failed to retrieve team members",
+};
+
 // Static texts
 export const taskSeverity = [
   "Low",

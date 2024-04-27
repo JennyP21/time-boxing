@@ -1,4 +1,6 @@
 import { convertToTeamList } from '@/components/utils';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { getTeamsError } from '@/constants';
 import { useGetTeamsByUserIdQuery } from '@/lib/features/teamApi';
 import { Button, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
@@ -11,7 +13,10 @@ interface Props {
 }
 
 const Teams = ({ user_id }: Props) => {
-    const { data } = useGetTeamsByUserIdQuery(user_id);
+    const { data, error } = useGetTeamsByUserIdQuery(user_id);
+
+    if (error) handleErrors(error, getTeamsError.type);
+
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const teams = convertToTeamList(data);

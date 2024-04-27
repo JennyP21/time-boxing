@@ -1,4 +1,4 @@
-import { unexpectedError } from "@/constants";
+import { getProjectError } from "@/constants";
 import { getProjectsByTeamId } from "@/data-access/project";
 import { APIParams } from "@/interfaces";
 import { validateRequestWithParams } from "@/validation";
@@ -12,7 +12,7 @@ export const GET = validateRequestWithParams(
 
       return NextResponse.json(projects);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(getProjectError.message, {
         status: 500,
       });
     }

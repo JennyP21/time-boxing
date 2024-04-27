@@ -1,5 +1,7 @@
 "use client"
 import { convertToTeamList } from "@/components/utils";
+import { handleErrors } from "@/components/utils/handleErrors";
+import { getProjectError } from "@/constants";
 import { useGetTeamsByUserIdQuery } from "@/lib/features/teamApi";
 import { Button, useDisclosure } from "@chakra-ui/react";
 import AddProject from "./AddProject";
@@ -11,7 +13,9 @@ interface Props {
 const AddProjectContainer = ({ user_id }: Props) => {
     const { onClose, onOpen, isOpen } = useDisclosure();
 
-    const { data: teams } = useGetTeamsByUserIdQuery(user_id);
+    const { data: teams, error } = useGetTeamsByUserIdQuery(user_id);
+
+    if (error) handleErrors(error, getProjectError.type);
 
     return (
         <>

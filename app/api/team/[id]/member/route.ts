@@ -1,5 +1,6 @@
 import {
   alreadyExists,
+  getTeamMembersError,
   lastOwnerError,
   notFoundError,
   unAuthorizedError,
@@ -34,9 +35,12 @@ export const GET = validateRequestWithParams(
 
       return NextResponse.json(members);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
-        status: 500,
-      });
+      return NextResponse.json(
+        getTeamMembersError.message,
+        {
+          status: 500,
+        }
+      );
     }
   }
 );

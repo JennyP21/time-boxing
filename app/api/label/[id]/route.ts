@@ -1,4 +1,5 @@
 import {
+  getLabelsError,
   notFoundError,
   unexpectedError,
 } from "@/constants";
@@ -22,7 +23,7 @@ export const GET = validateRequestWithParams(
 
       return NextResponse.json(label);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(getLabelsError.message, {
         status: 500,
       });
     }
