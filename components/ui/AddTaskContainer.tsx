@@ -1,7 +1,9 @@
+import { addTaskError } from '@/constants';
 import { ProjectI, Task_LabelI, TaskI } from '@/interfaces';
 import { useAssignLabelMutation } from '@/lib/features/labelApi';
 import { useAddTaskMutation } from '@/lib/features/taskApi';
 import { useState } from 'react';
+import { handleErrors } from '../utils/handleErrors';
 import AddTask from './Kanban/AddKanbanTask';
 import AddListTask from './List/AddListTask';
 
@@ -16,7 +18,10 @@ interface Props {
 
 const AddTaskContainer = ({ type, bucket_id, project, progress, severity, label_id }: Props) => {
     const [active, setActive] = useState(false);
-    const [addTask] = useAddTaskMutation();
+
+    const [addTask, { error }] = useAddTaskMutation();
+    if (error) handleErrors(error, addTaskError.type)
+
     const [assignLabel] = useAssignLabelMutation();
 
     const initialData = {

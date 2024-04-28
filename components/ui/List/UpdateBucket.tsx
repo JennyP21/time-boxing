@@ -1,5 +1,7 @@
 "use client"
 import BucketSelector from '@/components/ui/BucketSelector';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { updateTaskError } from '@/constants';
 import { ProjectI, TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { useState } from 'react';
@@ -12,7 +14,10 @@ interface Props {
 const UpdateBucket = ({ currData, project }: Props) => {
     const [data, setData] = useState(currData);
 
-    const [updateTask] = useUpdateTaskMutation();
+    const [updateTask, { error }] = useUpdateTaskMutation();
+
+    if (error) handleErrors(error, updateTaskError.type);
+
     const handleTaskUpdate = async () => {
         if (currData.bucket_id !== data.bucket_id) {
             await updateTask({

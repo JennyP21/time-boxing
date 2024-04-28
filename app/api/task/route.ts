@@ -1,4 +1,5 @@
-import { unexpectedError } from "@/constants";
+import { parseZodErr } from "@/components/utils";
+import { addTaskError } from "@/constants";
 import { addTask } from "@/data-access/task";
 import {
   validateRequest,
@@ -13,9 +14,12 @@ export const POST = validateRequest(
       const validation = validateTask.safeParse(data);
 
       if (!validation.success)
-        return NextResponse.json(validation.error.message, {
-          status: 400,
-        });
+        return NextResponse.json(
+          parseZodErr(validation.error),
+          {
+            status: 400,
+          }
+        );
 
       const newTask = await addTask({
         ...data,
@@ -23,11 +27,9 @@ export const POST = validateRequest(
         updated_at: new Date(),
       });
 
-      return NextResponse.json(newTask, {
-        status: 200,
-      });
+      return NextResponse.json(newTask);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(addTaskError.message, {
         status: 500,
       });
     }

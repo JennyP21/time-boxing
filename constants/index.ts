@@ -7,17 +7,17 @@ import { IoHomeOutline } from "react-icons/io5";
 // 1) Bucket
 
 export const addBucketError = {
-  type: "Add Bucket",
+  type: "ADD BUCKET",
   message: "Failed to add bucket",
 };
 
 export const updateBucketError = {
-  type: "Update Bucket",
+  type: "UPDATE BUCKET",
   message: "Failed to update bucket",
 };
 
 export const deleteBucketError = {
-  type: "Delete Bucket",
+  type: "DELETE BUCKET",
   message: "Failed to delete bucket",
 };
 
@@ -64,6 +64,21 @@ export const addProjectError = {
 export const getTasksError = {
   type: "GET TASKS",
   message: "Failed to retrieve tasks",
+};
+
+export const addTaskError = {
+  type: "ADD TASK",
+  message: "Failed to add task",
+};
+
+export const updateTaskError = {
+  type: "UPDATE TASK",
+  message: "Failed to update task",
+};
+
+export const deleteTaskError = {
+  type: "DELETE TASK",
+  message: "Failed to delete task",
 };
 
 export const getBucketsError = {

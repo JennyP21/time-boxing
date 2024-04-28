@@ -1,4 +1,6 @@
 "use client"
+import { handleErrors } from '@/components/utils/handleErrors';
+import { updateTaskError } from '@/constants';
 import { TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { Input, Text } from '@chakra-ui/react';
@@ -14,7 +16,9 @@ interface Props {
 
 const TaskDetailsHeader = ({ task_id, currentTitle, project_id }: Props) => {
     const [title, setTitle] = useState(currentTitle);
-    const [updateTask] = useUpdateTaskMutation();
+    const [updateTask, { error }] = useUpdateTaskMutation();
+
+    if (error) handleErrors(error, updateTaskError.type);
 
     const handleSubmit = async () => {
         if (title !== currentTitle) {

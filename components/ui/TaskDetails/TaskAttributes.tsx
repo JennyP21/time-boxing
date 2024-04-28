@@ -1,5 +1,6 @@
 "use client"
-import { taskProgress, taskSeverity } from '@/constants';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { taskProgress, taskSeverity, updateTaskError } from '@/constants';
 import { TaskAttributesProps, TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { Grid, Input } from '@chakra-ui/react';
@@ -15,7 +16,9 @@ const TaskAttributes = ({ start_date, end_date, severity, progress, task_id }: T
     const [newProgress, setNewProgress] = useState(progress);
     type DataToUpdate = "start_date" | "end_date" | "severity" | "progress";
 
-    const [updateTask] = useUpdateTaskMutation();
+    const [updateTask, { error }] = useUpdateTaskMutation();
+
+    if (error) handleErrors(error, updateTaskError.type);
 
     const handleSubmit = async (dataToUpdate: DataToUpdate) => {
         let newData = {};

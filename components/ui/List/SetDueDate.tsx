@@ -1,3 +1,5 @@
+import { handleErrors } from '@/components/utils/handleErrors';
+import { updateTaskError } from '@/constants';
 import { TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { Button, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@chakra-ui/react';
@@ -12,7 +14,9 @@ interface Props {
 
 const SetDueDate = ({ isOpen, onClose, task_id, currDueDate }: Props) => {
 
-    const [updateTask] = useUpdateTaskMutation();
+    const [updateTask, { error }] = useUpdateTaskMutation();
+
+    if (error) handleErrors(error, updateTaskError.type);
 
     const handleTaskUpdate = async (e: SyntheticEvent) => {
         const newValue = (e.target as HTMLSelectElement).value;

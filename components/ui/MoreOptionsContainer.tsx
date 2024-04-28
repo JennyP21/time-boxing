@@ -1,5 +1,5 @@
 "use client"
-import { getBucketsError } from '@/constants';
+import { deleteTaskError, getBucketsError } from '@/constants';
 import { ProjectI, TaskI } from '@/interfaces';
 import { useGetBucketsByProjectIdQuery } from '@/lib/features/bucketApi';
 import { useDeleteTaskMutation } from '@/lib/features/taskApi';
@@ -17,10 +17,10 @@ interface Props {
 const MoreOptionsContainer = ({ task, align, project }: Props) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { data: buckets, error } = useGetBucketsByProjectIdQuery(project.id);
-
     if (error) handleErrors(error, getBucketsError.type);
 
-    const [deleteTask] = useDeleteTaskMutation();
+    const [deleteTask, { error: taskDeleteError }] = useDeleteTaskMutation();
+    if (taskDeleteError) handleErrors(taskDeleteError, deleteTaskError.type);
     const handleTaskDelete = async () => await deleteTask(task.id);
 
     return (

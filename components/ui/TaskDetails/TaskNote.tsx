@@ -1,4 +1,6 @@
 "use client"
+import { handleErrors } from '@/components/utils/handleErrors';
+import { updateTaskError } from '@/constants';
 import { TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { Box, Flex, Radio, Text, Textarea } from '@chakra-ui/react';
@@ -12,7 +14,9 @@ interface Props {
 const TaskNote = ({ note, task_id }: Props) => {
     const [newNote, setNote] = useState(note);
 
-    const [updateTask] = useUpdateTaskMutation();
+    const [updateTask, { error }] = useUpdateTaskMutation();
+
+    if (error) handleErrors(error, updateTaskError.type);
 
     const handleSubmit = async () => {
         if (newNote !== note) {

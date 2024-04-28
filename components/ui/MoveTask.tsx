@@ -1,8 +1,10 @@
 "use client"
+import { updateTaskError } from "@/constants";
 import { BucketI, TaskI } from "@/interfaces";
 import { useUpdateTaskMutation } from "@/lib/features/taskApi";
 import { Button, Flex, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Text } from '@chakra-ui/react';
 import { useState } from 'react';
+import { handleErrors } from "../utils/handleErrors";
 
 interface Props {
     isOpen: boolean;
@@ -18,7 +20,8 @@ const MoveTask = ({ isOpen, onClose, task_id, bucket_id, buckets }: Props) => {
 
     const [selectedBucket, setSelectedBucket] = useState(moveBuckets[0].id);
 
-    const [updateTask] = useUpdateTaskMutation();
+    const [updateTask, { error }] = useUpdateTaskMutation();
+    if (error) handleErrors(error, updateTaskError.type);
 
     const handleTaskMove = async () => {
         const data = {

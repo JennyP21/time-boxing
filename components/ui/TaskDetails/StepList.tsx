@@ -1,6 +1,6 @@
 import StepsLoading from "@/components/loading/StepsLoading";
 import { handleErrors } from "@/components/utils/handleErrors";
-import { getStepsError } from "@/constants";
+import { getStepsError, updateTaskError } from "@/constants";
 import { TaskI } from "@/interfaces";
 import { useGetStepsByTaskIdQuery } from "@/lib/features/stepsApi";
 import { useUpdateTaskMutation } from "@/lib/features/taskApi";
@@ -13,7 +13,10 @@ interface Props {
 
 const StepList = ({ task_id }: Props) => {
 
-    const [updateTask] = useUpdateTaskMutation();
+    const [updateTask, { error: taskUpdateError }] = useUpdateTaskMutation();
+
+    if (taskUpdateError) handleErrors(taskUpdateError, updateTaskError.type);
+
     const handleShowOnCard = async () => {
         const data = { showOnTask: "steps", id: task_id } as TaskI;
         await updateTask(data);

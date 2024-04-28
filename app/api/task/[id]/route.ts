@@ -1,7 +1,9 @@
+import { parseZodErr } from "@/components/utils";
 import {
+  deleteTaskError,
   getTasksError,
   notFoundError,
-  unexpectedError,
+  updateTaskError,
 } from "@/constants";
 import {
   deleteTask,
@@ -36,15 +38,18 @@ export const DELETE = validateRequestWithParams(
       const id = params.id!;
       const task = await getTask(id);
       if (!task)
-        return NextResponse.json(notFoundError("Task"), {
-          status: 404,
-        });
+        return NextResponse.json(
+          notFoundError("Task").message,
+          {
+            status: 404,
+          }
+        );
 
       await deleteTask(id);
 
       return NextResponse.json([]);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(deleteTaskError.message, {
         status: 500,
       });
     }
@@ -57,17 +62,23 @@ export const PATCH = validateRequestWithParams(
       const id = params.id!;
       const task = await getTask(id);
       if (!task)
-        return NextResponse.json(notFoundError("Task"), {
-          status: 404,
-        });
+        return NextResponse.json(
+          notFoundError("Task").message,
+          {
+            status: 404,
+          }
+        );
 
       const data = await request.json();
       const validation = validatePatchTask.safeParse(data);
 
       if (!validation.success)
-        return NextResponse.json(validation.error.message, {
-          status: 400,
-        });
+        return NextResponse.json(
+          parseZodErr(validation.error),
+          {
+            status: 400,
+          }
+        );
       const updatedTask = await updateTask(id, {
         ...data,
         updated_at: new Date(),
@@ -75,7 +86,7 @@ export const PATCH = validateRequestWithParams(
 
       return NextResponse.json(updatedTask);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(updateTaskError.message, {
         status: 500,
       });
     }
