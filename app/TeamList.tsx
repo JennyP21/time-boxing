@@ -1,5 +1,6 @@
 "use client"
 import { handleErrors } from '@/components/utils/handleErrors';
+import { getIsExpanded } from '@/components/utils/handleUserState';
 import { getProjectError } from '@/constants';
 import { TeamContainerI } from '@/interfaces';
 import { useGetProjectsByTeamIdQuery } from '@/lib/features/projectApi';
@@ -12,8 +13,11 @@ const TeamList = ({ teams: team }: TeamContainerI) => {
 
     if (error) handleErrors(error, getProjectError.type);
 
+    const name = team.id;
+    const currState = Boolean(getIsExpanded(name)) || false;
+
     return (
-        <LeftPanelAccordion title={team.name} link={`/team/${team.id}`}>
+        <LeftPanelAccordion title={team.name} link={`/team/${team.id}`} isExpanded={currState} expandData={{ name, currState }}>
             {isLoading ? <Spinner /> : <List>
                 {projects?.map((project) => (
                     <ListItem key={project.id} className='px-1 rounded-lg cursor-pointer' _hover={{ bg: "gray.100" }}>

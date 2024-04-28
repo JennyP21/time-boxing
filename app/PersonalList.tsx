@@ -1,4 +1,5 @@
 import { handleErrors } from '@/components/utils/handleErrors';
+import { getIsExpanded } from '@/components/utils/handleUserState';
 import { getProjectError } from '@/constants';
 import { useGetProjectsByUserIdQuery } from '@/lib/features/projectApi';
 import { Link } from '@chakra-ui/next-js';
@@ -14,8 +15,10 @@ const PersonalList = ({ user_id }: Props) => {
 
     if (error) handleErrors(error, getProjectError.type);
 
+    const name = "personal";
+    const currState = Boolean(getIsExpanded("personal")) || false;
     return (
-        <LeftPanelAccordion title='Personal plans'>
+        <LeftPanelAccordion title='Personal plans' isExpanded={currState} expandData={{ name, currState }}>
             {isLoading ? <Spinner /> :
                 <List>
                     {projects?.map((project) => (

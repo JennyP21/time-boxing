@@ -1,5 +1,6 @@
 import { convertToTeamList } from '@/components/utils';
 import { handleErrors } from '@/components/utils/handleErrors';
+import { getIsExpanded } from '@/components/utils/handleUserState';
 import { getTeamsError } from '@/constants';
 import { useGetTeamsByUserIdQuery } from '@/lib/features/teamApi';
 import React from 'react';
@@ -17,8 +18,11 @@ const Teams = ({ user_id }: Props) => {
 
     const teams = convertToTeamList(data);
 
+    const name = "team";
+    const currState = Boolean(getIsExpanded("team")) || false;
+
     return (
-        <LeftPanelAccordion title='Teams' link='/team'>
+        <LeftPanelAccordion title='Teams' link='/team' isExpanded={currState} expandData={{ name, currState }}>
             {teams && teams.map(team => (
                 <React.Fragment key={team.id}>
                     <TeamList teams={team} />
