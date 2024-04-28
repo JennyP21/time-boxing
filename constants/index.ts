@@ -56,6 +56,11 @@ export const getProjectError = {
   message: "Failed to retrieve project",
 };
 
+export const addProjectError = {
+  type: "ADD PROJECT",
+  message: "Failed to add project",
+};
+
 export const getTasksError = {
   type: "GET TASKS",
   message: "Failed to retrieve tasks",

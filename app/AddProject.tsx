@@ -1,4 +1,6 @@
 import CustomError from '@/components/error/CustomError';
+import { handleErrors } from '@/components/utils/handleErrors';
+import { addProjectError } from '@/constants';
 import { ProjectI, TeamI } from '@/interfaces';
 import { useAddProjectMutation } from '@/lib/features/projectApi';
 import { validateProject } from '@/validation';
@@ -17,7 +19,9 @@ const AddProject = ({ isOpen, onClose, teams, user_id }: Props) => {
     const { register, handleSubmit, reset, formState: { errors, isValid } } = useForm<ProjectI>({
         resolver: zodResolver(validateProject)
     })
-    const [addProject, { isLoading }] = useAddProjectMutation();
+    const [addProject, { isLoading, error }] = useAddProjectMutation();
+
+    if (error) handleErrors(error, addProjectError.type);
 
     const onSubmit = async (project: ProjectI) => {
         const data = project.team_id ? {

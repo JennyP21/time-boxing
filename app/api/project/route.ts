@@ -1,4 +1,5 @@
-import { unexpectedError } from "@/constants";
+import { parseZodErr } from "@/components/utils";
+import { addProjectError } from "@/constants";
 import { addProject } from "@/data-access/project";
 import { ProjectI } from "@/interfaces";
 import {
@@ -15,9 +16,12 @@ export const POST = validateRequest(
       const validation = validateProject.safeParse(data);
 
       if (!validation.success)
-        return NextResponse.json(validation.error.message, {
-          status: 400,
-        });
+        return NextResponse.json(
+          parseZodErr(validation.error),
+          {
+            status: 400,
+          }
+        );
 
       const newProject = await addProject({
         ...data,
@@ -27,7 +31,7 @@ export const POST = validateRequest(
 
       return NextResponse.json(newProject);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(addProjectError.message, {
         status: 500,
       });
     }
