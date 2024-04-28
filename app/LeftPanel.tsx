@@ -3,6 +3,7 @@ import { Link } from '@chakra-ui/next-js';
 import { HStack, Icon, Text, VStack } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { IoHomeOutline } from 'react-icons/io5';
+import AddOrUpdateTeamContainer from './AddOrUpdateTeamContainer';
 import AddProjectContainer from './AddProjectContainer';
 import PersonalList from './PersonalList';
 import Teams from './Teams';
@@ -18,7 +19,7 @@ const LeftPanel = () => {
             bg="white"
         >
             <Link className='w-full' href="/" _hover={{ textDecor: "none" }}>
-                <HStack className='justify-between px-2 py-1 rounded-lg' _hover={{
+                <HStack className='justify-between px-2 py-1 rounded-lg' border="1px" borderColor="gray.300" _hover={{
                     bg: "gray.100"
                 }}>
                     <Text>Home</Text>
@@ -27,6 +28,7 @@ const LeftPanel = () => {
             </Link>
             {session.data &&
                 <>
+                    <AddOrUpdateTeamContainer user_id={session.data.user.id} />
                     <AddProjectContainer user_id={session.data.user.id} />
                     <PersonalList user_id={session.data.user.id} />
                     <Teams user_id={session.data.user.id} />

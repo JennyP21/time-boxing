@@ -14,7 +14,6 @@ const LeftPanelAccordion = ({ title, children, link }: Props) => {
         <Accordion className='w-full' allowToggle>
             <AccordionItem border="none">
                 <AccordionButton className='rounded-lg' p={1} gap={1} _hover={{ bg: "gray.100" }}>
-                    <AccordionIcon as={GoTriangleUp} w={4} h={4} />
                     {link ?
                         <Link href={link} fontSize="small" fontWeight="bold">
                             {title}
@@ -24,6 +23,7 @@ const LeftPanelAccordion = ({ title, children, link }: Props) => {
                             {title}
                         </Text>
                     }
+                    <AccordionIcon as={GoTriangleUp} w={4} h={4} />
                 </AccordionButton>
                 <AccordionPanel mx="auto" py={1} fontSize="small">
                     {children}

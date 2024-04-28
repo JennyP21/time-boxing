@@ -1,4 +1,3 @@
-"use client"
 import { convertToTeamList } from "@/components/utils";
 import { handleErrors } from "@/components/utils/handleErrors";
 import { getProjectError } from "@/constants";

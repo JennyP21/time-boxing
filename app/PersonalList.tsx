@@ -1,4 +1,3 @@
-"use client"
 import { handleErrors } from '@/components/utils/handleErrors';
 import { getProjectError } from '@/constants';
 import { useGetProjectsByUserIdQuery } from '@/lib/features/projectApi';
