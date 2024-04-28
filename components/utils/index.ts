@@ -54,3 +54,27 @@ export const convertToCustomMembersList = (
 export function parseZodErr(error: ZErr) {
   return error.issues[0].message;
 }
+
+export const verifyMember = (
+  email: string,
+  members: any
+): boolean => {
+  let isOwner = false;
+  let isMember = false;
+
+  members.forEach((member: any) => {
+    if (member.users.email === email) {
+      isMember = true;
+      if (member.team_members.role === "owner")
+        isOwner = true;
+    }
+  });
+
+  return isMember && isOwner;
+};
+
+export const isMember = (newUser: any, members: any) => {
+  return members.some(
+    (member: any) => newUser.email === member.users.email
+  );
+};
