@@ -3,7 +3,7 @@ import { handleErrors } from '@/components/utils/handleErrors';
 import { deleteBucketError, updateBucketError } from '@/constants';
 import { BucketI, ProjectI } from '@/interfaces';
 import { useDeleteBucketMutation, useUpdateBucketMutation } from '@/lib/features/bucketApi';
-import { Flex, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
+import { Flex, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Spinner, Text } from '@chakra-ui/react';
 import { SyntheticEvent, useState } from 'react';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 
@@ -17,7 +17,7 @@ const BucketHeader = ({ id, name, project }: Props) => {
     const [active, setActive] = useState(false);
 
     const [deleteBucket, { error: deleteError }] = useDeleteBucketMutation();
-    const [updateBucket, { error: updateError }] = useUpdateBucketMutation();
+    const [updateBucket, { error: updateError, isLoading: updateBucketLoading }] = useUpdateBucketMutation();
 
     const handleBucketDelete = async () => await deleteBucket(id);
 
@@ -41,17 +41,19 @@ const BucketHeader = ({ id, name, project }: Props) => {
     }
 
     return (
-        <Flex className='w-full justify-between'>
-            {active ?
-                <Input
-                    autoFocus
-                    size={"sm"}
-                    onBlur={(e) => handleBucketUpdate(e)}
-                    defaultValue={name}
-                    onKeyDown={(e) => e.key === "Enter" && handleBucketUpdate(e)}
-                /> :
-                <Text size="md" align='left' width="100%">{name}</Text>
-            }
+        <Flex className='w-full justify-between' p={1}>
+            {updateBucketLoading ? <Spinner size="sm" /> : <>
+                {active ?
+                    <Input
+                        autoFocus
+                        size={"xs"}
+                        onBlur={(e) => handleBucketUpdate(e)}
+                        defaultValue={name}
+                        onKeyDown={(e) => e.key === "Enter" && handleBucketUpdate(e)}
+                    /> :
+                    <Text size="md" align='left' width="100%">{name}</Text>
+                }
+            </>}
             <Menu placement='bottom-end'>
                 <MenuButton>
                     <Icon as={HiOutlineDotsHorizontal} w={4} h={4} />
