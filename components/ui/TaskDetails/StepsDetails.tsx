@@ -1,6 +1,9 @@
+import { handleErrors } from '@/components/utils/handleErrors';
+import { addStepError, deleteStepError, updateStepError } from '@/constants';
 import { StepsI } from '@/interfaces';
 import { useAddStepMutation, useDeleteStepMutation, useUpdateStepMutation } from '@/lib/features/stepsApi';
 import { Checkbox, Flex, Input, InputGroup, InputRightElement } from '@chakra-ui/react';
+import { SyntheticEvent } from 'react';
 import { MdOutlineDelete } from "react-icons/md";
 
 interface Props {
@@ -10,8 +13,11 @@ interface Props {
 }
 
 const StepsDetails = ({ steps, task_id, showMinimumVersion }: Props) => {
-    const [addStep] = useAddStepMutation();
-    const handleAddStep = async (value: string) => {
+    const [addStep, { error: stepAddError }] = useAddStepMutation();
+    if (stepAddError) handleErrors(stepAddError, addStepError.type);
+    const handleAddStep = async (e: SyntheticEvent) => {
+        e.preventDefault();
+        let value = (e.target as HTMLInputElement).value
         if (value) {
             const data = {
                 task_id,
@@ -22,13 +28,17 @@ const StepsDetails = ({ steps, task_id, showMinimumVersion }: Props) => {
         }
     }
 
-    const [deleteStep] = useDeleteStepMutation();
+    const [deleteStep, { error: stepDeleteError }] = useDeleteStepMutation();
+    if (stepDeleteError) handleErrors(stepDeleteError, deleteStepError.type);
     const handleDeleteStep = async (id: string) => {
         await deleteStep(id);
     }
 
-    const [updateStep] = useUpdateStepMutation();
-    const handleUpdateStep = async (id: string, value: string) => {
+    const [updateStep, { error: stepUpdateError }] = useUpdateStepMutation();
+    if (stepUpdateError) handleErrors(stepUpdateError, updateStepError.type);
+    const handleUpdateStep = async (id: string, e: SyntheticEvent) => {
+        e.preventDefault();
+        const value = (e.target as HTMLInputElement).value;
         if (value) {
             const data = {
                 id,
@@ -48,14 +58,6 @@ const StepsDetails = ({ steps, task_id, showMinimumVersion }: Props) => {
         await updateStep(data);
     }
 
-    const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLInputElement;
-        if (e.key === 'Enter') {
-            await handleAddStep(target.value);
-            target.value = '';
-        }
-    };
-
     return (
         <Flex flexDir="column" maxHeight={"40vh"} overflowY={showMinimumVersion ? "unset" : "scroll"}>
             {steps.map((step) => (
@@ -64,7 +66,7 @@ const StepsDetails = ({ steps, task_id, showMinimumVersion }: Props) => {
                 }}>
                     <Checkbox id={step.id} size={"md"} colorScheme='blue' defaultChecked={step.checked} onChange={() => handleStepStatus(step.id, step.checked)} />
                     <Input
-                        onBlur={(e) => handleUpdateStep(step.id, e.target.value)}
+                        onBlur={(e) => handleUpdateStep(step.id, e)}
                         defaultValue={step.value}
                         fontSize={"small"}
                         h="auto"
@@ -96,12 +98,15 @@ const StepsDetails = ({ steps, task_id, showMinimumVersion }: Props) => {
                         rounded="5px"
                         border="none"
                         outline="none"
-                        onKeyDown={(e) => {
-                            handleKeyDown(e)
+                        onKeyDown={async (e) => {
+                            if (e.key === "Enter") {
+                                await handleAddStep(e);
+                                (e.target as HTMLInputElement).value = "";
+                            }
                         }}
                         onBlur={async (e) => {
-                            await handleAddStep(e.target.value);
-                            e.target.value = "";
+                            await handleAddStep(e);
+                            e.target.value = ""
                         }}
                         _focus={{ border: "none", boxShadow: "none" }}
                     />

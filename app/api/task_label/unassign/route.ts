@@ -1,4 +1,5 @@
-import { unexpectedError } from "@/constants";
+import { parseZodErr } from "@/components/utils";
+import { unassignLabelError } from "@/constants";
 import { unAssignLabel } from "@/data-access/tasks_labels";
 import {
   validateLabelAssignment,
@@ -14,15 +15,18 @@ export const POST = validateRequest(
       const validation =
         validateLabelAssignment.safeParse(data);
       if (!validation.success)
-        return NextResponse.json(validation.error.message, {
-          status: 400,
-        });
+        return NextResponse.json(
+          parseZodErr(validation.error),
+          {
+            status: 400,
+          }
+        );
 
       await unAssignLabel(data);
 
       return NextResponse.json([]);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(unassignLabelError.message, {
         status: 500,
       });
     }

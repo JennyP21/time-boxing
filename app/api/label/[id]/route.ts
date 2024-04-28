@@ -1,7 +1,9 @@
+import { parseZodErr } from "@/components/utils";
 import {
+  deleteLabelError,
   getLabelsError,
   notFoundError,
-  unexpectedError,
+  updateLabelError,
 } from "@/constants";
 import {
   deleteLabel,
@@ -38,14 +40,17 @@ export const DELETE = async (
     const id = params.id!;
     const label = await getLabel(id);
     if (!label)
-      return NextResponse.json(notFoundError("Label"), {
-        status: 404,
-      });
+      return NextResponse.json(
+        notFoundError("Label").message,
+        {
+          status: 404,
+        }
+      );
 
     await deleteLabel(id);
     return NextResponse.json([]);
   } catch (error) {
-    return NextResponse.json(unexpectedError.message, {
+    return NextResponse.json(deleteLabelError.message, {
       status: 500,
     });
   }
@@ -61,9 +66,12 @@ export const PATCH = async (
 
     const validation = validateLabel.safeParse(data);
     if (!validation.success)
-      return NextResponse.json(validation.error.message, {
-        status: 400,
-      });
+      return NextResponse.json(
+        parseZodErr(validation.error),
+        {
+          status: 400,
+        }
+      );
 
     const updatedLabel = await updateLabel(id, {
       ...data,
@@ -72,7 +80,7 @@ export const PATCH = async (
 
     return NextResponse.json(updatedLabel);
   } catch (error) {
-    return NextResponse.json(unexpectedError.message, {
+    return NextResponse.json(updateLabelError.message, {
       status: 500,
     });
   }

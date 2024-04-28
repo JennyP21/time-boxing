@@ -4,7 +4,11 @@ import { IoHomeOutline } from "react-icons/io5";
 
 // Error messages
 
-// 1) Bucket
+// Bucket
+export const getBucketsError = {
+  type: "GET BUCKETS",
+  message: "Failed to retrieve buckets",
+};
 
 export const addBucketError = {
   type: "ADD BUCKET",
@@ -20,37 +24,9 @@ export const deleteBucketError = {
   type: "DELETE BUCKET",
   message: "Failed to delete bucket",
 };
+////////////////////////////////////////////
 
-export const moveTaskError = {
-  type: "Not enough buckets error",
-  message: "You need more than 2 buckets",
-};
-
-export const unAuthorizedError = {
-  type: "Unauthorized Access Error",
-  message: "You are not authorized to make any changes",
-};
-
-export const lastOwnerError = {
-  type: "Last Owner Error",
-  message: "Cannot change or remove last owner",
-};
-
-export const alreadyExists = (name: string) => ({
-  type: "Already Exists Error",
-  message: `${name} already exists`,
-});
-
-export const notFoundError = (name: string) => ({
-  type: "Not Found Error",
-  message: `${name} not found`,
-});
-
-export const unexpectedError = {
-  type: "Unknown Error",
-  message: "Unexpected error occured",
-};
-
+// PROJECT
 export const getProjectError = {
   type: "GET PROJECT",
   message: "Failed to retrieve project",
@@ -61,9 +37,27 @@ export const addProjectError = {
   message: "Failed to add project",
 };
 
+export const updateProjectError = {
+  type: "UPDATE PROJECT",
+  message: "Failed to update project",
+};
+
+export const deleteProjectError = {
+  type: "DELETE PROJECT",
+  message: "Failed to delete project",
+};
+
+////////////////////////////////////////////
+
+// TASKS
 export const getTasksError = {
   type: "GET TASKS",
   message: "Failed to retrieve tasks",
+};
+
+export const moveTaskError = {
+  type: "Not enough buckets error",
+  message: "You need more than 2 buckets",
 };
 
 export const addTaskError = {
@@ -80,27 +74,65 @@ export const deleteTaskError = {
   type: "DELETE TASK",
   message: "Failed to delete task",
 };
+////////////////////////////////////////////
 
-export const getBucketsError = {
-  type: "GET BUCKETS",
-  message: "Failed to retrieve buckets",
-};
-
+// LABEL
 export const getLabelsError = {
   type: "GET LABELS",
   message: "Failed to retrieve labels",
 };
 
+export const addLabelError = {
+  type: "ADD LABEL",
+  message: "Failed to add label",
+};
+
+export const updateLabelError = {
+  type: "UPDATE LABEL",
+  message: "Failed to update label",
+};
+
+export const deleteLabelError = {
+  type: "DELETE LABEL",
+  message: "Failed to delete label",
+};
+
+export const assignLabelError = {
+  type: "ASSIGN LABEL",
+  message: "Failed to assign label",
+};
+
+export const unassignLabelError = {
+  type: "UNASSIGN LABEL",
+  message: "Failed to unassign label",
+};
+
+////////////////////////////////////////////
+
+// STEPS
 export const getStepsError = {
   type: "GET STEPS",
   message: "Failed to retrieve steps",
 };
 
-export const getAssigneeError = {
-  type: "GET ASSIGNEE",
-  message: "Failed to retrieve assignee",
+export const addStepError = {
+  type: "ADD STEP",
+  message: "Failed to add step",
 };
 
+export const updateStepError = {
+  type: "UPDATE STEP",
+  message: "Failed to update step",
+};
+
+export const deleteStepError = {
+  type: "DELETE STEP",
+  message: "Failed to delete step",
+};
+
+////////////////////////////////////////////
+
+// TEAMS
 export const getTeamsError = {
   type: "GET TEAMS",
   message: "Failed to retrieve teams",
@@ -140,6 +172,49 @@ export const updateTeamMemberRoleError = {
   type: "UPDATE ROLE",
   message: "Failed to update role",
 };
+
+export const getAssigneeError = {
+  type: "GET ASSIGNEE",
+  message: "Failed to retrieve assignee",
+};
+
+export const assignTaskError = {
+  type: "ASSIGN TASK",
+  message: "Failed to assign task",
+};
+
+export const unassignTaskError = {
+  type: "UNASSIGN TASK",
+  message: "Failed to unassign task",
+};
+
+export const lastOwnerError = {
+  type: "Last Owner Error",
+  message: "Cannot change or remove last owner",
+};
+////////////////////////////////////////////
+
+// Other ERRORS
+export const unexpectedError = {
+  type: "Unknown Error",
+  message: "Unexpected error occured",
+};
+
+export const unAuthorizedError = {
+  type: "Unauthorized Access Error",
+  message: "You are not authorized to make any changes",
+};
+
+export const alreadyExists = (name: string) => ({
+  type: "Already Exists Error",
+  message: `${name} already exists`,
+});
+
+export const notFoundError = (name: string) => ({
+  type: "Not Found Error",
+  message: `${name} not found`,
+});
+//////////////////////////////////////////////////////////
 
 // Static texts
 export const taskSeverity = [

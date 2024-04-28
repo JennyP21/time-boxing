@@ -1,6 +1,8 @@
+import { parseZodErr } from "@/components/utils";
 import {
+  deleteStepError,
   notFoundError,
-  unexpectedError,
+  updateStepError,
 } from "@/constants";
 import {
   deleteStep,
@@ -21,24 +23,30 @@ export const PATCH = validateRequestWithParams(
 
       const step = getStepById(id);
       if (!step) {
-        return NextResponse.json(notFoundError("Step"), {
-          status: 404,
-        });
+        return NextResponse.json(
+          notFoundError("Step").message,
+          {
+            status: 404,
+          }
+        );
       }
 
       const data = await request.json();
       const validation = validatePatchStep.safeParse(data);
 
       if (!validation.success)
-        return NextResponse.json(validation.error.message, {
-          status: 400,
-        });
+        return NextResponse.json(
+          parseZodErr(validation.error),
+          {
+            status: 400,
+          }
+        );
 
       const updatedStep = await updateStep(id, data);
 
       return NextResponse.json(updatedStep);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(updateStepError.message, {
         status: 500,
       });
     }
@@ -51,15 +59,17 @@ export const DELETE = validateRequestWithParams(
       const id = params.id!;
       const step = getStepById(id);
       if (!step) {
-        return NextResponse.json(notFoundError("Step"), {
-          status: 404,
-        });
+        return NextResponse.json(
+          notFoundError("Step").message,
+          {
+            status: 404,
+          }
+        );
       }
       await deleteStep(id);
-
       return NextResponse.json([]);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(deleteStepError.message, {
         status: 500,
       });
     }

@@ -1,4 +1,5 @@
-import { unexpectedError } from "@/constants";
+import { parseZodErr } from "@/components/utils";
+import { addStepError } from "@/constants";
 import { addStep } from "@/data-access/step";
 import {
   validateRequest,
@@ -13,15 +14,18 @@ export const POST = validateRequest(
 
       const validation = validateStep.safeParse(data);
       if (!validation.success)
-        return NextResponse.json(validation.error.message, {
-          status: 400,
-        });
+        return NextResponse.json(
+          parseZodErr(validation.error),
+          {
+            status: 400,
+          }
+        );
 
       const newStep = await addStep(data);
 
       return NextResponse.json(newStep);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(addStepError.message, {
         status: 500,
       });
     }
