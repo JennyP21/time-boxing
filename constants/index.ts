@@ -178,14 +178,14 @@ export const getAssigneeError = {
   message: "Failed to retrieve assignee",
 };
 
-export const assignTaskError = {
-  type: "ASSIGN TASK",
-  message: "Failed to assign task",
+export const assignUserError = {
+  type: "ASSIGN USER",
+  message: "Failed to assign user",
 };
 
-export const unassignTaskError = {
-  type: "UNASSIGN TASK",
-  message: "Failed to unassign task",
+export const unassignUserError = {
+  type: "UNASSIGN USER",
+  message: "Failed to unassign user",
 };
 
 export const lastOwnerError = {

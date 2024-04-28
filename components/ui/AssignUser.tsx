@@ -1,5 +1,5 @@
 import Skeleton from "@/components/loading/Skeleton";
-import { getAssigneeError } from '@/constants';
+import { assignUserError, getAssigneeError, unassignUserError } from '@/constants';
 import { CustomMembersI, Task_AssigneeI, UserI } from '@/interfaces';
 import { useAssignUserMutation, useGetAssigneesByTaskIdQuery, useUnAssignUserMutation } from '@/lib/features/taskApi';
 import { Flex, Icon, Menu, MenuButton, MenuGroup, MenuItem, MenuList, Text } from '@chakra-ui/react';
@@ -16,13 +16,13 @@ interface Props {
 
 const AssignUser = ({ users, task_id }: Props) => {
     const { data: assignedUsers, isLoading, error } = useGetAssigneesByTaskIdQuery(task_id);
-
     if (error) handleErrors(error, getAssigneeError.type);
 
     const assignedUsersEmail = assignedUsers && assignedUsers[0] !== null && assignedUsers?.map(item => item.email);
     const unAssignedUsers = assignedUsersEmail ? users.filter(user => !assignedUsersEmail.includes(user.email)) : users;
 
-    const [assignUser] = useAssignUserMutation();
+    const [assignUser, { error: userAssignUser }] = useAssignUserMutation();
+    if (userAssignUser) handleErrors(userAssignUser, assignUserError.type);
     const handleUserAssignment = async (user_id: string) => {
         const data = {
             task_id,
@@ -32,7 +32,8 @@ const AssignUser = ({ users, task_id }: Props) => {
     }
     const getUserId = (user: UserI | CustomMembersI) => "user_id" in user ? user.user_id : user.id;
 
-    const [unAssignUser] = useUnAssignUserMutation();
+    const [unAssignUser, { error: userUnassignUser }] = useUnAssignUserMutation();
+    if (userUnassignUser) handleErrors(userUnassignUser, unassignUserError.type);
     const handleUserUnAssignment = async (user_id: string) => {
         const data = {
             task_id,

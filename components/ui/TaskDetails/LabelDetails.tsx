@@ -1,7 +1,9 @@
 "use client"
 import Skeleton from "@/components/loading/Skeleton";
+import { handleErrors } from "@/components/utils/handleErrors";
+import { addLabelError, assignLabelError, deleteLabelError, getLabelsError, unassignLabelError, updateLabelError } from "@/constants";
 import { LabelI, Task_LabelI } from "@/interfaces";
-import { useAddLabelMutation, useAssignLabelMutation, useDeleteLabelMutation, useGetLabelsByTaskQuery, useGetLabelsByProjectIdQuery, useUnassignLabelMutation, useUpdateLabelMutation } from '@/lib/features/labelApi';
+import { useAddLabelMutation, useAssignLabelMutation, useDeleteLabelMutation, useGetLabelsByProjectIdQuery, useGetLabelsByTaskQuery, useUnassignLabelMutation, useUpdateLabelMutation } from '@/lib/features/labelApi';
 import { Flex, Icon, Input, InputGroup, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
 import { SyntheticEvent, useState } from "react";
 import { IoClose } from "react-icons/io5";
@@ -13,8 +15,10 @@ interface Props {
 }
 
 const LabelDetails = ({ task_id, project_id }: Props) => {
-    const { data: labels } = useGetLabelsByTaskQuery(task_id);
-    const { data: allLabels, isLoading } = useGetLabelsByProjectIdQuery(project_id);
+    const { data: labels, error: getTaskLabelsError } = useGetLabelsByTaskQuery(task_id);
+    if (getTaskLabelsError) handleErrors(getTaskLabelsError, getLabelsError.type);
+    const { data: allLabels, error: getAllLabelsError, isLoading } = useGetLabelsByProjectIdQuery(project_id);
+    if (getAllLabelsError) handleErrors(getAllLabelsError, getLabelsError.type);
     const filteredLabels = allLabels?.filter(label => !labels?.find(item => item.id === label.id));
 
     const initialState = {
@@ -23,8 +27,8 @@ const LabelDetails = ({ task_id, project_id }: Props) => {
     };
     const [editLabel, setEditLabel] = useState(initialState);
 
-    const [updateLabel] = useUpdateLabelMutation();
-
+    const [updateLabel, { error: LabelUpdateError }] = useUpdateLabelMutation();
+    if (LabelUpdateError) handleErrors(LabelUpdateError, updateLabelError.type);
     const handleLabelUpdate = async (e: SyntheticEvent) => {
         const newValue = (e.target as HTMLInputElement).value;
         const currentLabel = labels?.find(label => label.id === editLabel.labelId);
@@ -39,19 +43,22 @@ const LabelDetails = ({ task_id, project_id }: Props) => {
         setEditLabel(initialState);
     }
 
-    const [addLabel] = useAddLabelMutation();
+    const [addLabel, { error: LabelAddError }] = useAddLabelMutation();
+    if (LabelAddError) handleErrors(LabelAddError, addLabelError.type);
     const handleLabelAdd = async (e: SyntheticEvent) => {
         const input = e.target as HTMLInputElement;
         await addLabel({ name: input.value, project_id } as LabelI);
         input.value = "";
     }
 
-    const [deleteLabel] = useDeleteLabelMutation();
+    const [deleteLabel, { error: labelDeleteError }] = useDeleteLabelMutation();
+    if (labelDeleteError) handleErrors(labelDeleteError, deleteLabelError.type);
     const handleLabelDelete = async (id: string) => {
         await deleteLabel(id);
     }
 
-    const [assignLabel] = useAssignLabelMutation();
+    const [assignLabel, { error: labelAssignError }] = useAssignLabelMutation();
+    if (labelAssignError) handleErrors(labelAssignError, assignLabelError.type);
     const handleLabelAssignment = async (label_id: string) => {
         const data = {
             task_id,
@@ -60,7 +67,8 @@ const LabelDetails = ({ task_id, project_id }: Props) => {
         await assignLabel(data);
     }
 
-    const [unassignLabel] = useUnassignLabelMutation();
+    const [unassignLabel, { error: labelUnassignError }] = useUnassignLabelMutation();
+    if (labelUnassignError) handleErrors(labelUnassignError, unassignLabelError.type);
     const handleLabelUnAssignment = async (label_id: string) => {
         const data = {
             task_id,
