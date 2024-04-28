@@ -1,7 +1,9 @@
+import { parseZodErr } from "@/components/utils";
 import {
+  deleteBucketError,
   getBucketsError,
   notFoundError,
-  unexpectedError,
+  updateBucketError,
 } from "@/constants";
 import {
   deleteBucket,
@@ -35,14 +37,17 @@ export const DELETE = validateRequestWithParams(
       const id = params.id!;
       const bucket = await getBucket(id);
       if (!bucket) {
-        return NextResponse.json(notFoundError("Bucket"), {
-          status: 404,
-        });
+        return NextResponse.json(
+          notFoundError("Bucket").message,
+          {
+            status: 404,
+          }
+        );
       }
       await deleteBucket(id);
       return NextResponse.json([]);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(deleteBucketError.message, {
         status: 500,
       });
     }
@@ -55,17 +60,23 @@ export const PATCH = validateRequestWithParams(
       const id = params.id!;
       const bucket = await getBucket(id);
       if (!bucket) {
-        return NextResponse.json(notFoundError("Bucket"), {
-          status: 404,
-        });
+        return NextResponse.json(
+          notFoundError("Bucket").message,
+          {
+            status: 404,
+          }
+        );
       }
       const data: BucketI = await request.json();
 
       const validation = validateBucket.safeParse(data);
       if (!validation.success)
-        return NextResponse.json(validation.error.message, {
-          status: 400,
-        });
+        return NextResponse.json(
+          parseZodErr(validation.error),
+          {
+            status: 400,
+          }
+        );
 
       const updatedBucket = await updateBucket(id, {
         ...data,
@@ -74,7 +85,7 @@ export const PATCH = validateRequestWithParams(
 
       return NextResponse.json(updatedBucket);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(updateBucketError.message, {
         status: 500,
       });
     }

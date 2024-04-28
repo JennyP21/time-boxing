@@ -1,16 +1,20 @@
 "use client"
+import { handleErrors } from '@/components/utils/handleErrors';
+import { getProjectError } from '@/constants';
 import { TeamContainerI } from '@/interfaces';
 import { useGetProjectsByTeamIdQuery } from '@/lib/features/projectApi';
 import { Link } from '@chakra-ui/next-js';
-import { List, ListItem } from '@chakra-ui/react';
+import { List, ListItem, Spinner } from '@chakra-ui/react';
 import LeftPanelAccordion from './LeftPanelAccordion';
 
 const TeamList = ({ teams: team }: TeamContainerI) => {
-    const { data: projects } = useGetProjectsByTeamIdQuery(team.id);
+    const { data: projects, error, isLoading } = useGetProjectsByTeamIdQuery(team.id);
+
+    if (error) handleErrors(error, getProjectError.type);
 
     return (
         <LeftPanelAccordion title={team.name} link={`/team/${team.id}`}>
-            <List>
+            {isLoading ? <Spinner /> : <List>
                 {projects?.map((project) => (
                     <ListItem key={project.id} className='px-1 rounded-lg cursor-pointer' _hover={{ bg: "gray.100" }}>
                         <Link href={`/project/${project.id}`} _hover={{ textDecor: "none" }} whiteSpace="nowrap">
@@ -18,7 +22,7 @@ const TeamList = ({ teams: team }: TeamContainerI) => {
                         </Link>
                     </ListItem>
                 ))}
-            </List>
+            </List>}
         </LeftPanelAccordion>
     )
 }

@@ -1,7 +1,9 @@
 "use client"
+import { handleErrors } from '@/components/utils/handleErrors';
+import { getProjectError } from '@/constants';
 import { useGetProjectsByUserIdQuery } from '@/lib/features/projectApi';
 import { Link } from '@chakra-ui/next-js';
-import { List, ListItem } from '@chakra-ui/react';
+import { List, ListItem, Spinner } from '@chakra-ui/react';
 import LeftPanelAccordion from './LeftPanelAccordion';
 
 interface Props {
@@ -9,19 +11,23 @@ interface Props {
 }
 
 const PersonalList = ({ user_id }: Props) => {
-    const { data: projects } = useGetProjectsByUserIdQuery(user_id);
+    const { data: projects, error, isLoading } = useGetProjectsByUserIdQuery(user_id);
+
+    if (error) handleErrors(error, getProjectError.type);
 
     return (
         <LeftPanelAccordion title='Personal plans'>
-            <List>
-                {projects?.map((project) => (
-                    <ListItem key={project.id} className='px-1 rounded-lg cursor-pointer' _hover={{ bg: "gray.100" }}>
-                        <Link href={`/project/${project.id}`} _hover={{ textDecor: "none" }}>
-                            {project.name}
-                        </Link>
-                    </ListItem>
-                ))}
-            </List>
+            {isLoading ? <Spinner /> :
+                <List>
+                    {projects?.map((project) => (
+                        <ListItem key={project.id} className='px-1 rounded-lg cursor-pointer' _hover={{ bg: "gray.100" }}>
+                            <Link href={`/project/${project.id}`} _hover={{ textDecor: "none" }}>
+                                {project.name}
+                            </Link>
+                        </ListItem>
+                    ))}
+                </List>
+            }
         </LeftPanelAccordion>
     )
 }

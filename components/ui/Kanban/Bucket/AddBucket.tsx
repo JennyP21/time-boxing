@@ -1,5 +1,5 @@
 "use client"
-import { toast } from '@/components/error/Toast';
+import { handleErrors } from '@/components/utils/handleErrors';
 import { addBucketError } from '@/constants';
 import { BucketI, ProjectI } from '@/interfaces';
 import { useAddBucketMutation } from '@/lib/features/bucketApi';
@@ -16,6 +16,8 @@ const AddBucket = ({ lastBucketOrder, project }: Props) => {
 
     const [addBucket, { error }] = useAddBucketMutation();
 
+    if (error) handleErrors(error, addBucketError.type);
+
     const handleAddBucket = async (e: SyntheticEvent) => {
         const target = (e.target as HTMLInputElement);
         if (target.value) {
@@ -28,10 +30,6 @@ const AddBucket = ({ lastBucketOrder, project }: Props) => {
         };
         setActive(false);
     }
-
-    if (error) toast.error(addBucketError.message, {
-        toastId: addBucketError.type
-    });
 
     return (
         <Box minWidth="280px" maxWidth="300px" ml={2} p={2}>

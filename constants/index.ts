@@ -7,18 +7,18 @@ import { IoHomeOutline } from "react-icons/io5";
 // 1) Bucket
 
 export const addBucketError = {
-  type: "Add Bucket Error",
-  message: "Unable to add bucket.",
+  type: "Add Bucket",
+  message: "Failed to add bucket",
 };
 
 export const updateBucketError = {
-  type: "Update Bucket Error",
-  message: "Unable to update bucket.",
+  type: "Update Bucket",
+  message: "Failed to update bucket",
 };
 
 export const deleteBucketError = {
-  type: "Delete Bucket Error",
-  message: "Unable to delete bucket.",
+  type: "Delete Bucket",
+  message: "Failed to delete bucket",
 };
 
 export const moveTaskError = {

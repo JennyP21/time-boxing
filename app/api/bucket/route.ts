@@ -1,4 +1,5 @@
-import { unexpectedError } from "@/constants";
+import { parseZodErr } from "@/components/utils";
+import { addBucketError } from "@/constants";
 import { addBucket } from "@/data-access/bucket";
 import { BucketI } from "@/interfaces";
 import {
@@ -15,9 +16,12 @@ export const POST = validateRequest(
       const validation = validateBucket.safeParse(data);
 
       if (!validation.success)
-        return NextResponse.json(validation.error.message, {
-          status: 400,
-        });
+        return NextResponse.json(
+          parseZodErr(validation.error),
+          {
+            status: 400,
+          }
+        );
 
       const newBucket = await addBucket({
         ...data,
@@ -25,11 +29,9 @@ export const POST = validateRequest(
         updated_at: new Date(),
       });
 
-      return NextResponse.json(newBucket, {
-        status: 200,
-      });
+      return NextResponse.json(newBucket);
     } catch (error) {
-      return NextResponse.json(unexpectedError.message, {
+      return NextResponse.json(addBucketError.message, {
         status: 500,
       });
     }

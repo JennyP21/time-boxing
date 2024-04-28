@@ -1,10 +1,10 @@
 "use client"
-import { toast } from '@/components/error/Toast';
+import { handleErrors } from '@/components/utils/handleErrors';
 import { deleteBucketError, updateBucketError } from '@/constants';
 import { BucketI, ProjectI } from '@/interfaces';
 import { useDeleteBucketMutation, useUpdateBucketMutation } from '@/lib/features/bucketApi';
 import { Flex, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 
 interface Props {
@@ -15,38 +15,41 @@ interface Props {
 
 const BucketHeader = ({ id, name, project }: Props) => {
     const [active, setActive] = useState(false);
-    const [updatedName, setUpdatedName] = useState(name);
 
     const [deleteBucket, { error: deleteError }] = useDeleteBucketMutation();
     const [updateBucket, { error: updateError }] = useUpdateBucketMutation();
 
-    const handleDelete = async () => {
-        await deleteBucket(id);
-    }
+    const handleBucketDelete = async () => await deleteBucket(id);
 
-    const handleUpdate = async () => {
-        const data = {
-            name: updatedName,
-            id,
-            project_id: project.id
-        } as BucketI;
-        if (name !== updatedName) {
-            await updateBucket(data);
+    if (updateError) handleErrors(updateError, updateBucketError.type);
+
+    if (deleteError) handleErrors(deleteError, deleteBucketError.type);
+
+    const handleBucketUpdate = async (e: SyntheticEvent) => {
+        const updatedName = (e.target as HTMLInputElement).value;
+        if (name !== updatedName && updatedName !== "") {
+            const data = {
+                id,
+                name: updatedName,
+                project_id: project.id
+            } as BucketI;
+            if (name !== updatedName) {
+                await updateBucket(data);
+            }
         }
         setActive(false);
     }
 
-    if (updateError) toast.error(updateBucketError.message, {
-        toastId: updateBucketError.type
-    });
-
-    if (deleteError) toast.error(deleteBucketError.message, {
-        toastId: deleteBucketError.type
-    });
-
     return (
         <Flex className='w-full justify-between'>
-            {active ? <Input autoFocus size={"sm"} value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} onBlur={handleUpdate} /> :
+            {active ?
+                <Input
+                    autoFocus
+                    size={"sm"}
+                    onBlur={(e) => handleBucketUpdate(e)}
+                    defaultValue={name}
+                    onKeyDown={(e) => e.key === "Enter" && handleBucketUpdate(e)}
+                /> :
                 <Text size="md" align='left' width="100%">{name}</Text>
             }
             <Menu placement='bottom-end'>
@@ -54,7 +57,7 @@ const BucketHeader = ({ id, name, project }: Props) => {
                     <Icon as={HiOutlineDotsHorizontal} w={4} h={4} />
                 </MenuButton>
                 <MenuList>
-                    <MenuItem onClick={handleDelete}>Delete</MenuItem>
+                    <MenuItem onClick={handleBucketDelete}>Delete</MenuItem>
                     <MenuItem onClick={() => setActive(true)}>Rename</MenuItem>
                 </MenuList>
             </Menu>
