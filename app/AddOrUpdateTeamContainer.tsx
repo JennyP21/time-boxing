@@ -11,7 +11,7 @@ const AddOrUpdateTeamContainer = ({ user_id }: Props) => {
 
     return (
         <>
-            <Button className='w-full' size="sm" colorScheme="blue" onClick={onOpen}>
+            <Button className='w-full flex-shrink-0' size="sm" colorScheme="blue" onClick={onOpen}>
                 Add Team
             </Button>
             <AddOrUpdateTeam isOpen={isOpen} onClose={onClose} user_id={user_id} />

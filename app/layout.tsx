@@ -34,7 +34,7 @@ export default function RootLayout({
                 <Navbar />
                 <Flex className="w-full h-full mt-16">
                   <LeftPanel />
-                  <Box className="md:ml-[var(--left-panel-size)] w-[calc(100%-var(--left-panel-size))] max-md:w-full">
+                  <Box className="w-[calc(100%-var(--left-panel-size))] max-md:w-full">
                     {children}
                   </Box>
                 </Flex>

@@ -23,7 +23,7 @@ const AddOrUpdateProjectContainer = ({ user_id, currentProject }: Props) => {
         <>
             {currentProject ? <Icon onClick={onOpen} as={LuPencil} className='rounded-tl-lg rounded-br-lg cursor-pointer' w={5} h={5} _hover={{ bg: "gray.300" }} />
                 :
-                <Button onClick={onOpen} colorScheme="blue" w="full" size="sm">
+                <Button className="w-full flex-shrink-0" onClick={onOpen} colorScheme="blue" size="sm">
                     Add Project
                 </Button>
             }

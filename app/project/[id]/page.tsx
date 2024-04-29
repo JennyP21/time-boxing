@@ -29,11 +29,10 @@ const Project = ({ params }: Props) => {
                     <ContentBodyLoading />
                 </>
                 :
-
                 <>
                     <ProjectHeader project={project} tabs={tabs} setTabs={setTabs} />
                     <Box className='overflow-x-scroll overflow-y-hidden flex-[1_0_0]'>
-                        <ProjectContent project={project} tabs={tabs} />
+                        <ProjectContent project={project} />
                     </Box>
                 </>
             }
