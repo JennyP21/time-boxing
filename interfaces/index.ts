@@ -44,8 +44,8 @@ export interface CustomMembersI {
 export interface ProjectI {
   id: string;
   name: string;
-  user_id: string;
-  team_id: string;
+  user_id: string | null;
+  team_id: string | null;
   created_at: Date;
   updated_at: Date;
 }

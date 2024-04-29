@@ -10,6 +10,7 @@ import {
   getProject,
   updateProject,
 } from "@/data-access/project";
+import { getTeamById } from "@/data-access/team";
 import { getUserById } from "@/data-access/user";
 import { APIParams, ProjectI } from "@/interfaces";
 import {
@@ -74,7 +75,6 @@ export async function PATCH(
 
     const data: ProjectI = await request.json();
     const validation = validateProject.safeParse(data);
-
     if (!validation.success)
       return NextResponse.json(
         parseZodErr(validation.error),
@@ -83,15 +83,35 @@ export async function PATCH(
         }
       );
 
-    const user = await getUserById(data.user_id);
-    const session = await getServerSession();
-    if (session && session.user.email !== user.email) {
-      return NextResponse.json(
-        notFoundError("User").message,
-        {
-          status: 404,
-        }
-      );
+    if (!data.team_id && !data.user_id) {
+      return NextResponse.json("Invalid data received.", {
+        status: 400,
+      });
+    }
+
+    if (data.team_id) {
+      const team = await getTeamById(data.team_id);
+      if (!team) {
+        return NextResponse.json(
+          notFoundError("Team").message,
+          {
+            status: 404,
+          }
+        );
+      }
+    }
+
+    if (data.user_id) {
+      const user = await getUserById(data.user_id);
+      const session = await getServerSession();
+      if (session && session.user.email !== user.email) {
+        return NextResponse.json(
+          notFoundError("User").message,
+          {
+            status: 404,
+          }
+        );
+      }
     }
 
     const updatedProject = await updateProject(id, {
@@ -101,6 +121,7 @@ export async function PATCH(
 
     return NextResponse.json(updatedProject);
   } catch (error) {
+    console.log(error);
     return NextResponse.json(updateProjectError.message, {
       status: 500,
     });

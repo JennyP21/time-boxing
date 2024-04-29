@@ -46,8 +46,8 @@ export const validateProject = z.object({
     .string()
     .trim()
     .min(1, "Project name is required"),
-  user_id: z.string().optional(),
-  team_id: z.string().optional(),
+  user_id: z.string().nullable().optional(),
+  team_id: z.string().nullable().optional(),
 });
 
 export const validateBucket = z.object({

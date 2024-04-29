@@ -1,11 +1,17 @@
 import { parseZodErr } from "@/components/utils";
-import { addProjectError } from "@/constants";
+import {
+  addProjectError,
+  notFoundError,
+} from "@/constants";
 import { addProject } from "@/data-access/project";
+import { getTeamById } from "@/data-access/team";
+import { getUserById } from "@/data-access/user";
 import { ProjectI } from "@/interfaces";
 import {
   validateProject,
   validateRequest,
 } from "@/validation";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = validateRequest(
@@ -22,6 +28,37 @@ export const POST = validateRequest(
             status: 400,
           }
         );
+
+      if (!data.team_id && !data.user_id) {
+        return NextResponse.json("Invalid data received.", {
+          status: 400,
+        });
+      }
+
+      if (data.team_id) {
+        const team = await getTeamById(data.team_id);
+        if (!team) {
+          return NextResponse.json(
+            notFoundError("Team").message,
+            {
+              status: 404,
+            }
+          );
+        }
+      }
+
+      if (data.user_id) {
+        const user = await getUserById(data.user_id);
+        const session = await getServerSession();
+        if (session && session.user.email !== user.email) {
+          return NextResponse.json(
+            notFoundError("User").message,
+            {
+              status: 404,
+            }
+          );
+        }
+      }
 
       const newProject = await addProject({
         ...data,
