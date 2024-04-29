@@ -131,7 +131,6 @@ export interface Task_AssigneeI {
 
 export interface TabI {
   name: string;
-  active: boolean;
 }
 
 export interface GetTeamMembersI {

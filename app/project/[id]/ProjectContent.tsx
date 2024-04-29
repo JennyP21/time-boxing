@@ -1,5 +1,6 @@
 import KanbanCanvas from '@/components/ui/Kanban/KanbanCanvas';
 import ListTable from '@/components/ui/List/ListTable';
+import { getView } from '@/components/utils/handleUserState';
 import { ProjectI, TabI } from '@/interfaces';
 
 interface Props {
@@ -8,11 +9,11 @@ interface Props {
 }
 
 const ProjectContent = ({ tabs, project }: Props) => {
-    const activeTab = tabs.find(tab => tab.active)!;
+    const currentView = getView(project.id) || "List";
 
     return (
         <>
-            {activeTab.name === "List" ?
+            {currentView === "List" ?
                 <ListTable project={project} />
                 :
                 <KanbanCanvas project={project} />

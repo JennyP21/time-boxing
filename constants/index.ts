@@ -272,10 +272,8 @@ export const panelItems = [
 export const tabsList = [
   {
     name: "List",
-    active: true,
   },
   {
     name: "Kanban",
-    active: false,
   },
 ];

@@ -1,6 +1,7 @@
 import AddOrUpdateProjectContainer from '@/app/AddOrUpdateProjectContainer';
 import GroupBySelector from '@/components/ui/Kanban/GroupBySelector';
 import ListByStatus from '@/components/ui/List/ListByStatus';
+import { getView } from '@/components/utils/handleUserState';
 import { ProjectI, TabI } from '@/interfaces';
 import { Flex, HStack, Heading } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
@@ -13,8 +14,8 @@ interface Props {
 }
 
 const ProjectHeader = ({ project, tabs, setTabs }: Props) => {
-    const activeTab = tabs.find(tab => tab.active)!;
     const session = useSession();
+    const currentView = getView(project.id) || "List";
 
     return (
         <HStack className='w-full justify-between' borderBottom="1px" p={1} borderColor={"gray.300"}>
@@ -25,12 +26,12 @@ const ProjectHeader = ({ project, tabs, setTabs }: Props) => {
                 {session.data && <AddOrUpdateProjectContainer user_id={session.data.user.id} currentProject={project} />}
             </Flex>
             <HStack>
-                {activeTab.name === "List" ?
+                {currentView === "List" ?
                     <ListByStatus />
                     :
                     <GroupBySelector />
                 }
-                <ViewTabs tabs={tabs} setTabs={setTabs} />
+                <ViewTabs tabs={tabs} setTabs={setTabs} currentTab={currentView} project_id={project.id} />
             </HStack>
         </HStack>
     )
