@@ -74,6 +74,17 @@ export const deleteTaskError = {
   type: "DELETE TASK",
   message: "Failed to delete task",
 };
+
+export const assignUserError = {
+  type: "ASSIGN USER",
+  message: "Failed to assign user",
+};
+
+export const unassignUserError = {
+  type: "UNASSIGN USER",
+  message: "Failed to unassign user",
+};
+
 ////////////////////////////////////////////
 
 // LABEL
@@ -176,16 +187,6 @@ export const updateTeamMemberRoleError = {
 export const getAssigneeError = {
   type: "GET ASSIGNEE",
   message: "Failed to retrieve assignee",
-};
-
-export const assignUserError = {
-  type: "ASSIGN USER",
-  message: "Failed to assign user",
-};
-
-export const unassignUserError = {
-  type: "UNASSIGN USER",
-  message: "Failed to unassign user",
 };
 
 export const lastOwnerError = {

@@ -1,5 +1,5 @@
 import { parseZodErr } from "@/components/utils";
-import { unassignTaskError } from "@/constants";
+import { unassignUserError } from "@/constants";
 import { unAssignUser } from "@/data-access/task_assignees";
 import {
   validateRequest,
@@ -26,7 +26,7 @@ export const POST = validateRequest(
 
       return NextResponse.json([]);
     } catch (error) {
-      return NextResponse.json(unassignTaskError.message, {
+      return NextResponse.json(unassignUserError.message, {
         status: 500,
       });
     }
