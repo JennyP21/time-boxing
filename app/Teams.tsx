@@ -19,7 +19,7 @@ const Teams = ({ user_id }: Props) => {
     const teams = convertToTeamList(data);
 
     const name = "team";
-    const currState = getIsExpanded(name) === 'true' ? true : false;
+    const currState = getIsExpanded(name) === 'true';
 
     return (
         <LeftPanelAccordion title='Teams' link='/team' isExpanded={currState} expandData={{ name, currState }}>

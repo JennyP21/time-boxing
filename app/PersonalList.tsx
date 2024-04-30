@@ -16,10 +16,10 @@ const PersonalList = ({ user_id }: Props) => {
     if (error) handleErrors(error, getProjectError.type);
 
     const name = "personal";
-    const currState = getIsExpanded(name) === 'true' ? true : false;
+    const currState = getIsExpanded(name) === 'true';
 
     return (
-        <LeftPanelAccordion title='Personal plans' isExpanded={currState} expandData={{ name, currState }}>
+        <LeftPanelAccordion title='Personal' isExpanded={currState} expandData={{ name, currState }}>
             {isLoading ? <Spinner /> :
                 <List>
                     {projects?.map((project) => (

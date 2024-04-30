@@ -13,7 +13,6 @@ const NavLinks = ({ session }: { session: Session | null }) => {
                         </MenuButton>
                         <MenuList fontSize={{ sm: "medium", base: "small" }}>
                             <MenuItem>Profile</MenuItem>
-                            <MenuItem>Settings</MenuItem>
                             <MenuItem href='/api/auth/signout' as={'a'}>Logout</MenuItem>
                         </MenuList>
                     </Menu>

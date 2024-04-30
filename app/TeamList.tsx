@@ -14,7 +14,7 @@ const TeamList = ({ teams: team }: TeamContainerI) => {
     if (error) handleErrors(error, getProjectError.type);
 
     const name = team.id;
-    const currState = getIsExpanded(name) === 'true' ? true : false;
+    const currState = getIsExpanded(name) === 'true';
 
     return (
         <LeftPanelAccordion title={team.name} link={`/team/${team.id}`} isExpanded={currState} expandData={{ name, currState }}>
