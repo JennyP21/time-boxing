@@ -21,7 +21,7 @@ const TaskDetails = ({ isOpen, onClose, task }: Props) => {
                 <ModalOverlay />
                 <ModalContent p={1} my={5} minWidth="45%">
                     <ModalHeader fontWeight="500" fontSize="small" pb={0}>
-                        <TaskDetailsHeader task_id={id} currentTitle={title} project_id={project_id} />
+                        <TaskDetailsHeader task={task} currentTitle={title} project_id={project_id} />
                     </ModalHeader>
                     <ModalBody py={0}>
                         <Stack textAlign="left" bg="white" width="100%" justifyContent="center">

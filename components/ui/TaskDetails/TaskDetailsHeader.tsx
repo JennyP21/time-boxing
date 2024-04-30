@@ -3,18 +3,19 @@ import { handleErrors } from '@/components/utils/handleErrors';
 import { updateTaskError } from '@/constants';
 import { TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
-import { Input, Text } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import AssignUserContainer from '../AssignUserContainer';
+import CheckTask from '../CheckTask';
 import LabelDetails from './LabelDetails';
 
 interface Props {
     project_id: string;
     currentTitle: string;
-    task_id: string;
+    task: TaskI;
 }
 
-const TaskDetailsHeader = ({ task_id, currentTitle, project_id }: Props) => {
+const TaskDetailsHeader = ({ task, currentTitle, project_id }: Props) => {
     const [title, setTitle] = useState(currentTitle);
     const [updateTask, { error }] = useUpdateTaskMutation();
 
@@ -23,7 +24,7 @@ const TaskDetailsHeader = ({ task_id, currentTitle, project_id }: Props) => {
     const handleSubmit = async () => {
         if (title !== currentTitle) {
             const data = {
-                id: task_id,
+                id: task.id,
                 title,
             } as TaskI;
             await updateTask(data);
@@ -33,17 +34,22 @@ const TaskDetailsHeader = ({ task_id, currentTitle, project_id }: Props) => {
     return (
         <>
             <Text mb={0.5} fontWeight={"700"}>Tasks</Text>
-            <Input
-                autoFocus
-                className='font-medium'
-                placeholder='Name of task'
-                defaultValue={title}
-                border="none"
-                onChange={(e) => setTitle(e.target.value)}
-                onBlur={handleSubmit}
-            />
-            <AssignUserContainer project_id={project_id} task_id={task_id} />
-            <LabelDetails task_id={task_id} project_id={project_id} />
+            <InputGroup size="sm">
+                <InputLeftElement>
+                    <CheckTask task={task} />
+                </InputLeftElement>
+                <Input
+                    autoFocus
+                    className='font-medium'
+                    placeholder='Name of task'
+                    defaultValue={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    onBlur={handleSubmit}
+                    _focus={{ boxShadow: "none" }}
+                />
+            </InputGroup>
+            <AssignUserContainer project_id={project_id} task_id={task.id} />
+            <LabelDetails task_id={task.id} project_id={project_id} />
         </>
     )
 }

@@ -22,7 +22,7 @@ const CheckTask = ({ task }: Props) => {
     };
 
     return (
-        <Checkbox size={"md"} defaultChecked={task.progress === "Completed"} onChange={() => handleTaskUpdate()} />
+        <Checkbox size="md" defaultChecked={task.progress === "Completed"} onChange={() => handleTaskUpdate()} />
     )
 }
 
