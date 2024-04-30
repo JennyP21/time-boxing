@@ -25,7 +25,7 @@ const GroupBySelector = () => {
 
     return (
         <Menu>
-            <MenuButton fontWeight="normal" fontSize="medium" as={Button} p={2} m={0} border="1px" borderColor="gray.300" rounded="10px" rightIcon={<FaAngleDown />}>
+            <MenuButton fontWeight="normal" fontSize="medium" as={Button} p={2} m={0} rounded="10px" rightIcon={<FaAngleDown />}>
                 Group By {searchParams.get("groupBy")}
             </MenuButton>
             <MenuList>
