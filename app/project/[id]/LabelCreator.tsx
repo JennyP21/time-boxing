@@ -10,7 +10,7 @@ interface Props {
     project_id: string;
 }
 
-const LabelEditor = ({ project_id }: Props) => {
+const LabelCreator = ({ project_id }: Props) => {
     const { data: labels, error } = useGetLabelsByProjectIdQuery(project_id);
     if (error) handleErrors(error, getLabelsError.type);
 
@@ -42,7 +42,7 @@ const LabelEditor = ({ project_id }: Props) => {
                             />
                         </MenuItem>
                     ))}
-                    <MenuItem as={Button} onClick={onOpen} justifyContent="start" >Create new label</MenuItem>
+                    <MenuItem as={Button} onClick={onOpen} justifyContent="start" >Add label</MenuItem>
                 </MenuList>
             </Menu>
             {labels && <AddLabel isOpen={isOpen} onClose={onClose} project_id={project_id} labels={labels} />}
@@ -50,4 +50,4 @@ const LabelEditor = ({ project_id }: Props) => {
     )
 }
 
-export default LabelEditor
+export default LabelCreator

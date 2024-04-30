@@ -16,10 +16,10 @@ const TaskDetails = ({ isOpen, onClose, task }: Props) => {
     const { id, severity, progress, note, title, start_date, end_date, showOnTask, project_id, created_at } = task;
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} isCentered>
-            <ModalOverlay />
-            <ModalContent p={1} my={5} minWidth="45%">
-                <form>
+        <form onSubmit={(e) => e.preventDefault()}>
+            <Modal isOpen={isOpen} onClose={onClose} isCentered>
+                <ModalOverlay />
+                <ModalContent p={1} my={5} minWidth="45%">
                     <ModalHeader fontWeight="500" fontSize="small" pb={0}>
                         <TaskDetailsHeader task_id={id} currentTitle={title} project_id={project_id} />
                     </ModalHeader>
@@ -38,9 +38,9 @@ const TaskDetails = ({ isOpen, onClose, task }: Props) => {
                         </Text>
                         <Button variant='ghost' onClick={onClose}>Close</Button>
                     </ModalFooter>
-                </form>
-            </ModalContent>
-        </Modal>
+                </ModalContent>
+            </Modal>
+        </form>
     )
 }
 

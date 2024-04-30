@@ -5,8 +5,8 @@ import { getView } from '@/components/utils/handleUserState';
 import { ProjectI, TabI } from '@/interfaces';
 import { Flex, HStack, Heading } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
+import LabelCreator from './LabelCreator';
 import ViewTabs from './ViewTabs';
-import LabelEditor from './LabelEditor';
 
 interface Props {
     project: ProjectI;
@@ -27,7 +27,7 @@ const ProjectHeader = ({ project, tabs, setTabs }: Props) => {
                 {session.data && <AddOrUpdateProjectContainer user_id={session.data.user.id} currentProject={project} />}
             </Flex>
             <HStack>
-                <LabelEditor project_id={project.id} />
+                <LabelCreator project_id={project.id} />
                 {currentView === "List" ?
                     <ListByStatus />
                     :
