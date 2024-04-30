@@ -29,7 +29,7 @@ const LabelCreator = ({ project_id }: Props) => {
                 </MenuButton>
                 <MenuList>
                     {labels && labels.map(label => (
-                        <MenuItem className='justify-between' _hover={{ bg: "gray.50" }}>
+                        <MenuItem className='justify-between' _hover={{ bg: "gray.50" }} key={label.id}>
                             <Text>{label.name}</Text>
                             <Icon
                                 cursor={isDeleting ? "not-allowed" : "pointer"}

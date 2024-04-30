@@ -78,3 +78,22 @@ export const isMember = (newUser: any, members: any) => {
     (member: any) => newUser.email === member.users.email
   );
 };
+
+export const adjustDates = (
+  start_date: string,
+  end_date: string,
+  shift: "start" | "end"
+) => {
+  let start = new Date(start_date);
+  let end = new Date(end_date);
+
+  if (start > end) {
+    const startDate = formatDate(start);
+    const endDate = formatDate(end);
+    return shift === "start"
+      ? [startDate, startDate]
+      : [endDate, endDate];
+  }
+
+  return [start_date, end_date];
+};

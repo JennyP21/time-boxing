@@ -1,4 +1,5 @@
 "use client"
+import { adjustDates } from '@/components/utils';
 import { handleErrors } from '@/components/utils/handleErrors';
 import { taskProgress, taskSeverity, updateTaskError } from '@/constants';
 import { TaskAttributesProps, TaskI } from '@/interfaces';
@@ -21,11 +22,13 @@ const TaskAttributes = ({ start_date, end_date, severity, progress, task_id }: T
     if (error) handleErrors(error, updateTaskError.type);
 
     const handleSubmit = async (dataToUpdate: DataToUpdate) => {
-        let newData = {};
+        let newData = {} as { start_date?: string, end_date?: string, severity?: string, progress?: string };
         if (dataToUpdate === "start_date" && startDate !== start_date) {
-            newData = { start_date: startDate };
+            const [start_date, end_date] = adjustDates(startDate, endDate, "start");
+            newData = { start_date, end_date };
         } else if (dataToUpdate === "end_date" && endDate !== end_date) {
-            newData = { end_date: endDate };
+            const [start_date, end_date] = adjustDates(startDate, endDate, "end");
+            newData = { start_date, end_date };
         } else if (dataToUpdate === "severity" && newSeverity !== severity) {
             newData = { severity: newSeverity };
         } else if (dataToUpdate === "progress" && newProgress !== progress) {
