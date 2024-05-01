@@ -1,39 +1,41 @@
 import { handleErrors } from '@/components/utils/handleErrors';
-import { addLabelError } from '@/constants';
-import { LabelI } from '@/interfaces';
-import { useAddLabelMutation } from '@/lib/features/labelApi';
+import { addBucketError } from '@/constants';
+import { BucketI, ProjectI } from '@/interfaces';
+import { useAddBucketMutation } from '@/lib/features/bucketApi';
 import { Box, Flex, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalHeader, ModalOverlay, Spinner } from '@chakra-ui/react';
 import { SyntheticEvent } from 'react';
 
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    project_id: string;
-    labels: LabelI[];
+    lastBucketOrder: number;
+    project: ProjectI;
+    buckets: BucketI[]
 }
 
-const AddLabel = ({ isOpen, onClose, project_id, labels }: Props) => {
+const BucketModal = ({ isOpen, onClose, lastBucketOrder, project, buckets }: Props) => {
+    const [addBucket, { error, isLoading }] = useAddBucketMutation();
 
-    const [addLabel, { isLoading: isAdding, error: labelAddError }] = useAddLabelMutation();
-    if (labelAddError) handleErrors(labelAddError, addLabelError.type);
+    if (error) handleErrors(error, addBucketError.type);
 
     const handleSubmit = async (e: SyntheticEvent) => {
-        const value = (e.target as HTMLInputElement).value;
-        if (value) {
+        const target = (e.target as HTMLInputElement);
+        if (target.value) {
             const data = {
-                name: value,
-                project_id,
-            } as LabelI;
-            await addLabel(data);
-        }
+                name: target.value,
+                order: lastBucketOrder + 1,
+                project_id: project.id
+            } as BucketI;
+            await addBucket(data);
+        };
     }
 
     return (
-        <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
             <ModalContent>
                 <ModalCloseButton />
-                <ModalHeader>Add Labels</ModalHeader>
+                <ModalHeader>Add Buckets</ModalHeader>
                 <ModalBody>
                     <InputGroup>
                         <Input
@@ -49,17 +51,17 @@ const AddLabel = ({ isOpen, onClose, project_id, labels }: Props) => {
                                 handleSubmit(e)
                                 e.target.value = "";
                             }}
-                            isDisabled={isAdding}
+                            isDisabled={isLoading}
                         />
-                        {isAdding &&
+                        {isLoading &&
                             <InputRightElement>
                                 <Spinner />
                             </InputRightElement>
                         }
                     </InputGroup>
                     <Flex className='gap-1 items-start justify-start w-full min-h-48 my-2 rounded-md p-1' border="1px" borderColor="gray.200">
-                        {labels.map((label) => (
-                            <Box as={"span"} className='rounded-md text-sm p-1' bg={"gray.300"} key={label.id}>{label.name}</Box>
+                        {buckets.map((bucket) => (
+                            <Box as={"span"} className='rounded-md text-sm p-1' bg={"gray.300"} key={bucket.id}>{bucket.name}</Box>
                         ))}
                     </Flex>
                 </ModalBody>
@@ -68,4 +70,4 @@ const AddLabel = ({ isOpen, onClose, project_id, labels }: Props) => {
     )
 }
 
-export default AddLabel
+export default BucketModal

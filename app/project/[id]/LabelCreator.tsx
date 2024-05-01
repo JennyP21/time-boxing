@@ -25,7 +25,7 @@ const LabelCreator = ({ project_id }: Props) => {
         <>
             <Menu closeOnSelect={false}>
                 <MenuButton as={Button} fontWeight="normal" fontSize="medium" rounded="10px" rightIcon={<FaAngleDown />}>
-                    List Label
+                    Labels
                 </MenuButton>
                 <MenuList>
                     {labels && labels.map(label => (
