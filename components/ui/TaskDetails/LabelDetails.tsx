@@ -14,13 +14,13 @@ interface Props {
 }
 
 const LabelDetails = ({ task_id, project_id }: Props) => {
-    const { data: labels, error: getTaskLabelsError } = useGetLabelsByTaskQuery(task_id);
+    const { data: assignedLabels, error: getTaskLabelsError } = useGetLabelsByTaskQuery(task_id);
     if (getTaskLabelsError) handleErrors(getTaskLabelsError, getLabelsError.type);
 
     const { data: allLabels, error: getAllLabelsError, isLoading } = useGetLabelsByProjectIdQuery(project_id);
     if (getAllLabelsError) handleErrors(getAllLabelsError, getLabelsError.type);
 
-    const filteredLabels = allLabels?.filter(label => !labels?.find(item => item.id === label.id));
+    const unassignedLabels = allLabels?.filter(label => !assignedLabels?.find(item => item.id === label.id));
 
     const [assignLabel, { error: labelAssignError }] = useAssignLabelMutation();
     if (labelAssignError) handleErrors(labelAssignError, assignLabelError.type);
@@ -44,12 +44,12 @@ const LabelDetails = ({ task_id, project_id }: Props) => {
 
     return (
         <Flex className='my-2'>
-            {filteredLabels && filteredLabels?.length > 0 && <Menu>
+            {unassignedLabels && unassignedLabels?.length > 0 && <Menu>
                 <MenuButton>
                     <Icon as={MdOutlineNewLabel} w={6} h={6} mr={2} />
                 </MenuButton>
                 <MenuList>
-                    {filteredLabels.map(label => (
+                    {unassignedLabels.map(label => (
                         <MenuItem key={label.id} onClick={() => handleLabelAssignment(label.id)} type="button">
                             <Text>{label.name}</Text>
                         </MenuItem>
@@ -58,7 +58,7 @@ const LabelDetails = ({ task_id, project_id }: Props) => {
                 </MenuList>
             </Menu>}
             <Flex gap={2}>
-                {labels && labels[0].id !== null && labels.map((label) => (
+                {assignedLabels && assignedLabels[0].id !== null && assignedLabels.map((label) => (
                     <Flex key={label.id} alignContent="center">
                         <Flex as={"span"} className='items-center rounded-md text-xs p-1 gap-1' bg={"gray.300"}>{label.name}
                             <Icon as={IoClose} className="rounded-full text-md" w={4} h={4} _hover={{
