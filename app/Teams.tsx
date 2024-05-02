@@ -19,7 +19,7 @@ const Teams = ({ user_id }: Props) => {
     const currState = getIsExpanded(name) === 'true';
 
     return (
-        <LeftPanelAccordion isRoot={true} title='Teams' link='/team' isExpanded={currState} expandData={{ name, currState }}>
+        <LeftPanelAccordion isRoot={true} title='All Teams' link='/team' isExpanded={currState} expandData={{ name, currState }}>
             {teams?.map(team => (
                 <React.Fragment key={team.id}>
                     <TeamList teams={team} />

@@ -9,7 +9,7 @@ interface Props {
 
 const Projects = ({ title, projects }: Props) => {
     return (
-        <Box className='mb-5 p-2 shadow-md rounded-lg' borderTop="1px" borderColor="gray.100">
+        <Box className='mb-5 p-2 shadow-inner rounded-xl' borderBottom="2px" borderColor="gray.200">
             <Heading as="h4" size="md">{title}</Heading>
             <Flex className='gap-2 p-2'>
                 {projects.map(project => (
