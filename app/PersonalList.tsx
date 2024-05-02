@@ -19,7 +19,7 @@ const PersonalList = ({ user_id }: Props) => {
     const currState = getIsExpanded(name) === 'true';
 
     return (
-        <LeftPanelAccordion title='Personal' isExpanded={currState} expandData={{ name, currState }}>
+        <LeftPanelAccordion isRoot={true} title='Personal' isExpanded={currState} expandData={{ name, currState }}>
             {isLoading ? <Spinner /> :
                 <List>
                     {projects?.map((project) => (

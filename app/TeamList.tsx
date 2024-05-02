@@ -17,7 +17,7 @@ const TeamList = ({ teams: team }: TeamContainerI) => {
     const currState = getIsExpanded(name) === 'true';
 
     return (
-        <LeftPanelAccordion title={team.name} link={`/team/${team.id}`} isExpanded={currState} expandData={{ name, currState }}>
+        <LeftPanelAccordion isRoot={false} title={team.name} link={`/team/${team.id}`} isExpanded={currState} expandData={{ name, currState }}>
             {isLoading ? <Spinner /> : <List>
                 {projects?.map((project) => (
                     <ListItem key={project.id} className='px-1 rounded-lg cursor-pointer' _hover={{ bg: "gray.100" }}>
