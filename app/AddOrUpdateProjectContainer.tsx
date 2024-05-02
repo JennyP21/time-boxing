@@ -1,4 +1,3 @@
-import { convertToTeamList } from "@/components/utils";
 import { handleErrors } from "@/components/utils/handleErrors";
 import { getProjectError } from "@/constants";
 import { ProjectI } from "@/interfaces";
@@ -27,7 +26,7 @@ const AddOrUpdateProjectContainer = ({ user_id, currentProject }: Props) => {
                     Add Project
                 </Button>
             }
-            <AddOrUpdateProject onClose={onClose} isOpen={isOpen} teams={convertToTeamList(teams)} user_id={user_id} currentProject={currentProject} />
+            {teams && <AddOrUpdateProject onClose={onClose} isOpen={isOpen} teams={teams} user_id={user_id} currentProject={currentProject} />}
         </>
     )
 }

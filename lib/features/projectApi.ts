@@ -32,6 +32,21 @@ export const projectsApi = createApi({
         "deleteProject",
       ],
     }),
+    getProjectsByTeamIds: builder.query<
+      ProjectI[],
+      string[]
+    >({
+      query: (team_ids) => ({
+        url: `/project/team`,
+        method: "POST",
+        body: team_ids,
+      }),
+      providesTags: [
+        "addProject",
+        "updateProject",
+        "deleteProject",
+      ],
+    }),
     getProjectsByUserId: builder.query<ProjectI[], string>({
       query: (user_id: string) =>
         `/project/user/${user_id}`,
@@ -70,6 +85,7 @@ export const projectsApi = createApi({
 export const {
   useGetProjectsByTeamIdQuery,
   useGetProjectsByUserIdQuery,
+  useGetProjectsByTeamIdsQuery,
   useGetProjectQuery,
   useAddProjectMutation,
   useUpdateProjectMutation,

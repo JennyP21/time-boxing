@@ -17,7 +17,9 @@ export async function getTeamsByUserId(user_id: string) {
     )
     .where(eq(team_members.user_id, user_id));
 
-  return teamsByUserId;
+  return teamsByUserId.length > 0
+    ? teamsByUserId.map((item) => item.teams)
+    : [];
 }
 
 export async function getTeamById(team_id: string) {

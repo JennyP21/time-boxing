@@ -30,6 +30,18 @@ export async function getProjectsByTeamId(team_id: string) {
   return result;
 }
 
+export async function getProjectsByTeamIds(
+  team_ids: string[]
+) {
+  const projects = [];
+  for (const team_id of team_ids) {
+    const teamProjects = await getProjectsByTeamId(team_id);
+    projects.push(...teamProjects);
+  }
+
+  return projects;
+}
+
 export async function addProject(project: ProjectI) {
   const newProject = await db
     .insert(projects)

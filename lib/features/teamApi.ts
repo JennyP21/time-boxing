@@ -1,6 +1,5 @@
 import {
   AddMemberI,
-  TeamContainerI,
   GetTeamMembersI,
   RemoveMemberI,
   TeamI,
@@ -29,10 +28,7 @@ export const teamApi = createApi({
     baseUrl: "http://localhost:3000/api",
   }),
   endpoints: (builder) => ({
-    getTeamsByUserId: builder.query<
-      TeamContainerI[],
-      string
-    >({
+    getTeamsByUserId: builder.query<TeamI[], string>({
       query: (user_id) => `team/user/${user_id}`,
       providesTags: ["addTeam", "updateTeam", "deleteTeam"],
     }),

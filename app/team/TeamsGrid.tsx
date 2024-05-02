@@ -1,5 +1,4 @@
 import TeamsGridLoading from '@/components/loading/TeamsGridLoading';
-import { convertToTeamList } from '@/components/utils';
 import { handleErrors } from '@/components/utils/handleErrors';
 import { getTeamsError } from '@/constants';
 import { useGetTeamsByUserIdQuery } from '@/lib/features/teamApi';
@@ -12,11 +11,9 @@ interface Props {
 }
 
 const TeamsGrid = ({ user_id }: Props) => {
-    const { data, error, isLoading } = useGetTeamsByUserIdQuery(user_id);
+    const { data: teams, error, isLoading } = useGetTeamsByUserIdQuery(user_id);
 
     if (error) handleErrors(error, getTeamsError.type);
-
-    const teams = convertToTeamList(data);
 
     return (
         <>
@@ -24,7 +21,7 @@ const TeamsGrid = ({ user_id }: Props) => {
                 <TeamsGridLoading />
                 :
                 <Flex className='gap-2 flex-wrap'>
-                    {teams.map(team => (
+                    {teams?.map(team => (
                         <React.Fragment key={team.id}>
                             <TeamCard teams={team} />
                         </React.Fragment>
