@@ -13,7 +13,7 @@ const Projects = ({ title, projects }: Props) => {
             <Heading as="h4" size="md">{title}</Heading>
             <Flex className='gap-2 p-2'>
                 {projects.map(project => (
-                    <ProjectCard project={project} />
+                    <ProjectCard project={project} key={project.id} />
                 ))}
             </Flex>
         </Box>

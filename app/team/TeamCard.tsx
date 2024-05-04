@@ -2,6 +2,7 @@ import { TeamContainerI } from '@/interfaces'
 import { Card, CardBody, CardHeader, Heading, Text } from '@chakra-ui/react'
 import TeamOptionsContainer from './TeamOptionsContainer'
 import { Link } from '@chakra-ui/next-js'
+import { formatDate } from '@/components/utils'
 
 const TeamCard = ({ teams }: TeamContainerI) => {
     return (
@@ -18,6 +19,7 @@ const TeamCard = ({ teams }: TeamContainerI) => {
             </CardHeader>
             <CardBody>
                 <Text fontSize="small">{teams.desc}</Text>
+                <Text className='text-xs text-gray-400'>Created at {formatDate(teams.created_at)}</Text>
             </CardBody>
         </Card>
     )
