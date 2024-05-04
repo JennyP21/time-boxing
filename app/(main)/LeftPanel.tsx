@@ -20,11 +20,11 @@ const LeftPanel = () => {
                 bg="white"
                 p={2}
             >
-                <Link className='w-full' href="/" _hover={{ textDecor: "none" }}>
+                <Link className='w-full' href="/dashboard" _hover={{ textDecor: "none" }}>
                     <HStack className='justify-between px-2 py-1 rounded-lg' border="1px" borderColor="gray.300" _hover={{
                         bg: "gray.100"
                     }}>
-                        <Text className='font-medium text-sm'>Home</Text>
+                        <Text className='font-medium text-sm'>Dashboard</Text>
                         <Icon as={IoHomeOutline} w={4} h={4} />
                     </HStack>
                 </Link>

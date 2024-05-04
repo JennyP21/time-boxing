@@ -1,4 +1,3 @@
-import AddOrUpdateProjectContainer from '@/app/AddOrUpdateProjectContainer';
 import GroupBySelector from '@/components/ui/Kanban/GroupBySelector';
 import ListByStatus from '@/components/ui/List/ListByStatus';
 import { getView } from '@/components/utils/handleUserState';
@@ -7,6 +6,7 @@ import { Link } from '@chakra-ui/next-js';
 import { Flex, Heading, HStack, Icon, Text } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { FaCaretRight } from 'react-icons/fa';
+import AddOrUpdateProjectContainer from '../../AddOrUpdateProjectContainer';
 import LabelCreator from './LabelCreator';
 import ViewTabs from './ViewTabs';
 

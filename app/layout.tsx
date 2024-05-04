@@ -1,13 +1,12 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
-import LeftPanel from "./LeftPanel";
-import Navbar from "./Navbar";
-import UIProvider from "./UIProvider";
+import { ToastContainer } from "../components/error/Toast";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
+import Navbar from "./Navbar";
 import ReduxProvider from "./ReduxProvider";
-import { ToastContainer } from "../components/error/Toast";
+import UIProvider from "./UIProvider";
 
 const openSans = Open_Sans({
   weight: ["300", "500", "700"],
@@ -32,12 +31,7 @@ export default function RootLayout({
             <UIProvider>
               <Flex className="flex-col h-full">
                 <Navbar />
-                <Flex className="w-full h-full mt-16">
-                  <LeftPanel />
-                  <Box className="w-[calc(100%-var(--left-panel-size))] max-md:w-full">
-                    {children}
-                  </Box>
-                </Flex>
+                {children}
               </Flex>
             </UIProvider>
           </AuthProvider>

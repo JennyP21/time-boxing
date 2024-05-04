@@ -1,21 +1,30 @@
-import { Button, Center, Link, Menu, MenuButton, MenuItem, MenuList, Stack } from '@chakra-ui/react';
+"use client"
+import { Link } from '@chakra-ui/next-js';
+import { Button, Center, HStack, Menu, MenuButton, MenuItem, MenuList, Stack } from '@chakra-ui/react';
 import { Session } from 'next-auth';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 
 const NavLinks = ({ session }: { session: Session | null }) => {
+    const currPath = usePathname();
     return (
         <>
             {session ?
                 <Center>
-                    <Menu>
-                        <MenuButton as={Button} borderRadius="50%" colorScheme='gray' minWidth={{ base: 10 }} minHeight={{ base: 10 }} overflow={'hidden'}>
-                            <Image src={session.user.image || "/fallback-user.webp"} fill className='object-cover' alt="profile" />
-                        </MenuButton>
-                        <MenuList fontSize={{ sm: "medium", base: "small" }}>
-                            <MenuItem>Profile</MenuItem>
-                            <MenuItem href='/api/auth/signout' as={'a'}>Logout</MenuItem>
-                        </MenuList>
-                    </Menu>
+                    <HStack>
+                        <Button colorScheme='blue' variant="outline" size="sm">
+                            <Link href={currPath === '/' ? '/dashboard' : '/'}>{currPath === '/' ? 'Dashboard' : 'Home'}</Link>
+                        </Button>
+                        <Menu>
+                            <MenuButton as={Button} borderRadius="50%" colorScheme='gray' minWidth={{ base: 10 }} minHeight={{ base: 10 }} overflow={'hidden'}>
+                                <Image src={session.user.image || "/fallback-user.webp"} fill className='object-cover' alt="profile" />
+                            </MenuButton>
+                            <MenuList fontSize={{ sm: "medium", base: "small" }}>
+                                <MenuItem>Profile</MenuItem>
+                                <MenuItem href='/api/auth/signout' as={'a'}>Logout</MenuItem>
+                            </MenuList>
+                        </Menu>
+                    </HStack>
                 </Center>
                 :
                 <Stack

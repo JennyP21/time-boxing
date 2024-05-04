@@ -1,9 +1,9 @@
-import { Heading } from "@chakra-ui/react";
+import React from 'react'
 
-export default function Home() {
-  return (
-    <main>
-      <Heading></Heading>
-    </main>
-  );
+const Home = () => {
+    return (
+        <div>Home</div>
+    )
 }
+
+export default Home
