@@ -20,6 +20,22 @@ export async function getTasksByProjectId(
   return allTasks;
 }
 
+export async function getTasksByProjectIds(
+  project_ids: string[]
+) {
+  const allTasks = [];
+  for (const project_id of project_ids) {
+    const currTasks = await db
+      .select()
+      .from(tasks)
+      .where(eq(tasks.project_id, project_id));
+
+    allTasks.push(...currTasks);
+  }
+
+  return allTasks;
+}
+
 export async function getTasksByBucket(bucket_id: string) {
   const tasksByBucket = await db
     .select()

@@ -1,7 +1,9 @@
 import {
   CustomMembersI,
   GetTeamMembersI,
+  TaskBySeverityCount,
   TaskContainerI,
+  TaskI,
   TeamContainerI,
   ZErr,
 } from "@/interfaces";
@@ -96,4 +98,41 @@ export const adjustDates = (
   }
 
   return [start_date, end_date];
+};
+
+export const convertToTasksBySeverity = (
+  tasks: TaskI[]
+) => {
+  let taskBySeverity: TaskBySeverityCount[] = [
+    {
+      severity: "Low",
+      taskCount: 0,
+    },
+    {
+      severity: "Medium",
+      taskCount: 0,
+    },
+    {
+      severity: "High",
+      taskCount: 0,
+    },
+    {
+      severity: "Urgent",
+      taskCount: 0,
+    },
+  ];
+
+  for (const task of tasks) {
+    if (task.severity === "Low") {
+      taskBySeverity[0].taskCount++;
+    } else if (task.severity === "Medium") {
+      taskBySeverity[1].taskCount++;
+    } else if (task.severity === "High") {
+      taskBySeverity[2].taskCount++;
+    } else {
+      taskBySeverity[3].taskCount++;
+    }
+  }
+
+  return taskBySeverity;
 };

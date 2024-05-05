@@ -86,6 +86,11 @@ export interface TaskContainerI {
   tasks: TaskI;
 }
 
+export interface TaskBySeverityCount {
+  severity: "Low" | "Medium" | "High" | "Urgent";
+  taskCount: number;
+}
+
 export interface StepsI {
   id: string;
   task_id: string;

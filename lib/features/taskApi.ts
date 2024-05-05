@@ -32,6 +32,14 @@ export const taskApi = createApi({
         `/project/${project_id}/task`,
       providesTags: ["addTask", "deleteTask", "updateTask"],
     }),
+    getTasksByProjectIds: builder.query<TaskI[], string[]>({
+      query: (project_ids: string[]) => ({
+        url: `/task/project`,
+        method: "POST",
+        body: project_ids,
+      }),
+      providesTags: ["addTask", "deleteTask", "updateTask"],
+    }),
     getTasksByBucket: builder.query<TaskI[], string>({
       query: (id: string) => `/bucket/${id}/tasks`,
       providesTags: ["addTask", "deleteTask", "updateTask"],
@@ -95,6 +103,7 @@ export const taskApi = createApi({
 
 export const {
   useGetAssigneesByTaskIdQuery,
+  useGetTasksByProjectIdsQuery,
   useAssignUserMutation,
   useUnAssignUserMutation,
   useGetTasksByProjectIdQuery,
