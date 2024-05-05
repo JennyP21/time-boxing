@@ -24,11 +24,19 @@ const TaskAttributes = ({ start_date, end_date, severity, progress, task_id }: T
     const handleSubmit = async (dataToUpdate: DataToUpdate) => {
         let newData = {} as { start_date?: string, end_date?: string, severity?: string, progress?: string };
         if (dataToUpdate === "start_date" && startDate !== start_date) {
-            const [start_date, end_date] = adjustDates(startDate, endDate, "start");
-            newData = { start_date, end_date };
+            if (end_date) {
+                const [start_date, end_date] = adjustDates(startDate, endDate, "start");
+                newData = { start_date, end_date };
+            } else {
+                newData = { start_date: startDate };
+            }
         } else if (dataToUpdate === "end_date" && endDate !== end_date) {
-            const [start_date, end_date] = adjustDates(startDate, endDate, "end");
-            newData = { start_date, end_date };
+            if (start_date) {
+                const [start_date, end_date] = adjustDates(startDate, endDate, "end");
+                newData = { start_date, end_date };
+            } else {
+                newData = { end_date: endDate };
+            }
         } else if (dataToUpdate === "severity" && newSeverity !== severity) {
             newData = { severity: newSeverity };
         } else if (dataToUpdate === "progress" && newProgress !== progress) {

@@ -136,3 +136,16 @@ export const convertToTasksBySeverity = (
 
   return taskBySeverity;
 };
+
+export const getTopUpcomingTasks = (tasks: TaskI[]) => {
+  const filteredTasks = tasks
+    .filter((task) => task.end_date)
+    .slice(0, 5);
+  filteredTasks.sort((a, b) => {
+    const dateA = new Date(a.end_date);
+    const dateB = new Date(b.end_date);
+    return dateA.getTime() - dateB.getTime();
+  });
+
+  return filteredTasks;
+};
