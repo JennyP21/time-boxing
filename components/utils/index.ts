@@ -1,6 +1,7 @@
 import {
   CustomMembersI,
   GetTeamMembersI,
+  TaskByProgressCount,
   TaskBySeverityCount,
   TaskContainerI,
   TaskI,
@@ -100,9 +101,7 @@ export const adjustDates = (
   return [start_date, end_date];
 };
 
-export const convertToTasksBySeverity = (
-  tasks: TaskI[]
-) => {
+export const groupBySeverityCount = (tasks: TaskI[]) => {
   let taskBySeverity: TaskBySeverityCount[] = [
     {
       severity: "Low",
@@ -135,6 +134,41 @@ export const convertToTasksBySeverity = (
   }
 
   return taskBySeverity;
+};
+
+export const groupByProgressCount = (tasks: TaskI[]) => {
+  let taskByProgress: TaskByProgressCount[] = [
+    {
+      progress: "Not Started",
+      taskCount: 0,
+    },
+    {
+      progress: "In Progress",
+      taskCount: 0,
+    },
+    {
+      progress: "On Hold",
+      taskCount: 0,
+    },
+    {
+      progress: "Completed",
+      taskCount: 0,
+    },
+  ];
+
+  for (const task of tasks) {
+    if (task.progress === "Not Started") {
+      taskByProgress[0].taskCount++;
+    } else if (task.progress === "In Progress") {
+      taskByProgress[1].taskCount++;
+    } else if (task.progress === "On Hold") {
+      taskByProgress[2].taskCount++;
+    } else {
+      taskByProgress[3].taskCount++;
+    }
+  }
+
+  return taskByProgress;
 };
 
 export const getTopUpcomingTasks = (tasks: TaskI[]) => {

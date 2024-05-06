@@ -1,8 +1,9 @@
-import { convertToTasksBySeverity, getTopUpcomingTasks } from '@/components/utils';
+import { getTopUpcomingTasks, groupByProgressCount, groupBySeverityCount } from '@/components/utils';
 import { TaskI } from '@/interfaces';
-import TasksBySeverityCount from './TasksBySeverityCount';
-import { Flex } from '@chakra-ui/react';
+import { Grid } from '@chakra-ui/react';
 import TasksByDueDate from './TasksByDueDate';
+import TasksBySeverityCount from './TasksBySeverityCount';
+import TasksStatus from './TasksStatus';
 
 interface Props {
     tasks: TaskI[] | undefined;
@@ -10,14 +11,16 @@ interface Props {
 
 const ChartWrapper = ({ tasks }: Props) => {
     if (!tasks) return null;
-    const tasksBySeverityCount = convertToTasksBySeverity(tasks);
+    const tasksBySeverityCount = groupBySeverityCount(tasks);
+    const tasksByProgressCount = groupByProgressCount(tasks);
     const topUpcomingTasks = getTopUpcomingTasks(tasks);
 
     return (
-        <Flex className='gap-3 flex-wrap p-3'>
-            <TasksBySeverityCount data={tasksBySeverityCount} />
+        <Grid className='p-3 gap-3' templateRows='repeat(2, 1fr)' templateColumns='repeat(2, 1fr)'>
+            <TasksStatus data={tasksByProgressCount} />
             <TasksByDueDate tasks={topUpcomingTasks} />
-        </Flex>
+            <TasksBySeverityCount data={tasksBySeverityCount} />
+        </Grid>
     )
 }
 

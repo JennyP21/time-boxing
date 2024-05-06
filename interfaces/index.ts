@@ -91,6 +91,15 @@ export interface TaskBySeverityCount {
   taskCount: number;
 }
 
+export interface TaskByProgressCount {
+  progress:
+    | "Not Started"
+    | "In Progress"
+    | "On Hold"
+    | "Completed";
+  taskCount: number;
+}
+
 export interface StepsI {
   id: string;
   task_id: string;

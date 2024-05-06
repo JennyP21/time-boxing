@@ -1,7 +1,7 @@
 "use client"
 import { TaskBySeverityCount } from '@/interfaces';
 import { Flex } from '@chakra-ui/react';
-import { Bar, BarChart, Cell, ResponsiveContainer, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, Cell, LabelList, ResponsiveContainer, XAxis } from 'recharts';
 import ChartHeading from './ChartHeading';
 
 interface Props {
@@ -17,13 +17,13 @@ const severityColorMap = {
 
 const TasksBySeverityCount = ({ data }: Props) => {
     return (
-        <Flex className='flex-col items-center gap-5 rounded-lg' border='1px' borderColor='gray.300' w={400} h={300}>
+        <Flex className='flex-col items-center gap-5 rounded-lg' border='1px' borderColor='gray.300'>
             <ChartHeading>Count of tasks by severity</ChartHeading>
-            <ResponsiveContainer className='-translate-x-5'>
+            <ResponsiveContainer>
                 <BarChart data={data}>
                     <XAxis dataKey='severity' />
-                    <YAxis />
                     <Bar dataKey='taskCount' barSize={30}>
+                        <LabelList dataKey='taskCount' position='insideTop' fill='#fff' />
                         {
                             data.map(item => (
                                 <Cell key={item.severity} fill={severityColorMap[item.severity]} />

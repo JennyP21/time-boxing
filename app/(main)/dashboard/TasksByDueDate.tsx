@@ -10,7 +10,7 @@ interface Props {
 const TasksByDueDate = ({ tasks }: Props) => {
     const today = new Date();
     return (
-        <Flex className='flex-col rounded-lg' width={300} border='1px' borderColor='gray.300'>
+        <Flex className='flex-col rounded-lg' border='1px' borderColor='gray.300'>
             <ChartHeading>Top Upcoming tasks</ChartHeading>
             <Table size="md">
                 <Thead>

@@ -224,6 +224,7 @@ export const taskSeverity = [
   "High",
   "Urgent",
 ];
+
 export const taskProgress = [
   "Not Started",
   "In Progress",
