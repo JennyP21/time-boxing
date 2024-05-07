@@ -9,7 +9,7 @@ interface Props {
 
 const ProjectCard = ({ project }: Props) => {
     return (
-        <Card className='shadow-md hover:shadow-lg' border="1px" borderColor="gray.100" maxW="14rem" minW="16rem" _hover={{
+        <Card className='shadow-md hover:shadow-lg' border="1px" borderColor="gray.100" maxW="15rem" minW="15rem" _hover={{
             scale: 1.1,
         }}>
             <CardHeader pb={1} position="relative">

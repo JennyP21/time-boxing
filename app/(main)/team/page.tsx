@@ -1,5 +1,5 @@
 "use client"
-import { Box } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import TeamHeading from './TeamHeading';
 import TeamsGrid from './TeamsGrid';
@@ -9,12 +9,12 @@ const TeamsPage = () => {
     const user_id = session.data?.user.id;
 
     return (
-        <Box>
+        <Flex className='flex-col w-full h-full'>
             <TeamHeading>All Teams</TeamHeading>
-            <Box className='p-5'>
+            <Box className='p-3 overflow-scroll'>
                 {user_id && <TeamsGrid user_id={user_id} />}
             </Box>
-        </Box>
+        </Flex>
     )
 }
 

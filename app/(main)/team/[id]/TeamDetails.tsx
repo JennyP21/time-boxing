@@ -21,7 +21,7 @@ const TeamDetails = ({ team_id }: Props) => {
     if (!team) return null;
 
     return (
-        <>
+        <Flex className='flex-col w-full h-full'>
             <TeamHeading>
                 <Flex className='gap-3 items-center'>
                     <Link href="/team">All Teams</Link>
@@ -31,12 +31,12 @@ const TeamDetails = ({ team_id }: Props) => {
             </TeamHeading>
             {isLoading ? <TeamInfoLoading />
                 :
-                <Flex className='flex-col gap-3 p-5'>
+                <Flex className='flex-col gap-3 p-5 flex-[1_0_0] overflow-scroll'>
                     <TeamInfo name={team.name} desc={team.desc} />
                     <ManageMembers team={team} />
                 </Flex>
             }
-        </>
+        </Flex>
     )
 }
 

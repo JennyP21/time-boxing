@@ -1,6 +1,6 @@
 import { getLateTasks, getTopUpcomingTasks, groupByProgressCount, groupBySeverityCount } from '@/components/utils';
 import { TaskI } from '@/interfaces';
-import { Grid } from '@chakra-ui/react';
+import { Grid, SimpleGrid } from '@chakra-ui/react';
 import TasksBySeverityCount from './TasksBySeverityCount';
 import TasksStatus from './TasksStatus';
 import TasksTable from './TasksTable';
@@ -17,12 +17,15 @@ const ChartWrapper = ({ tasks }: Props) => {
     const topLateTasks = getLateTasks(tasks);
 
     return (
-        <Grid className='p-3 gap-3' templateRows='repeat(2, 1fr)' templateColumns='repeat(2, 1fr)'>
+        <SimpleGrid
+            className='p-3 gap-3 flex-[1_0_0]'
+            columns={{ base: 1, lg: 2 }}
+        >
             <TasksStatus data={tasksByProgressCount} />
             <TasksTable title="Upcoming tasks" tasks={topUpcomingTasks} />
             <TasksBySeverityCount data={tasksBySeverityCount} />
             <TasksTable title="Late tasks" tasks={topLateTasks} />
-        </Grid>
+        </SimpleGrid>
     )
 }
 
