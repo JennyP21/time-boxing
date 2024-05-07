@@ -4,14 +4,15 @@ import ChartHeading from './ChartHeading';
 import { Link } from '@chakra-ui/next-js';
 
 interface Props {
+    title: string;
     tasks: TaskI[];
 }
 
-const TasksByDueDate = ({ tasks }: Props) => {
+const TasksTable = ({ tasks, title }: Props) => {
     const today = new Date();
     return (
         <Flex className='flex-col rounded-lg' border='1px' borderColor='gray.300'>
-            <ChartHeading>Top Upcoming tasks</ChartHeading>
+            <ChartHeading>{title}</ChartHeading>
             <Table size="md">
                 <Thead>
                     <Tr>
@@ -36,4 +37,4 @@ const TasksByDueDate = ({ tasks }: Props) => {
     )
 }
 
-export default TasksByDueDate
+export default TasksTable

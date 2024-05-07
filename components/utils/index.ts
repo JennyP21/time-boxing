@@ -172,14 +172,29 @@ export const groupByProgressCount = (tasks: TaskI[]) => {
 };
 
 export const getTopUpcomingTasks = (tasks: TaskI[]) => {
-  const filteredTasks = tasks
-    .filter((task) => task.end_date)
-    .slice(0, 5);
+  const filteredTasks = tasks.filter(
+    (task) =>
+      task.end_date && new Date(task.end_date) > new Date()
+  );
   filteredTasks.sort((a, b) => {
     const dateA = new Date(a.end_date);
     const dateB = new Date(b.end_date);
     return dateA.getTime() - dateB.getTime();
   });
 
-  return filteredTasks;
+  return filteredTasks.slice(0, 5);
+};
+
+export const getLateTasks = (tasks: TaskI[]) => {
+  const filteredTasks = tasks.filter(
+    (task) =>
+      task.end_date && new Date(task.end_date) < new Date()
+  );
+  filteredTasks.sort((a, b) => {
+    const dateA = new Date(a.end_date);
+    const dateB = new Date(b.end_date);
+    return dateA.getTime() - dateB.getTime();
+  });
+
+  return filteredTasks.slice(0, 5);
 };
