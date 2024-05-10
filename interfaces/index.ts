@@ -165,3 +165,12 @@ export interface ZErr {
   issues: ZodIssue[];
   name: string;
 }
+
+export interface Feature {
+  header: string;
+  body: string;
+  linkText: string;
+  link: string;
+  image: string;
+  active: boolean;
+}

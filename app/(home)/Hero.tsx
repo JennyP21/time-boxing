@@ -13,7 +13,7 @@ const Hero = () => {
         >
             <Flex className='flex-col gap-3 text-slate-100'>
                 <Heading textAlign="end" size="lg">
-                    Who<br /> Unify tasks, teams, and triumphs?
+                    Who Unify <br />Tasks, Teams, and Triumphs?
                 </Heading>
                 <Heading textAlign="end" size="md">- Its Time Boxing.</Heading>
             </Flex>

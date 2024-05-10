@@ -1,3 +1,4 @@
+import { Feature } from "@/interfaces";
 import { BsKanban } from "react-icons/bs";
 import { FaRegListAlt } from "react-icons/fa";
 import { IoHomeOutline } from "react-icons/io5";
@@ -276,5 +277,32 @@ export const tabsList = [
   },
   {
     name: "Kanban",
+  },
+];
+
+export const features: Feature[] = [
+  {
+    header: "Kanban View",
+    body: "You can view your tasks in this view to have Big picture of all your project",
+    linkText: "Learn More",
+    link: "",
+    image: "/images/kanban.png",
+    active: false,
+  },
+  {
+    header: "List View",
+    body: "You can view your tasks in this view to have consolidated view of your project",
+    linkText: "Learn More",
+    link: "",
+    image: "/images/list.png",
+    active: true,
+  },
+  {
+    header: "Card Details",
+    body: "Each task with have a card detailed view for deeper visibility",
+    linkText: "Learn More",
+    link: "",
+    image: "/images/task-details.png",
+    active: false,
   },
 ];
