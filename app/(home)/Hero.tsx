@@ -1,11 +1,11 @@
-import { Box, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
+import { Box, Flex, Grid, Heading } from '@chakra-ui/react';
 import Image from 'next/image';
 
 const Hero = () => {
     return (
-        <SimpleGrid
-            className='flex-col w-full p-10 items-center gap-8 mx-auto'
-            columns={{ sm: 1, md: 2 }}
+        <Grid
+            className='flex-col w-full py-16 px-32 items-center justify-center'
+            templateColumns={{ sm: "1fr", md: '1fr 1fr' }}
             backgroundColor="teal.400"
             style={{
                 clipPath: 'polygon(0 0, 100% 0, 100% 85%, 85% 100%, 50% 90%, 15% 100%, 0 85%, 0% 30%)'
@@ -18,9 +18,9 @@ const Hero = () => {
                 <Heading textAlign="end" size="md">- Its Time Boxing.</Heading>
             </Flex>
             <Box>
-                <Image src="/images/hero.webp" width={500} height={350} alt='Hero image' />
+                <Image src="/images/hero.webp" width={600} height={450} alt='Hero image' />
             </Box>
-        </SimpleGrid>
+        </Grid>
     )
 }
 

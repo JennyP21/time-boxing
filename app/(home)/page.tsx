@@ -7,7 +7,6 @@ const Home = () => {
     return (
         <Flex className='flex-col mt-16 gap-5 overflow-y-auto'>
             <Hero />
-            <Divider />
             <Features />
         </Flex>
     )

@@ -280,29 +280,37 @@ export const tabsList = [
   },
 ];
 
+// Features PAGE
+
+export const featureIntro =
+  "Getting started with Time Boxing";
+
+export const featureDesc =
+  "Take control of your projects. Our powerful yet flexible system uses boards, lists, and cards for a crystal-clear view of everything. See exactly who's doing what and what needs to be done next – all at a glance.";
+
 export const features: Feature[] = [
   {
     header: "Kanban View",
     body: "You can view your tasks in this view to have Big picture of all your project",
     linkText: "Learn More",
     link: "",
-    image: "/images/kanban.png",
-    active: false,
+    image: "/images/kanban.webp",
+    active: true,
   },
   {
     header: "List View",
     body: "You can view your tasks in this view to have consolidated view of your project",
     linkText: "Learn More",
     link: "",
-    image: "/images/list.png",
-    active: true,
+    image: "/images/list.webp",
+    active: false,
   },
   {
     header: "Card Details",
     body: "Each task with have a card detailed view for deeper visibility",
     linkText: "Learn More",
     link: "",
-    image: "/images/task-details.png",
+    image: "/images/task-details.webp",
     active: false,
   },
 ];
