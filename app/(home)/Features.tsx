@@ -22,7 +22,7 @@ const Features = () => {
     }
 
     return (
-        <Flex className='my-10 mx-40 flex-col justify-center gap-3'>
+        <Flex className='py-10 px-40 flex-col justify-center gap-3' bgGradient="linear(to-bl, teal.100, blue.100)">
             <Heading pl={3} size="lg" fontWeight="semibold">{featureIntro}</Heading>
             <Text pl={3} maxW={600}>
                 {featureDesc}

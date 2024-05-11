@@ -1,21 +1,21 @@
+import SignUpButton from '@/components/ui/SignUpButton';
 import { Box, Flex, Grid, Heading } from '@chakra-ui/react';
 import Image from 'next/image';
 
 const Hero = () => {
     return (
         <Grid
-            className='flex-col w-full py-20 px-32 items-center justify-center'
+            className='flex-col w-full py-20 px-28 items-center justify-center'
             templateColumns={{ sm: "1fr", md: '1fr 1fr' }}
-            backgroundColor="blue.400"
-            style={{
-                clipPath: 'polygon(0 0, 100% 0, 100% 85%, 85% 100%, 50% 90%, 15% 100%, 0 85%, 0% 30%)'
-            }}
+            bgGradient="linear(to-bl, blue.500, blue.200)"
         >
-            <Flex className='flex-col gap-3 text-slate-100'>
-                <Heading textAlign="end" size="lg">
-                    Who Unify <br />Tasks, Teams, and Triumphs?
+            <Flex className='flex-col gap-3 text-slate-100 justify-center items-center'>
+                <Heading textAlign="center">
+                    Unify Tasks, Unleash Potential. Achieve More.<br /> Start Now!
                 </Heading>
-                <Heading textAlign="end" size="md">- Its Time Boxing.</Heading>
+                <Box>
+                    <SignUpButton />
+                </Box>
             </Flex>
             <Box>
                 <Image src="/images/hero.webp" width={600} height={450} alt='Hero image' />

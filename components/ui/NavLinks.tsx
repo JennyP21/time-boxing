@@ -35,13 +35,15 @@ const NavLinks = ({ session }: { session: Session | null }) => {
                     <Button size={{ sm: "md", base: "sm" }} fontWeight={400} variant={'link'}>
                         <Link href="/api/auth/signin">Sign In</Link>
                     </Button>
-                    <Button
-                        size={{ sm: "md", base: "sm" }}
-                        fontWeight={600}
-                        colorScheme='blue'
-                    >
-                        Sign Up
-                    </Button>
+                    <Link href="/api/auth/signin">
+                        <Button
+                            size={{ sm: "md", base: "sm" }}
+                            fontWeight={600}
+                            colorScheme='blue'
+                        >
+                            Sign Up
+                        </Button>
+                    </Link>
                 </Stack>
             }
         </>

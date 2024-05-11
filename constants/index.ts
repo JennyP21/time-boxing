@@ -314,3 +314,31 @@ export const features: Feature[] = [
     active: false,
   },
 ];
+
+// Reviews
+
+export const reviewSectionTitle =
+  "The Timeboxing Experience";
+
+export const reviews = [
+  {
+    name: "Harsh Shah",
+    title: "Project Manager",
+    desc: "Timeboxing has been a game-changer for my team! We used to struggle with staying focused and on deadline. With Timeboxing, we can easily break down projects into manageable chunks and track our progress. It's also great for keeping everyone on the same page and collaborating effectively",
+  },
+  {
+    name: "Dharma Singh",
+    title: "Software Engineer",
+    desc: "As a developer, I love the visual interface of Timeboxing. It makes it easy to see the big picture of a project and how each task fits together. The time tracking features are also really helpful for staying accountable and identifying areas where I can improve my efficiency.",
+  },
+  {
+    name: "Monika Patel",
+    title: "Marketing Manager",
+    desc: "As a developer, I love the visual interface of Timeboxing. It makes it easy to see the big picture of a project and how each task fits together. The time tracking features are also really helpful for staying accountable and identifying areas where I can improve my efficiency.",
+  },
+  {
+    name: "Asha Anant",
+    title: "Freelancer",
+    desc: "As a freelance writer, staying focused and on deadline can be a constant struggle. I used to get overwhelmed by to-do lists and struggle to prioritize tasks. Timeboxing has completely changed that! Now, I can break down my writing projects into manageable chunks with clear timeframes. This keeps me focused and motivated throughout the day.",
+  },
+];
