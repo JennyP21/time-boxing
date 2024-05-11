@@ -291,7 +291,7 @@ export const featureDesc =
 export const features: Feature[] = [
   {
     header: "Kanban View",
-    body: "You can view your tasks in this view to have Big picture of all your project",
+    body: "Gain complete control over your project. See all your tasks at a glance, with each card offering a detailed view so you can plan, manage, and track progress with ease.",
     linkText: "Learn More",
     link: "",
     image: "/images/kanban.webp",
@@ -299,7 +299,7 @@ export const features: Feature[] = [
   },
   {
     header: "List View",
-    body: "You can view your tasks in this view to have consolidated view of your project",
+    body: "Unify your project tasks in one view.  See them organized and prioritized for clear oversight. Click any card to unlock a deeper dive, revealing all the details you need to stay on top of every step.",
     linkText: "Learn More",
     link: "",
     image: "/images/list.webp",
@@ -307,7 +307,7 @@ export const features: Feature[] = [
   },
   {
     header: "Card Details",
-    body: "Each task with have a card detailed view for deeper visibility",
+    body: "Get a clear picture of your workflow with each task displayed on a card. Click any card to dive deeper and see all the details you need",
     linkText: "Learn More",
     link: "",
     image: "/images/task-details.webp",

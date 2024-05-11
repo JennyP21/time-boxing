@@ -1,7 +1,6 @@
-import { Divider, Flex } from '@chakra-ui/react'
-import React from 'react'
-import Hero from './Hero'
+import { Flex } from '@chakra-ui/react'
 import Features from './Features'
+import Hero from './Hero'
 
 const Home = () => {
     return (
