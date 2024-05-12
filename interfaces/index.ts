@@ -174,3 +174,13 @@ export interface Feature {
   image: string;
   active: boolean;
 }
+
+export interface Plan {
+  planName: string;
+  planPrice: string;
+  planDesc: string;
+  planBtn: string;
+  planBtnLink: string;
+}
+
+export type Pricing = "Monthly" | "Yearly";

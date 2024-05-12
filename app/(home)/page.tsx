@@ -2,6 +2,7 @@ import { Flex } from '@chakra-ui/react'
 import Features from './Features'
 import Hero from './Hero'
 import Reviews from './Reviews'
+import Price from './Price'
 
 const Home = () => {
     return (
@@ -9,6 +10,7 @@ const Home = () => {
             <Hero />
             <Features />
             <Reviews />
+            <Price />
         </Flex>
     )
 }

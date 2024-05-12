@@ -1,4 +1,4 @@
-import { Feature } from "@/interfaces";
+import { Feature, Pricing } from "@/interfaces";
 import { BsKanban } from "react-icons/bs";
 import { FaRegListAlt } from "react-icons/fa";
 import { IoHomeOutline } from "react-icons/io5";
@@ -342,3 +342,76 @@ export const reviews = [
     desc: "As a freelance writer, staying focused and on deadline can be a constant struggle. I used to get overwhelmed by to-do lists and struggle to prioritize tasks. Timeboxing has completely changed that! Now, I can break down my writing projects into manageable chunks with clear timeframes. This keeps me focused and motivated throughout the day.",
   },
 ];
+
+// Price Page
+
+export const plans = {
+  Monthly: {
+    free: {
+      planName: "FREE",
+      planPrice: "0",
+      planDesc:
+        "For individuals or teams looking to organize any project.",
+      planBtn: "Get Started",
+      planBtnLink: "#",
+    },
+    standard: {
+      planName: "STANDARD",
+      planPrice: "5",
+      planDesc:
+        "For small teams that need to manage work and scale collaboration.",
+      planBtn: "Get Started",
+      planBtnLink: "#",
+    },
+    premium: {
+      planName: "PREMIUM",
+      planPrice: "10",
+      planDesc:
+        "For teams that need to track and visualize multiple projects in several ways, including boards, timelines, calendars, etc.",
+      planBtn: "Get Started",
+      planBtnLink: "#",
+    },
+    enterprise: {
+      planName: "ENTERPRISE",
+      planPrice: "Contact Sales",
+      planDesc:
+        "For organizations that need to connect work across teams with more security and controls.",
+      planBtn: "Get Started",
+      planBtnLink: "#",
+    },
+  },
+  Yearly: {
+    free: {
+      planName: "FREE",
+      planPrice: "0",
+      planDesc:
+        "For individuals or teams looking to organize any project.",
+      planBtn: "Get Started",
+      planBtnLink: "#",
+    },
+    standard: {
+      planName: "STANDARD",
+      planPrice: "54",
+      planDesc:
+        "For small teams that need to manage work and scale collaboration.",
+      planBtn: "Get Started",
+      planBtnLink: "#",
+    },
+    premium: {
+      planName: "PREMIUM",
+      planPrice: "108",
+      planDesc:
+        "For teams that need to track and visualize multiple projects in several ways, including boards, timelines, calendars, etc.",
+      planBtn: "Get Started",
+      planBtnLink: "#",
+    },
+    enterprise: {
+      planName: "ENTERPRISE",
+      planPrice: "Contact Sales",
+      planDesc:
+        "For organizations that need to connect work across teams with more security and controls.",
+      planBtn: "Get Started",
+      planBtnLink: "#",
+    },
+  },
+};
