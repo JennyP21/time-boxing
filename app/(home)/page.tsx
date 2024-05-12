@@ -3,6 +3,7 @@ import Features from './Features'
 import Hero from './Hero'
 import Reviews from './Reviews'
 import Price from './Price'
+import Footer from './Footer'
 
 const Home = () => {
     return (
@@ -14,6 +15,8 @@ const Home = () => {
             <Reviews />
             <Divider />
             <Price />
+            <Divider />
+            <Footer />
         </Flex>
     )
 }

@@ -1,7 +1,11 @@
-import { Feature, Pricing } from "@/interfaces";
+import { Feature, FooterLinkI } from "@/interfaces";
 import { BsKanban } from "react-icons/bs";
 import { FaRegListAlt } from "react-icons/fa";
-import { IoHomeOutline } from "react-icons/io5";
+import {
+  IoDocumentOutline,
+  IoHomeOutline,
+} from "react-icons/io5";
+import { MdDashboard } from "react-icons/md";
 
 // Error messages
 
@@ -415,3 +419,18 @@ export const plans = {
     },
   },
 };
+
+// Footer
+
+export const footerLinks: FooterLinkI[] = [
+  {
+    link: "/dashboard",
+    linkValue: "Dashboard",
+    icon: MdDashboard,
+  },
+  {
+    link: "/documentation",
+    linkValue: "Documentation",
+    icon: IoDocumentOutline,
+  },
+];

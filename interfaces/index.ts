@@ -1,3 +1,4 @@
+import { IconType } from "react-icons/lib";
 import { ZodIssue } from "zod";
 
 export interface TeamI {
@@ -184,3 +185,9 @@ export interface Plan {
 }
 
 export type Pricing = "Monthly" | "Yearly";
+
+export interface FooterLinkI {
+  link: string;
+  linkValue: string;
+  icon: IconType;
+}
