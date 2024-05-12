@@ -1,6 +1,13 @@
 import { IconType } from "react-icons/lib";
 import { ZodIssue } from "zod";
 
+export interface UserI {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+}
+
 export interface TeamI {
   id: string;
   name: string;
