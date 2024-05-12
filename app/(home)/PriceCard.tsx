@@ -15,7 +15,7 @@ const PriceCard = ({ plan, pricing }: Props) => {
                 <Heading size="md" fontWeight="normal">{planName}</Heading>
             </CardHeader>
             <CardBody>
-                <Flex className='flex-col gap-5 justify-center items-start'>
+                <Flex className='flex-col gap-3 justify-center items-start'>
                     {planName === "ENTERPRISE" ?
                         <Button>{planPrice}</Button>
                         :

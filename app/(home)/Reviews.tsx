@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Text } from '@chakra-ui/react'
 
 const Reviews = () => {
     return (
-        <Box className='py-16 px-40' bgGradient="linear(to-l, blue.100, teal.50)">
+        <Box className='py-16 px-40'>
             <Heading className='my-5' fontWeight="semibold">{reviewSectionTitle}</Heading>
             <Flex className='p-3 gap-5 w-full flex-nowrap overflow-x-scroll'>
                 {reviews.map((review, index) => (
