@@ -4,6 +4,7 @@ import { Button, Center, HStack, Menu, MenuButton, MenuItem, MenuList, Stack } f
 import { Session } from 'next-auth';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import SignUpButton from './SignUpButton';
 
 const NavLinks = ({ session }: { session: Session | null }) => {
     const currPath = usePathname();
@@ -33,17 +34,9 @@ const NavLinks = ({ session }: { session: Session | null }) => {
                     alignItems={'center'}
                 >
                     <Button size={{ sm: "md", base: "sm" }} fontWeight={400} variant={'link'}>
-                        <Link href="/api/auth/signin">Sign In</Link>
+                        <Link href="/user/signin">Sign In</Link>
                     </Button>
-                    <Link href="/api/auth/signin">
-                        <Button
-                            size={{ sm: "md", base: "sm" }}
-                            fontWeight={600}
-                            colorScheme='blue'
-                        >
-                            Sign Up
-                        </Button>
-                    </Link>
+                    <SignUpButton color='blue' size='normal' />
                 </Stack>
             }
         </>

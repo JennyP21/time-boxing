@@ -11,7 +11,7 @@ const Footer = async () => {
         <Grid className='py-10 px-30 bg-black text-white' templateColumns={{ sm: "1fr", md: "repeat(2, 1fr)" }} justifyItems="center" alignItems="center">
             <Flex className='flex-col items-center justify-center'>
                 <Logo />
-                {session && session.user ? <FooterLinks /> : <SignUpButton />}
+                {session && session.user ? <FooterLinks /> : <SignUpButton color='red' size='large' />}
             </Flex>
             <FooterSocial />
         </Grid>

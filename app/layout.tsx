@@ -1,10 +1,8 @@
-import { Flex } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import { Open_Sans } from "next/font/google";
 import { ToastContainer } from "../components/error/Toast";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
-import Navbar from "./Navbar";
 import ReduxProvider from "./ReduxProvider";
 import UIProvider from "./UIProvider";
 
@@ -29,10 +27,7 @@ export default function RootLayout({
         <ReduxProvider>
           <AuthProvider>
             <UIProvider>
-              <Flex className="flex-col h-full">
-                <Navbar />
-                {children}
-              </Flex>
+              {children}
             </UIProvider>
           </AuthProvider>
         </ReduxProvider>

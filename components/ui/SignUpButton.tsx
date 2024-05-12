@@ -3,14 +3,19 @@
 import { Link } from '@chakra-ui/next-js'
 import { Button } from '@chakra-ui/react'
 
-const SignUpButton = () => {
+interface Props {
+    size: "normal" | "large",
+    color: "red" | "blue"
+}
+
+const SignUpButton = ({ color, size }: Props) => {
     return (
-        <Link href="/api/auth/signin">
+        <Link href="/user/register">
             <Button
-                width={40}
+                width={size === "large" ? 40 : "auto"}
                 size={{ sm: "md", base: "sm" }}
                 fontWeight={600}
-                colorScheme='red'
+                colorScheme={color}
             >
                 Sign Up
             </Button>

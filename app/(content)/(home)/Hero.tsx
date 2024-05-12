@@ -14,7 +14,7 @@ const Hero = () => {
                     Unify Tasks, Unleash Potential. Achieve More.<br /> Start Now!
                 </Heading>
                 <Box>
-                    <SignUpButton />
+                    <SignUpButton color='red' size='large' />
                 </Box>
             </Flex>
             <Box>
