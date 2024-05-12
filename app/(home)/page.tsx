@@ -12,9 +12,9 @@ const Home = () => {
             <Divider />
             <Features />
             <Divider />
-            <Reviews />
-            <Divider />
             <Price />
+            <Divider />
+            <Reviews />
             <Divider />
             <Footer />
         </Flex>
