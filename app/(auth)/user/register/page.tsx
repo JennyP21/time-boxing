@@ -39,8 +39,8 @@ const Register = () => {
                 <Flex className='flex-col gap-4 bg-white p-10'>
                     <Logo />
                     <form onSubmit={handleSubmit(onSubmit)}>
+                        {errors && <CustomError>{errors.password?.message}</CustomError>}
                         <Flex className='flex-col gap-4'>
-                            {errors && <CustomError>{errors.password?.message}</CustomError>}
                             <Box>
                                 <label className='font-bold' htmlFor='name'>Name:</label>
                                 <Input id='name' {...register("name")} min={3} isRequired />

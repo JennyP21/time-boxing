@@ -6,12 +6,11 @@ import { invalidUserOrPass } from '@/constants';
 import { UserI } from '@/interfaces';
 import { validateUserSignin } from '@/validation';
 import { Link } from '@chakra-ui/next-js';
-import { Box, Button, ButtonGroup, Center, Flex, Icon, Input, Text } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Center, Flex, Input } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FcGoogle } from "react-icons/fc";
 import SignInWithGoogle from '../SignInWithGoogle';
 
 interface Props {
@@ -32,7 +31,7 @@ const SignIn = ({ callbackUrl, authError }: Props) => {
             email: email,
             password: password,
             redirect: true,
-            callbackUrl: "https://localhost:3000/dashboard"
+            callbackUrl: callbackUrl ?? "https://localhost:3000/dashboard"
         })
         setLoading(false);
     };
@@ -43,9 +42,9 @@ const SignIn = ({ callbackUrl, authError }: Props) => {
                 <Flex className='flex-col gap-4 bg-white p-10'>
                     <Logo />
                     <form onSubmit={handleSubmit(onSubmit)}>
+                        {errors && errors.password && <CustomError>{errors.password.message}</CustomError>}
+                        {authError && <CustomError>{invalidUserOrPass.message}</CustomError>}
                         <Flex className='flex-col gap-4'>
-                            {errors && errors.password && <CustomError>{errors.password.message}</CustomError>}
-                            {authError && <CustomError>{invalidUserOrPass.message}</CustomError>}
                             <Box>
                                 <label className='font-bold' htmlFor='email'>Email:</label>
                                 <Input id='email' {...register("email")} isRequired />
