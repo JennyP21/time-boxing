@@ -1,10 +1,8 @@
 {
-  "id": "d70e4164-6cdd-4529-b60b-ceb82c182cc1",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "tasks": {
+    "public.tasks": {
       "name": "tasks",
       "schema": "",
       "columns": {
@@ -61,8 +59,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "d70e4164-6cdd-4529-b60b-ceb82c182cc1",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

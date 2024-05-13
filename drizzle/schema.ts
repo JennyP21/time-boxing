@@ -254,6 +254,7 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", {
     mode: "date",
   }),
+  password: text("password"),
   image: text("image"),
 });
 

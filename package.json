@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:generate": "drizzle-kit generate:pg --schema ./drizzle/schema.ts --out=./drizzle/migrations",
+    "db:generate": "drizzle-kit generate --dialect postgresql --schema ./drizzle/schema.ts --out=./drizzle/migrations",
     "db:migrate": "node -r esbuild-register drizzle/migrate.ts"
   },
   "dependencies": {

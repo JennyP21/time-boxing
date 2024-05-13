@@ -34,6 +34,50 @@ export const validateUser = z
       else if (containsSpecialChar(ch))
         countOfSpecialChar++;
     }
+
+    if (
+      countOfLowerCase === 0 ||
+      countOfUpperCase === 0 ||
+      countOfSpecialChar === 0 ||
+      countOfNumbers === 0
+    ) {
+      checkPassComplexity.addIssue({
+        code: "custom",
+        path: ["password"],
+        message:
+          "Password does not meet complexity requirements",
+      });
+    }
+  });
+
+export const validateUserSignin = z
+  .object({
+    email: z.string().email({
+      message: "Please enter a valid email address.",
+    }),
+    password: z
+      .string()
+      .min(8, "Password must be at least 8 charaters."),
+  })
+  .superRefine(({ password }, checkPassComplexity) => {
+    const containsUppercase = (ch: string) =>
+      /[A-Z]/.test(ch);
+    const containsLowercase = (ch: string) =>
+      /[a-z]/.test(ch);
+    const containsSpecialChar = (ch: string) =>
+      /[`!@#$%^&*()_\-+=\[\]{};':"\\|,.<>\/?~ ]/.test(ch);
+    let countOfUpperCase = 0,
+      countOfLowerCase = 0,
+      countOfNumbers = 0,
+      countOfSpecialChar = 0;
+    for (let i = 0; i < password.length; i++) {
+      let ch = password.charAt(i);
+      if (!isNaN(+ch)) countOfNumbers++;
+      else if (containsUppercase(ch)) countOfUpperCase++;
+      else if (containsLowercase(ch)) countOfLowerCase++;
+      else if (containsSpecialChar(ch))
+        countOfSpecialChar++;
+    }
     if (
       countOfLowerCase < 1 ||
       countOfUpperCase < 1 ||

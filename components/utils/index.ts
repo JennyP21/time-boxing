@@ -200,10 +200,14 @@ export const getLateTasks = (tasks: TaskI[]) => {
   return filteredTasks.slice(0, 5);
 };
 
-const saltRounds = 10;
-
 export async function hashPassword(password: string) {
+  const saltRounds = 10;
   const salt = await bcrypt.genSalt(saltRounds);
   const hashedPassword = await bcrypt.hash(password, salt);
   return hashedPassword;
+}
+
+export function getImageUrlByName(name: string) {
+  const letter = name[0].toLowerCase();
+  return `/profile-icons/${letter}.png`;
 }

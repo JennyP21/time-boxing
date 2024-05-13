@@ -198,6 +198,19 @@ export const lastOwnerError = {
   type: "Last Owner Error",
   message: "Cannot change or remove last owner",
 };
+
+// User Auth
+
+export const invalidUserOrPass = {
+  type: "User or Password Incorrect",
+  message: "Invalid email or password",
+};
+
+export const userReistrationError = {
+  type: "User Registration",
+  message: "Unable to register user",
+};
+
 ////////////////////////////////////////////
 
 // Other ERRORS

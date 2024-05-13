@@ -1,4 +1,5 @@
 import {
+  getImageUrlByName,
   hashPassword,
   parseZodErr,
 } from "@/components/utils";
@@ -10,6 +11,7 @@ import {
 import { UserI } from "@/interfaces";
 import { validateUser } from "@/validation";
 import { NextRequest, NextResponse } from "next/server";
+import { v4 } from "uuid";
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,8 +35,13 @@ export async function POST(request: NextRequest) {
     const hashedPassword = await hashPassword(
       data.password
     );
+
     const newUser = await addUser({
       ...data,
+      id: v4(),
+      image: data.image
+        ? data.image
+        : getImageUrlByName(data.name),
       password: hashedPassword,
     });
 

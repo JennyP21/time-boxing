@@ -1,5 +1,9 @@
+import { hashPassword } from "@/components/utils";
+import { getUserByEmail } from "@/data-access/user";
 import { db } from "@/drizzle";
+import { validateUserSignin } from "@/validation";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
+import { compare } from "bcryptjs";
 import { NextAuthOptions } from "next-auth";
 import type { Adapter } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -22,10 +26,26 @@ const authOptions: NextAuthOptions = {
           placeholder: "Enter your password",
         },
       },
-      async authorize(credentials, req) {
-        console.log(credentials);
-        console.log(req);
-        return null;
+      async authorize(credentials) {
+        const validation =
+          validateUserSignin.safeParse(credentials);
+
+        if (!validation.success) return null;
+
+        const { email, password } = credentials!;
+
+        const user = await getUserByEmail(email);
+        if (!user) return null;
+
+        const passwordMatched = await compare(
+          password,
+          user.password!
+        );
+
+        if (!passwordMatched) return null;
+
+        user.password = "";
+        return user;
       },
     }),
     GoogleProvider({
@@ -44,6 +64,9 @@ const authOptions: NextAuthOptions = {
   },
   session: {
     strategy: "jwt",
+  },
+  pages: {
+    signIn: "/user/signin",
   },
 };
 

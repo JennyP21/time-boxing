@@ -1,10 +1,8 @@
 {
-  "id": "748b1cb8-8f82-437b-9559-268438b67ad0",
-  "prevId": "d70e4164-6cdd-4529-b60b-ceb82c182cc1",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "tasks": {
+    "public.tasks": {
       "name": "tasks",
       "schema": "",
       "columns": {
@@ -55,8 +53,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "748b1cb8-8f82-437b-9559-268438b67ad0",
+  "prevId": "d70e4164-6cdd-4529-b60b-ceb82c182cc1"
 }

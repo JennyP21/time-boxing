@@ -6,6 +6,7 @@ import { projectsApi } from "./features/projectApi";
 import { stepsApi } from "./features/stepsApi";
 import { taskApi } from "./features/taskApi";
 import { teamApi } from "./features/teamApi";
+import { userApi } from "./features/userApi";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     [stepsApi.reducerPath]: stepsApi.reducer,
     [projectsApi.reducerPath]: projectsApi.reducer,
     [teamApi.reducerPath]: teamApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -24,7 +26,8 @@ export const store = configureStore({
       .concat(stepsApi.middleware)
       .concat(labelApi.middleware)
       .concat(projectsApi.middleware)
-      .concat(teamApi.middleware),
+      .concat(teamApi.middleware)
+      .concat(userApi.middleware),
 });
 
 setupListeners(store.dispatch);

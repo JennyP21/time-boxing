@@ -1,9 +1,14 @@
-import React from 'react'
+"use client"
+import SignIn from './SignIn';
 
-const Signin = () => {
+interface Props {
+    searchParams?: Record<"callbackUrl" | "error", string>;
+}
+
+const SignInPage = ({ searchParams }: Props) => {
     return (
-        <div>Signin</div>
+        <SignIn authError={searchParams?.error} callbackUrl={searchParams?.callbackUrl} />
     )
 }
 
-export default Signin
+export default SignInPage
