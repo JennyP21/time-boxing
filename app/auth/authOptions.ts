@@ -27,20 +27,16 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const validation =
-          validateUserSignin.safeParse(credentials);
+        const validation = validateUserSignin.safeParse(credentials);
 
         if (!validation.success) return null;
 
         const { email, password } = credentials!;
 
         const user = await getUserByEmail(email);
-        if (!user) return null;
+        if (!user || user.password) return null;
 
-        const passwordMatched = await compare(
-          password,
-          user.password!
-        );
+        const passwordMatched = await compare(password, user.password!);
 
         if (!passwordMatched) return null;
 

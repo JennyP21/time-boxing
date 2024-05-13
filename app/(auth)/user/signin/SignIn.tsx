@@ -32,7 +32,7 @@ const SignIn = ({ callbackUrl, authError }: Props) => {
             email: email,
             password: password,
             redirect: true,
-            callbackUrl: callbackUrl ?? "https://localhost:3000/dashboard"
+            callbackUrl: "https://localhost:3000/dashboard"
         })
         setLoading(false);
     };
