@@ -1,4 +1,8 @@
-import { hashPassword } from "@/components/utils";
+import { parseZodErr } from "@/components/utils";
+import {
+  invalidUserOrPass,
+  OAuthSignInError,
+} from "@/constants";
 import { getUserByEmail } from "@/data-access/user";
 import { db } from "@/drizzle";
 import { validateUserSignin } from "@/validation";
@@ -27,18 +31,28 @@ const authOptions: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const validation = validateUserSignin.safeParse(credentials);
+        const validation =
+          validateUserSignin.safeParse(credentials);
 
-        if (!validation.success) return null;
+        if (!validation.success)
+          throw new Error(parseZodErr(validation.error));
 
         const { email, password } = credentials!;
 
         const user = await getUserByEmail(email);
-        if (!user || user.password) return null;
+        if (!user)
+          throw new Error(invalidUserOrPass.message);
 
-        const passwordMatched = await compare(password, user.password!);
+        if (!user.password)
+          throw new Error(OAuthSignInError.message);
 
-        if (!passwordMatched) return null;
+        const passwordMatched = await compare(
+          password,
+          user.password!
+        );
+
+        if (!passwordMatched)
+          throw new Error(invalidUserOrPass.message);
 
         user.password = "";
         return user;

@@ -4,23 +4,26 @@ import { toast } from "@/components/error/Toast";
 import ButtonSpinner from '@/components/loading/ButtonSpinner';
 import Logo from '@/components/ui/Logo';
 import { handleErrors } from '@/components/utils/handleErrors';
-import { userReistrationError } from '@/constants';
+import { DASHBOARD_URL, userReistrationError } from '@/constants';
 import { UserI } from '@/interfaces';
 import { useAddUserMutation } from '@/lib/features/userApi';
 import { validateUser } from '@/validation';
 import { Link } from '@chakra-ui/next-js';
 import { Box, Button, ButtonGroup, Center, Flex, Input } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import SignInWithGoogle from '../SignInWithGoogle';
 
 const Register = () => {
+    const session = useSession();
+    const navigation = useRouter();
+    if (session && session.data?.user) navigation.push(DASHBOARD_URL);
+
     const { register, handleSubmit, formState: { errors, isValid } } = useForm<UserI>({
         resolver: zodResolver(validateUser)
     });
-
-    const navigation = useRouter();
 
     const [addUser, { error, isLoading }] = useAddUserMutation();
     if (error) handleErrors(error, userReistrationError.type);

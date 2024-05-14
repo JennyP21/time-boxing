@@ -7,6 +7,9 @@ import {
 } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
 
+export const DASHBOARD_URL =
+  "http://localhost:3000/dashboard";
+
 // Error messages
 
 // Bucket
@@ -202,13 +205,22 @@ export const lastOwnerError = {
 // User Auth
 
 export const invalidUserOrPass = {
-  type: "User or Password Incorrect",
+  type: "INCORRECT CREDENTIALS",
   message: "Invalid email or password",
 };
 
+export const OAuthSignInError = {
+  type: "OAUTH SIGN IN",
+  message: "Please use google to sign in to your account.",
+};
+
 export const userReistrationError = {
-  type: "User Registration",
+  type: "USER REGISTRATION",
   message: "Unable to register user",
+};
+
+export const userSignInError = {
+  type: "USER SIGN IN",
 };
 
 ////////////////////////////////////////////

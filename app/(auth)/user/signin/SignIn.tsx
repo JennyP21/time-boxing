@@ -1,25 +1,27 @@
 "use client"
 import CustomError from '@/components/error/CustomError';
+import { toast } from "@/components/error/Toast";
 import ButtonSpinner from '@/components/loading/ButtonSpinner';
 import Logo from '@/components/ui/Logo';
-import { invalidUserOrPass } from '@/constants';
+import { DASHBOARD_URL, userSignInError } from '@/constants';
 import { UserI } from '@/interfaces';
 import { validateUserSignin } from '@/validation';
 import { Link } from '@chakra-ui/next-js';
 import { Box, Button, ButtonGroup, Center, Flex, Input } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SignInWithGoogle from '../SignInWithGoogle';
 
 interface Props {
     callbackUrl?: string;
-    authError?: string;
 }
 
-const SignIn = ({ callbackUrl, authError }: Props) => {
+const SignIn = ({ callbackUrl }: Props) => {
     const [loading, setLoading] = useState(false);
+    const navigation = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm<UserI>({
         resolver: zodResolver(validateUserSignin)
     });
@@ -27,13 +29,17 @@ const SignIn = ({ callbackUrl, authError }: Props) => {
     const onSubmit = async (data: UserI) => {
         const { email, password } = data;
         setLoading(true);
-        await signIn("credentials", {
+        const result = await signIn("credentials", {
             email: email,
             password: password,
-            redirect: true,
-            callbackUrl: callbackUrl ?? "https://localhost:3000/dashboard"
+            redirect: false
         })
         setLoading(false);
+        if (result?.error) {
+            toast.error(result.error, { toastId: userSignInError.type });
+        } else if (result?.ok) {
+            navigation.push(callbackUrl ?? DASHBOARD_URL);
+        }
     };
 
     return (
@@ -43,7 +49,6 @@ const SignIn = ({ callbackUrl, authError }: Props) => {
                     <Logo />
                     <form onSubmit={handleSubmit(onSubmit)}>
                         {errors && errors.password && <CustomError>{errors.password.message}</CustomError>}
-                        {authError && <CustomError>{invalidUserOrPass.message}</CustomError>}
                         <Flex className='flex-col gap-4'>
                             <Box>
                                 <label className='font-bold' htmlFor='email'>Email:</label>
