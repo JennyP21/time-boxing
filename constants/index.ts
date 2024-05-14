@@ -204,6 +204,11 @@ export const lastOwnerError = {
 
 // User Auth
 
+export const getUserError = {
+  type: "GET USER",
+  message: "Failed to retrieve user",
+};
+
 export const invalidUserOrPass = {
   type: "INCORRECT CREDENTIALS",
   message: "Invalid email or password",

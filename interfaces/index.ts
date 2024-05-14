@@ -1,7 +1,7 @@
 import { IconType } from "react-icons/lib";
 import { ZodIssue } from "zod";
 
-export interface UserI {
+export interface AccountI {
   id: string;
   name: string;
   email: string;

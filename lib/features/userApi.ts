@@ -1,4 +1,4 @@
-import { UserI } from "@/interfaces";
+import { AccountI, UserI } from "@/interfaces";
 import {
   createApi,
   fetchBaseQuery,
@@ -10,8 +10,11 @@ export const userApi = createApi({
     baseUrl: "http://localhost:3000/api",
   }),
   endpoints: (builder) => ({
-    addUser: builder.mutation<UserI, UserI>({
-      query: (data: UserI) => ({
+    getUserById: builder.query<UserI, string>({
+      query: (id: string) => `/user/${id}`,
+    }),
+    addUser: builder.mutation<AccountI, AccountI>({
+      query: (data: AccountI) => ({
         url: "/auth/register",
         method: "POST",
         body: data,
@@ -20,4 +23,5 @@ export const userApi = createApi({
   }),
 });
 
-export const { useAddUserMutation } = userApi;
+export const { useGetUserByIdQuery, useAddUserMutation } =
+  userApi;

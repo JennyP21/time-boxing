@@ -1,13 +1,16 @@
 "use client"
+import { UserI } from '@/interfaces';
 import { Link } from '@chakra-ui/next-js';
-import { Button, Center, HStack, Menu, MenuButton, MenuItem, MenuList, Stack } from '@chakra-ui/react';
+import { Button, Center, HStack, Menu, MenuButton, MenuItem, MenuList, Stack, useDisclosure } from '@chakra-ui/react';
 import { Session } from 'next-auth';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import Profile from './Profile';
 import SignUpButton from './SignUpButton';
 
 const NavLinks = ({ session }: { session: Session | null }) => {
     const currPath = usePathname();
+    const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <>
             {session ?
@@ -21,11 +24,12 @@ const NavLinks = ({ session }: { session: Session | null }) => {
                                 <Image src={session.user.image || "/fallback-user.webp"} fill className='object-cover' alt="profile" />
                             </MenuButton>
                             <MenuList fontSize={{ sm: "medium", base: "small" }}>
-                                <MenuItem>Profile</MenuItem>
+                                <MenuItem onClick={onOpen}>Profile</MenuItem>
                                 <MenuItem href='/api/auth/signout' as={'a'}>Logout</MenuItem>
                             </MenuList>
                         </Menu>
                     </HStack>
+                    {<Profile user={session.user as UserI} onClose={onClose} isOpen={isOpen} />}
                 </Center>
                 :
                 <Stack

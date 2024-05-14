@@ -1,6 +1,6 @@
 import { db } from "@/drizzle";
 import { users } from "@/drizzle/schema";
-import { UserI } from "@/interfaces";
+import { AccountI, UserI } from "@/interfaces";
 import { eq } from "drizzle-orm";
 
 export async function getUserById(id: string) {
@@ -21,7 +21,7 @@ export async function getUserByEmail(email: string) {
   return user[0];
 }
 
-export async function addUser(newAccount: UserI) {
+export async function addUser(newAccount: AccountI) {
   const newUser = await db
     .insert(users)
     .values(newAccount)

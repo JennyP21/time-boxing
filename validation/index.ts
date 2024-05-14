@@ -50,6 +50,12 @@ export const validateUser = z
     }
   });
 
+export const validatePatchUser = z.object({
+  name: z.string().min(3, {
+    message: "Name must be at least 3 characters.",
+  }),
+});
+
 export const validateUserSignin = z
   .object({
     email: z.string().email({
