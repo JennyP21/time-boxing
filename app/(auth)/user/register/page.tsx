@@ -2,6 +2,7 @@
 import CustomError from '@/components/error/CustomError';
 import { toast } from "@/components/error/Toast";
 import ButtonSpinner from '@/components/loading/ButtonSpinner';
+import ImageSelector from '@/components/ui/ImageSelector';
 import Logo from '@/components/ui/Logo';
 import { handleErrors } from '@/components/utils/handleErrors';
 import { DASHBOARD_URL, userRegistrationError } from '@/constants';
@@ -21,7 +22,7 @@ const Register = () => {
     const navigation = useRouter();
     if (session && session.data?.user) navigation.push(DASHBOARD_URL);
 
-    const { register, handleSubmit, formState: { errors, isValid } } = useForm<UserI>({
+    const { register, handleSubmit, setValue, formState: { errors, isValid } } = useForm<UserI>({
         resolver: zodResolver(validateUser)
     });
 
@@ -45,6 +46,9 @@ const Register = () => {
                         {errors && <CustomError>{errors.password?.message}</CustomError>}
                         <Flex className='flex-col gap-4'>
                             <Box>
+                                <ImageSelector setValue={setValue} />
+                            </Box>
+                            <Box>
                                 <label className='font-bold' htmlFor='name'>Name:</label>
                                 <Input id='name' {...register("name")} min={3} isRequired />
                             </Box>
@@ -64,7 +68,6 @@ const Register = () => {
                     </form>
                     <SignInWithGoogle />
                 </Flex>
-
             </Center>
         </Box>
     )

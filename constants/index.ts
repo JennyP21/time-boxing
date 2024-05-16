@@ -464,3 +464,18 @@ export const footerLinks: FooterLinkI[] = [
     icon: IoDocumentOutline,
   },
 ];
+
+export const ASPECT_RATIO = 1;
+export const MIN_DIMENTION = 150;
+export const IMAGE_DIMENTION_ERROR = {
+  type: "IMAGE DIMENTION",
+  message: `Image must be at least ${MIN_DIMENTION} x ${MIN_DIMENTION} pixels.`,
+};
+export const INVALID_IMAGE_ERROR = {
+  type: "INVALID IMAGE",
+  message: `Please upload a valid image`,
+};
+export const IMAGE_SAVE_ERROR = {
+  type: "IMAGE SAVE",
+  message: "Error saving image please try again!",
+};
