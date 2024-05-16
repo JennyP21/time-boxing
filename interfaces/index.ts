@@ -1,13 +1,6 @@
 import { IconType } from "react-icons/lib";
 import { ZodIssue } from "zod";
 
-export interface AccountI {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-}
-
 export interface TeamI {
   id: string;
   name: string;
@@ -118,9 +111,10 @@ export interface StepsI {
 
 export interface UserI {
   id: string;
-  image: string;
   name: string;
   email: string;
+  password: string;
+  image: string;
 }
 
 export interface TaskAttributesProps {

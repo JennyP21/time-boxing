@@ -4,8 +4,8 @@ import { toast } from "@/components/error/Toast";
 import ButtonSpinner from '@/components/loading/ButtonSpinner';
 import Logo from '@/components/ui/Logo';
 import { handleErrors } from '@/components/utils/handleErrors';
-import { DASHBOARD_URL, userReistrationError } from '@/constants';
-import { AccountI } from '@/interfaces';
+import { DASHBOARD_URL, userRegistrationError } from '@/constants';
+import { UserI } from '@/interfaces';
 import { useAddUserMutation } from '@/lib/features/userApi';
 import { validateUser } from '@/validation';
 import { Link } from '@chakra-ui/next-js';
@@ -21,14 +21,14 @@ const Register = () => {
     const navigation = useRouter();
     if (session && session.data?.user) navigation.push(DASHBOARD_URL);
 
-    const { register, handleSubmit, formState: { errors, isValid } } = useForm<AccountI>({
+    const { register, handleSubmit, formState: { errors, isValid } } = useForm<UserI>({
         resolver: zodResolver(validateUser)
     });
 
     const [addUser, { error, isLoading }] = useAddUserMutation();
-    if (error) handleErrors(error, userReistrationError.type);
+    if (error) handleErrors(error, userRegistrationError.type);
 
-    const onSubmit = async (data: AccountI) => {
+    const onSubmit = async (data: UserI) => {
         const user = await addUser(data);
         if (user) {
             toast.success("Registered successfully");

@@ -219,7 +219,7 @@ export const OAuthSignInError = {
   message: "Please use google to sign in to your account.",
 };
 
-export const userReistrationError = {
+export const userRegistrationError = {
   type: "USER REGISTRATION",
   message: "Unable to register user",
 };

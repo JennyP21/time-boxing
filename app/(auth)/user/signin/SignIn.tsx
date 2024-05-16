@@ -4,7 +4,7 @@ import { toast } from "@/components/error/Toast";
 import ButtonSpinner from '@/components/loading/ButtonSpinner';
 import Logo from '@/components/ui/Logo';
 import { DASHBOARD_URL, userSignInError } from '@/constants';
-import { AccountI } from '@/interfaces';
+import { UserI } from '@/interfaces';
 import { validateUserSignin } from '@/validation';
 import { Link } from '@chakra-ui/next-js';
 import { Box, Button, ButtonGroup, Center, Flex, Input } from '@chakra-ui/react';
@@ -22,11 +22,11 @@ interface Props {
 const SignIn = ({ callbackUrl }: Props) => {
     const [loading, setLoading] = useState(false);
     const navigation = useRouter();
-    const { register, handleSubmit, formState: { errors } } = useForm<AccountI>({
+    const { register, handleSubmit, formState: { errors } } = useForm<UserI>({
         resolver: zodResolver(validateUserSignin)
     });
 
-    const onSubmit = async (data: AccountI) => {
+    const onSubmit = async (data: UserI) => {
         const { email, password } = data;
         setLoading(true);
         const result = await signIn("credentials", {

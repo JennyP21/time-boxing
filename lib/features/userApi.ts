@@ -1,4 +1,4 @@
-import { AccountI, UserI } from "@/interfaces";
+import { UserI } from "@/interfaces";
 import {
   createApi,
   fetchBaseQuery,
@@ -13,8 +13,8 @@ export const userApi = createApi({
     getUserById: builder.query<UserI, string>({
       query: (id: string) => `/user/${id}`,
     }),
-    addUser: builder.mutation<AccountI, AccountI>({
-      query: (data: AccountI) => ({
+    addUser: builder.mutation<UserI, UserI>({
+      query: (data: UserI) => ({
         url: "/auth/register",
         method: "POST",
         body: data,
