@@ -12,9 +12,9 @@ import bcrypt from "bcryptjs";
 
 export const formatDate = (date: Date) => {
   const parsedDate = new Date(date);
-  const year = parsedDate.getFullYear().toString();
-  const month = parsedDate.getMonth().toString();
-  const day = parsedDate.getDate().toString();
+  const year = parsedDate.getFullYear();
+  const month = parsedDate.getMonth() + 1;
+  const day = parsedDate.getDate() + 1;
   return `${year}-${month}-${day}`;
 };
 
@@ -90,7 +90,6 @@ export const adjustDates = (
 ) => {
   let start = new Date(start_date);
   let end = new Date(end_date);
-
   if (start > end) {
     const startDate = formatDate(start);
     const endDate = formatDate(end);
