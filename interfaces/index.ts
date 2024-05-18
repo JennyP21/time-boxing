@@ -115,6 +115,7 @@ export interface UserI {
   email: string;
   password: string;
   image: string;
+  imageData?: File;
 }
 
 export interface TaskAttributesProps {

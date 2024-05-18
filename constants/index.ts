@@ -1,3 +1,4 @@
+import { Crop } from "@/components/ui/ReactCrop";
 import { Feature, FooterLinkI } from "@/interfaces";
 import { BsKanban } from "react-icons/bs";
 import { FaRegListAlt } from "react-icons/fa";
@@ -478,4 +479,63 @@ export const INVALID_IMAGE_ERROR = {
 export const IMAGE_SAVE_ERROR = {
   type: "IMAGE SAVE",
   message: "Error saving image please try again!",
+};
+
+export const getCroppedImg = async (
+  image: HTMLImageElement,
+  crop: Crop,
+  imageType: string
+) => {
+  const canvas = document.createElement("canvas");
+  canvas.width = crop.width;
+  canvas.height = crop.height;
+  const ctx = canvas.getContext("2d");
+
+  if (!ctx) {
+    throw new Error(IMAGE_SAVE_ERROR.message); // More robust error handling
+  }
+
+  const pixelRatio = window.devicePixelRatio;
+  const scaleX = image.naturalWidth / image.width;
+  const scaleY = image.naturalHeight / image.height;
+
+  canvas.width = Math.floor(
+    crop.width * scaleX * pixelRatio
+  );
+  canvas.height = Math.floor(
+    crop.height * scaleY * pixelRatio
+  );
+
+  ctx.scale(pixelRatio, pixelRatio);
+  ctx.imageSmoothingQuality = "high";
+  ctx.save();
+
+  const cropX = crop.x * scaleX;
+  const cropY = crop.y * scaleY;
+
+  ctx.translate(-cropX, -cropY);
+
+  ctx.drawImage(
+    image,
+    0,
+    0,
+    image.naturalWidth,
+    image.naturalHeight,
+    0,
+    0,
+    image.naturalWidth,
+    image.naturalHeight
+  );
+
+  ctx.restore();
+
+  return new Promise<Blob | null>((resolve, reject) => {
+    canvas.toBlob(
+      (blob) => {
+        resolve(blob);
+      },
+      imageType,
+      1
+    );
+  });
 };

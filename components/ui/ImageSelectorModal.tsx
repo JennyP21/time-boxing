@@ -1,18 +1,21 @@
 import { toast } from "@/components/error/Toast";
-import { Crop, ReactCrop, centerCrop, makeAspectCrop } from "@/components/ui/ReactCrop";
-import { ASPECT_RATIO, IMAGE_DIMENTION_ERROR, IMAGE_SAVE_ERROR, INVALID_IMAGE_ERROR, MIN_DIMENTION } from "@/constants";
+import { Crop, ReactCrop, centerCrop, convertToPixelCrop, makeAspectCrop } from "@/components/ui/ReactCrop";
+import { ASPECT_RATIO, IMAGE_DIMENTION_ERROR, INVALID_IMAGE_ERROR, MIN_DIMENTION, getCroppedImg } from "@/constants";
 import { Button, ButtonGroup, Flex, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from '@chakra-ui/react';
-import { SyntheticEvent, useState } from 'react';
+import { SyntheticEvent, useRef, useState } from 'react';
 
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    onSavingImage: (crop: Crop) => void;
+    onSavingImage: (blob: Blob | null, fileName: string) => void;
 }
 
 const ImageSelectorModal = ({ isOpen, onClose, onSavingImage }: Props) => {
     const [imageSrc, setImageSrc] = useState("");
+    const [imageType, setImageType] = useState("");
+    const [fileName, setFileName] = useState("");
     const [crop, setCrop] = useState<Crop>();
+    const imgRef = useRef<HTMLImageElement>(null);
 
     const onSelectFile = (e: SyntheticEvent) => {
         const target = (e.target as HTMLInputElement);
@@ -22,11 +25,12 @@ const ImageSelectorModal = ({ isOpen, onClose, onSavingImage }: Props) => {
             toast.error(INVALID_IMAGE_ERROR.message, { toastId: INVALID_IMAGE_ERROR.type });
             return;
         }
-        console.log(image);
+        setFileName(image.name);
         const reader = new FileReader();
         reader.addEventListener("load", () => {
             const imageUrl = reader.result?.toString() || "";
             setImageSrc(imageUrl);
+            setImageType(image.type);
         });
         reader.readAsDataURL(image);
     }
@@ -54,7 +58,15 @@ const ImageSelectorModal = ({ isOpen, onClose, onSavingImage }: Props) => {
             width,
             height
         )
-        setCrop(crop)
+        setCrop(crop);
+    }
+
+    const handleImageSave = async () => {
+        if (!crop || !imgRef.current) return;
+        const pixelCrop = convertToPixelCrop(crop, imgRef.current.width, imgRef.current.height);
+        const blob = await getCroppedImg(imgRef.current, pixelCrop, imageType);
+        onSavingImage(blob, fileName);
+        onClose();
     }
 
     return (
@@ -87,6 +99,7 @@ const ImageSelectorModal = ({ isOpen, onClose, onSavingImage }: Props) => {
                                 minWidth={MIN_DIMENTION}
                             >
                                 <img
+                                    ref={imgRef}
                                     src={imageSrc}
                                     alt="Upload"
                                     onLoad={onImageLoad}
@@ -97,14 +110,7 @@ const ImageSelectorModal = ({ isOpen, onClose, onSavingImage }: Props) => {
                 </ModalBody>
                 <ModalFooter>
                     <ButtonGroup gap={1}>
-                        <Button onClick={() => {
-                            if (crop) {
-                                onSavingImage(crop);
-                            } else {
-                                toast.error(IMAGE_SAVE_ERROR.message, { toastId: IMAGE_SAVE_ERROR.type });
-                            }
-                            onClose();
-                        }} size='sm' type='button' colorScheme='blue'>Save</Button>
+                        <Button onClick={handleImageSave} size='sm' type='button' colorScheme='blue'>Save</Button>
                         <Button onClick={() => {
                             onClose();
                             setImageSrc("");

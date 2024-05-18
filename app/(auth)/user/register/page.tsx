@@ -1,6 +1,6 @@
 "use client"
 import CustomError from '@/components/error/CustomError';
-import { toast } from "@/components/error/Toast";
+import { toast } from '@/components/error/Toast';
 import ButtonSpinner from '@/components/loading/ButtonSpinner';
 import ImageSelector from '@/components/ui/ImageSelector';
 import Logo from '@/components/ui/Logo';
@@ -22,7 +22,7 @@ const Register = () => {
     const navigation = useRouter();
     if (session && session.data?.user) navigation.push(DASHBOARD_URL);
 
-    const { register, handleSubmit, setValue, formState: { errors, isValid } } = useForm<UserI>({
+    const { register, handleSubmit, setValue, getValues, formState: { errors, isValid } } = useForm<UserI>({
         resolver: zodResolver(validateUser)
     });
 
@@ -30,10 +30,17 @@ const Register = () => {
     if (error) handleErrors(error, userRegistrationError.type);
 
     const onSubmit = async (data: UserI) => {
-        const user = await addUser(data);
+        const imageData = getValues().imageData;
+        const { name, email, password } = data;
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("email", email);
+        formData.append("password", password);
+        if (imageData) formData.append("imageData", imageData);
+        const user = await addUser(formData);
         if (user) {
             toast.success("Registered successfully");
-            navigation.push("/user/signin");
+            navigation.replace("/user/signin");
         }
     };
 

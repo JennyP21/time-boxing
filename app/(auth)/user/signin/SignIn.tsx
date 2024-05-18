@@ -38,7 +38,7 @@ const SignIn = ({ callbackUrl }: Props) => {
         if (result?.error) {
             toast.error(result.error, { toastId: userSignInError.type });
         } else if (result?.ok) {
-            navigation.push(callbackUrl ?? DASHBOARD_URL);
+            navigation.replace(callbackUrl ?? DASHBOARD_URL);
         }
     };
 

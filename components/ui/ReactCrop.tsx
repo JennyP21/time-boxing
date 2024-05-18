@@ -1,5 +1,5 @@
-import ReactCrop, { type Crop, centerCrop, makeAspectCrop } from 'react-image-crop'
+import ReactCrop, { type Crop, centerCrop, makeAspectCrop, convertToPixelCrop } from 'react-image-crop'
 
 import 'react-image-crop/dist/ReactCrop.css'
 
-export { ReactCrop, Crop, centerCrop, makeAspectCrop };
+export { ReactCrop, Crop, centerCrop, makeAspectCrop, convertToPixelCrop };

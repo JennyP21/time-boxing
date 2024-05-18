@@ -13,11 +13,12 @@ export const userApi = createApi({
     getUserById: builder.query<UserI, string>({
       query: (id: string) => `/user/${id}`,
     }),
-    addUser: builder.mutation<UserI, UserI>({
-      query: (data: UserI) => ({
+    addUser: builder.mutation<UserI, FormData>({
+      query: (data: FormData) => ({
         url: "/auth/register",
         method: "POST",
         body: data,
+        formData: true,
       }),
     }),
   }),
