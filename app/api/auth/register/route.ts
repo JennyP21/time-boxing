@@ -5,7 +5,6 @@ import {
 } from "@/components/utils";
 import {
   alreadyExists,
-  unexpectedError,
   userRegistrationError,
 } from "@/constants";
 import {
@@ -86,8 +85,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(sanitizedUser);
   } catch (error) {
     console.log(error);
-    return NextResponse.json(unexpectedError.message, {
-      status: 500,
-    });
+    return NextResponse.json(
+      userRegistrationError.message,
+      {
+        status: 500,
+      }
+    );
   }
 }

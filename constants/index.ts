@@ -225,6 +225,11 @@ export const userRegistrationError = {
   message: "Unable to register user",
 };
 
+export const userUpdateError = {
+  type: "USER UPDATE",
+  message: "Unable to update user",
+};
+
 export const userSignInError = {
   type: "USER SIGN IN",
 };

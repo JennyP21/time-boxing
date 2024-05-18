@@ -5,13 +5,19 @@ import {
 } from "@reduxjs/toolkit/query/react";
 
 export const userApi = createApi({
+  tagTypes: ["updateUser"],
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/api",
   }),
   endpoints: (builder) => ({
     getUserById: builder.query<UserI, string>({
-      query: (id: string) => `/user/${id}`,
+      query: (email: string) => ({
+        url: `/user`,
+        method: "POST",
+        body: { email },
+      }),
+      providesTags: ["updateUser"],
     }),
     addUser: builder.mutation<UserI, FormData>({
       query: (data: FormData) => ({
@@ -21,8 +27,20 @@ export const userApi = createApi({
         formData: true,
       }),
     }),
+    updateUser: builder.mutation<UserI, FormData>({
+      query: (data: FormData) => ({
+        url: `/user/${data.get("id")}`,
+        method: "PATCH",
+        body: data,
+        formData: true,
+      }),
+      invalidatesTags: ["updateUser"],
+    }),
   }),
 });
 
-export const { useGetUserByIdQuery, useAddUserMutation } =
-  userApi;
+export const {
+  useGetUserByIdQuery,
+  useAddUserMutation,
+  useUpdateUserMutation,
+} = userApi;

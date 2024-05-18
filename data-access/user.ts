@@ -29,3 +29,13 @@ export async function addUser(newAccount: UserI) {
 
   return newUser;
 }
+
+export async function updateUser(id: string, user: UserI) {
+  const updatedUser = await db
+    .update(users)
+    .set(user)
+    .where(eq(users.id, id))
+    .returning();
+
+  return updatedUser[0];
+}

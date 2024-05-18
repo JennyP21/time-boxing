@@ -66,10 +66,7 @@ const authOptions: NextAuthOptions = {
   callbacks: {
     session: ({ session, token }) => ({
       ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-      },
+      user: { ...session.user, id: token.sub },
     }),
   },
   session: {

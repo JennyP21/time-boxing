@@ -3,22 +3,23 @@ import { UserI } from "@/interfaces"
 import { Box, Flex, Icon, useDisclosure } from "@chakra-ui/react"
 import Image from "next/image"
 import { useState } from "react"
-import { UseFormSetValue } from "react-hook-form"
+import { UseFormSetValue, UseFormTrigger } from "react-hook-form"
 import { FaCamera } from "react-icons/fa"
 import ImageSelectorModal from "./ImageSelectorModal"
 
 interface Props {
     setValue: UseFormSetValue<UserI>;
+    defaultImage?: string;
 }
 
-const ImageSelector = ({ setValue }: Props) => {
+const ImageSelector = ({ setValue, defaultImage }: Props) => {
     const { isOpen, onClose, onOpen } = useDisclosure();
     const [imagePreviewSrc, setImagePreviewSrc] = useState("");
 
     const onSavingImage = (blob: Blob | null, fileName: string) => {
         if (!blob) return;
         const file = new File([blob], fileName);
-        setValue("imageData", file);
+        setValue("imageData", file, { shouldDirty: true });
         const reader = new FileReader();
         reader.addEventListener("load", () => {
             const imageUrl = reader.result?.toString() || "";
@@ -32,7 +33,7 @@ const ImageSelector = ({ setValue }: Props) => {
             <Flex className="flex-col">
                 <Box className="relative w-fit rounded-full p-1" border="1px" borderColor="gray.400">
                     <Image
-                        src={imagePreviewSrc ? imagePreviewSrc : "/fallback-user.webp"}
+                        src={imagePreviewSrc ? imagePreviewSrc : (defaultImage ? defaultImage : "/fallback-user.webp")}
                         className="rounded-full"
                         width={42}
                         height={42}
