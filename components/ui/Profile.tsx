@@ -26,7 +26,7 @@ const Profile = ({ onClose, isOpen, user }: Props) => {
 
     const onSubmit = async (data: UserI) => {
         const formData = new FormData();
-        formData.append("id", data.id);
+        formData.append("id", user.id);
         formData.append("name", data.name);
         const imageData = getValues().imageData;
         if (imageData) formData.append("imageData", imageData);
