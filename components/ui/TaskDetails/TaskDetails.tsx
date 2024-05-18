@@ -19,7 +19,7 @@ const TaskDetails = ({ isOpen, onClose, task }: Props) => {
         <form onSubmit={(e) => e.preventDefault()}>
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
-                <ModalContent p={1} my={5} minWidth="45%">
+                <ModalContent p={1} my={5} minWidth="45%" maxH="95%" overflowY="scroll">
                     <ModalHeader fontWeight="500" fontSize="small" pb={0}>
                         <TaskDetailsHeader task={task} currentTitle={title} project_id={project_id} />
                     </ModalHeader>
