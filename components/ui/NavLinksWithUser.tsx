@@ -22,11 +22,11 @@ const NavLinksWithUser = ({ email }: { email: string }) => {
                 <NavLinksLoading />
                 :
                 <HStack>
-                    <Button colorScheme='blue' variant="outline" size="sm">
+                    <Button colorScheme='blue' variant="outline" size={{ base: "xs", sm: "sm" }}>
                         <Link href={currPath === '/' ? '/dashboard' : '/'}>{currPath === '/' ? 'Dashboard' : 'Home'}</Link>
                     </Button>
                     <Menu>
-                        <MenuButton as={Button} borderRadius="50%" colorScheme='gray' minWidth={{ base: 10 }} minHeight={{ base: 10 }} overflow={'hidden'}>
+                        <MenuButton as={Button} borderRadius="50%" colorScheme='gray' minWidth={10} minHeight={10} overflow={'hidden'}>
                             <Image src={user.image || "/fallback-user.webp"} fill className='object-cover' alt="profile" />
                         </MenuButton>
                         <MenuList fontSize={{ sm: "medium", base: "small" }}>

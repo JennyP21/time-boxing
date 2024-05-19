@@ -36,7 +36,7 @@ const Profile = ({ onClose, isOpen, user }: Props) => {
     return (
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={1}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalHeader>{user.name}'s Profile</ModalHeader>
                     <ModalBody>

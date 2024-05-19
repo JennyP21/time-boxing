@@ -8,7 +8,7 @@ const Navbar = async () => {
     const session = await getServerSession();
     return (
         <Box as="nav" className='z-50 w-full fixed bg-white' borderBottom="1px" borderColor={'gray.300'}>
-            <Flex py={{ sm: 2, base: 0.5 }} px={2} justify={'space-between'}>
+            <Flex py={2} px={2} justify={'space-between'}>
                 <Logo />
                 {session ?
                     <NavLinksWithUser email={session.user.email!} />
