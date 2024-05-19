@@ -39,14 +39,13 @@ const AddOrUpdateProject = ({ isOpen, onClose, teams, user_id, currentProject }:
                 user_id
             } as ProjectI;
             await addProject(data);
-            reset();
         } else {
             if (!isEqual(project, currentProject)) {
                 const data = {
                     id: currentProject.id,
                     name: project.name,
-                    team_id: project.team_id === "" ? null : project.team_id,
-                    user_id: project.team_id === "" ? user_id : null
+                    team_id: currentProject.team_id,
+                    user_id: currentProject.user_id
                 } as ProjectI;
 
                 await updateProject(data);
@@ -54,6 +53,8 @@ const AddOrUpdateProject = ({ isOpen, onClose, teams, user_id, currentProject }:
         }
         onClose();
     }
+
+    const isLoading = isUpdating || isAdding;
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
@@ -65,7 +66,7 @@ const AddOrUpdateProject = ({ isOpen, onClose, teams, user_id, currentProject }:
                         <Flex className='flex-col gap-2 w-full items-center justify-start'>
                             <Input placeholder='Name your project' {...register("name")} />
                             {errors && <CustomError>{errors.name?.message}</CustomError>}
-                            <Select {...register("team_id")}>
+                            <Select isDisabled={currentProject !== undefined} {...register("team_id")}>
                                 <option value="">Personal</option>
                                 <optgroup label="Team">
                                     {teams.map(team => (
@@ -79,9 +80,9 @@ const AddOrUpdateProject = ({ isOpen, onClose, teams, user_id, currentProject }:
                         <Button
                             type='submit'
                             colorScheme="blue"
-                            isDisabled={!isValid}
+                            isDisabled={(!isDirty || !isValid || isLoading)}
                         >
-                            {currentProject ? "Update" : "Add"} {(isUpdating || isAdding) && <ButtonSpinner />}
+                            {currentProject ? "Update" : "Add"} {isLoading && <ButtonSpinner />}
                         </Button>
                         <Button variant='ghost' onClick={() => { onClose(); reset() }}>Close</Button>
                     </ModalFooter>
