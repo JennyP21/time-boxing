@@ -281,6 +281,20 @@
       "when": 1715570439544,
       "tag": "0043_yummy_vulture",
       "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "6",
+      "when": 1716077568916,
+      "tag": "0044_thin_garia",
+      "breakpoints": true
+    },
+    {
+      "idx": 45,
+      "version": "6",
+      "when": 1716077616198,
+      "tag": "0045_wealthy_switch",
+      "breakpoints": true
     }
   ]
 }
