@@ -11,7 +11,7 @@ interface Props {
 const SignUpButton = ({ color, size }: Props) => {
     const session = useSession();
 
-    if (session) return null;
+    if (session.data) return null;
     return (
         <Link href="/user/register">
             <Button
