@@ -59,7 +59,7 @@ const AssignUser = ({ users, task_id }: Props) => {
                             </MenuItem>
                         ))}
                     </MenuGroup>
-                    {unAssignedUsers && unAssignedUsers.length > 0 && <MenuGroup title='Not Assigned' fontSize="small" fontWeight="normal">
+                    {unAssignedUsers && unAssignedUsers.length > 0 && <MenuGroup title='Suggestion' fontSize="small" fontWeight="normal">
                         {unAssignedUsers.map((user) => (
                             <MenuItem key={user.email} onClick={() => handleUserAssignment(getUserId(user))}>
                                 <Flex className='items-center gap-2'>

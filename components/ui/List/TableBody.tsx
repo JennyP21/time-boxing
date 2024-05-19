@@ -5,7 +5,7 @@ import { Tbody, Td, Tr } from '@chakra-ui/react';
 import _ from "lodash";
 import { useSearchParams } from 'next/navigation';
 import AddTaskContainer from '../AddTaskContainer';
-import AssignUserContainer from '../AssignUserContainer';
+import AssignUserWrapper from '../AssignUserWrapper';
 import MoreOptionsContainer from '../MoreOptionsContainer';
 import AttributeSelector from './AttributeSelector';
 import DueDate from './DueDate';
@@ -38,7 +38,7 @@ const TableBody = ({ data, project }: Props) => {
                         <TaskTitle task={task} />
                     </Td>
                     <Td py={0} px={1}>
-                        <AssignUserContainer project_id={project.id} task_id={task.id} />
+                        <AssignUserWrapper project_id={project.id} task_id={task.id} />
                     </Td>
                     <Td p={1}>
                         <UpdateBucket currData={task} project={project} />

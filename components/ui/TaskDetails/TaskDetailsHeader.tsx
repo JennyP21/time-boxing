@@ -5,7 +5,7 @@ import { TaskI } from '@/interfaces';
 import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { Input, InputGroup, InputLeftElement, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import AssignUserContainer from '../AssignUserContainer';
+import AssignUserWrapper from '../AssignUserWrapper';
 import CheckTask from '../CheckTask';
 import LabelDetails from './LabelDetails';
 
@@ -48,7 +48,7 @@ const TaskDetailsHeader = ({ task, currentTitle, project_id }: Props) => {
                     _focus={{ boxShadow: "none" }}
                 />
             </InputGroup>
-            <AssignUserContainer project_id={project_id} task_id={task.id} />
+            <AssignUserWrapper project_id={project_id} task_id={task.id} />
             <LabelDetails task_id={task.id} project_id={project_id} />
         </>
     )

@@ -5,7 +5,7 @@ import { ProjectI, TaskI } from '@/interfaces';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import AssignUserContainer from '../AssignUserContainer';
+import AssignUserWrapper from '../AssignUserWrapper';
 import CheckTask from '../CheckTask';
 import MoreOptionsContainer from '../MoreOptionsContainer';
 import StepsDetails from '../TaskDetails/StepsDetails';
@@ -62,7 +62,7 @@ const Task = ({ task, project }: Props) => {
                 </Flex>}
             </CardBody>
             <CardFooter px={3} py={0} borderTop={"1px"} borderColor={"gray.200"}>
-                <AssignUserContainer project_id={project.id} task_id={task.id} />
+                <AssignUserWrapper project_id={project.id} task_id={task.id} />
             </CardFooter>
             <TaskDetails task={task} isOpen={isOpenTask} onClose={onCloseTask} />
         </Card>
