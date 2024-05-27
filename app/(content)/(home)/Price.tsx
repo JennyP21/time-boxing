@@ -17,7 +17,7 @@ const Price = () => {
                 <Switch size="lg" onChange={() => setPricing(pricing === "Monthly" ? "Yearly" : "Monthly")} />
                 Yearly
             </Flex>
-            <Grid gap={1} templateColumns={{ sm: "1fr", md: "1fr 1fr", lg: "1fr 1fr 1fr 1fr" }}>
+            <Grid gap={1} templateColumns={{ base: "1fr", sm: "1fr 1fr", lg: "1fr 1fr 1fr 1fr" }}>
                 <GridItem>
                     <PriceCard plan={free} pricing={pricing} />
                 </GridItem>
