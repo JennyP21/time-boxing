@@ -1,8 +1,8 @@
 import ButtonSpinner from '@/components/loading/ButtonSpinner';
 import { handleErrors } from '@/components/utils/handleErrors';
-import { addTeamsError, updateTeamsError } from '@/constants';
+import { updateTeamsError } from '@/constants';
 import { TeamI } from '@/interfaces';
-import { useAddTeamMutation, useUpdateTeamMutation } from '@/lib/features/teamApi';
+import { useUpdateTeamMutation } from '@/lib/features/teamApi';
 import { validateTeam } from '@/validation';
 import { Button, Flex, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, Textarea } from '@chakra-ui/react';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,29 +11,20 @@ import { useForm } from "react-hook-form";
 interface Props {
     isOpen: boolean;
     onClose: () => void;
-    user_id?: string;
-    currentTeam?: TeamI;
+    currentTeam: TeamI;
 }
 
-const AddOrUpdateTeam = ({ isOpen, onClose, user_id, currentTeam }: Props) => {
-    const { register, reset, formState: { errors, isValid }, handleSubmit } = useForm<TeamI>({
+const UpdateTeam = ({ isOpen, onClose, currentTeam }: Props) => {
+    const { register, handleSubmit, formState: { errors, isValid, isDirty } } = useForm<TeamI>({
         resolver: zodResolver(validateTeam),
         defaultValues: currentTeam
     });
 
-    const [addTeam, { isLoading: isAdding, error: addTeamError }] = useAddTeamMutation();
-    const [updateTeam, { isLoading: isUpdating, error: updateTeamError }] = useUpdateTeamMutation();
-
-    if (addTeamError) handleErrors(addTeamError, addTeamsError.type);
-    if (updateTeamError) handleErrors(updateTeamError, updateTeamsError.type);
+    const [updateTeam, { isLoading, error }] = useUpdateTeamMutation();
+    if (error) handleErrors(error, updateTeamsError.type);
 
     const onSubmit = async (data: TeamI) => {
-        if (currentTeam) {
-            await updateTeam({ ...data, id: currentTeam.id });
-        } else if (user_id) {
-            await addTeam({ team: data, user_id });
-            reset();
-        }
+        await updateTeam({ ...data, id: currentTeam.id });
         onClose();
     };
 
@@ -42,7 +33,7 @@ const AddOrUpdateTeam = ({ isOpen, onClose, user_id, currentTeam }: Props) => {
             <ModalOverlay />
             <ModalContent>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <ModalHeader>{currentTeam ? "Update" : "Add new"} team</ModalHeader>
+                    <ModalHeader>Update team</ModalHeader>
                     <ModalBody>
                         <Flex className='flex-col gap-2'>
                             <Input placeholder="Name you team" {...register("name")} />
@@ -55,9 +46,9 @@ const AddOrUpdateTeam = ({ isOpen, onClose, user_id, currentTeam }: Props) => {
                         <Button
                             type='submit'
                             colorScheme="blue"
-                            isDisabled={!isValid}
+                            isDisabled={!isDirty || !isValid || isLoading}
                         >
-                            {currentTeam ? "Update" : "Add"} {(isUpdating || isAdding) && <ButtonSpinner />}
+                            Update {isLoading && <ButtonSpinner />}
                         </Button>
                         <Button variant='ghost' onClick={onClose}>Close</Button>
                     </ModalFooter>
@@ -67,4 +58,4 @@ const AddOrUpdateTeam = ({ isOpen, onClose, user_id, currentTeam }: Props) => {
     )
 }
 
-export default AddOrUpdateTeam
+export default UpdateTeam

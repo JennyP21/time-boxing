@@ -4,7 +4,7 @@ import { getTeamsError } from '@/constants';
 import { useGetTeamsByUserIdQuery } from '@/lib/features/teamApi';
 import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
-import AddOrUpdateTeamContainer from '../AddOrUpdateTeamContainer';
+import Teams from '../Teams';
 import TeamCard from './TeamCard';
 
 interface Props {
@@ -19,7 +19,7 @@ const TeamsGrid = ({ user_id }: Props) => {
     return (
         <>
             {user_id && <Box className='w-40 mb-5'>
-                <AddOrUpdateTeamContainer user_id={user_id} />
+                <Teams user_id={user_id} />
             </Box>}
             {isLoading ?
                 <TeamsGridLoading />

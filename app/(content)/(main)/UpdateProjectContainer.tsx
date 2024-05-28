@@ -2,8 +2,8 @@ import { handleErrors } from "@/components/utils/handleErrors";
 import { getProjectError } from "@/constants";
 import { ProjectI } from "@/interfaces";
 import { useGetTeamsByUserIdQuery } from "@/lib/features/teamApi";
-import { Icon, useDisclosure } from "@chakra-ui/react";
-import { LuPencil } from "react-icons/lu";
+import { useDisclosure } from "@chakra-ui/react";
+import EditIcon from "./EditIcon";
 import UpdateProject from "./UpdateProject";
 
 interface Props {
@@ -20,7 +20,7 @@ const UpdateProjectContainer = ({ user_id, currentProject }: Props) => {
 
     return (
         <>
-            <Icon onClick={onOpen} as={LuPencil} className='rounded-tl-lg rounded-br-lg cursor-pointer' w={5} h={5} _hover={{ bg: "gray.300" }} />
+            <EditIcon onOpen={onOpen} />
             {teams && <UpdateProject onClose={onClose} isOpen={isOpen} teams={teams} user_id={user_id} currentProject={currentProject} />}
         </>
     )

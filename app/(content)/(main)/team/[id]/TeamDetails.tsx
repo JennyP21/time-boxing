@@ -5,7 +5,7 @@ import { getTeamsError } from '@/constants';
 import { useGetTeamByIdQuery } from '@/lib/features/teamApi';
 import { Flex } from '@chakra-ui/react';
 import ManageMembers from './ManageMembers';
-import TeamDetailsHeading from './TeamDetailsHeading';
+import TeamDetailsHeader from './TeamDetailsHeader';
 import TeamInfo from './TeamInfo';
 
 const TeamDetails = ({ team_id }: { team_id: string }) => {
@@ -17,7 +17,7 @@ const TeamDetails = ({ team_id }: { team_id: string }) => {
 
     return (
         <Flex className='flex-col w-full h-full'>
-            <TeamDetailsHeading name={team.name} />
+            <TeamDetailsHeader name={team.name} currentTeam={team} />
             {isLoading ? <TeamInfoLoading />
                 :
                 <Flex className='flex-col gap-3 p-5 flex-[1_0_0] overflow-scroll'>

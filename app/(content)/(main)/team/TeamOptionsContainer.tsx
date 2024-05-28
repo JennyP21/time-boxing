@@ -1,6 +1,6 @@
 "use client"
 import { useDisclosure } from '@chakra-ui/react';
-import AddOrUpdateTeam from '../AddOrUpdateTeam'
+import UpdateTeam from '../UpdateTeam'
 import TeamOptions from './TeamOptions'
 import { TeamI } from '@/interfaces';
 import { useDeleteTeamMutation } from '@/lib/features/teamApi';
@@ -23,7 +23,7 @@ const TeamOptionsContainer = ({ team }: Props) => {
     return (
         <>
             <TeamOptions onOpen={onOpen} handleTeamDelete={handleTeamDelete} />
-            <AddOrUpdateTeam isOpen={isOpen} onClose={onClose} currentTeam={team} />
+            <UpdateTeam isOpen={isOpen} onClose={onClose} currentTeam={team} />
         </>
     )
 }

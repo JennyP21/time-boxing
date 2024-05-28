@@ -4,8 +4,8 @@ import { Flex, HStack, Icon, Text, VStack } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { GrProjects } from "react-icons/gr";
 import { IoHomeOutline } from 'react-icons/io5';
-import AddOrUpdateTeamContainer from './AddOrUpdateTeamContainer';
 import AddProjectContainer from './AddProjectContainer';
+import AddTeamContainer from './AddTeamContainer';
 import PersonalList from './PersonalList';
 import Teams from './Teams';
 
@@ -40,7 +40,7 @@ const LeftPanel = () => {
                     <>
                         <PersonalList user_id={session.data.user.id} />
                         <Teams user_id={session.data.user.id} />
-                        <AddOrUpdateTeamContainer user_id={session.data.user.id} />
+                        <AddTeamContainer user_id={session.data.user.id} />
                         <AddProjectContainer user_id={session.data.user.id} />
                     </>
                 }
