@@ -7,7 +7,7 @@ import { Link } from '@chakra-ui/next-js';
 import { Flex, Heading, HStack, Icon, Text } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { FaCaretRight } from 'react-icons/fa';
-import AddOrUpdateProjectContainer from '../../AddOrUpdateProjectContainer';
+import UpdateProjectContainer from '../../UpdateProjectContainer';
 import LabelCreator from './LabelManager';
 import ViewTabs from './ViewTabs';
 
@@ -33,7 +33,7 @@ const ProjectHeader = ({ project, tabs, setTabs }: Props) => {
                         <Text>{project.name}</Text>
                     </Heading>
                 </Flex>
-                {session.data && <AddOrUpdateProjectContainer user_id={session.data.user.id} currentProject={project} />}
+                {session.data && <UpdateProjectContainer user_id={session.data.user.id} currentProject={project} />}
             </Flex>
             <HStack>
                 <LabelCreator project_id={project.id} />

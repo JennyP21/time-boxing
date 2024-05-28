@@ -4,7 +4,7 @@ import { getProjectError, getTeamsError } from '@/constants';
 import { useGetProjectsByUserIdQuery } from '@/lib/features/projectApi';
 import { useGetTeamsByUserIdQuery } from '@/lib/features/teamApi';
 import { Box } from '@chakra-ui/react';
-import AddOrUpdateProjectContainer from '../AddOrUpdateProjectContainer';
+import AddProjectContainer from '../AddProjectContainer';
 import Projects from './Projects';
 import TeamProjectsWrapper from './TeamProjectsWrapper';
 
@@ -22,7 +22,7 @@ const ProjectGrid = ({ user_id }: Props) => {
     return (
         <>
             <Box className='w-40 mb-5'>
-                <AddOrUpdateProjectContainer user_id={user_id} />
+                <AddProjectContainer user_id={user_id} />
             </Box>
             {isPLoading ? <ProjectContainerLoading /> : (
                 personalProjects && <Projects title="Personal" projects={personalProjects} />
