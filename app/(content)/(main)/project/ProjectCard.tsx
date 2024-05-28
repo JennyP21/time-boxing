@@ -3,11 +3,7 @@ import { ProjectI } from '@/interfaces';
 import { Link } from '@chakra-ui/next-js';
 import { Card, CardBody, CardHeader, Heading, Text } from '@chakra-ui/react';
 
-interface Props {
-    project: ProjectI;
-}
-
-const ProjectCard = ({ project }: Props) => {
+const ProjectCard = ({ project }: { project: ProjectI; }) => {
     return (
         <Card className='shadow-md hover:shadow-lg' border="1px" borderColor="gray.100" maxW="15rem" minW="15rem" _hover={{
             scale: 1.1,
