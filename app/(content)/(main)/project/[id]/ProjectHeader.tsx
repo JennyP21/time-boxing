@@ -1,13 +1,14 @@
 import GroupBySelector from '@/components/ui/Kanban/GroupBySelector';
 import ListByStatus from '@/components/ui/List/ListByStatus';
 import { getView } from '@/components/utils/handleUserState';
+import { PROJECT_VIEW_TYPE } from '@/constants';
 import { ProjectI, TabI } from '@/interfaces';
 import { Link } from '@chakra-ui/next-js';
 import { Flex, Heading, HStack, Icon, Text } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
 import { FaCaretRight } from 'react-icons/fa';
 import AddOrUpdateProjectContainer from '../../AddOrUpdateProjectContainer';
-import LabelCreator from './LabelCreator';
+import LabelCreator from './LabelManager';
 import ViewTabs from './ViewTabs';
 
 interface Props {
@@ -18,7 +19,7 @@ interface Props {
 
 const ProjectHeader = ({ project, tabs, setTabs }: Props) => {
     const session = useSession();
-    const currentView = getView(project.id) || "List";
+    const currentView = getView(project.id) || PROJECT_VIEW_TYPE;
 
     return (
         <HStack className='w-full justify-between' borderBottom="1px" p={1} borderColor={"gray.300"}>

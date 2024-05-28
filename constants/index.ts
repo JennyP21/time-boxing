@@ -466,6 +466,8 @@ export const footerLinks: FooterLinkI[] = [
   },
 ];
 
+export const PROJECT_VIEW_TYPE = "List";
+
 export const ASPECT_RATIO = 1;
 export const MIN_DIMENTION = 150;
 export const IMAGE_DIMENTION_ERROR = {

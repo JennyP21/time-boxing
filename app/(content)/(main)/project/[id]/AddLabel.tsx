@@ -14,8 +14,9 @@ interface Props {
 
 const AddLabel = ({ isOpen, onClose, project_id, labels }: Props) => {
 
-    const [addLabel, { isLoading: isAdding, error: labelAddError }] = useAddLabelMutation();
-    if (labelAddError) handleErrors(labelAddError, addLabelError.type);
+    const [addLabel, { isLoading, error }] = useAddLabelMutation();
+
+    if (error) handleErrors(error, addLabelError.type);
 
     const handleSubmit = async (e: SyntheticEvent) => {
         const value = (e.target as HTMLInputElement).value;
@@ -49,9 +50,9 @@ const AddLabel = ({ isOpen, onClose, project_id, labels }: Props) => {
                                 handleSubmit(e)
                                 e.target.value = "";
                             }}
-                            isDisabled={isAdding}
+                            isDisabled={isLoading}
                         />
-                        {isAdding &&
+                        {isLoading &&
                             <InputRightElement>
                                 <Spinner />
                             </InputRightElement>

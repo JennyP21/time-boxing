@@ -1,6 +1,7 @@
 import KanbanCanvas from '@/components/ui/Kanban/KanbanCanvas';
 import ListTable from '@/components/ui/List/ListTable';
 import { getView } from '@/components/utils/handleUserState';
+import { PROJECT_VIEW_TYPE } from '@/constants';
 import { ProjectI } from '@/interfaces';
 
 interface Props {
@@ -8,11 +9,11 @@ interface Props {
 }
 
 const ProjectContent = ({ project }: Props) => {
-    const currentView = getView(project.id) || "List";
+    const currentView = getView(project.id) || PROJECT_VIEW_TYPE;
 
     return (
         <>
-            {currentView === "List" ?
+            {currentView === PROJECT_VIEW_TYPE ?
                 <ListTable project={project} />
                 :
                 <KanbanCanvas project={project} />
