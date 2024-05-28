@@ -1,57 +1,26 @@
-"use client"
-import { handleErrors } from '@/components/utils/handleErrors';
-import { deleteBucketError, updateBucketError } from '@/constants';
-import { BucketI, ProjectI } from '@/interfaces';
-import { useDeleteBucketMutation, useUpdateBucketMutation } from '@/lib/features/bucketApi';
-import { Flex, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Spinner, Text } from '@chakra-ui/react';
-import { SyntheticEvent, useState } from 'react';
+import { ProjectI } from '@/interfaces';
+import { Flex, Icon, Menu, MenuButton, MenuItem, MenuList, Text } from '@chakra-ui/react';
+import { useState } from 'react';
 import { HiOutlineDotsHorizontal } from 'react-icons/hi';
+import DeleteBucket from './DeleteBucket';
+import UpdateBucket from './UpdateBucket';
 
 interface Props {
-    id: string;
-    name: string;
+    bucket_id: string;
+    currentName: string;
     project: ProjectI;
 }
 
-const BucketHeader = ({ id, name, project }: Props) => {
-    const [active, setActive] = useState(false);
-
-    const [deleteBucket, { error: deleteError }] = useDeleteBucketMutation();
-    const [updateBucket, { error: updateError, isLoading: updateBucketLoading }] = useUpdateBucketMutation();
-
-    const handleBucketDelete = async () => await deleteBucket(id);
-
-    if (updateError) handleErrors(updateError, updateBucketError.type);
-
-    if (deleteError) handleErrors(deleteError, deleteBucketError.type);
-
-    const handleBucketUpdate = async (e: SyntheticEvent) => {
-        const updatedName = (e.target as HTMLInputElement).value;
-        if (name !== updatedName && updatedName !== "") {
-            const data = {
-                id,
-                name: updatedName,
-                project_id: project.id
-            } as BucketI;
-            if (name !== updatedName) {
-                await updateBucket(data);
-            }
-        }
-        setActive(false);
-    }
+const BucketHeader = ({ bucket_id, currentName, project }: Props) => {
+    const [isEditing, setIsEditing] = useState(false);
 
     return (
         <Flex className='w-full justify-between' p={1}>
-            {updateBucketLoading ? <Spinner size="sm" /> : <>
-                {active ?
-                    <Input
-                        autoFocus
-                        size={"xs"}
-                        onBlur={(e) => handleBucketUpdate(e)}
-                        defaultValue={name}
-                        onKeyDown={(e) => e.key === "Enter" && handleBucketUpdate(e)}
-                    /> :
-                    <Text size="md" align='left' width="100%">{name}</Text>
+            {<>
+                {isEditing ?
+                    <UpdateBucket currentName={currentName} project_id={project.id} bucket_id={bucket_id} setIsEditing={setIsEditing} />
+                    :
+                    <Text size="md" align='left' width="100%">{currentName}</Text>
                 }
             </>}
             <Menu placement='bottom-end'>
@@ -59,8 +28,8 @@ const BucketHeader = ({ id, name, project }: Props) => {
                     <Icon as={HiOutlineDotsHorizontal} w={4} h={4} />
                 </MenuButton>
                 <MenuList>
-                    <MenuItem onClick={handleBucketDelete}>Delete</MenuItem>
-                    <MenuItem onClick={() => setActive(true)}>Rename</MenuItem>
+                    <DeleteBucket bucket_id={bucket_id} />
+                    <MenuItem onClick={() => setIsEditing(true)}>Rename</MenuItem>
                 </MenuList>
             </Menu>
         </Flex>

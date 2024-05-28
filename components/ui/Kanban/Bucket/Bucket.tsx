@@ -22,7 +22,7 @@ const Bucket = ({ name, id, project }: Props) => {
 
     return (
         <Stack>
-            <BucketHeader name={name} id={id} project={project} />
+            <BucketHeader currentName={name} bucket_id={id} project={project} />
             <AddTaskContainer project={project} type='bucket' bucket_id={id} />
             {isLoading ? <TaskCardLoading /> :
                 <TasksList data={data} project={project} />

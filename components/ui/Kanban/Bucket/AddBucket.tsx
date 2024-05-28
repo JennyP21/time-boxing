@@ -1,4 +1,3 @@
-"use client"
 import { handleErrors } from '@/components/utils/handleErrors';
 import { addBucketError } from '@/constants';
 import { BucketI, ProjectI } from '@/interfaces';
@@ -12,14 +11,12 @@ interface Props {
 }
 
 const AddBucket = ({ lastBucketOrder, project }: Props) => {
-    const [active, setActive] = useState(false);
+    const [isAdding, setIsAdding] = useState(false);
 
     const [addBucket, { error, isLoading }] = useAddBucketMutation();
-
     if (error) handleErrors(error, addBucketError.type);
 
     const handleAddBucket = async (e: SyntheticEvent) => {
-        setActive(false);
         const target = (e.target as HTMLInputElement);
         if (target.value) {
             const data = {
@@ -29,22 +26,25 @@ const AddBucket = ({ lastBucketOrder, project }: Props) => {
             } as BucketI;
             await addBucket(data);
         };
+        setIsAdding(false);
     }
 
     return (
         <Box minWidth="280px" maxWidth="300px" ml={2} p={1}>
-            {isLoading ? <Spinner size="sm" /> :
+            {isLoading ?
+                <Spinner size="sm" />
+                :
                 <>
-                    {active ?
+                    {isAdding ?
                         <Input
                             autoFocus
-                            size={"xs"}
+                            size="xs"
                             placeholder='Add a name to your bucket'
                             onBlur={(e) => handleAddBucket(e)}
                             onKeyDown={(e) => e.key === "Enter" && handleAddBucket(e)}
                         />
                         :
-                        <Text cursor="pointer" onClick={() => setActive(true)}>Add new Bucket</Text>
+                        <Text cursor="pointer" onClick={() => setIsAdding(true)}>Add new Bucket</Text>
                     }
                 </>
             }
