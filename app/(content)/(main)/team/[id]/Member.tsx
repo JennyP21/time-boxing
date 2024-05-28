@@ -1,9 +1,7 @@
-"use client"
 import { CustomMembersI } from '@/interfaces';
-import { Center, Icon, Td, Text, Tr, useDisclosure } from '@chakra-ui/react';
+import { Td, Text, Tr } from '@chakra-ui/react';
 import Image from 'next/image';
-import { MdOutlineDelete } from 'react-icons/md';
-import ConfirmRemove from './ConfirmRemove';
+import RemoveMemberContainer from './RemoveMemberContainer';
 import RoleSelector from './RoleSelector';
 
 interface Props {
@@ -12,8 +10,6 @@ interface Props {
 }
 
 const Member = ({ user, hasOneOwner }: Props) => {
-    const { isOpen, onClose, onOpen } = useDisclosure();
-
     return (
         <Tr>
             <Td>
@@ -29,10 +25,7 @@ const Member = ({ user, hasOneOwner }: Props) => {
                 <RoleSelector user={user} hasOneOwner={hasOneOwner} />
             </Td>
             <Td>
-                <Center>
-                    <Icon as={MdOutlineDelete} onClick={hasOneOwner ? undefined : onOpen} className='p-1 rounded-full' cursor={hasOneOwner ? "not-allowed" : "pointer"} w={8} h={8} _hover={{ bg: "gray.300" }} />
-                    <ConfirmRemove user={user} isOpen={isOpen} onClose={onClose} />
-                </Center>
+                <RemoveMemberContainer user={user} hasOneOwner={hasOneOwner} />
             </Td>
         </Tr>
     )

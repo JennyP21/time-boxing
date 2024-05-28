@@ -1,4 +1,3 @@
-"use client"
 import TeamDetails from "./TeamDetails";
 
 const Team = ({ params }: { params: { id: string } }) => {

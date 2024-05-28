@@ -6,13 +6,10 @@ import { TeamI } from '@/interfaces';
 import { useGetTeamMembersQuery } from '@/lib/features/teamApi';
 import { Flex } from '@chakra-ui/react';
 import AccordionTeamUserList from './AccordionTeamUserList';
-import AddMember from './AddMember';
+import AddMemberContainer from './AddMemberContainer';
 
-interface Props {
-    team: TeamI;
-}
 
-const ManageMembers = ({ team }: Props) => {
+const ManageMembers = ({ team }: { team: TeamI }) => {
     const { data, isLoading, error } = useGetTeamMembersQuery(team.id);
 
     if (error) handleErrors(error, getTeamMembersError.type);
@@ -27,7 +24,7 @@ const ManageMembers = ({ team }: Props) => {
             {isLoading ? <TeamMembersLoading />
                 :
                 <Flex className='flex-col gap-3'>
-                    <AddMember team={team} />
+                    <AddMemberContainer team={team} />
                     <AccordionTeamUserList label='Owners' list={owners} />
                     <AccordionTeamUserList label='Members' list={members} />
                 </Flex >

@@ -1,4 +1,3 @@
-"use client"
 import ButtonSpinner from '@/components/loading/ButtonSpinner';
 import { handleErrors } from '@/components/utils/handleErrors';
 import { removeTeamMemberError } from '@/constants';
@@ -12,7 +11,7 @@ interface Props {
     user: CustomMembersI;
 }
 
-const ConfirmRemove = ({ isOpen, onClose, user }: Props) => {
+const RemoveMember = ({ isOpen, onClose, user }: Props) => {
     const [removeMember, { isLoading, error }] = useRemoveMemberMutation();
 
     if (error) handleErrors(error, removeTeamMemberError.type);
@@ -36,7 +35,7 @@ const ConfirmRemove = ({ isOpen, onClose, user }: Props) => {
                     </Heading>
                 </ModalBody>
                 <ModalFooter gap={2}>
-                    <Button colorScheme='blue' onClick={handleRemoveMember}>Remove {isLoading && <ButtonSpinner />}</Button>
+                    <Button colorScheme='blue' onClick={handleRemoveMember} disabled={isLoading}>Remove {isLoading && <ButtonSpinner />}</Button>
                     <Button onClick={onClose}>Close</Button>
                 </ModalFooter>
             </ModalContent>
@@ -44,4 +43,4 @@ const ConfirmRemove = ({ isOpen, onClose, user }: Props) => {
     )
 }
 
-export default ConfirmRemove
+export default RemoveMember
