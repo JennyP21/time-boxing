@@ -9,7 +9,7 @@ interface Props {
     task_id: string;
 }
 
-const AssignUserWrapper = ({ project_id, task_id }: Props) => {
+const AssignUserContainer = ({ project_id, task_id }: Props) => {
     const { data: project, error } = useGetProjectQuery(project_id);
     if (error) handleErrors(error, getProjectError.type);
     if (!project) return null;
@@ -25,4 +25,4 @@ const AssignUserWrapper = ({ project_id, task_id }: Props) => {
     )
 }
 
-export default AssignUserWrapper
+export default AssignUserContainer

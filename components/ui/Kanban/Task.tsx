@@ -5,7 +5,7 @@ import { ProjectI, TaskI } from '@/interfaces';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import AssignUserWrapper from '../AssignUserWrapper';
+import AssignUserContainer from '../AssignUserContainer';
 import CheckTask from '../CheckTask';
 import MoreOptionsContainer from '../MoreOptionsContainer';
 import StepsDetails from '../TaskDetails/StepsDetails';
@@ -18,7 +18,7 @@ interface Props {
 }
 
 const Task = ({ task, project }: Props) => {
-    const { isOpen: isOpenTask, onOpen: onOpenTask, onClose: onCloseTask } = useDisclosure();
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const { data: steps, isLoading, error } = useGetStepsByTaskIdQuery(task.id);
 
     if (error) handleErrors(error, getStepsError.type);
@@ -36,8 +36,8 @@ const Task = ({ task, project }: Props) => {
                     <Text
                         className='cursor-pointer hover:underline'
                         textDecor={task.progress === "Completed" ? "line-through" : ""}
-                        onClick={onOpenTask}
                         textColor={task.progress === "Completed" ? "gray.300" : ""}
+                        onClick={onOpen}
                     >
                         {task.title}
                     </Text>
@@ -62,9 +62,9 @@ const Task = ({ task, project }: Props) => {
                 </Flex>}
             </CardBody>
             <CardFooter px={3} py={0} borderTop={"1px"} borderColor={"gray.200"}>
-                <AssignUserWrapper project_id={project.id} task_id={task.id} />
+                <AssignUserContainer project_id={project.id} task_id={task.id} />
             </CardFooter>
-            <TaskDetails task={task} isOpen={isOpenTask} onClose={onCloseTask} />
+            <TaskDetails task={task} isOpen={isOpen} onClose={onClose} />
         </Card>
     )
 }

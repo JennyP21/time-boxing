@@ -1,4 +1,3 @@
-"use client"
 import Skeleton from "@/components/loading/Skeleton";
 import { handleErrors } from "@/components/utils/handleErrors";
 import { assignLabelError, getLabelsError, unassignLabelError } from "@/constants";
