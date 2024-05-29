@@ -1,4 +1,3 @@
-"use client"
 import BucketSelector from '@/components/ui/BucketSelector';
 import { ProjectI, TaskI } from '@/interfaces';
 import { Flex, Icon, Input, Td, Text, Tr } from '@chakra-ui/react';

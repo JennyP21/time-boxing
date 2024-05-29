@@ -1,4 +1,4 @@
-import { addTaskError } from '@/constants';
+import { addTaskError, assignLabelError } from '@/constants';
 import { ProjectI, Task_LabelI, TaskI } from '@/interfaces';
 import { useAssignLabelMutation } from '@/lib/features/labelApi';
 import { useAddTaskMutation } from '@/lib/features/taskApi';
@@ -22,7 +22,8 @@ const AddTaskContainer = ({ type, bucket_id, project, progress, severity, label_
     const [addTask, { error }] = useAddTaskMutation();
     if (error) handleErrors(error, addTaskError.type)
 
-    const [assignLabel] = useAssignLabelMutation();
+    const [assignLabel, { error: LabelAssignError }] = useAssignLabelMutation();
+    if (LabelAssignError) handleErrors(LabelAssignError, assignLabelError.type);
 
     const initialData = {
         title: "",
@@ -53,7 +54,7 @@ const AddTaskContainer = ({ type, bucket_id, project, progress, severity, label_
                     setData={setData}
                     active={active}
                     setActive={setActive}
-                    hadBucketSelector={bucket_id === undefined}
+                    hasBucketSelector={bucket_id === undefined}
                     handleSubmit={handleSubmit}
                     project={project}
                 />

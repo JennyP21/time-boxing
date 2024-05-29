@@ -1,4 +1,3 @@
-"use client"
 import { ProjectI, TaskI } from '@/interfaces';
 import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Input, InputGroup, Text } from '@chakra-ui/react';
 import BucketSelector from '../BucketSelector';
@@ -8,12 +7,12 @@ interface Props {
     setActive: (value: boolean) => void;
     data: TaskI;
     setData: (value: TaskI) => void;
-    hadBucketSelector: boolean;
+    hasBucketSelector: boolean;
     handleSubmit: () => void;
     project: ProjectI;
 }
 
-const AddTask = ({ active, setActive, data, setData, hadBucketSelector, handleSubmit, project }: Props) => {
+const AddTask = ({ active, setActive, data, setData, hasBucketSelector, handleSubmit, project }: Props) => {
 
     return (
         <>
@@ -35,7 +34,7 @@ const AddTask = ({ active, setActive, data, setData, hadBucketSelector, handleSu
                 </CardHeader>
                 <CardBody py={0}>
                     <Flex flexDir="column" justifyContent="left" gap={3}>
-                        {hadBucketSelector && <BucketSelector project={project} selectedTask={data as TaskI} setSelectedTask={setData} />}
+                        {hasBucketSelector && <BucketSelector project={project} selectedTask={data as TaskI} setSelectedTask={setData} />}
                         <InputGroup alignItems="center" gap={2}>
                             <Text>Due:</Text>
                             <Input type='Date' w="fit-content" size="md" onChange={(e) => setData({ ...data, end_date: e.target.value })} />
