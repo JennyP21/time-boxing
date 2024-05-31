@@ -1,5 +1,4 @@
 import CheckTask from '@/components/ui/CheckTask';
-import { taskProgress, taskSeverity } from '@/constants';
 import { ProjectI, TaskI } from '@/interfaces';
 import { Tbody, Td, Tr } from '@chakra-ui/react';
 import _ from "lodash";
@@ -7,10 +6,11 @@ import { useSearchParams } from 'next/navigation';
 import AddTaskContainer from '../AddTaskContainer';
 import AssignUserContainer from '../AssignUserContainer';
 import MoreOptionsContainer from '../MoreOptionsContainer';
-import AttributeSelector from './AttributeSelector';
-import DueDate from './DueDate';
+import UpdateProgress from '../UpdateProgress';
+import UpdateSeverity from '../UpdateSeverity';
 import TaskTitle from './TaskTitle';
 import UpdateBucket from './UpdateBucket';
+import UpdateDueDateContainer from './UpdateDueDateContainer';
 
 interface Props {
     data: TaskI[] | undefined;
@@ -31,41 +31,32 @@ const TableBody = ({ data, project }: Props) => {
         <Tbody>
             {sortedData?.map(task => (
                 <Tr key={task.id}>
-                    <Td px={3}>
+                    <Td>
                         <CheckTask task={task} />
                     </Td>
-                    <Td p={1} overflow="clip">
+                    <Td overflow="clip">
                         <TaskTitle task={task} />
                     </Td>
-                    <Td py={0} px={1}>
+                    <Td>
                         <AssignUserContainer project_id={project.id} task_id={task.id} />
                     </Td>
-                    <Td p={1}>
+                    <Td>
                         <UpdateBucket currData={task} project={project} />
                     </Td>
-                    <Td p={1}>
-                        <AttributeSelector
-                            dataToUpdate='progress'
-                            task_id={task.id}
-                            defaultValue={task.progress}
-                            data={taskProgress}
-                        />
+                    <Td>
+                        <UpdateProgress task_id={task.id} currProgress={task.progress} selectSize='sm' withLabel={false} />
                     </Td>
-                    <Td p={1}>
-                        <AttributeSelector
-                            dataToUpdate='severity'
-                            task_id={task.id}
-                            defaultValue={task.severity}
-                            data={taskSeverity}
-                        />
+                    <Td>
+                        <UpdateSeverity task_id={task.id} currSeverity={task.severity} selectSize='sm' withLabel={false} />
                     </Td>
-                    <Td p={1}>
-                        <DueDate
+                    <Td>
+                        <UpdateDueDateContainer
                             task_id={task.id}
                             currDueDate={task.end_date}
+                            currStartDate={task.start_date}
                         />
                     </Td>
-                    <Td p={1} position="relative">
+                    <Td position="relative">
                         <MoreOptionsContainer task={task} align="center" project={project} />
                     </Td>
                 </Tr>

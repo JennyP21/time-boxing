@@ -1,4 +1,3 @@
-"use client"
 import { tableHeaderRow } from '@/constants'
 import { Flex, Icon, Th, Thead, Tr } from '@chakra-ui/react'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -25,7 +24,6 @@ const TableHead = () => {
                     <Th
                         cursor={col.sortKey ? "pointer" : ""}
                         _hover={{ bg: col.sortKey ? "gray.100" : "" }}
-                        px={1}
                         key={index}
                         width={col.width}
                         onClick={col.sortKey ? (() =>

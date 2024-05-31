@@ -15,7 +15,6 @@ const UpdateBucket = ({ currData, project }: Props) => {
     const [data, setData] = useState(currData);
 
     const [updateTask, { error }] = useUpdateTaskMutation();
-
     if (error) handleErrors(error, updateTaskError.type);
 
     const handleTaskUpdate = async () => {

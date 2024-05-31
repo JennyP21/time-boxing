@@ -40,7 +40,7 @@ const BucketModal = ({ isOpen, onClose, lastBucketOrder, project, buckets }: Pro
                     <InputGroup>
                         <Input
                             autoFocus
-                            placeholder='Name your label and press enter'
+                            placeholder='Name your bucket and press enter'
                             onKeyDown={(e) => {
                                 if (e.key === "Enter") {
                                     handleSubmit(e);

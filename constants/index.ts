@@ -289,8 +289,8 @@ export const tableHeaderRow = [
   { sortKey: null, label: "Bucket", width: "15%" },
   { sortKey: "progress", label: "Progress", width: "15%" },
   { sortKey: "severity", label: "Severity", width: "15%" },
-  { sortKey: "end_date", label: "Due", width: "10%" },
-  { sortKey: null, label: "", width: "5%" },
+  { sortKey: "end_date", label: "Due", width: "12%" },
+  { sortKey: null, label: "", width: "3%" },
 ];
 
 export const panelItems = [

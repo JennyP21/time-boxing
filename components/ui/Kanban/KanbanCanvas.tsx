@@ -7,6 +7,7 @@ import { ProjectContainerI } from '@/interfaces';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
 import GroupByBucket from './Bucket/GroupByBucket';
+import { Box } from '@chakra-ui/react';
 
 const KanbanCanvas = ({ project }: ProjectContainerI) => {
     const groupBy = useSearchParams().get("groupBy");
@@ -25,7 +26,9 @@ const KanbanCanvas = ({ project }: ProjectContainerI) => {
     const Content = groupBy ? groupByMapping[groupBy] : groupByMapping["Bucket"];
 
     return (
-        <Content project={project} />
+        <Box className='overflow-x-scroll overflow-y-hidden flex-[1_0_0]'>
+            <Content project={project} />
+        </Box>
     )
 }
 

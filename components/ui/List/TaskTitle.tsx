@@ -1,4 +1,3 @@
-"use client"
 import TaskDetails from '@/components/ui/TaskDetails/TaskDetails';
 import { TaskI } from '@/interfaces';
 import { Text, useDisclosure } from '@chakra-ui/react';
@@ -12,8 +11,9 @@ const TaskTitle = ({ task }: Props) => {
     return (
         <>
             <Text
-                className='hover:underline hover:underline-offset-1 cursor-pointer'
+                className='hover:underline cursor-pointer'
                 textDecor={task.progress === "Completed" ? "line-through" : ""}
+                textColor={task.progress === "Completed" ? "gray.300" : ""}
                 onClick={onOpen}
             >
                 {task.title}

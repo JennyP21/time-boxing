@@ -15,8 +15,8 @@ interface Props {
 const AddListTask = ({ active, setActive, data, setData, handleSubmit, project }: Props) => {
     return (
         <Tr role='group'>
-            <Td px={3}></Td>
-            <Td px={1} cursor="pointer">
+            <Td></Td>
+            <Td cursor="pointer">
                 {active ?
                     <Input
                         autoFocus
@@ -34,14 +34,14 @@ const AddListTask = ({ active, setActive, data, setData, handleSubmit, project }
                     </Text>
                 }
             </Td>
-            <Td py={0} px={1}></Td>
-            <Td p={1}>
+            <Td></Td>
+            <Td>
                 <BucketSelector project={project} selectedTask={data} setSelectedTask={setData} />
             </Td>
-            <Td p={1}></Td>
-            <Td p={1}></Td>
-            <Td p={1}></Td>
-            <Td p={1}>
+            <Td></Td>
+            <Td></Td>
+            <Td></Td>
+            <Td>
                 <Flex className='justify-center items-center' visibility={(data.title === "" || data.bucket_id === "") ? "hidden" : "visible"}>
                     <Icon as={IoIosCheckmark} className='rounded-full' w={8} h={8} _hover={{ bg: "gray.200" }} onClick={handleSubmit} />
                     <Icon as={IoIosClose} className='rounded-full' w={8} h={8} _hover={{ bg: "gray.200" }} onClick={() => {

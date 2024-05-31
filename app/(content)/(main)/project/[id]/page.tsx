@@ -31,9 +31,7 @@ const Project = ({ params }: Props) => {
                 :
                 <>
                     <ProjectHeader project={project} tabs={tabs} setTabs={setTabs} />
-                    <Box className='overflow-x-scroll overflow-y-hidden flex-[1_0_0]'>
-                        <ProjectContent project={project} />
-                    </Box>
+                    <ProjectContent project={project} />
                 </>
             }
         </Flex>

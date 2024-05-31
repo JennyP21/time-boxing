@@ -1,14 +1,14 @@
-"use client"
 import { Box, Flex, Icon, Text, useDisclosure } from "@chakra-ui/react";
 import { BsCalendarDate } from "react-icons/bs";
-import SetDueDate from "./SetDueDate";
+import UpdateDueDateModal from "./UpdateDueDateModal";
 
 interface Props {
     task_id: string;
     currDueDate: string;
+    currStartDate: string;
 }
 
-const DueDate = ({ task_id, currDueDate }: Props) => {
+const UpdateDueDateContainer = ({ task_id, currDueDate, currStartDate }: Props) => {
     const { onClose, onOpen, isOpen } = useDisclosure();
     return (
         <Box>
@@ -16,9 +16,9 @@ const DueDate = ({ task_id, currDueDate }: Props) => {
                 <Text>{currDueDate || "Due by"}</Text>
                 <Icon as={BsCalendarDate} />
             </Flex>
-            <SetDueDate onClose={onClose} isOpen={isOpen} task_id={task_id} currDueDate={currDueDate} />
+            <UpdateDueDateModal onClose={onClose} isOpen={isOpen} task_id={task_id} currEndDate={currDueDate} currStartDate={currStartDate} />
         </Box>
     )
 }
 
-export default DueDate
+export default UpdateDueDateContainer

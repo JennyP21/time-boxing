@@ -1,4 +1,3 @@
-"use client"
 import { adjustDates } from '@/components/utils'
 import { handleErrors } from '@/components/utils/handleErrors'
 import { updateTaskError } from '@/constants'

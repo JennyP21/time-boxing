@@ -1,4 +1,3 @@
-"use client"
 import { listByTypes } from '@/constants';
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { useRouter, useSearchParams } from 'next/navigation';
