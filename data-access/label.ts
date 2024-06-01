@@ -19,17 +19,18 @@ export async function getLabelsByProjectId(
 }
 
 export async function getLabelsByTaskId(task_id: string) {
-  const labelsByTask = await db
-    .select({
-      id: labels.id,
-      name: labels.name,
-      assignmentId: tasks_labels.id,
-    })
+  let labelsByTask = await db
+    .select({ labels })
     .from(tasks_labels)
     .fullJoin(labels, eq(tasks_labels.label_id, labels.id))
     .fullJoin(tasks, eq(tasks_labels.task_id, tasks.id))
     .where(eq(tasks.id, task_id));
-  return labelsByTask;
+
+  labelsByTask = labelsByTask.filter(
+    (item) => item.labels !== null
+  );
+
+  return labelsByTask.map((item) => item.labels);
 }
 
 export async function addLabel(label: LabelI) {

@@ -11,9 +11,9 @@ interface Props {
 }
 
 const UnassignLabelSubMenu = ({ labels, task_id }: Props) => {
+    const [unassignLabel, { error }] = useUnassignLabelMutation();
+    if (error) handleErrors(error, unassignLabelError.type);
 
-    const [unassignLabel, { error: labelUnassignError }] = useUnassignLabelMutation();
-    if (labelUnassignError) handleErrors(labelUnassignError, unassignLabelError.type);
     const handleLabelUnAssignment = async (label_id: string) => {
         const data = {
             task_id,

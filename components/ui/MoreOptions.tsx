@@ -37,7 +37,7 @@ const MoreOptions = ({ handleTaskDelete, onOpen, align, canMove, task, project }
                 {unassignedLabels && unassignedLabels.length > 0 && <MenuItem className='w-full' as='a'>
                     <AssignLabelSubMenu labels={unassignedLabels} task_id={task.id} />
                 </MenuItem>}
-                {assignedLabels && assignedLabels[0].id !== null && assignedLabels.length > 0 && <MenuItem className='w-full' as='a'>
+                {assignedLabels && assignedLabels.length > 0 && <MenuItem className='w-full' as='a'>
                     <UnassignLabelSubMenu labels={assignedLabels} task_id={task.id} />
                 </MenuItem>}
             </MenuList>

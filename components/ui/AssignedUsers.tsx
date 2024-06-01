@@ -2,12 +2,7 @@ import { UserI } from '@/interfaces';
 import { Box, Flex } from '@chakra-ui/react';
 import Image from 'next/image';
 
-interface Props {
-    users: UserI[] | undefined;
-}
-
-const AssignedUsers = ({ users }: Props) => {
-    if (!users || users[0] === null) return null;
+const AssignedUsers = ({ users }: { users: UserI[] }) => {
     return (
         <Flex className='gap-1'>
             {users.map(user => (

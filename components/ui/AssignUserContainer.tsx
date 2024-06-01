@@ -15,10 +15,10 @@ interface Props {
 }
 
 const AssignUserContainer = ({ users, task_id }: Props) => {
-    const { data: assignedUsers, isLoading, error } = useGetAssigneesByTaskIdQuery(task_id);
+    const { data, isLoading, error } = useGetAssigneesByTaskIdQuery(task_id);
     if (error) handleErrors(error, getAssigneeError.type);
 
-    const assignedUsersEmail = assignedUsers && assignedUsers?.map(item => item.email);
+    const assignedUsersEmail = data && data?.map(item => item.email);
     const suggestedUsers = assignedUsersEmail ? users.filter(user => !assignedUsersEmail.includes(user.email)) : users;
 
     return (
@@ -28,7 +28,7 @@ const AssignUserContainer = ({ users, task_id }: Props) => {
                     <Icon as={TiUserAddOutline} w={6} h={6} mr={2} />
                 </MenuButton>
                 <MenuList className='flex flex-col gap-2'>
-                    <UnassignUser assignedUsers={assignedUsers} task_id={task_id} />
+                    <UnassignUser assignedUsers={data} task_id={task_id} />
                     <AssignUser suggestedUsers={suggestedUsers} task_id={task_id} />
                 </MenuList>
             </Menu>
@@ -39,7 +39,7 @@ const AssignUserContainer = ({ users, task_id }: Props) => {
                     <Skeleton circle width={25} height={25} />
                 </Flex>
                 :
-                <AssignedUsers users={assignedUsers} />
+                (data && <AssignedUsers users={data} />)
             }
         </Flex >
     )

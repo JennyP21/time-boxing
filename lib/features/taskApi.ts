@@ -90,7 +90,7 @@ export const taskApi = createApi({
       }),
       invalidatesTags: ["assignUser"],
     }),
-    unAssignUser: builder.mutation<void, Task_AssigneeI>({
+    unassignUser: builder.mutation<void, Task_AssigneeI>({
       query: (data: Task_AssigneeI) => ({
         url: "/task_assignee/unassign",
         method: "POST",
@@ -105,7 +105,7 @@ export const {
   useGetAssigneesByTaskIdQuery,
   useGetTasksByProjectIdsQuery,
   useAssignUserMutation,
-  useUnAssignUserMutation,
+  useUnassignUserMutation,
   useGetTasksByProjectIdQuery,
   useGetTasksByBucketQuery,
   useGetTasksByLabelQuery,
