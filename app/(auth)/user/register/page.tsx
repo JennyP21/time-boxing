@@ -2,7 +2,7 @@
 import CustomError from '@/components/error/CustomError';
 import { toast } from '@/components/error/Toast';
 import ButtonSpinner from '@/components/loading/ButtonSpinner';
-import ImageSelector from '@/components/ui/ImageSelector';
+import ImageSelectorContainer from '@/components/ui/ImageSelectorContainer';
 import Logo from '@/components/ui/Logo';
 import { handleErrors } from '@/components/utils/handleErrors';
 import { DASHBOARD_URL, userRegistrationError } from '@/constants';
@@ -53,7 +53,7 @@ const Register = () => {
                         {errors && <CustomError>{errors.password?.message}</CustomError>}
                         <Flex className='flex-col gap-4'>
                             <Box>
-                                <ImageSelector setValue={setValue} />
+                                <ImageSelectorContainer setValue={setValue} />
                             </Box>
                             <Box>
                                 <label className='font-bold' htmlFor='name'>Name:</label>
@@ -68,7 +68,7 @@ const Register = () => {
                                 <Input id='password' type='password' {...register("password")} isRequired />
                             </Box>
                             <ButtonGroup>
-                                <Button type='submit' colorScheme='blue' isDisabled={!isValid}>Register {isLoading && <ButtonSpinner />}</Button>
+                                <Button type='submit' colorScheme='blue' isDisabled={!isValid || isLoading}>Register {isLoading && <ButtonSpinner />}</Button>
                                 <Link href="/"><Button>Cancel</Button></Link>
                             </ButtonGroup>
                         </Flex>

@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import ButtonSpinner from '../loading/ButtonSpinner';
 import { handleErrors } from '../utils/handleErrors';
-import ImageSelector from './ImageSelector';
+import ImageSelectorContainer from './ImageSelectorContainer';
 
 interface Props {
     isOpen: boolean;
@@ -31,6 +31,7 @@ const Profile = ({ onClose, isOpen, user }: Props) => {
         const imageData = getValues().imageData;
         if (imageData) formData.append("imageData", imageData);
         await updateUser(formData);
+        onClose();
     };
 
     return (
@@ -42,7 +43,7 @@ const Profile = ({ onClose, isOpen, user }: Props) => {
                     <ModalBody>
                         <Flex className='flex-col gap-3'>
                             <Box>
-                                <ImageSelector setValue={setValue} defaultImage={user.image} />
+                                <ImageSelectorContainer setValue={setValue} defaultImage={user.image} />
                             </Box>
                             <Box>
                                 <label htmlFor='email'>Email:</label>
@@ -56,7 +57,7 @@ const Profile = ({ onClose, isOpen, user }: Props) => {
                     </ModalBody>
                     <ModalFooter>
                         <ButtonGroup>
-                            <Button type='submit' colorScheme='blue' isDisabled={(!isDirty || !isValid)}>
+                            <Button type='submit' colorScheme='blue' isDisabled={(!isDirty || !isValid || isLoading)}>
                                 Save {isLoading && <ButtonSpinner />}
                             </Button>
                             <Button onClick={onClose}>Close</Button>
