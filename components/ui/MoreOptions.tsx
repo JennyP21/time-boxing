@@ -1,4 +1,3 @@
-"use client"
 import { getLabelsError } from '@/constants';
 import { ProjectI, TaskI } from '@/interfaces';
 import { useGetLabelsByProjectIdQuery, useGetLabelsByTaskQuery } from '@/lib/features/labelApi';
@@ -6,18 +5,18 @@ import { Icon, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { BsThreeDotsVertical } from 'react-icons/bs';
 import { handleErrors } from '../utils/handleErrors';
 import AssignLabelSubMenu from './AssignLabelSubMenu';
+import DeleteTask from './DeleteTask';
 import UnassignLabelSubMenu from './UnassignLabelSubMenu';
 
 interface Props {
     onOpen: () => void;
-    handleTaskDelete: () => void;
     align: "center" | "end";
     canMove: boolean;
     task: TaskI;
     project: ProjectI;
 }
 
-const MoreOptions = ({ handleTaskDelete, onOpen, align, canMove, task, project }: Props) => {
+const MoreOptions = ({ onOpen, align, canMove, task, project }: Props) => {
     const { data: assignedLabels, error: getTaskLabelsError } = useGetLabelsByTaskQuery(task.id);
     if (getTaskLabelsError) handleErrors(getTaskLabelsError, getLabelsError.type);
 
@@ -32,7 +31,7 @@ const MoreOptions = ({ handleTaskDelete, onOpen, align, canMove, task, project }
                 <Icon as={BsThreeDotsVertical} w={4} h={4} />
             </MenuButton>
             <MenuList>
-                <MenuItem as='a' onClick={handleTaskDelete}>Delete</MenuItem>
+                <DeleteTask task_id={task.id} />
                 {canMove && <MenuItem as='a' onClick={onOpen}>Move</MenuItem>}
                 {unassignedLabels && unassignedLabels.length > 0 && <MenuItem className='w-full' as='a'>
                     <AssignLabelSubMenu labels={unassignedLabels} task_id={task.id} />

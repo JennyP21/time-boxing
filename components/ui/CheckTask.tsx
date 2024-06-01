@@ -10,7 +10,6 @@ interface Props {
 
 const CheckTask = ({ task }: Props) => {
     const [updateTask, { error }] = useUpdateTaskMutation();
-
     if (error) handleErrors(error, updateTaskError.type);
 
     const handleTaskUpdate = async () => {
