@@ -5,7 +5,6 @@ import TaskAttributes from './TaskAttributes'
 import TaskNote from './TaskNote'
 
 const TaskDetailsBody = ({ task }: { task: TaskI }) => {
-
     const { id, start_date, end_date, progress, severity, showOnTask, note } = task;
 
     return (

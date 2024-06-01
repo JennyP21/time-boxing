@@ -4,16 +4,12 @@ import ContentHeaderLoading from "@/components/loading/ContentHeaderLoading"
 import { handleErrors } from "@/components/utils/handleErrors"
 import { getProjectError, tabsList } from "@/constants"
 import { useGetProjectQuery } from "@/lib/features/projectApi"
-import { Box, Flex } from "@chakra-ui/react"
+import { Flex } from "@chakra-ui/react"
 import { useState } from "react"
 import ProjectContent from "./ProjectContent"
 import ProjectHeader from "./ProjectHeader"
 
-interface Props {
-    params: { id: string }
-}
-
-const Project = ({ params }: Props) => {
+const Project = ({ params }: { params: { id: string } }) => {
     const { data: project, error, isLoading } = useGetProjectQuery(params.id);
     const [tabs, setTabs] = useState(tabsList);
 

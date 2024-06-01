@@ -9,11 +9,7 @@ import { useSearchParams } from 'next/navigation'
 import TableBody from './TableBody'
 import TableHead from './TableHead'
 
-interface Props {
-    project: ProjectI;
-}
-
-const ListTable = ({ project }: Props) => {
+const ListTable = ({ project }: { project: ProjectI }) => {
 
     const { data, error, isLoading } = useGetTasksByProjectIdQuery(project.id);
     if (error) handleErrors(error, getTasksError.type);

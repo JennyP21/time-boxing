@@ -7,11 +7,7 @@ import AddProjectContainer from '../AddProjectContainer';
 import PersonalProjectContainer from './PersonalProjectContainer';
 import TeamProjectsContainer from './TeamProjectsContainer';
 
-interface Props {
-    user_id: string;
-}
-
-const ProjectGrid = ({ user_id }: Props) => {
+const ProjectGrid = ({ user_id }: { user_id: string }) => {
 
     const { data: teams, error, isLoading } = useGetTeamsByUserIdQuery(user_id);
     if (error) handleErrors(error, getTeamsError.type);

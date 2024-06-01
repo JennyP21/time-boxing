@@ -21,7 +21,6 @@ const AddProject = ({ isOpen, onClose, teams, user_id }: Props) => {
     const [addProject, { isLoading, error }] = useAddProjectMutation();
     if (error) handleErrors(error, addProjectError.type);
 
-
     const onSubmit = async (project: ProjectI) => {
         const data = project.team_id ? {
             name: project.name,

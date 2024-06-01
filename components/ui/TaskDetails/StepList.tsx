@@ -7,11 +7,7 @@ import { useUpdateTaskMutation } from "@/lib/features/taskApi";
 import { Box, HStack, Radio, Text } from "@chakra-ui/react";
 import StepsDetails from "./StepsDetails";
 
-interface Props {
-    task_id: string;
-}
-
-const StepList = ({ task_id }: Props) => {
+const StepList = ({ task_id }: { task_id: string }) => {
 
     const [updateTask, { error: taskUpdateError }] = useUpdateTaskMutation();
 

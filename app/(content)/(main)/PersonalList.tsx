@@ -6,11 +6,7 @@ import { Link } from '@chakra-ui/next-js';
 import { List, ListItem, Spinner } from '@chakra-ui/react';
 import LeftPanelAccordion from './LeftPanelAccordion';
 
-interface Props {
-    user_id: string;
-}
-
-const PersonalList = ({ user_id }: Props) => {
+const PersonalList = ({ user_id }: { user_id: string }) => {
     const { data: projects, error, isLoading } = useGetProjectsByUserIdQuery(user_id);
 
     if (error) handleErrors(error, getProjectError.type);

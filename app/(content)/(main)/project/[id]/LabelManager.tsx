@@ -6,11 +6,7 @@ import { FaAngleDown } from 'react-icons/fa';
 import AddLabel from './AddLabel';
 import DeleteLabel from './DeleteLabel';
 
-interface Props {
-    project_id: string;
-}
-
-const LabelCreator = ({ project_id }: Props) => {
+const LabelManager = ({ project_id }: { project_id: string }) => {
     const { isOpen, onClose, onOpen } = useDisclosure();
 
     const { data: labels, error } = useGetLabelsByProjectIdQuery(project_id);
@@ -38,4 +34,4 @@ const LabelCreator = ({ project_id }: Props) => {
     )
 }
 
-export default LabelCreator
+export default LabelManager

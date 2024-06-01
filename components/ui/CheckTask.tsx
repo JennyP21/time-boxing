@@ -4,11 +4,7 @@ import { useUpdateTaskMutation } from '@/lib/features/taskApi';
 import { Checkbox } from '@chakra-ui/react';
 import { handleErrors } from '../utils/handleErrors';
 
-interface Props {
-    task: TaskI;
-}
-
-const CheckTask = ({ task }: Props) => {
+const CheckTask = ({ task }: { task: TaskI }) => {
     const [updateTask, { error }] = useUpdateTaskMutation();
     if (error) handleErrors(error, updateTaskError.type);
 

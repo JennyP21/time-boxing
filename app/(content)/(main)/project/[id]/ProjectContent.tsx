@@ -4,11 +4,7 @@ import { getView } from '@/components/utils/handleUserState';
 import { PROJECT_VIEW_TYPE } from '@/constants';
 import { ProjectI } from '@/interfaces';
 
-interface Props {
-    project: ProjectI;
-}
-
-const ProjectContent = ({ project }: Props) => {
+const ProjectContent = ({ project }: { project: ProjectI }) => {
     const currentView = getView(project.id) || PROJECT_VIEW_TYPE;
 
     return (

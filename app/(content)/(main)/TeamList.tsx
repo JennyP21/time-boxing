@@ -8,16 +8,16 @@ import { Link } from '@chakra-ui/next-js';
 import { List, ListItem, Spinner } from '@chakra-ui/react';
 import LeftPanelAccordion from './LeftPanelAccordion';
 
-const TeamList = ({ teams: team }: TeamContainerI) => {
-    const { data: projects, error, isLoading } = useGetProjectsByTeamIdQuery(team.id);
+const TeamList = ({ teams }: TeamContainerI) => {
+    const { data: projects, error, isLoading } = useGetProjectsByTeamIdQuery(teams.id);
 
     if (error) handleErrors(error, getProjectError.type);
 
-    const name = team.id;
+    const name = teams.id;
     const currState = getIsExpanded(name) === 'true';
 
     return (
-        <LeftPanelAccordion isRoot={false} title={team.name} link={`/team/${team.id}`} isExpanded={currState} expandData={{ name, currState }}>
+        <LeftPanelAccordion isRoot={false} title={teams.name} link={`/team/${teams.id}`} isExpanded={currState} expandData={{ name, currState }}>
             {isLoading ? <Spinner /> : <List>
                 {projects?.map((project) => (
                     <ListItem key={project.id} className='px-1 rounded-lg cursor-pointer' _hover={{ bg: "gray.100" }}>
