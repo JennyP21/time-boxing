@@ -1,6 +1,6 @@
 import { TaskI } from '@/interfaces';
 import { ModalHeader } from '@chakra-ui/react';
-import AssignUserContainer from '../AssignUserContainer';
+import UserAssignmentContainer from '../UserAssignmentContainer';
 import LabelDetails from './LabelDetails';
 import TaskDetailsHeaderDescription from './TaskDetailsHeaderDescription';
 import TaskDetailsHeaderTitle from './TaskDetailsHeaderTitle';
@@ -16,7 +16,7 @@ const TaskDetailsHeader = ({ task, currentTitle, project_id }: Props) => {
         <ModalHeader fontWeight="500" fontSize="small" pb={0}>
             <TaskDetailsHeaderTitle />
             <TaskDetailsHeaderDescription currentTitle={currentTitle} task={task} />
-            <AssignUserContainer project_id={project_id} task_id={task.id} />
+            <UserAssignmentContainer project_id={project_id} task_id={task.id} />
             <LabelDetails task_id={task.id} project_id={project_id} />
         </ModalHeader>
     )

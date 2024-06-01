@@ -32,6 +32,16 @@ export interface RemoveMemberI {
   user_id: string;
 }
 
+export interface TeamMemberResponseI {
+  team_members: TeamMemberI;
+  users: UserI;
+}
+
+export interface TransformedTeamMemberResponseI {
+  users: UserI[];
+  team_members: TeamMemberI[];
+}
+
 export interface CustomMembersI {
   team_member_id: string;
   team_id: string;
@@ -148,11 +158,6 @@ export interface Task_AssigneeI {
 
 export interface TabI {
   name: string;
-}
-
-export interface GetTeamMembersI {
-  team_members: TeamMemberI;
-  users: UserI;
 }
 
 export interface APIParams {

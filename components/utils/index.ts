@@ -1,6 +1,11 @@
 import {
+  TeamMemberI,
+  TeamMemberResponseI,
+  TransformedTeamMemberResponseI,
   CustomMembersI,
-  GetTeamMembersI,
+  UserI,
+} from "@/interfaces";
+import {
   TaskByProgressCount,
   TaskBySeverityCount,
   TaskContainerI,
@@ -33,26 +38,46 @@ export const convertToTeamList = (
 };
 
 export const convertToCustomMembersList = (
-  data: GetTeamMembersI[] | undefined
+  data: TransformedTeamMemberResponseI | undefined
 ) => {
   const newList: CustomMembersI[] = [];
 
   if (!data) return newList;
 
-  data.forEach((item) => {
+  for (let i = 0; i < data.team_members.length; i++) {
+    const users = data.users[i];
+    const teamMembers = data.team_members[i];
     const newData = {
-      team_member_id: item.team_members.id,
-      team_id: item.team_members.team_id,
-      user_id: item.users.id,
-      name: item.users.name,
-      email: item.users.email,
-      image: item.users.image,
-      role: item.team_members.role,
+      team_member_id: users.id,
+      team_id: teamMembers.team_id,
+      user_id: users.id,
+      name: users.name,
+      email: users.email,
+      image: users.image,
+      role: teamMembers.role,
     };
     newList.push(newData);
-  });
+  }
 
   return newList;
+};
+
+export const transformTeamMembersResponse = (
+  res: unknown
+): TransformedTeamMemberResponseI => {
+  const data = res as TeamMemberResponseI[];
+
+  const users: UserI[] = data.map(
+    (teamMember) => teamMember.users
+  );
+  const teamMembers: TeamMemberI[] = data.map(
+    (teamMember) => teamMember.team_members
+  );
+
+  return {
+    users,
+    team_members: teamMembers,
+  };
 };
 
 export function parseZodErr(error: ZErr) {

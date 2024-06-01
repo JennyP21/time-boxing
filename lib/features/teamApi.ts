@@ -1,9 +1,11 @@
+import { transformTeamMembersResponse } from "@/components/utils";
 import {
   AddMemberI,
-  GetTeamMembersI,
   RemoveMemberI,
   TeamI,
   TeamMemberI,
+  TransformedTeamMemberResponseI,
+  UserI,
 } from "@/interfaces";
 import {
   createApi,
@@ -43,10 +45,14 @@ export const teamApi = createApi({
       ],
     }),
     getTeamMembers: builder.query<
-      GetTeamMembersI[],
+      TransformedTeamMemberResponseI,
       string
     >({
-      query: (team_id) => `team/${team_id}/member`,
+      query: (team_id) => ({
+        url: `team/${team_id}/member`,
+      }),
+      transformResponse: (res) =>
+        transformTeamMembersResponse(res),
       providesTags: ["addMember", "updateMember"],
     }),
     addTeam: builder.mutation<TeamI, AddTeamI>({

@@ -1,9 +1,8 @@
 import { UserI } from '@/interfaces';
 import { useSession } from 'next-auth/react';
-import React from 'react'
-import AssignUser from './AssignUser';
+import AssignUserContainer from './AssignUserContainer';
 
-const PersonalUsers = ({ task_id }: { task_id: string }) => {
+const PersonalProjectsAssignment = ({ task_id }: { task_id: string }) => {
     const { data } = useSession();
     if (!data) return null;
     const users = [{
@@ -14,8 +13,8 @@ const PersonalUsers = ({ task_id }: { task_id: string }) => {
     }] as UserI[];
 
     return (
-        <AssignUser users={users} task_id={task_id} />
+        <AssignUserContainer users={users} task_id={task_id} />
     )
 }
 
-export default PersonalUsers
+export default PersonalProjectsAssignment

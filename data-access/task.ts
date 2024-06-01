@@ -65,12 +65,17 @@ export async function getTasksByLabelId(
 export async function getAssigneesByTaskId(
   task_id: string
 ) {
-  const assigneesByTask = await db
+  let assigneesByTask = await db
     .select({ users })
     .from(task_assignees)
     .fullJoin(users, eq(task_assignees.user_id, users.id))
     .fullJoin(tasks, eq(task_assignees.task_id, tasks.id))
     .where(eq(tasks.id, task_id));
+
+  // remove null values
+  assigneesByTask = assigneesByTask.filter(
+    (assignee) => assignee.users !== null
+  );
 
   return assigneesByTask.map((assignee) => assignee.users);
 }

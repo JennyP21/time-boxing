@@ -32,7 +32,7 @@ export async function getTeamById(team_id: string) {
 }
 
 export async function getTeamMembers(team_id: string) {
-  const teamMembers = await db
+  let teamMembers = await db
     .select({ team_members, users })
     .from(team_members)
     .leftJoin(teams, eq(team_members.team_id, teams.id))

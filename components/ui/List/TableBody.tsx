@@ -4,7 +4,7 @@ import { Tbody, Td, Tr } from '@chakra-ui/react';
 import _ from "lodash";
 import { useSearchParams } from 'next/navigation';
 import AddTaskContainer from '../AddTaskContainer';
-import AssignUserContainer from '../AssignUserContainer';
+import UserAssignmentContainer from '../UserAssignmentContainer';
 import MoreOptionsContainer from '../MoreOptionsContainer';
 import UpdateProgress from '../UpdateProgress';
 import UpdateSeverity from '../UpdateSeverity';
@@ -38,7 +38,7 @@ const TableBody = ({ data, project }: Props) => {
                         <TaskTitle task={task} />
                     </Td>
                     <Td>
-                        <AssignUserContainer project_id={project.id} task_id={task.id} />
+                        <UserAssignmentContainer project_id={project.id} task_id={task.id} />
                     </Td>
                     <Td>
                         <UpdateBucket currData={task} project={project} />
