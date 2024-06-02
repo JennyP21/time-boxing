@@ -9,9 +9,9 @@ import {
 import { MdDashboard } from "react-icons/md";
 
 export const DASHBOARD_URL =
-  "https://time-boxing.jennypatel.com/dashboard";
+  "https://time-boxing.jennypatel.dev/dashboard";
 export const API_URL =
-  "https://time-boxing.jennypatel.com/api";
+  "https://time-boxing.jennypatel.dev/api";
 // Error messages
 
 // Bucket
