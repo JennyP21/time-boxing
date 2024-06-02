@@ -1,1 +1,0 @@
-ALTER TABLE "tasks_labels" DROP COLUMN IF EXISTS "id";

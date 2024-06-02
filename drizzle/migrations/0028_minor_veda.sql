@@ -1,1 +1,0 @@
-ALTER TABLE "bucket" ADD COLUMN "order" integer NOT NULL;

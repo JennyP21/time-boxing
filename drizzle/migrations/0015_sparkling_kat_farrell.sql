@@ -1,1 +1,0 @@
-ALTER TABLE "tasks_labels" ADD COLUMN "id" uuid DEFAULT gen_random_uuid() NOT NULL;
