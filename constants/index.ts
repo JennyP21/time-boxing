@@ -9,7 +9,7 @@ import {
 import { MdDashboard } from "react-icons/md";
 
 export const DASHBOARD_URL =
-  "http://localhost:3000/dashboard";
+  "https://time-boxing.jennypatel.com/dashboard";
 
 // Error messages
 

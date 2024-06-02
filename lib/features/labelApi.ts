@@ -14,7 +14,7 @@ export const labelApi = createApi({
   ],
   reducerPath: "labelApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: process.env.API_URL,
   }),
   endpoints: (builder) => ({
     getLabelsByProjectId: builder.query<LabelI[], string>({

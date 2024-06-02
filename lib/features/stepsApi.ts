@@ -8,7 +8,7 @@ export const stepsApi = createApi({
   tagTypes: ["addStep", "updateStep", "deleteStep"],
   reducerPath: "stepsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: process.env.API_URL,
   }),
   endpoints: (builder) => ({
     getStepsByTaskId: builder.query<StepsI[], string>({

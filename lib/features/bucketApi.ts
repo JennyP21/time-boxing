@@ -8,7 +8,7 @@ export const bucketApi = createApi({
   tagTypes: ["addBucket", "updateBucket", "deleteBucket"],
   reducerPath: "bucketApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: process.env.API_URL,
   }),
   endpoints: (builder) => ({
     getBucketsByProjectId: builder.query<BucketI[], string>(

@@ -8,7 +8,7 @@ export const userApi = createApi({
   tagTypes: ["updateUser"],
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: process.env.API_URL,
   }),
   endpoints: (builder) => ({
     getUserById: builder.query<UserI, string>({

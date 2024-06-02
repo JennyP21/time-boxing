@@ -12,7 +12,7 @@ export const projectsApi = createApi({
   ],
   reducerPath: "projectsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: process.env.API_URL,
   }),
   endpoints: (builder) => ({
     getProject: builder.query<ProjectI, string>({

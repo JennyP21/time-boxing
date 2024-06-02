@@ -24,7 +24,7 @@ export const taskApi = createApi({
   ],
   reducerPath: "taskApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: process.env.API_URL,
   }),
   endpoints: (builder) => ({
     getTasksByProjectId: builder.query<TaskI[], string>({

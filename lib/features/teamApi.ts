@@ -27,7 +27,7 @@ export const teamApi = createApi({
   ],
   reducerPath: "teamApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
+    baseUrl: process.env.API_URL,
   }),
   endpoints: (builder) => ({
     getTeamsByUserId: builder.query<TeamI[], string>({
