@@ -10,7 +10,8 @@ import { MdDashboard } from "react-icons/md";
 
 export const DASHBOARD_URL =
   "https://time-boxing.jennypatel.com/dashboard";
-
+export const API_URL =
+  "https://time-boxing.jennypatel.com/api";
 // Error messages
 
 // Bucket

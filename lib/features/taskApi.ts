@@ -1,3 +1,4 @@
+import { API_URL } from "@/constants";
 import {
   Task_AssigneeI,
   TaskContainerI,
@@ -24,7 +25,7 @@ export const taskApi = createApi({
   ],
   reducerPath: "taskApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.API_URL,
+    baseUrl: API_URL,
   }),
   endpoints: (builder) => ({
     getTasksByProjectId: builder.query<TaskI[], string>({

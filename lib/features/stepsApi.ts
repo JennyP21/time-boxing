@@ -1,3 +1,4 @@
+import { API_URL } from "@/constants";
 import { StepsI } from "@/interfaces";
 import {
   createApi,
@@ -8,7 +9,7 @@ export const stepsApi = createApi({
   tagTypes: ["addStep", "updateStep", "deleteStep"],
   reducerPath: "stepsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.API_URL,
+    baseUrl: API_URL,
   }),
   endpoints: (builder) => ({
     getStepsByTaskId: builder.query<StepsI[], string>({

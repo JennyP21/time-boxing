@@ -1,11 +1,11 @@
 import { transformTeamMembersResponse } from "@/components/utils";
+import { API_URL } from "@/constants";
 import {
   AddMemberI,
   RemoveMemberI,
   TeamI,
   TeamMemberI,
   TransformedTeamMemberResponseI,
-  UserI,
 } from "@/interfaces";
 import {
   createApi,
@@ -27,7 +27,7 @@ export const teamApi = createApi({
   ],
   reducerPath: "teamApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.API_URL,
+    baseUrl: API_URL,
   }),
   endpoints: (builder) => ({
     getTeamsByUserId: builder.query<TeamI[], string>({

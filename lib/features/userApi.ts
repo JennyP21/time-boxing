@@ -1,3 +1,4 @@
+import { API_URL } from "@/constants";
 import { UserI } from "@/interfaces";
 import {
   createApi,
@@ -8,7 +9,7 @@ export const userApi = createApi({
   tagTypes: ["updateUser"],
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.API_URL,
+    baseUrl: API_URL,
   }),
   endpoints: (builder) => ({
     getUserById: builder.query<UserI, string>({

@@ -1,3 +1,4 @@
+import { API_URL } from "@/constants";
 import { LabelI, Task_LabelI } from "@/interfaces";
 import {
   createApi,
@@ -14,7 +15,7 @@ export const labelApi = createApi({
   ],
   reducerPath: "labelApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.API_URL,
+    baseUrl: API_URL,
   }),
   endpoints: (builder) => ({
     getLabelsByProjectId: builder.query<LabelI[], string>({

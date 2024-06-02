@@ -1,3 +1,4 @@
+import { API_URL } from "@/constants";
 import { BucketI } from "@/interfaces";
 import {
   createApi,
@@ -8,7 +9,7 @@ export const bucketApi = createApi({
   tagTypes: ["addBucket", "updateBucket", "deleteBucket"],
   reducerPath: "bucketApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.API_URL,
+    baseUrl: API_URL,
   }),
   endpoints: (builder) => ({
     getBucketsByProjectId: builder.query<BucketI[], string>(
