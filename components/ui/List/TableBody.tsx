@@ -4,10 +4,10 @@ import { Tbody, Td, Tr } from '@chakra-ui/react';
 import _ from "lodash";
 import { useSearchParams } from 'next/navigation';
 import AddTaskContainer from '../AddTaskContainer';
-import UserAssignmentContainer from '../UserAssignmentContainer';
 import MoreOptionsContainer from '../MoreOptionsContainer';
 import UpdateProgress from '../UpdateProgress';
 import UpdateSeverity from '../UpdateSeverity';
+import UserAssignmentContainer from '../UserAssignmentContainer';
 import TaskTitle from './TaskTitle';
 import UpdateBucket from './UpdateBucket';
 import UpdateDueDateContainer from './UpdateDueDateContainer';
@@ -18,7 +18,6 @@ interface Props {
 }
 
 const TableBody = ({ data, project }: Props) => {
-
     const searchParams = useSearchParams();
     const sortBy = searchParams.get("sortBy") as "title" | "progress" | "end_date" | "severity" | null;
     const dir = searchParams.get("dir") as "asc" | "desc" | null;

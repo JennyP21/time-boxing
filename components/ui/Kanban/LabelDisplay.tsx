@@ -5,7 +5,6 @@ import { useGetLabelsByTaskQuery } from '@/lib/features/labelApi';
 import { Box, Flex } from '@chakra-ui/react';
 
 const LabelDisplay = ({ task_id }: { task_id: string }) => {
-
     const { data: labels, error, isLoading } = useGetLabelsByTaskQuery(task_id);
 
     if (error) handleErrors(error, getLabelsError.type);

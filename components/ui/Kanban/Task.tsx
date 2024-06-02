@@ -5,12 +5,12 @@ import { ProjectI, TaskI } from '@/interfaces';
 import { useGetStepsByTaskIdQuery } from '@/lib/features/stepsApi';
 import { Card, CardBody, CardFooter, CardHeader, Flex, Icon, Spinner, Text, useDisclosure } from '@chakra-ui/react';
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import UserAssignmentContainer from '../UserAssignmentContainer';
 import CheckTask from '../CheckTask';
 import MoreOptionsContainer from '../MoreOptionsContainer';
-import StepsDetails from '../TaskDetails/StepsDetails';
 import TaskDetails from '../TaskDetails/TaskDetails';
+import UserAssignmentContainer from '../UserAssignmentContainer';
 import LabelDisplay from './LabelDisplay';
+import UpdateSteps from '../UpdateSteps';
 
 interface Props {
     task: TaskI;
@@ -51,13 +51,13 @@ const Task = ({ task, project }: Props) => {
                     (isLoading ?
                         <Spinner size="sm" />
                         :
-                        <StepsDetails steps={steps} task_id={task.id} showMinimumVersion={true} />
+                        <UpdateSteps steps={steps} task_id={task.id} hideCheckedStep />
                     )
                 }
                 {steps && steps.length > 0 && <Flex mt={2} alignItems="center" fontSize="small">
                     <Icon as={IoIosCheckmarkCircleOutline} w={4} h={4} mr={1} />
                     {steps &&
-                        `${steps.filter(step => step.checked === true).length} / ${steps.length}`
+                        `${(steps.filter(step => step.checked === true).length)} / ${steps.length}`
                     }
                 </Flex>}
             </CardBody>

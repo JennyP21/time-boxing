@@ -1,4 +1,3 @@
-"use client"
 import { TaskBySeverityCount } from '@/interfaces';
 import { Flex } from '@chakra-ui/react';
 import { Bar, BarChart, Cell, LabelList, ResponsiveContainer, XAxis } from 'recharts';

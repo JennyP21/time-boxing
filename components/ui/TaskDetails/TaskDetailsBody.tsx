@@ -1,6 +1,6 @@
 import { TaskI } from '@/interfaces'
 import { ModalBody, RadioGroup, Stack } from '@chakra-ui/react'
-import StepList from './StepList'
+import StepsContainer from './StepsContainer'
 import TaskAttributes from './TaskAttributes'
 import TaskNote from './TaskNote'
 
@@ -13,7 +13,7 @@ const TaskDetailsBody = ({ task }: { task: TaskI }) => {
                 <TaskAttributes task_id={id} start_date={start_date} end_date={end_date} progress={progress} severity={severity} />
                 <RadioGroup defaultValue={showOnTask}>
                     <TaskNote task_id={id} note={note} />
-                    <StepList task_id={id} />
+                    <StepsContainer task_id={id} />
                 </RadioGroup>
             </Stack>
         </ModalBody>

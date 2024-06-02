@@ -4,10 +4,10 @@ import GroupByProgress from '@/components/ui/Kanban/Progress/GroupByProgress';
 import GroupBySeverity from '@/components/ui/Kanban/Severity/GroupBySeverity';
 import { groupTypes } from '@/constants';
 import { ProjectContainerI } from '@/interfaces';
+import { Box } from '@chakra-ui/react';
 import { useSearchParams } from 'next/navigation';
 import React from 'react';
 import GroupByBucket from './Bucket/GroupByBucket';
-import { Box } from '@chakra-ui/react';
 
 const KanbanCanvas = ({ project }: ProjectContainerI) => {
     const groupBy = useSearchParams().get("groupBy");

@@ -13,7 +13,6 @@ interface Props {
 }
 
 const AddTask = ({ active, setActive, data, setData, hasBucketSelector, handleSubmit, project }: Props) => {
-
     return (
         <>
             <Button

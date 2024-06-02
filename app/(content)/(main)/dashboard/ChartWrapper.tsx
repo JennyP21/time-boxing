@@ -1,6 +1,6 @@
 import { getLateTasks, getTopUpcomingTasks, groupByProgressCount, groupBySeverityCount } from '@/components/utils';
 import { TaskI } from '@/interfaces';
-import { Grid, SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid } from '@chakra-ui/react';
 import TasksBySeverityCount from './TasksBySeverityCount';
 import TasksStatus from './TasksStatus';
 import TasksTable from './TasksTable';
