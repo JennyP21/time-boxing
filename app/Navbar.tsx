@@ -3,7 +3,7 @@ import NavLinks from '@/components/ui/NavLinks';
 import NavLinksWithUser from '@/components/ui/NavLinksWithUser';
 import { Box, Flex } from '@chakra-ui/react';
 import { getServerSession } from 'next-auth';
-import MobileLeftPanel from './MobileLeftPanel';
+import MobileLeftPanel from './(content)/(main)/MobileLeftPanel';
 
 const Navbar = async () => {
     const session = await getServerSession();

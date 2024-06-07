@@ -1,15 +1,14 @@
-import { HStack, Icon, VStack, Text } from '@chakra-ui/react';
-import { useSession } from 'next-auth/react'
+import { Link } from '@chakra-ui/next-js';
+import { HStack, Icon, Text, VStack } from '@chakra-ui/react';
+import { Session } from 'next-auth';
 import { GrProjects } from 'react-icons/gr';
 import { IoHomeOutline } from 'react-icons/io5';
-import AddProjectContainer from './(content)/(main)/AddProjectContainer';
-import AddTeamContainer from './(content)/(main)/AddTeamContainer';
-import PersonalList from './(content)/(main)/PersonalList';
-import Teams from './(content)/(main)/Teams';
-import { Link } from '@chakra-ui/next-js';
+import AddProjectContainer from './AddProjectContainer';
+import AddTeamContainer from './AddTeamContainer';
+import PersonalList from './PersonalList';
+import Teams from './Teams';
 
-const MobileLeftPanelContent = () => {
-    const session = useSession();
+const MobileLeftPanelContent = ({ data }: { data: Session }) => {
     return (
         <VStack className='overflow-y-scroll mt-10'>
             <Link className='w-full' href="/dashboard" _hover={{ textDecor: "none" }}>
@@ -28,14 +27,12 @@ const MobileLeftPanelContent = () => {
                     <Icon as={GrProjects} w={4} h={4} />
                 </HStack>
             </Link>
-            {session.data &&
-                <>
-                    <PersonalList user_id={session.data.user.id} />
-                    <Teams user_id={session.data.user.id} />
-                    <AddTeamContainer user_id={session.data.user.id} />
-                    <AddProjectContainer user_id={session.data.user.id} />
-                </>
-            }
+            <>
+                <PersonalList user_id={data.user.id} />
+                <Teams user_id={data.user.id} />
+                <AddTeamContainer user_id={data.user.id} />
+                <AddProjectContainer user_id={data.user.id} />
+            </>
         </VStack>
     )
 }
