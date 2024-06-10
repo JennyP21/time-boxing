@@ -16,13 +16,13 @@ const COLORS = {
 
 const TasksStatus = ({ data }: Props) => {
     return (
-        <Flex className='flex-col items-center gap-5 rounded-lg' border='1px' borderColor='gray.300'>
+        <Flex className='flex-col h-full items-center gap-1 rounded-lg max-md:min-h-64' border='1px' borderColor='gray.300'>
             <ChartHeading>Tasks Status</ChartHeading>
             <ResponsiveContainer>
-                <PieChart width={400} height={400} className='mx-auto'>
+                <PieChart>
                     <Tooltip />
-                    <Legend verticalAlign='top' iconSize={10} height={36} />
-                    <Pie data={data} dataKey="taskCount" nameKey="progress" innerRadius={70} outerRadius={100}>
+                    <Legend verticalAlign='top' iconSize={10} />
+                    <Pie data={data} dataKey="taskCount" nameKey="progress">
                         {data.map(item => (
                             <Cell key={item.progress} fill={COLORS[item.progress]} />
                         ))

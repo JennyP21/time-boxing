@@ -1,7 +1,7 @@
 import { TaskI } from '@/interfaces';
+import { Link } from '@chakra-ui/next-js';
 import { Flex, Table, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react';
 import ChartHeading from './ChartHeading';
-import { Link } from '@chakra-ui/next-js';
 
 interface Props {
     title: string;
@@ -11,7 +11,7 @@ interface Props {
 const TasksTable = ({ tasks, title }: Props) => {
     const today = new Date();
     return (
-        <Flex className='flex-col rounded-lg' border='1px' borderColor='gray.300'>
+        <Flex className='flex-col h-full rounded-lg max-md:min-h-64' border='1px' borderColor='gray.300'>
             <ChartHeading>{title}</ChartHeading>
             <Table size="md">
                 <Thead>

@@ -16,13 +16,13 @@ const severityColorMap = {
 
 const TasksBySeverityCount = ({ data }: Props) => {
     return (
-        <Flex className='flex-col items-center gap-5 rounded-lg' border='1px' borderColor='gray.300'>
+        <Flex className='flex-col h-full items-center gap-5 rounded-lg max-md:min-h-64' border='1px' borderColor='gray.300'>
             <ChartHeading>Count of tasks by severity</ChartHeading>
             <ResponsiveContainer>
                 <BarChart data={data}>
                     <XAxis dataKey='severity' />
                     <Bar dataKey='taskCount' barSize={30}>
-                        <LabelList dataKey='taskCount' position='insideTop' fill='#fff' />
+                        <LabelList dataKey='taskCount' position='outside' fill='#000' />
                         {
                             data.map(item => (
                                 <Cell key={item.severity} fill={severityColorMap[item.severity]} />
