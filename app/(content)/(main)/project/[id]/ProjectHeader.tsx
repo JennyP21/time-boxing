@@ -24,15 +24,9 @@ const ProjectHeader = ({ project, tabs, setTabs }: Props) => {
     return (
         <HStack className='w-full justify-between' borderBottom="1px" p={1} borderColor={"gray.300"}>
             <Flex className='gap-2'>
-                <Flex className='gap-3 items-center'>
-                    <Heading size="lg" as={"h3"} fontWeight="normal">
-                        <Link href="/project">All Projects</Link>
-                    </Heading>
-                    <Icon as={FaCaretRight} w={5} h={5} />
-                    <Heading size="lg" as={"h3"} fontWeight="normal">
-                        <Text>{project.name}</Text>
-                    </Heading>
-                </Flex>
+                <Heading className='max-w-[40rem] whitespace-nowrap overflow-clip p-0.5' size="lg" as={"h4"} fontWeight="normal">
+                    {project.name}
+                </Heading>
                 {session.data && <UpdateProjectContainer user_id={session.data.user.id} currentProject={project} />}
             </Flex>
             <HStack>

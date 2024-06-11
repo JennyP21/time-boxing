@@ -16,7 +16,7 @@ const LabelManager = ({ project_id }: { project_id: string }) => {
     return (
         <>
             <Menu closeOnSelect={false}>
-                <MenuButton as={Button} fontWeight="normal" fontSize="medium" rounded="10px" rightIcon={<FaAngleDown />}>
+                <MenuButton as={Button} size="sm" fontWeight="normal" fontSize="medium" rounded="10px" rightIcon={<FaAngleDown />}>
                     Labels
                 </MenuButton>
                 <MenuList>

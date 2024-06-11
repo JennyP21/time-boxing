@@ -19,7 +19,7 @@ const PersonalList = ({ user_id }: { user_id: string }) => {
             {isLoading ? <Spinner /> :
                 <List>
                     {projects?.map((project) => (
-                        <ListItem key={project.id} className='px-1 rounded-lg cursor-pointer' _hover={{ bg: "gray.100" }}>
+                        <ListItem key={project.id} className='px-1 rounded-lg cursor-pointer overflow-clip whitespace-nowrap' _hover={{ bg: "gray.100" }}>
                             <Link href={`/project/${project.id}`} _hover={{ textDecor: "none" }}>
                                 {project.name}
                             </Link>
