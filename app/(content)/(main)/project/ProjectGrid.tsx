@@ -1,27 +1,19 @@
-import ProjectContainerLoading from '@/components/loading/ProjectContainerLoading';
-import { handleErrors } from '@/components/utils/handleErrors';
-import { getTeamsError } from '@/constants';
-import { useGetTeamsByUserIdQuery } from '@/lib/features/teamApi';
-import { Box } from '@chakra-ui/react';
-import AddProjectContainer from '../AddProjectContainer';
-import PersonalProjectContainer from './PersonalProjectContainer';
-import TeamProjectsContainer from './TeamProjectsContainer';
+import { ProjectI } from '@/interfaces';
+import { Flex } from '@chakra-ui/react';
+import ProjectCard from './ProjectCard';
 
-const ProjectGrid = ({ user_id }: { user_id: string }) => {
+interface Props {
+    projects: ProjectI[];
+    user_id: string;
+}
 
-    const { data: teams, error, isLoading } = useGetTeamsByUserIdQuery(user_id);
-    if (error) handleErrors(error, getTeamsError.type);
-
+const ProjectGrid = ({ projects, user_id }: Props) => {
     return (
-        <>
-            <Box className='w-40 mb-5'>
-                <AddProjectContainer user_id={user_id} />
-            </Box>
-            <PersonalProjectContainer user_id={user_id} />
-            {isLoading ? <ProjectContainerLoading /> : (
-                teams && <TeamProjectsContainer teams={teams} />
-            )}
-        </>
+        <Flex className='gap-1.5 py-2 px-1 flex-wrap'>
+            {projects.map(project => (
+                <ProjectCard key={project.id} project={project} user_id={user_id} />
+            ))}
+        </Flex>
     )
 }
 

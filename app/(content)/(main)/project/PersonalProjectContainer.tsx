@@ -11,7 +11,7 @@ const PersonalProjectContainer = ({ user_id }: { user_id: string }) => {
     return (
         <>
             {isLoading ? <ProjectContainerLoading /> : (
-                projects && <Projects title="Personal" projects={projects} />
+                projects && <Projects title="Personal" projects={projects} user_id={user_id} />
             )}
         </>
     )

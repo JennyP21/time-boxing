@@ -198,3 +198,5 @@ export interface FooterLinkI {
   linkValue: string;
   icon: IconType;
 }
+
+export type ViewType = "List" | "Grid";

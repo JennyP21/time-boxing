@@ -1,21 +1,49 @@
-import { ProjectI } from '@/interfaces';
-import { Box, Flex, Heading } from '@chakra-ui/react';
-import ProjectCard from './ProjectCard';
+import { ProjectI, ViewType } from '@/interfaces';
+import { Box, Flex, Heading, Icon } from '@chakra-ui/react';
+import { useState } from 'react';
+import { IoGridOutline, IoListOutline } from 'react-icons/io5';
+import ProjectGrid from './ProjectGrid';
+import ProjectTable from './ProjectTable';
 
 interface Props {
     title: string;
     projects: ProjectI[];
+    user_id: string;
 }
 
-const Projects = ({ title, projects }: Props) => {
+const Projects = ({ title, projects, user_id }: Props) => {
+    const [view, setView] = useState<ViewType>("Grid");
+
     return (
-        <Box className='mb-5 p-1 shadow-inner rounded-xl' borderBottom="2px" borderColor="gray.200">
-            <Heading as="h4" size="md">{title}</Heading>
-            <Flex className='gap-1.5 py-2 px-1 flex-wrap'>
-                {projects.map(project => (
-                    <ProjectCard project={project} key={project.id} />
-                ))}
+        <Box className='mb-5 p-1 rounded-xl'>
+            <Flex className='justify-between border-b border-gray-300 mb-3 py-3'>
+                <Heading as="h4" size="md">{title}</Heading>
+                <Flex className='gap-3 justify-center items-center mx-3'>
+                    <Icon
+                        className='p-0.5 cursor-pointer'
+                        bg={view === "Grid" ? "gray.200" : ""}
+                        _hover={{ bg: "gray.300" }}
+                        as={IoGridOutline}
+                        w={5}
+                        h={5}
+                        onClick={view === "List" ? () => setView("Grid") : undefined}
+                    />
+                    <Icon
+                        className='cursor-pointer'
+                        bg={view === "List" ? "gray.200" : ""}
+                        _hover={{ bg: "gray.300" }}
+                        as={IoListOutline}
+                        w={5}
+                        h={5}
+                        onClick={view === "Grid" ? () => setView("List") : undefined}
+                    />
+                </Flex>
             </Flex>
+            {view === "Grid" ?
+                <ProjectGrid projects={projects} user_id={user_id} />
+                :
+                <ProjectTable projects={projects} user_id={user_id} />
+            }
         </Box>
     )
 }

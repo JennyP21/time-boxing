@@ -1,9 +1,8 @@
-import ButtonSpinner from '@/components/loading/ButtonSpinner';
+import ConfirmDelete from '@/components/ui/ConfirmDelete';
 import { handleErrors } from '@/components/utils/handleErrors';
 import { removeTeamMemberError } from '@/constants';
 import { CustomMembersI, TeamMemberI } from '@/interfaces';
 import { useRemoveMemberMutation } from '@/lib/features/teamApi';
-import { Button, Heading, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay } from '@chakra-ui/react';
 
 interface Props {
     isOpen: boolean;
@@ -26,20 +25,7 @@ const RemoveMember = ({ isOpen, onClose, user }: Props) => {
     }
 
     return (
-        <Modal onClose={onClose} isOpen={isOpen} isCentered size="lg">
-            <ModalOverlay />
-            <ModalContent>
-                <ModalBody p={5}>
-                    <Heading size="md">
-                        Are you sure you want to remove {user.name}?
-                    </Heading>
-                </ModalBody>
-                <ModalFooter gap={2}>
-                    <Button colorScheme='blue' onClick={handleRemoveMember} disabled={isLoading}>Remove {isLoading && <ButtonSpinner />}</Button>
-                    <Button onClick={onClose}>Close</Button>
-                </ModalFooter>
-            </ModalContent>
-        </Modal>
+        <ConfirmDelete isOpen={isOpen} onClose={onClose} handleRemove={handleRemoveMember} item={user.name} isLoading={isLoading} />
     )
 }
 
