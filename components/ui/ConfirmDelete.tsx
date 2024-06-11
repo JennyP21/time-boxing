@@ -1,4 +1,5 @@
-import { Button, ButtonSpinner, Heading, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay } from '@chakra-ui/react';
+import ButtonSpinner from '@/components/loading/ButtonSpinner';
+import { Button, Heading, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay } from '@chakra-ui/react';
 
 interface Props {
     isOpen: boolean;
@@ -20,7 +21,9 @@ const ConfirmDelete = ({ isOpen, onClose, item, handleRemove, isLoading }: Props
                     </Heading>
                 </ModalBody>
                 <ModalFooter gap={2}>
-                    <Button colorScheme='red' variant="outline" onClick={handleRemove} disabled={isLoading}>Remove {isLoading && <ButtonSpinner />}</Button>
+                    <Button colorScheme='red' variant="outline" onClick={handleRemove} isDisabled={isLoading}>
+                        Remove {isLoading && <ButtonSpinner />}
+                    </Button>
                     <Button onClick={onClose}>Cancel</Button>
                 </ModalFooter>
             </ModalContent>

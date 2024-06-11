@@ -13,7 +13,7 @@ const ProjectContent = ({ user_id }: { user_id: string }) => {
 
     return (
         <>
-            <Box className='w-40 mb-5'>
+            <Box className='w-40'>
                 <AddProjectContainer user_id={user_id} />
             </Box>
             <PersonalProjectContainer user_id={user_id} />

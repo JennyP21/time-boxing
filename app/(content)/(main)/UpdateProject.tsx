@@ -65,7 +65,7 @@ const UpdateProject = ({ isOpen, onClose, teams, currentProject }: Props) => {
                         >
                             Update {isLoading && <ButtonSpinner />}
                         </Button>
-                        <Button variant='ghost' onClick={() => { onClose(); reset() }}>Close</Button>
+                        <Button variant='ghost' onClick={() => { onClose(); reset() }}>Cancel</Button>
                     </ModalFooter>
                 </form>
             </ModalContent>

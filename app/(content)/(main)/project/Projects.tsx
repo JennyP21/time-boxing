@@ -15,7 +15,7 @@ const Projects = ({ title, projects, user_id }: Props) => {
     const [view, setView] = useState<ViewType>("Grid");
 
     return (
-        <Box className='mb-5 p-1 rounded-xl'>
+        <Box className='p-1 rounded-xl'>
             <Flex className='justify-between border-b border-gray-300 mb-3 py-3'>
                 <Heading as="h4" size="md">{title}</Heading>
                 <Flex className='gap-3 justify-center items-center mx-3'>
