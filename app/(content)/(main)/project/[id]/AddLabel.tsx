@@ -32,7 +32,7 @@ const AddLabel = ({ isOpen, onClose, project_id, labels }: Props) => {
     return (
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={2}>
                 <ModalCloseButton />
                 <ModalHeader>Add Labels</ModalHeader>
                 <ModalBody>

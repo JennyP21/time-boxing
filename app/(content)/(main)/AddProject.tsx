@@ -36,7 +36,7 @@ const AddProject = ({ isOpen, onClose, teams, user_id }: Props) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={2}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalHeader>Add new project</ModalHeader>
                     <ModalBody>

@@ -31,7 +31,7 @@ const AddTeam = ({ isOpen, onClose, user_id }: Props) => {
     return (
         <Modal isCentered isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={2}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalHeader>Add new team</ModalHeader>
                     <ModalBody>

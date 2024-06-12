@@ -33,7 +33,7 @@ const BucketModal = ({ isOpen, onClose, lastBucketOrder, project, buckets }: Pro
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={2}>
                 <ModalCloseButton />
                 <ModalHeader>Add Buckets</ModalHeader>
                 <ModalBody>

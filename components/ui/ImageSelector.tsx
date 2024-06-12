@@ -72,7 +72,7 @@ const ImageSelector = ({ isOpen, onClose, onSavingImage }: Props) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={2}>
                 <ModalHeader>
                     <label className='w-fit' htmlFor='image'>
                         <input

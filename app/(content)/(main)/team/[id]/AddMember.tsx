@@ -37,7 +37,7 @@ const AddMember = ({ isOpen, onClose, team }: Props) => {
     return (
         <Modal onClose={onClose} isOpen={isOpen} isCentered>
             <ModalOverlay />
-            <ModalContent className='relative'>
+            <ModalContent className='relative' mx={2}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalHeader>Add new members to {team.name} Team</ModalHeader>
                     <ModalBody>

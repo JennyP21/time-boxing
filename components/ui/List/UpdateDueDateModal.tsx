@@ -13,7 +13,7 @@ const UpdateDueDateModal = ({ isOpen, onClose, task_id, currEndDate, currStartDa
     return (
         <Modal onClose={onClose} isOpen={isOpen}>
             <ModalOverlay />
-            <ModalContent p={4}>
+            <ModalContent p={4} mx={2}>
                 <ModalCloseButton />
                 <ModalHeader>Change Due Date</ModalHeader>
                 <ModalBody>

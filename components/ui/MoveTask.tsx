@@ -35,7 +35,7 @@ const MoveTask = ({ isOpen, onClose, task_id, bucket_id, buckets }: Props) => {
     return (
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
-            <ModalContent>
+            <ModalContent mx={2}>
                 <ModalHeader>Choose the bucket to move to</ModalHeader>
                 <ModalBody>
                     <Flex justifyContent="center" gap={3}>
