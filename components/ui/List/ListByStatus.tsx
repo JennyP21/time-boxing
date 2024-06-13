@@ -24,7 +24,7 @@ const ListByStatus = () => {
 
     return (
         <Menu>
-            <MenuButton size="sm" fontWeight="normal" fontSize="medium" as={Button} p={2} m={0} rounded="10px" rightIcon={<FaAngleDown />}>
+            <MenuButton size="sm" fontWeight="normal" fontSize={{ base: "smaller", sm: "medium" }} as={Button} p={2} m={0} rounded="10px" rightIcon={<FaAngleDown />}>
                 {searchParams.get("listBy")}
             </MenuButton>
             <MenuList>

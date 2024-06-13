@@ -3,10 +3,8 @@ import ListByStatus from '@/components/ui/List/ListByStatus';
 import { getView } from '@/components/utils/handleUserState';
 import { PROJECT_VIEW_TYPE } from '@/constants';
 import { ProjectI, TabI } from '@/interfaces';
-import { Link } from '@chakra-ui/next-js';
-import { Flex, Heading, HStack, Icon, Text } from '@chakra-ui/react';
+import { Flex, Grid, Heading, HStack } from '@chakra-ui/react';
 import { useSession } from 'next-auth/react';
-import { FaCaretRight } from 'react-icons/fa';
 import UpdateProjectContainer from '../../UpdateProjectContainer';
 import LabelManager from './LabelManager';
 import ViewTabs from './ViewTabs';
@@ -22,23 +20,38 @@ const ProjectHeader = ({ project, tabs, setTabs }: Props) => {
     const currentView = getView(project.id) || PROJECT_VIEW_TYPE;
 
     return (
-        <HStack className='w-full justify-between' borderBottom="1px" p={1} borderColor={"gray.300"}>
-            <Flex className='gap-2'>
-                <Heading className='max-w-[40rem] whitespace-nowrap overflow-clip p-0.5' size="lg" as={"h4"} fontWeight="normal">
+        <Grid
+            className='w-full justify-between gap-2'
+            templateRows={{
+                base: "1fr 1fr",
+                lg: "1fr"
+            }}
+            templateColumns={{
+                base: "1fr",
+                lg: "1fr 1fr"
+            }}
+            borderBottom="1px"
+            p={1}
+            borderColor={"gray.300"}
+        >
+            <HStack className='w-full gap-2'>
+                <Heading className='lg:max-w-[40rem] whitespace-nowrap overflow-clip p-0.5 font-bold' size={{ base: "sm", sm: "md", lg: "lg" }} as={"h4"} fontWeight="normal">
                     {project.name}
                 </Heading>
                 {session.data && <UpdateProjectContainer user_id={session.data.user.id} currentProject={project} />}
-            </Flex>
-            <HStack>
-                <LabelManager project_id={project.id} />
-                {currentView === "List" ?
-                    <ListByStatus />
-                    :
-                    <GroupBySelector />
-                }
+            </HStack>
+            <HStack className='max-lg:justify-between lg:justify-self-end'>
+                <Flex className='gap-1 sm:gap-3'>
+                    <LabelManager project_id={project.id} />
+                    {currentView === "List" ?
+                        <ListByStatus />
+                        :
+                        <GroupBySelector />
+                    }
+                </Flex>
                 <ViewTabs tabs={tabs} setTabs={setTabs} currentTab={currentView} project_id={project.id} />
             </HStack>
-        </HStack>
+        </Grid>
     )
 }
 

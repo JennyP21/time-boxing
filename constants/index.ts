@@ -1,7 +1,12 @@
 import { Crop } from "@/components/ui/ReactCrop";
 import { Feature, FooterLinkI } from "@/interfaces";
-import { BsKanban } from "react-icons/bs";
+import {
+  BsFillKanbanFill,
+  BsKanban,
+  BsTable,
+} from "react-icons/bs";
 import { FaRegListAlt } from "react-icons/fa";
+
 import {
   IoDocumentOutline,
   IoHomeOutline,
@@ -315,9 +320,11 @@ export const panelItems = [
 export const tabsList = [
   {
     name: "List",
+    icon: BsTable,
   },
   {
     name: "Kanban",
+    icon: BsFillKanbanFill,
   },
 ];
 

@@ -24,8 +24,8 @@ const BucketSelector = ({ selectedTask, setSelectedTask, handleTaskUpdate, proje
 
     return (
         <>
-            <Menu size="sm">
-                <MenuButton as={Button} justifyContent="left" width="fit-content" fontWeight="normal" onBlur={handleTaskUpdate}>
+            <Menu>
+                <MenuButton as={Button} justifyContent="left" width="fit-content" fontWeight="normal" onBlur={handleTaskUpdate} size="sm">
                     {selectedBucket ? selectedBucket.name : "Select a bucket"}
                 </MenuButton>
                 <MenuList>
@@ -33,7 +33,7 @@ const BucketSelector = ({ selectedTask, setSelectedTask, handleTaskUpdate, proje
                     {buckets.map(bucket => (
                         <MenuItem key={bucket.id} onClick={() => setSelectedTask({ ...selectedTask, bucket_id: bucket.id })}>{bucket.name}</MenuItem>
                     ))}
-                    <MenuItem as={Button} onClick={onOpen} justifyContent="start" >Add Bucket</MenuItem>
+                    <MenuItem size="sm" as={Button} onClick={onOpen} justifyContent="start" >Add Bucket</MenuItem>
                 </MenuList>
             </Menu>
             <BucketModal

@@ -1,6 +1,6 @@
 import { setView } from '@/components/utils/handleUserState';
 import { TabI } from '@/interfaces';
-import { HStack, StackItem } from '@chakra-ui/react';
+import { Flex, HStack, Icon, StackItem } from '@chakra-ui/react';
 
 interface Props {
     tabs: TabI[];
@@ -28,19 +28,17 @@ const ViewTabs = ({ tabs, setTabs, currentTab, project_id }: Props) => {
     }
 
     return (
-        <HStack className='border-y border-gray-300 mx-4'>
+        <Flex className='mx-1 sm:mx-2 gap-1 sm:gap-2 justify-center items-center'>
             {tabs.map(tab => (
                 <StackItem
                     key={tab.name}
-                    className='cursor-pointer text-lg'
-                    fontWeight={tab.name === currentTab ? "semibold" : "normal"}
-                    _hover={{ bg: "gray.100" }}
+                    className='cursor-pointer'
                     onClick={() => changeActiveTabs(tab)}
                 >
-                    {tab.name}
+                    <Icon bg={currentTab == tab.name ? "blue.200" : ""} as={tab.icon} w={6} h={6} />
                 </StackItem>
             ))}
-        </HStack>
+        </Flex>
     )
 }
 

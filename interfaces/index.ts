@@ -158,6 +158,7 @@ export interface Task_AssigneeI {
 
 export interface TabI {
   name: string;
+  icon: IconType;
 }
 
 export interface APIParams {

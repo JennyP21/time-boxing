@@ -12,7 +12,7 @@ interface Props {
 
 const ProjectTableBody = ({ projects, user_id }: Props) => {
     return (
-        <Tbody>
+        <Tbody className='whitespace-break-spaces'>
             {projects.map(project => (
                 <Tr key={project.id} className='hover:bg-gray-100'>
                     <Td>
