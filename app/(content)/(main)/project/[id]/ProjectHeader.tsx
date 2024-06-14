@@ -21,7 +21,7 @@ const ProjectHeader = ({ project, tabs, setTabs }: Props) => {
 
     return (
         <Grid
-            className='w-full justify-between gap-2'
+            className='justify-between gap-2'
             templateRows={{
                 base: "1fr 1fr",
                 lg: "1fr"

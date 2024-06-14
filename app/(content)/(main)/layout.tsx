@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Grid } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import LeftPanel from "./LeftPanel";
 
@@ -13,11 +13,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <Flex className="w-full h-full mt-16">
+        <Grid
+            className="w-full h-full mt-16 justify-start items-start"
+            templateColumns={{ base: "1fr", md: "var(--left-panel-size) calc(100% - var(--left-panel-size))" }}
+            templateRows={{ base: "auto 1fr", md: "1fr" }}
+        >
             <LeftPanel />
-            <Box className="w-[calc(100%-var(--left-panel-size))] max-md:w-full">
+            <Box className="max-w-full h-full overflow-hidden">
                 {children}
             </Box>
-        </Flex>
+        </Grid>
     );
 }

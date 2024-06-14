@@ -12,9 +12,9 @@ import Teams from './Teams';
 const LeftPanel = () => {
     const session = useSession();
     return (
-        <Flex className='flex-col h-full'>
+        <Flex className='flex-col w-full h-full'>
             <VStack
-                className='transition-all duration-300 max-md:!hidden w-[var(--left-panel-size)] flex-[1_0_0] overflow-y-scroll'
+                className='transition-all duration-300 max-md:!hidden flex-[1_0_0] overflow-y-scroll'
                 borderRight="1px"
                 borderColor={'gray.300'}
                 bg="white"
