@@ -24,7 +24,7 @@ const ListTable = ({ project }: { project: ProjectI }) => {
     const completedTasks = data?.filter(item => item.progress === "Completed");
 
     return (
-        <Box className='w-full h-full'>
+        <Box className='w-full h-full overflow-y-scroll'>
             {isLoading ?
                 <TableLoading />
                 :
