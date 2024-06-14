@@ -12,7 +12,7 @@ const UpdateDueDateContainer = ({ task_id, currDueDate, currStartDate }: Props) 
     const { onClose, onOpen, isOpen } = useDisclosure();
     return (
         <Box>
-            <Flex className="py-1 gap-2 rounded-md justify-center items-center cursor-pointer" onClick={onOpen} _hover={{ bg: "gray.100" }}>
+            <Flex className="w-fit p-1 gap-2 rounded-md items-center cursor-pointer" onClick={onOpen} _hover={{ bg: "gray.100" }}>
                 <Text>{currDueDate || "Due by"}</Text>
                 <Icon as={BsCalendarDate} />
             </Flex>

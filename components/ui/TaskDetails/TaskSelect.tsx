@@ -11,7 +11,13 @@ interface Props {
 
 const TaskSelect = ({ options, defaultValue, setData, type, handleSubmit, selectSize }: Props) => {
     return (
-        <Select defaultValue={defaultValue} onChange={(e) => setData(e.target.value)} onBlur={() => handleSubmit(type)} size={selectSize}>
+        <Select
+            defaultValue={defaultValue}
+            onChange={(e) => setData(e.target.value)}
+            onBlur={() => handleSubmit(type)}
+            size={selectSize}
+            minW="130px"
+        >
             {options.map(option => (
                 <option value={option} key={option}>{option}</option>
             ))}

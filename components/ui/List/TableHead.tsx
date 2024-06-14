@@ -25,6 +25,7 @@ const TableHead = () => {
                         cursor={col.sortKey ? "pointer" : ""}
                         _hover={{ bg: col.sortKey ? "gray.100" : "" }}
                         key={index}
+                        width={col.width}
                         onClick={col.sortKey ? (() =>
                             changeSort(col.sortKey,
                                 sortBy === col.sortKey ?

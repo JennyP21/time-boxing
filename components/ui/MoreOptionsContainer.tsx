@@ -2,7 +2,7 @@
 import { getBucketsError } from '@/constants';
 import { ProjectI, TaskI } from '@/interfaces';
 import { useGetBucketsByProjectIdQuery } from '@/lib/features/bucketApi';
-import { useDisclosure } from '@chakra-ui/react';
+import { Box, useDisclosure } from '@chakra-ui/react';
 import { handleErrors } from '../utils/handleErrors';
 import MoreOptions from './MoreOptions';
 import MoveTask from './MoveTask';

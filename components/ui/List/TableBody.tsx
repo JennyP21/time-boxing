@@ -55,7 +55,7 @@ const TableBody = ({ data, project }: Props) => {
                             currStartDate={task.start_date}
                         />
                     </Td>
-                    <Td position="relative">
+                    <Td>
                         <MoreOptionsContainer task={task} align="center" project={project} />
                     </Td>
                 </Tr>
