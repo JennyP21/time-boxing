@@ -4,17 +4,16 @@ interface Props {
     options: string[],
     defaultValue: string,
     setData: (data: string) => void;
-    type: "severity" | "progress";
-    handleSubmit: (type: "severity" | "progress") => void;
+    handleSubmit: () => void;
     selectSize: "sm" | "md";
 }
 
-const TaskSelect = ({ options, defaultValue, setData, type, handleSubmit, selectSize }: Props) => {
+const TaskSelect = ({ options, defaultValue, setData, handleSubmit, selectSize }: Props) => {
     return (
         <Select
             defaultValue={defaultValue}
             onChange={(e) => setData(e.target.value)}
-            onBlur={() => handleSubmit(type)}
+            onBlur={handleSubmit}
             size={selectSize}
             minW="130px"
         >
@@ -25,4 +24,4 @@ const TaskSelect = ({ options, defaultValue, setData, type, handleSubmit, select
     )
 }
 
-export default TaskSelect
+export default TaskSelect;

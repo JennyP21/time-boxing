@@ -81,7 +81,6 @@ export interface TaskI {
   title: string;
   start_date: string;
   end_date: string;
-  severity: "Low" | "Medium" | "High" | "Urgent";
   progress:
     | "Not Started"
     | "In Progress"
@@ -89,6 +88,7 @@ export interface TaskI {
     | "Completed";
   note: string;
   showOnTask: "note" | "steps";
+  entitlementScore?: number | null;
   created_at: Date;
   updated_at: Date;
 }
@@ -97,8 +97,8 @@ export interface TaskContainerI {
   tasks: TaskI;
 }
 
-export interface TaskBySeverityCount {
-  severity: "Low" | "Medium" | "High" | "Urgent";
+export interface TaskByComplexityCount {
+  complexity: string;
   taskCount: number;
 }
 
@@ -132,8 +132,8 @@ export interface TaskAttributesProps {
   task_id: string;
   start_date: string;
   end_date: string;
-  severity: string;
   progress: string;
+  entitlementScore?: number | null;
 }
 
 export interface LabelI {

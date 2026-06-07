@@ -263,13 +263,6 @@ export const notFoundError = (name: string) => ({
 //////////////////////////////////////////////////////////
 
 // Static texts
-export const taskSeverity = [
-  "Low",
-  "Medium",
-  "High",
-  "Urgent",
-];
-
 export const taskProgress = [
   "Not Started",
   "In Progress",
@@ -280,7 +273,6 @@ export const taskProgress = [
 export const groupTypes = [
   "Bucket",
   "Progress",
-  "Severity",
   "Label",
 ];
 
@@ -292,7 +284,7 @@ export const tableHeaderRow = [
   { sortKey: null, label: "Assigned To", width: "12%" },
   { sortKey: null, label: "Bucket", width: "15%" },
   { sortKey: "progress", label: "Progress", width: "15%" },
-  { sortKey: "severity", label: "Severity", width: "15%" },
+  { sortKey: "entitlementScore", label: "Complexity", width: "15%" },
   { sortKey: "end_date", label: "Due", width: "12%" },
   { sortKey: null, label: "", width: "3%" },
 ];

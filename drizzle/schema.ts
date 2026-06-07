@@ -120,9 +120,6 @@ export const tasks = pgTable("tasks", {
   title: text("title").notNull(),
   start_date: date("start_date"),
   end_date: date("end_date"),
-  severity: text("severity", {
-    enum: ["Low", "Medium", "High", "Urgent"],
-  }).default("Medium"),
   progress: text("progress", {
     enum: [
       "Not Started",
@@ -135,6 +132,7 @@ export const tasks = pgTable("tasks", {
   showOnTask: text("showOnTask", {
     enum: ["note", "steps"],
   }),
+  entitlementScore: integer("entitlement_score").default(1),
   created_at: timestamp("created_at").notNull(),
   updated_at: timestamp("updated_at").notNull(),
 });

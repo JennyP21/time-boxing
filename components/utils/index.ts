@@ -7,7 +7,7 @@ import {
 } from "@/interfaces";
 import {
   TaskByProgressCount,
-  TaskBySeverityCount,
+  TaskByComplexityCount,
   TaskContainerI,
   TaskI,
   TeamContainerI,
@@ -126,39 +126,31 @@ export const adjustDates = (
   return [start_date, end_date];
 };
 
-export const groupBySeverityCount = (tasks: TaskI[]) => {
-  let taskBySeverity: TaskBySeverityCount[] = [
-    {
-      severity: "Low",
-      taskCount: 0,
-    },
-    {
-      severity: "Medium",
-      taskCount: 0,
-    },
-    {
-      severity: "High",
-      taskCount: 0,
-    },
-    {
-      severity: "Urgent",
-      taskCount: 0,
-    },
+export const groupByComplexityCount = (tasks: TaskI[]) => {
+  let taskByComplexity: TaskByComplexityCount[] = [
+    { complexity: "1 - Easy", taskCount: 0 },
+    { complexity: "2 - Low-Med", taskCount: 0 },
+    { complexity: "3 - Medium", taskCount: 0 },
+    { complexity: "4 - High-Med", taskCount: 0 },
+    { complexity: "5 - Complex", taskCount: 0 },
   ];
 
   for (const task of tasks) {
-    if (task.severity === "Low") {
-      taskBySeverity[0].taskCount++;
-    } else if (task.severity === "Medium") {
-      taskBySeverity[1].taskCount++;
-    } else if (task.severity === "High") {
-      taskBySeverity[2].taskCount++;
+    const score = task.entitlementScore ?? 1;
+    if (score === 1) {
+      taskByComplexity[0].taskCount++;
+    } else if (score === 2) {
+      taskByComplexity[1].taskCount++;
+    } else if (score === 3) {
+      taskByComplexity[2].taskCount++;
+    } else if (score === 4) {
+      taskByComplexity[3].taskCount++;
     } else {
-      taskBySeverity[3].taskCount++;
+      taskByComplexity[4].taskCount++;
     }
   }
 
-  return taskBySeverity;
+  return taskByComplexity;
 };
 
 export const groupByProgressCount = (tasks: TaskI[]) => {

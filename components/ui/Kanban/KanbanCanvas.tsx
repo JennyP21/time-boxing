@@ -1,6 +1,5 @@
 import GroupByLabel from '@/components/ui/Kanban/Label/GroupByLabel';
 import GroupByProgress from '@/components/ui/Kanban/Progress/GroupByProgress';
-import GroupBySeverity from '@/components/ui/Kanban/Severity/GroupBySeverity';
 import { groupTypes } from '@/constants';
 import { ProjectContainerI } from '@/interfaces';
 import { Box } from '@chakra-ui/react';
@@ -27,7 +26,6 @@ const KanbanCanvas = ({ project }: ProjectContainerI) => {
         const taskUpdate: any = { id: draggableId, project_id: project.id };
         if (groupBy === "Bucket") taskUpdate.bucket_id = destination.droppableId;
         if (groupBy === "Progress") taskUpdate.progress = destination.droppableId;
-        if (groupBy === "Severity") taskUpdate.severity = destination.droppableId;
         if (groupBy === "Label") return; // Drag and drop between label columns is disabled
 
         await updateTask(taskUpdate);
@@ -35,7 +33,6 @@ const KanbanCanvas = ({ project }: ProjectContainerI) => {
 
     const groupByMapping: { [key: string]: React.FC<ProjectContainerI> } = {
         Bucket: GroupByBucket,
-        Severity: GroupBySeverity,
         Progress: GroupByProgress,
         Label: GroupByLabel
     }

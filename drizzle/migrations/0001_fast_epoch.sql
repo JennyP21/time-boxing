@@ -1,0 +1,1 @@
+ALTER TABLE "tasks" ADD COLUMN "entitlement_score" integer DEFAULT 1;

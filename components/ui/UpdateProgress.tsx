@@ -28,10 +28,10 @@ const UpdateProgress = ({ task_id, currProgress, selectSize, withLabel }: Props)
         <>
             {withLabel ?
                 <AttributeContainer name="Progress">
-                    <TaskSelect handleSubmit={handleSubmit} type="progress" setData={setNewProgress} defaultValue={currProgress} options={taskProgress} selectSize={selectSize} />
+                    <TaskSelect handleSubmit={handleSubmit} setData={setNewProgress} defaultValue={currProgress} options={taskProgress} selectSize={selectSize} />
                 </AttributeContainer>
                 :
-                <TaskSelect handleSubmit={handleSubmit} type="progress" setData={setNewProgress} defaultValue={currProgress} options={taskProgress} selectSize={selectSize} />
+                <TaskSelect handleSubmit={handleSubmit} setData={setNewProgress} defaultValue={currProgress} options={taskProgress} selectSize={selectSize} />
             }
         </>
     )

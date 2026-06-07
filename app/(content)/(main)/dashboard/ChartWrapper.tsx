@@ -1,7 +1,7 @@
-import { getLateTasks, getTopUpcomingTasks, groupByProgressCount, groupBySeverityCount } from '@/components/utils';
+import { getLateTasks, getTopUpcomingTasks, groupByProgressCount, groupByComplexityCount } from '@/components/utils';
 import { TaskI } from '@/interfaces';
 import { Grid } from '@chakra-ui/react';
-import TasksBySeverityCount from './TasksBySeverityCount';
+import TasksByComplexityCount from './TasksByComplexityCount';
 import TasksStatus from './TasksStatus';
 import TasksTable from './TasksTable';
 
@@ -11,7 +11,7 @@ interface Props {
 
 const ChartWrapper = ({ tasks }: Props) => {
     if (!tasks) return null;
-    const tasksBySeverityCount = groupBySeverityCount(tasks);
+    const tasksByComplexityCount = groupByComplexityCount(tasks);
     const tasksByProgressCount = groupByProgressCount(tasks);
     const topUpcomingTasks = getTopUpcomingTasks(tasks);
     const topLateTasks = getLateTasks(tasks);
@@ -23,10 +23,10 @@ const ChartWrapper = ({ tasks }: Props) => {
         >
             <TasksStatus data={tasksByProgressCount} />
             <TasksTable title="Upcoming tasks" tasks={topUpcomingTasks} />
-            <TasksBySeverityCount data={tasksBySeverityCount} />
+            <TasksByComplexityCount data={tasksByComplexityCount} />
             <TasksTable title="Late tasks" tasks={topLateTasks} />
         </Grid>
     )
 }
 
-export default ChartWrapper
+export default ChartWrapper;

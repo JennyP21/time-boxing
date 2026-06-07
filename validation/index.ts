@@ -158,9 +158,6 @@ export const validateTask = z.object({
     .min(3, "Title must be atleast 3 charaters"),
   start_date: z.string().optional(),
   end_date: z.string().optional(),
-  severity: z
-    .enum(["Low", "Medium", "High", "Urgent"])
-    .optional(),
   progress: z
     .enum([
       "Not Started",
@@ -170,6 +167,7 @@ export const validateTask = z.object({
     ])
     .optional(),
   showOnCard: z.enum(["steps", "note"]).optional(),
+  entitlementScore: z.number().int().min(1).max(5).optional().nullable(),
 });
 
 export const validatePatchTask = z.object({
@@ -187,9 +185,6 @@ export const validatePatchTask = z.object({
     .optional(),
   start_date: z.string().optional(),
   end_date: z.string().optional(),
-  severity: z
-    .enum(["Low", "Medium", "High", "Urgent"])
-    .optional(),
   progress: z
     .enum([
       "Not Started",
@@ -199,6 +194,7 @@ export const validatePatchTask = z.object({
     ])
     .optional(),
   showOnCard: z.enum(["steps", "note"]).optional(),
+  entitlementScore: z.number().int().min(1).max(5).optional().nullable(),
 });
 
 export const validateLabel = z.object({

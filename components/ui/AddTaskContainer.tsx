@@ -11,12 +11,11 @@ interface Props {
     type: "bucket" | "list";
     bucket_id?: string;
     progress?: string;
-    severity?: string;
     label_id?: string;
     project: ProjectI;
 }
 
-const AddTaskContainer = ({ type, bucket_id, project, progress, severity, label_id }: Props) => {
+const AddTaskContainer = ({ type, bucket_id, project, progress, label_id }: Props) => {
     const [active, setActive] = useState(false);
 
     const [addTask, { error }] = useAddTaskMutation();
@@ -29,8 +28,7 @@ const AddTaskContainer = ({ type, bucket_id, project, progress, severity, label_
         title: "",
         project_id: project.id,
         bucket_id: bucket_id || "",
-        progress,
-        severity
+        progress
     };
     const [data, setData] = useState(initialData);
 

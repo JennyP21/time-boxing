@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 import AddTaskContainer from '../AddTaskContainer';
 import MoreOptionsContainer from '../MoreOptionsContainer';
 import UpdateProgress from '../UpdateProgress';
-import UpdateSeverity from '../UpdateSeverity';
+import UpdateEntitlementScore from '../UpdateEntitlementScore';
 import UserAssignmentContainer from '../UserAssignmentContainer';
 import TaskTitle from './TaskTitle';
 import UpdateBucket from './UpdateBucket';
@@ -19,7 +19,7 @@ interface Props {
 
 const TableBody = ({ data, project }: Props) => {
     const searchParams = useSearchParams();
-    const sortBy = searchParams.get("sortBy") as "title" | "progress" | "end_date" | "severity" | null;
+    const sortBy = searchParams.get("sortBy") as "title" | "progress" | "end_date" | "entitlementScore" | null;
     const dir = searchParams.get("dir") as "asc" | "desc" | null;
 
     const sortedData = sortBy && dir ? _.orderBy(data, function (item) {
@@ -46,7 +46,7 @@ const TableBody = ({ data, project }: Props) => {
                         <UpdateProgress task_id={task.id} currProgress={task.progress} selectSize='sm' withLabel={false} />
                     </Td>
                     <Td>
-                        <UpdateSeverity task_id={task.id} currSeverity={task.severity} selectSize='sm' withLabel={false} />
+                        <UpdateEntitlementScore task_id={task.id} currScore={task.entitlementScore} selectSize='sm' withLabel={false} />
                     </Td>
                     <Td>
                         <UpdateDueDateContainer
