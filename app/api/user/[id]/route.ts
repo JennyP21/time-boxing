@@ -1,16 +1,24 @@
-import { userUpdateError } from "@/constants";
+import { userUpdateError, unAuthorizedError } from "@/constants";
 import {
   getUserById,
   updateUser,
 } from "@/data-access/user";
 import { APIParams, UserI } from "@/interfaces";
 import { validateRequestWithParams } from "@/validation";
+import { verifySession } from "@/lib/apiAuth";
 import { put } from "@vercel/blob";
 import { NextRequest, NextResponse } from "next/server";
 
 export const PATCH = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
+      const sessionUser = await verifySession();
+      if (!sessionUser || sessionUser.id !== params.id) {
+        return NextResponse.json(unAuthorizedError.message, {
+          status: 401,
+        });
+      }
+
       const id = params.id!;
       const user = await getUserById(id);
       const body = await request.formData();

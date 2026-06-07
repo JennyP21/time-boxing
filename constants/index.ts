@@ -13,10 +13,8 @@ import {
 } from "react-icons/io5";
 import { MdDashboard } from "react-icons/md";
 
-export const DASHBOARD_URL =
-  "https://time-boxing.jennypatel.dev/dashboard";
-export const API_URL =
-  "https://time-boxing.jennypatel.dev/api";
+export const DASHBOARD_URL = "/dashboard";
+export const API_URL = "/api";
 // Error messages
 
 // Bucket

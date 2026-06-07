@@ -29,13 +29,22 @@ import {
   validateRequestWithParams,
   validateTeamMember,
 } from "@/validation";
-import { getServerSession } from "next-auth";
+import { verifySession, checkTeamAccess, checkTeamOwner } from "@/lib/apiAuth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
+      const sessionUser = await verifySession();
+      if (!sessionUser) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       const team_id = params.id!;
+      const isMember = await checkTeamAccess(team_id, sessionUser.id);
+      if (!isMember) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
 
       const members = await getTeamMembers(team_id);
 
@@ -54,23 +63,22 @@ export const GET = validateRequestWithParams(
 export const POST = validateRequest(
   async (request: NextRequest) => {
     try {
+      const sessionUser = await verifySession();
+      if (!sessionUser) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       const data: AddMemberI = await request.json();
 
-      // Check if current user is in the team and the user is owner
-      const session = await getServerSession();
+      // Check if current user is owner of the team
+      const isOwner = await checkTeamOwner(data.team_id, sessionUser.id);
+      if (!isOwner) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       const currentMembers = await getTeamMembers(
         data.team_id
       );
-      if (
-        !verifyMember(session!.user.email!, currentMembers)
-      ) {
-        return NextResponse.json(
-          unAuthorizedError.message,
-          {
-            status: 401,
-          }
-        );
-      }
 
       // check if the user with email exists
       const newMember = await getUserByEmail(
@@ -92,7 +100,7 @@ export const POST = validateRequest(
         );
       }
 
-      // create a object to add member
+      // create an object to add member
       const newData = {
         team_id: data.team_id,
         user_id: newMember.id,
@@ -126,6 +134,11 @@ export const POST = validateRequest(
 export const PATCH = validateRequest(
   async (request: NextRequest) => {
     try {
+      const sessionUser = await verifySession();
+      if (!sessionUser) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       const data = await request.json();
 
       const validation = validateTeamMember.safeParse(data);
@@ -137,6 +150,12 @@ export const PATCH = validateRequest(
             status: 400,
           }
         );
+
+      // Check if caller is owner of the team
+      const isCallerOwner = await checkTeamOwner(data.team_id, sessionUser.id);
+      if (!isCallerOwner) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
 
       const countOfOwners = await getOwnersCount(
         data.team_id

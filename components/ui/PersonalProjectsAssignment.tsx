@@ -2,7 +2,7 @@ import { UserI } from '@/interfaces';
 import { useSession } from 'next-auth/react';
 import AssignUserContainer from './AssignUserContainer';
 
-const PersonalProjectsAssignment = ({ task_id }: { task_id: string }) => {
+const PersonalProjectsAssignment = ({ task_id, assignedUsers }: { task_id: string; assignedUsers: UserI[] }) => {
     const { data } = useSession();
     if (!data) return null;
     const users = [{
@@ -13,7 +13,7 @@ const PersonalProjectsAssignment = ({ task_id }: { task_id: string }) => {
     }] as UserI[];
 
     return (
-        <AssignUserContainer users={users} task_id={task_id} />
+        <AssignUserContainer users={users} task_id={task_id} assignedUsers={assignedUsers} />
     )
 }
 

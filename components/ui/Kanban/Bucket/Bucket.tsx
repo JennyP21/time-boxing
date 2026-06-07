@@ -1,9 +1,6 @@
 import TaskCardLoading from '@/components/loading/TaskCardLoading';
 import Stack from '@/components/ui/Kanban/Stack';
-import { handleErrors } from '@/components/utils/handleErrors';
-import { getTasksError } from '@/constants';
-import { ProjectI } from '@/interfaces';
-import { useGetTasksByBucketQuery } from '@/lib/features/taskApi';
+import { ProjectI, TaskWithDetailsI } from '@/interfaces';
 import AddTaskContainer from '../../AddTaskContainer';
 import TasksList from '../TasksList';
 import BucketHeader from './BucketHeader';
@@ -12,20 +9,17 @@ interface Props {
     id: string;
     name: string;
     project: ProjectI;
+    tasks: TaskWithDetailsI[] | undefined;
+    isLoading: boolean;
 }
 
-const Bucket = ({ name, id, project }: Props) => {
-
-    const { data, error, isLoading } = useGetTasksByBucketQuery(id);
-
-    if (error) handleErrors(error, getTasksError.type);
-
+const Bucket = ({ name, id, project, tasks, isLoading }: Props) => {
     return (
         <Stack>
             <BucketHeader currentName={name} bucket_id={id} project={project} />
             <AddTaskContainer project={project} type='bucket' bucket_id={id} />
             {isLoading ? <TaskCardLoading /> :
-                <TasksList data={data} project={project} />
+                <TasksList columnId={id} data={tasks} project={project} />
             }
         </Stack>
     )

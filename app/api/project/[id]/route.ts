@@ -4,26 +4,37 @@ import {
   getProjectError,
   notFoundError,
   updateProjectError,
+  unAuthorizedError,
 } from "@/constants";
 import {
   deleteProject,
   getProject,
   updateProject,
 } from "@/data-access/project";
-import { getTeamById } from "@/data-access/team";
+import { getTeamById, getTeamMember } from "@/data-access/team";
 import { getUserById } from "@/data-access/user";
 import { APIParams, ProjectI } from "@/interfaces";
 import {
   validateProject,
   validateRequestWithParams,
 } from "@/validation";
-import { getServerSession } from "next-auth";
+import { verifySession, checkProjectAccess } from "@/lib/apiAuth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
+      const sessionUser = await verifySession();
+      if (!sessionUser) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       const id = params.id!;
+      const hasAccess = await checkProjectAccess(id, sessionUser.id);
+      if (!hasAccess) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       const project = await getProject(id);
       return NextResponse.json(project);
     } catch (error) {
@@ -37,6 +48,11 @@ export const GET = validateRequestWithParams(
 export const DELETE = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
+      const sessionUser = await verifySession();
+      if (!sessionUser) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       const id = params.id!;
       const project = await getProject(id);
       if (!project) {
@@ -47,6 +63,12 @@ export const DELETE = validateRequestWithParams(
           }
         );
       }
+
+      const hasAccess = await checkProjectAccess(id, sessionUser.id);
+      if (!hasAccess) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       await deleteProject(id);
       return NextResponse.json([]);
     } catch (error) {
@@ -62,6 +84,11 @@ export async function PATCH(
   { params }: APIParams
 ) {
   try {
+    const sessionUser = await verifySession();
+    if (!sessionUser) {
+      return NextResponse.json(unAuthorizedError.message, { status: 401 });
+    }
+
     const id = params.id!;
     const project = await getProject(id);
     if (!project) {
@@ -71,6 +98,11 @@ export async function PATCH(
           status: 404,
         }
       );
+    }
+
+    const hasAccess = await checkProjectAccess(id, sessionUser.id);
+    if (!hasAccess) {
+      return NextResponse.json(unAuthorizedError.message, { status: 401 });
     }
 
     const data: ProjectI = await request.json();
@@ -99,18 +131,15 @@ export async function PATCH(
           }
         );
       }
+      const member = await getTeamMember(data.team_id, sessionUser.id);
+      if (!member) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
     }
 
     if (data.user_id) {
-      const user = await getUserById(data.user_id);
-      const session = await getServerSession();
-      if (session && session.user.email !== user.email) {
-        return NextResponse.json(
-          notFoundError("User").message,
-          {
-            status: 404,
-          }
-        );
+      if (sessionUser.id !== data.user_id) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
       }
     }
 

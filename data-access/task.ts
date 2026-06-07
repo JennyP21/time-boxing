@@ -7,15 +7,26 @@ import {
   users,
 } from "@/drizzle/schema";
 import { TaskI } from "@/interfaces";
-import { eq, and } from "drizzle-orm";
-
+import { eq, and, inArray } from "drizzle-orm";
 export async function getTasksByProjectId(
   project_id: string
 ) {
-  const allTasks = await db
-    .select()
-    .from(tasks)
-    .where(eq(tasks.project_id, project_id));
+  const allTasks = await db.query.tasks.findMany({
+    where: eq(tasks.project_id, project_id),
+    with: {
+      steps: true,
+      tasks_labels: {
+        with: {
+          label: true,
+        },
+      },
+      task_assignees: {
+        with: {
+          user: true,
+        },
+      },
+    },
+  });
 
   return allTasks;
 }
@@ -23,15 +34,11 @@ export async function getTasksByProjectId(
 export async function getTasksByProjectIds(
   project_ids: string[]
 ) {
-  const allTasks = [];
-  for (const project_id of project_ids) {
-    const currTasks = await db
-      .select()
-      .from(tasks)
-      .where(eq(tasks.project_id, project_id));
-
-    allTasks.push(...currTasks);
-  }
+  if (project_ids.length === 0) return [];
+  const allTasks = await db
+    .select()
+    .from(tasks)
+    .where(inArray(tasks.project_id, project_ids));
 
   return allTasks;
 }

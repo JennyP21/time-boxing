@@ -201,3 +201,9 @@ export interface FooterLinkI {
 }
 
 export type ViewType = "List" | "Grid";
+
+export interface TaskWithDetailsI extends TaskI {
+  steps: StepsI[];
+  tasks_labels: { label: LabelI }[];
+  task_assignees: { user: UserI }[];
+}

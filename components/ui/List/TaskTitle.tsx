@@ -1,8 +1,8 @@
 import TaskDetails from '@/components/ui/TaskDetails/TaskDetails';
-import { TaskI } from '@/interfaces';
+import { TaskWithDetailsI } from '@/interfaces';
 import { Text, useDisclosure } from '@chakra-ui/react';
 
-const TaskTitle = ({ task }: { task: TaskI }) => {
+const TaskTitle = ({ task }: { task: TaskWithDetailsI }) => {
     const { onOpen, onClose, isOpen } = useDisclosure();
     return (
         <>

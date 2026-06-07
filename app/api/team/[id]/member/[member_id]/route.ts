@@ -2,6 +2,7 @@ import {
   lastOwnerError,
   notFoundError,
   removeTeamMemberError,
+  unAuthorizedError,
 } from "@/constants";
 import {
   getOwnersCount,
@@ -10,13 +11,27 @@ import {
 } from "@/data-access/team";
 import { APIParams } from "@/interfaces";
 import { validateRequestWithParams } from "@/validation";
+import { verifySession, checkTeamOwner } from "@/lib/apiAuth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
+      const sessionUser = await verifySession();
+      if (!sessionUser) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       const team_id = params.id!;
       const user_id = params.member_id!;
+
+      // Caller must be an owner OR be the user removing themselves
+      if (sessionUser.id !== user_id) {
+        const isOwner = await checkTeamOwner(team_id, sessionUser.id);
+        if (!isOwner) {
+          return NextResponse.json(unAuthorizedError.message, { status: 401 });
+        }
+      }
 
       const member = await getTeamMember(team_id, user_id);
       if (!member)

@@ -4,7 +4,13 @@ import * as schema from "@/drizzle/schema";
 
 const connectionString = process.env.DB_URL;
 
-const client = new Pool({ connectionString });
+declare global {
+  var dbPool: Pool | undefined;
+}
 
-await client.connect();
+const client = globalThis.dbPool || new Pool({ connectionString });
+if (process.env.NODE_ENV !== "production") {
+  globalThis.dbPool = client;
+}
+
 export const db = drizzle(client, { schema });

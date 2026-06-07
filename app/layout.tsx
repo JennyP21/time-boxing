@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import { ToastContainer } from "../components/error/Toast";
 import AuthProvider from "./auth/Provider";
 import "./globals.css";
 import ReduxProvider from "./ReduxProvider";
 import UIProvider from "./UIProvider";
 
-const openSans = Open_Sans({
-  weight: ["300", "500", "700"],
+const inter = Inter({
   subsets: ["latin"]
 });
 
@@ -23,7 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${openSans.className} overflow-hidden`}>
+      <body className={`${inter.className} overflow-hidden`}>
         <ReduxProvider>
           <AuthProvider>
             <UIProvider>

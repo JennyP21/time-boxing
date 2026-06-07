@@ -1,9 +1,6 @@
 import TaskCardLoading from '@/components/loading/TaskCardLoading';
 import Stack from '@/components/ui/Kanban/Stack';
-import { handleErrors } from '@/components/utils/handleErrors';
-import { getTasksError } from '@/constants';
-import { ProjectI } from '@/interfaces';
-import { useGetTasksByProjectIdQuery } from '@/lib/features/taskApi';
+import { ProjectI, TaskWithDetailsI } from '@/interfaces';
 import AddTaskContainer from '../../AddTaskContainer';
 import GroupHeader from '../GroupHeader';
 import TasksList from '../TasksList';
@@ -11,22 +8,17 @@ import TasksList from '../TasksList';
 interface Props {
     severity: string;
     project: ProjectI;
+    tasks: TaskWithDetailsI[] | undefined;
+    isLoading: boolean;
 }
 
-const Severity = ({ severity, project }: Props) => {
-
-    const { data: tasks, error, isLoading } = useGetTasksByProjectIdQuery(project.id);
-
-    if (error) handleErrors(error, getTasksError.type);
-
-    const filteredData = tasks?.filter(task => task.severity === severity)
-
+const Severity = ({ severity, project, tasks, isLoading }: Props) => {
     return (
         <Stack>
             <GroupHeader>{severity}</GroupHeader>
             <AddTaskContainer project={project} type='bucket' severity={severity} />
             {isLoading ? <TaskCardLoading /> :
-                <TasksList data={filteredData} project={project} />
+                <TasksList columnId={severity} data={tasks} project={project} />
             }
         </Stack>
     )

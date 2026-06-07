@@ -4,6 +4,8 @@ import {
   TaskContainerI,
   TaskI,
   UserI,
+  TaskWithDetailsI,
+  Task_LabelI,
 } from "@/interfaces";
 import {
   createApi,
@@ -28,7 +30,7 @@ export const taskApi = createApi({
     baseUrl: API_URL,
   }),
   endpoints: (builder) => ({
-    getTasksByProjectId: builder.query<TaskI[], string>({
+    getTasksByProjectId: builder.query<TaskWithDetailsI[], string>({
       query: (project_id: string) =>
         `/project/${project_id}/task`,
       providesTags: ["addTask", "deleteTask", "updateTask"],
@@ -68,6 +70,28 @@ export const taskApi = createApi({
         body: data,
       }),
       invalidatesTags: ["updateTask"],
+      async onQueryStarted(draftTask, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          taskApi.util.updateQueryData(
+            "getTasksByProjectId",
+            draftTask.project_id,
+            (draftList) => {
+              const taskIndex = draftList.findIndex((t) => t.id === draftTask.id);
+              if (taskIndex !== -1) {
+                draftList[taskIndex] = {
+                  ...draftList[taskIndex],
+                  ...draftTask,
+                };
+              }
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
     deleteTask: builder.mutation<null, string>({
       query: (id: string) => ({
@@ -89,7 +113,7 @@ export const taskApi = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["assignUser"],
+      invalidatesTags: ["assignUser", "updateTask"],
     }),
     unassignUser: builder.mutation<void, Task_AssigneeI>({
       query: (data: Task_AssigneeI) => ({
@@ -97,7 +121,23 @@ export const taskApi = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["unAssignUser"],
+      invalidatesTags: ["unAssignUser", "updateTask"],
+    }),
+    assignLabel: builder.mutation<Task_LabelI, Task_LabelI>({
+      query: (data: Task_LabelI) => ({
+        url: "/task_label/assign",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["updateTask"],
+    }),
+    unassignLabel: builder.mutation<void, Task_LabelI>({
+      query: (data: Task_LabelI) => ({
+        url: "/task_label/unassign",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["updateTask"],
     }),
   }),
 });
@@ -113,4 +153,6 @@ export const {
   useAddTaskMutation,
   useUpdateTaskMutation,
   useDeleteTaskMutation,
+  useAssignLabelMutation,
+  useUnassignLabelMutation,
 } = taskApi;

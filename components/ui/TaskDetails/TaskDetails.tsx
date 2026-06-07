@@ -1,11 +1,11 @@
-import { TaskI } from '@/interfaces';
+import { TaskWithDetailsI } from '@/interfaces';
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
 import TaskDetailsBody from './TaskDetailsBody';
 import TaskDetailsFooter from './TaskDetailsFooter';
 import TaskDetailsHeader from './TaskDetailsHeader';
 
 interface Props {
-    task: TaskI;
+    task: TaskWithDetailsI;
     isOpen: boolean;
     onClose: () => void;
 }

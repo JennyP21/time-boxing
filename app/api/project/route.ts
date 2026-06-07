@@ -2,21 +2,29 @@ import { parseZodErr } from "@/components/utils";
 import {
   addProjectError,
   notFoundError,
+  unAuthorizedError,
 } from "@/constants";
 import { addProject } from "@/data-access/project";
-import { getTeamById } from "@/data-access/team";
+import { getTeamById, getTeamMember } from "@/data-access/team";
 import { getUserById } from "@/data-access/user";
 import { ProjectI } from "@/interfaces";
 import {
   validateProject,
   validateRequest,
 } from "@/validation";
-import { getServerSession } from "next-auth";
+import { verifySession } from "@/lib/apiAuth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = validateRequest(
   async (request: NextRequest) => {
     try {
+      const sessionUser = await verifySession();
+      if (!sessionUser) {
+        return NextResponse.json(unAuthorizedError.message, {
+          status: 401,
+        });
+      }
+
       const data: ProjectI = await request.json();
 
       const validation = validateProject.safeParse(data);
@@ -45,18 +53,20 @@ export const POST = validateRequest(
             }
           );
         }
+        // Verify user belongs to the team
+        const member = await getTeamMember(data.team_id, sessionUser.id);
+        if (!member) {
+          return NextResponse.json(unAuthorizedError.message, {
+            status: 401,
+          });
+        }
       }
 
       if (data.user_id) {
-        const user = await getUserById(data.user_id);
-        const session = await getServerSession();
-        if (session && session.user.email !== user.email) {
-          return NextResponse.json(
-            notFoundError("User").message,
-            {
-              status: 404,
-            }
-          );
+        if (sessionUser.id !== data.user_id) {
+          return NextResponse.json(unAuthorizedError.message, {
+            status: 401,
+          });
         }
       }
 

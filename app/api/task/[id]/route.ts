@@ -4,6 +4,7 @@ import {
   getTasksError,
   notFoundError,
   updateTaskError,
+  unAuthorizedError,
 } from "@/constants";
 import {
   deleteTask,
@@ -15,14 +16,24 @@ import {
   validatePatchTask,
   validateRequestWithParams,
 } from "@/validation";
+import { verifySession, checkTaskAccess } from "@/lib/apiAuth";
 import { NextRequest, NextResponse } from "next/server";
 
 export const GET = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
-      const id = params.id!;
-      const task = await getTask(id);
+      const sessionUser = await verifySession();
+      if (!sessionUser) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
 
+      const id = params.id!;
+      const hasAccess = await checkTaskAccess(id, sessionUser.id);
+      if (!hasAccess) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
+      const task = await getTask(id);
       return NextResponse.json(task);
     } catch (error) {
       return NextResponse.json(getTasksError.message, {
@@ -35,9 +46,14 @@ export const GET = validateRequestWithParams(
 export const DELETE = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
+      const sessionUser = await verifySession();
+      if (!sessionUser) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       const id = params.id!;
       const task = await getTask(id);
-      if (!task)
+      if (!task || task.length === 0)
         return NextResponse.json(
           notFoundError("Task").message,
           {
@@ -45,8 +61,12 @@ export const DELETE = validateRequestWithParams(
           }
         );
 
-      await deleteTask(id);
+      const hasAccess = await checkTaskAccess(id, sessionUser.id);
+      if (!hasAccess) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
 
+      await deleteTask(id);
       return NextResponse.json([]);
     } catch (error) {
       return NextResponse.json(deleteTaskError.message, {
@@ -59,15 +79,25 @@ export const DELETE = validateRequestWithParams(
 export const PATCH = validateRequestWithParams(
   async (request: NextRequest, { params }: APIParams) => {
     try {
+      const sessionUser = await verifySession();
+      if (!sessionUser) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
+
       const id = params.id!;
-      const task = await getTask(id);
-      if (!task)
+      const taskResult = await getTask(id);
+      if (!taskResult || taskResult.length === 0)
         return NextResponse.json(
           notFoundError("Task").message,
           {
             status: 404,
           }
         );
+
+      const hasAccess = await checkTaskAccess(id, sessionUser.id);
+      if (!hasAccess) {
+        return NextResponse.json(unAuthorizedError.message, { status: 401 });
+      }
 
       const data = await request.json();
       const validation = validatePatchTask.safeParse(data);

@@ -4,6 +4,7 @@ import {
 } from "@/constants";
 import { getUserByEmail } from "@/data-access/user";
 import { validateRequest } from "@/validation";
+import authOptions from "@/app/auth/authOptions";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,7 +12,7 @@ export const POST = validateRequest(
   async (request: NextRequest) => {
     try {
       const data = await request.json();
-      const session = await getServerSession();
+      const session = await getServerSession(authOptions);
       if (!session || session.user.email !== data.email) {
         return NextResponse.json(
           unAuthorizedError.message,
@@ -19,10 +20,11 @@ export const POST = validateRequest(
         );
       }
       const user = await getUserByEmail(data.email);
-      if (!user)
-        NextResponse.json(getUserError.message, {
+      if (!user) {
+        return NextResponse.json(getUserError.message, {
           status: 404,
         });
+      }
       user.password = "";
       return NextResponse.json(user);
     } catch (error) {

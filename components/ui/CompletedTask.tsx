@@ -1,9 +1,9 @@
-import { ProjectI, TaskI } from '@/interfaces';
+import { ProjectI, TaskWithDetailsI } from '@/interfaces';
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from '@chakra-ui/react';
 import Task from './Kanban/Task';
 
 interface Props {
-    data: TaskI[];
+    data: TaskWithDetailsI[];
     project: ProjectI;
 }
 

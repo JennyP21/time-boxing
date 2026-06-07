@@ -1,5 +1,5 @@
 import CheckTask from '@/components/ui/CheckTask';
-import { ProjectI, TaskI } from '@/interfaces';
+import { ProjectI, TaskWithDetailsI } from '@/interfaces';
 import { Tbody, Td, Tr } from '@chakra-ui/react';
 import _ from "lodash";
 import { useSearchParams } from 'next/navigation';
@@ -13,7 +13,7 @@ import UpdateBucket from './UpdateBucket';
 import UpdateDueDateContainer from './UpdateDueDateContainer';
 
 interface Props {
-    data: TaskI[] | undefined;
+    data: TaskWithDetailsI[] | undefined;
     project: ProjectI;
 }
 
@@ -37,7 +37,7 @@ const TableBody = ({ data, project }: Props) => {
                         <TaskTitle task={task} />
                     </Td>
                     <Td>
-                        <UserAssignmentContainer project_id={project.id} task_id={task.id} />
+                        <UserAssignmentContainer project_id={project.id} task_id={task.id} assignedUsers={task.task_assignees.map(ta => ta.user)} />
                     </Td>
                     <Td>
                         <UpdateBucket currData={task} project={project} />
