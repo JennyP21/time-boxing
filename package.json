@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate --dialect postgresql --schema ./drizzle/schema.ts --out=./drizzle/migrations",
-    "db:migrate": "node -r esbuild-register drizzle/migrate.ts"
+    "db:migrate": "node -r esbuild-register drizzle/migrate.ts",
+    "mcp:start": "node -r esbuild-register ai/mcpServer.ts"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.2",
@@ -44,7 +45,7 @@
     "sharp": "^0.33.3",
     "tailwindcss": "^3.4.1",
     "uuid": "^14.0.0",
-    "zod": "^3.22.4"
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
