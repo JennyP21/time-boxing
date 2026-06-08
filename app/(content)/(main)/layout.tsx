@@ -1,6 +1,7 @@
 import { Box, Grid } from "@chakra-ui/react";
 import type { Metadata } from "next";
 import LeftPanel from "./LeftPanel";
+import AIChatDrawer from "@/components/ui/AIChatDrawer";
 
 export const metadata: Metadata = {
     title: "Time Boxing",
@@ -22,6 +23,7 @@ export default function RootLayout({
             <Box className="max-w-full h-full overflow-hidden">
                 {children}
             </Box>
+            <AIChatDrawer />
         </Grid>
     );
 }
